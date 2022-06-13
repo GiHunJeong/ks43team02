@@ -9,4 +9,15 @@ public class MainController {
 	public String index() {
 		return "index";
 	}
+	
+	@GetMapping("/app/app-calendar")
+	public String calendar() {
+		return "app/app-calendar";
+	}
+	
+	@GetMapping("/app/app-chat")
+	public String chat() {
+		return "app/app-chat";
+	}
+	
 }
