@@ -1,0 +1,117 @@
+<!DOCTYPE html><!-- 출퇴근관리정리 -->
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+<!-- th:replace="경로 :: 조각이름" -->
+
+<head th:replace="fragments/head :: headFragment"></head>
+
+<body>
+	
+
+	<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+	
+	<div class="col-lg-12 ">
+	    <div class="card">
+	        <div class="card-body">
+				<div class="table-responsive mt-3">
+		             <table class="table table-bordered table-responsive-lg">
+		                 <tbody>
+		                     <tr>
+		                         <td>출근</td>
+		                         <td class="testbottom">
+		                         	<!-- <div class="btn-list">
+	                					<button type="button" class="btn waves-effect waves-light btn-primary"  id="target">출근</button>
+		                         		<div id="SpanID">dk</div>
+		                         	</div> -->
+		                         </td>
+		                         <td>퇴근</td>
+		                         <td>퇴근</td>
+		                     </tr>
+		                     <tr> 
+		                         <td>외출</td>
+		                         <td>외출</td>
+		                         <td>복귀</td>
+		                         <td>복귀</td>
+		                     </tr>
+		                 </tbody>
+		             </table>
+		         </div>	        
+	            <div class="btn-list">
+	                <button type="button" class="btn waves-effect waves-light btn-primary"  id="targetbottom">출근</button>
+	                <button type="button" class="btn waves-effect waves-light btn-primary">퇴근</button>
+	                <button type="button" class="btn waves-effect waves-light btn-primary">외출</button>
+	                <button type="button" class="btn waves-effect waves-light btn-primary">복귀</button>
+	                <!-- <button type="button" class="btn waves-effect waves-light btn-primary">출장</button> -->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+		
+		
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+ 
+<script type="text/javascript">
+
+	/* $( "#target" ).click(function() {
+	 // alert( "Handler for .click() called." );
+	       let today = new Date();   
+	
+	       let hours = today.getHours(); // 시
+	       let minutes = today.getMinutes();  // 분
+	       let seconds = today.getSeconds();  // 초
+	       let milliseconds = today.getMilliseconds(); // 밀리초
+	
+	       $('#SpanID').text(hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
+	
+	       
+	}); */
+	$( ".btn-list #targetbottom" ).click(function() {
+	 // alert( "Handler for .click() called." );
+	       let today = new Date();   
+	
+	       let hours = today.getHours(); // 시
+	       let minutes = today.getMinutes();  // 분
+	       let seconds = today.getSeconds();  // 초
+	       let milliseconds = today.getMilliseconds(); // 밀리초
+	
+	       $('.table-responsive-lg .testbottom').text(hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
+	
+	       
+	});
+</script>
+</th:block>	
+
+		
+    <div th:replace="fragments/footer :: footerFragment"></div>
+	
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+    <script th:src="@{/dist/js/feather.min.js}"></script>
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!--This page JavaScript -->
+    <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
+    <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
+	
+	
+	
+	
+	
+</body>
+</html>
