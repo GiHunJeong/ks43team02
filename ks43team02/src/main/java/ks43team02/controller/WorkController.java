@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WorkController{
 	@GetMapping("/workWay/worktime")
 	public String work() {
-		return "workWay/worktime";
+		return "workWay/work_time";
 	};
 	@GetMapping("/workWay/worksetting")
 	public String worksetting() {
-		return "workWay/worksetting";
+		return "workWay/work_setting";
 	};
 }
