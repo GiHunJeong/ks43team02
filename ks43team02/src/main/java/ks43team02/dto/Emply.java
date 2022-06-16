@@ -1,58 +1,133 @@
 package ks43team02.dto;
 
 public class Emply {
-	private String userName;
-	private String userEmail;
-	private String userPw;
-	private String userPhone;
-	private String userAddr;
-	private int userLvl;
-	private String userRegDate;
-	public String getUserName() {
-		return userName;
+	private String emplyId;
+	private String organizationCodeS;
+	private String rankLevelCode;
+	private String positionLevelCode;
+	private String cpRepresentativeCode;
+	private String superAdminId;
+	private String emplyPw;
+	private String emplyNumber;
+	private String emplyName;
+	private String emplyBirth;
+	private String emplyAccount;
+	private String emplyHomeAddress;
+	private String emplymentDate;
+	private String emplymentType;
+	private boolean retireStatus;
+	private String cpName;
+	private String regDate;
+	public String getEmplyId() {
+		return emplyId;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmplyId(String emplyId) {
+		this.emplyId = emplyId;
 	}
-	public String getUserEmail() {
-		return userEmail;
+	public String getOrganizationCodeS() {
+		return organizationCodeS;
 	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setOrganizationCodeS(String organizationCodeS) {
+		this.organizationCodeS = organizationCodeS;
 	}
-	public String getUserPw() {
-		return userPw;
+	public String getRankLevelCode() {
+		return rankLevelCode;
 	}
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
+	public void setRankLevelCode(String rankLevelCode) {
+		this.rankLevelCode = rankLevelCode;
 	}
-	public String getUserPhone() {
-		return userPhone;
+	public String getPositionLevelCode() {
+		return positionLevelCode;
 	}
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
+	public void setPositionLevelCode(String positionLevelCode) {
+		this.positionLevelCode = positionLevelCode;
 	}
-	public String getUserAddr() {
-		return userAddr;
+	public String getCpRepresentativeCode() {
+		return cpRepresentativeCode;
 	}
-	public void setUserAddr(String userAddr) {
-		this.userAddr = userAddr;
+	public void setCpRepresentativeCode(String cpRepresentativeCode) {
+		this.cpRepresentativeCode = cpRepresentativeCode;
 	}
-	public int getUserLvl() {
-		return userLvl;
+	public String getSuperAdminId() {
+		return superAdminId;
 	}
-	public void setUserLvl(int userLvl) {
-		this.userLvl = userLvl;
+	public void setSuperAdminId(String superAdminId) {
+		this.superAdminId = superAdminId;
 	}
-	public String getUserRegDate() {
-		return userRegDate;
+	public String getEmplyPw() {
+		return emplyPw;
 	}
-	public void setUserRegDate(String userRegDate) {
-		this.userRegDate = userRegDate;
+	public void setEmplyPw(String emplyPw) {
+		this.emplyPw = emplyPw;
+	}
+	public String getEmplyNumber() {
+		return emplyNumber;
+	}
+	public void setEmplyNumber(String emplyNumber) {
+		this.emplyNumber = emplyNumber;
+	}
+	public String getEmplyName() {
+		return emplyName;
+	}
+	public void setEmplyName(String emplyName) {
+		this.emplyName = emplyName;
+	}
+	public String getEmplyBirth() {
+		return emplyBirth;
+	}
+	public void setEmplyBirth(String emplyBirth) {
+		this.emplyBirth = emplyBirth;
+	}
+	public String getEmplyAccount() {
+		return emplyAccount;
+	}
+	public void setEmplyAccount(String emplyAccount) {
+		this.emplyAccount = emplyAccount;
+	}
+	public String getEmplyHomeAddress() {
+		return emplyHomeAddress;
+	}
+	public void setEmplyHomeAddress(String emplyHomeAddress) {
+		this.emplyHomeAddress = emplyHomeAddress;
+	}
+	public String getEmplymentDate() {
+		return emplymentDate;
+	}
+	public void setEmplymentDate(String emplymentDate) {
+		this.emplymentDate = emplymentDate;
+	}
+	public String getEmplymentType() {
+		return emplymentType;
+	}
+	public void setEmplymentType(String emplymentType) {
+		this.emplymentType = emplymentType;
+	}
+	public boolean isRetireStatus() {
+		return retireStatus;
+	}
+	public void setRetireStatus(boolean retireStatus) {
+		this.retireStatus = retireStatus;
+	}
+	public String getCpName() {
+		return cpName;
+	}
+	public void setCpName(String cpName) {
+		this.cpName = cpName;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 	@Override
 	public String toString() {
-		return "Emply [userName=" + userName + ", userEmail=" + userEmail + ", userPw=" + userPw + ", userPhone="
-				+ userPhone + ", userAddr=" + userAddr + ", userLvl=" + userLvl + ", userRegDate=" + userRegDate + "]";
+		return "Emply [emplyId=" + emplyId + ", organizationCodeS=" + organizationCodeS + ", rankLevelCode="
+				+ rankLevelCode + ", positionLevelCode=" + positionLevelCode + ", cpRepresentativeCode="
+				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", emplyPw=" + emplyPw + ", emplyNumber="
+				+ emplyNumber + ", emplyName=" + emplyName + ", emplyBirth=" + emplyBirth + ", emplyAccount="
+				+ emplyAccount + ", emplyHomeAddress=" + emplyHomeAddress + ", emplymentDate=" + emplymentDate
+				+ ", emplymentType=" + emplymentType + ", retireStatus=" + retireStatus + ", cpName=" + cpName
+				+ ", regDate=" + regDate + "]";
 	}
 }

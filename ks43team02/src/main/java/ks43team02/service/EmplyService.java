@@ -1,5 +1,7 @@
 package ks43team02.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +22,17 @@ public class EmplyService {
 		this.emplyMapper = emplyMapper;
 	}
 	/*
+	 * 회원전체정보조회
+	 */
+	public List<Emply> getEmplyInfoList() {
+		List<Emply> emplyInfoList = emplyMapper.getEmplyInfoList();
+		return emplyInfoList;
+	}
+	/*
 	 * 회원상세정보조회
 	 */
-	public Emply getEmplyInfoById(String userEmail) {
-		Emply emply = emplyMapper.getEmplyInfoById(userEmail);
+	public Emply getEmplyInfoById(String emplyId) {
+		Emply emply = emplyMapper.getEmplyInfoById(emplyId);
 		
 		return emply;
 	}
