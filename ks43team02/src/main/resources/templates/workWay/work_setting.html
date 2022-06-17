@@ -5,7 +5,6 @@
 <!-- th:replace="경로 :: 조각이름" -->
 
 <head th:replace="fragments/head :: headFragment"></head>
-<body>
 <!-- 사용자 정의 contents -->
 <th:block layout:fragment="customContents">
 	<!-- 출퇴근 시간찍히는 곳 -->
@@ -23,7 +22,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="col-sm-12 col-md-6 col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Select</h4>
@@ -31,11 +30,11 @@
                         <div class="form-group mb-4">
                             <label for="exampleFormControlSelect1">Select No</label>
                             <select class="form-control" id="exampleFormControlSelect1">
-                                <option>5일근무제</option>
-                                <option>4일근무제</option>
-                                <option>유연근무제</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="5일근무제">5일근무제</option>
+                                <option value="4일근무제">4일근무제</option>
+                                <option value="유연근무제">유연근무제</option>
+                                <option value="5일근무제">4</option>
+                                <option value="5일근무제">5</option>
                             </select>
                         </div>
                     </form>
@@ -73,32 +72,10 @@
 		<input type="submit" value="전송">
 	</form>
 	</div>
-	<script type="text/javascript">
-		function getCheckboxValue(){
-			const query = "input[name='dayCheck']:checked";
-			const selectedEls = document.querySelectorAll(query);
-		let result = '';
-		selectedEls.forEach((el) =>{
-			result += el.value + '';
-		});
-		document.getElementById('result').innerText = result;
-		}
-				
-		function check(){
-					
-					$("input[type='checkbox']").on("click", function(){
-						let count = $("input:checked[type='checkbox']").length;
-						
-						if(count > 3){
-							$(this).prop("checked", false);
-							alert("3개");
-						}
-					});
-				};
-	</script>
-</th:block>	
+	
+</th:block>
+<th:block layout:fragment="customScript">
 
-		
     <div th:replace="fragments/footer :: footerFragment"></div>
 	
     <!-- ============================================================== -->
@@ -125,8 +102,27 @@
     <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
 	
 	
-	
-	
-	
-</body>
-</html>
+	<script type="text/javascript">
+		function getCheckboxValue(){
+			const query = "input[type='checkbox']:checked";
+			const selectedEls = document.querySelectorAll(query);
+		let result = '';
+		selectedEls.forEach((el) =>{
+			result += el.value + '';
+		});
+		document.getElementById('result').innerText = result;
+		}
+				
+		function check(){
+					
+					$("input[type='checkbox']").on("click", function(){
+						let count = $("input:checked[type='checkbox']").length;
+						
+						if(count > 3){
+							$(this).prop("checked", false);
+							alert("3개");
+						}
+					});
+				};
+	</script>
+</th:block>	
