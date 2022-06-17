@@ -13,4 +13,8 @@ public class WorkController{
 	public String worksetting() {
 		return "workWay/work_setting";
 	};
+	@GetMapping("/workWay/work_setting_list")
+	public String worksettinglist() {
+		return "workWay/work_setting_list";
+	};
 }
