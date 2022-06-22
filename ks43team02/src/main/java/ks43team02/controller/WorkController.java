@@ -6,20 +6,25 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class WorkController{
 	
 	private static final Logger log = LoggerFactory.getLogger(WorkController.class);
-
+	@RequestMapping("/workWay/work_time")
 	@GetMapping("/workWay/work_time")
-	public String work(Model model) {
+	public String work(HttpServletRequest time, Model model) {
 		
 		int toYear = 2022;
 		int toMonth = 6;
@@ -41,7 +46,6 @@ public class WorkController{
 			//System.out.println(toYear + "년" + toMonth+ "월" + i);
 			String yearmonthday = toYear + "년" + toMonth+ "월" + dayvalue;
 			System.out.println(yearmonthday);
-			
 			list.add(yearmonthday);
 			//뷰로 가기 전에 모델 객체에 셋팅 후 포워드 하면 된다.
 			
@@ -60,7 +64,9 @@ public class WorkController{
 	  
 		model.addAttribute("list", list);
 		log.info("가져오는 날짜들   :  {}",list);
+		time.setAttribute("list", list);
 		return "workWay/work_time";
+		
 		
 	};
 	@GetMapping("/workWay/work_time_management")

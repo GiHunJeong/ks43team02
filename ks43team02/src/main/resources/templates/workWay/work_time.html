@@ -126,19 +126,19 @@
              <li class="nav-item">
                  <a href="#home" data-toggle="tab" aria-expanded="false" class="nav-link active">
                      <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
-                     <span class="d-none d-lg-block">근태확인</span>
+                     <span class=" d-lg-block">근태확인</span>
                  </a>
              </li>
              <li class="nav-item">
                  <a href="#profile" data-toggle="tab" aria-expanded="true" class="nav-link">
                      <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
-                     <span class="d-none d-lg-block">근무요일확인</span>
+                     <span class=" d-lg-block">근무요일확인</span>
                  </a>
              </li>
              <li class="nav-item">
                  <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link">
                      <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
-                     <span class="d-none d-lg-block">Settings</span>
+                     <span class=" d-lg-block">Settings</span>
                  </a>
              </li>
          </ul>
@@ -147,8 +147,8 @@
 	<div class="tab-pane active" id="home">
 		<div class="card-body">
 	 		<h3 class="card-title">Today</h3>
-	 		<div  class="col-md-12" style="border-left:2px solid #5f76e8";>
-		     	<div>오늘 일자</div>
+	 		<div class="col-md-12" style="border-left:2px solid #5f76e8";>
+		     	<div>오늘일자</div>
 		     	<div>근무상 정해진 출퇴근시간</div>
 		     </div>
 			<div class="table-responsive mt-3">
@@ -300,16 +300,19 @@
 	</div>
 	<div class="tab-pane show" id="profile">
 		<div class="container-fluid">
-			<div class="table-responsive">
-			  <table class="table">
+			<div>
+			  <table class="table table-responsive row" style="overflow-x:scroll ">
 				<thead>
 					<tr>
-						<th th:if="${list}"></th>
+						<th class="flex-row" style="word-break: keep-all;">사원명</th>
+						<th  th:each="l:${list}" th:text="${l}" class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;"></th>
+						<!-- <th th:text="${list}" th:if="${list.size()}" th:each="${list.size()}"></th> -->
+						<!-- <th th:if="${time}" th:each="${time}"></th> -->
 					</tr>
 				</thead>
 				  <tbody>
 				    <tr>
-				      <td>Mark</td>
+				      <td>dd</td>
 				      <td>Otto</td>
 				      <td>@mdo</td>
 				    </tr>
