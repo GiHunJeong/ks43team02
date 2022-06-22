@@ -191,10 +191,12 @@
                             aria-haspopup="true" aria-expanded="false">
                             <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
                                 width="40">
-                            <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                    class="text-dark">[[${session.SNAME}]] [[${session.SRANK}]]님</span> <i data-feather="chevron-down"
+                            <span class="ml-2 d-none d-lg-inline-block"> <span
+                                    class="text-dark"><span class="badge badge-pill badge-dark">
+                                    [[${session.SRANKNAME}]]</span>  [[${session.SNAME}]]님 로그인</span> <i data-feather="chevron-down"
                                     class="svg-icon"></i></span>
                         </a>
+                        <!-- class="alert alert-dark bg-dark text-white border-0 mb-0" -->
                         <!-- 로그인 비로그인 상태창 시작 -->                      
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:if="${session.SEMAIL == null}">        
                             <a class="dropdown-item" th:href="@{/login/login}"><i data-feather="power"
@@ -213,7 +215,7 @@
                                     class="svg-icon mr-2 ml-1"></i>
                                 Inbox</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
+                            <a class="dropdown-item" th:href="@{/member/emply_modify_my}"><i data-feather="settings"
                                     class="svg-icon mr-2 ml-1"></i>
                                 Account Setting</a>
                             <div class="dropdown-divider"></div>
