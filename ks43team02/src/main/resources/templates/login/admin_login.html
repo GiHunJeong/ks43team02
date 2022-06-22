@@ -39,32 +39,30 @@
         <!-- Login box.scss -->
         <!-- ============================================================== -->
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative">
-        <!-- style="background:url(/assets/images/big/auth-bg.jpg) no-repeat center center;" <-- 배경이 넣고 싶을때 -->
             <div class="auth-box row">
-                <div class="col-lg-0 col-md-0 modal-bg-img">
-                <!--  style="background-image: url(/assets/images/big/3.jpg);" 오른쪽 배경 넣고 싶을때 -->
+                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(/assets/images/big/admin_login_left_logo.png);">
                 </div>
-                <div class="col-lg-12 col-md-7 bg-white">
+                <div class="col-lg-5 col-md-7 bg-white">
                     <div class="p-3">
                         <div class="text-center">
-                            <img th:src="@{/assets/images/logo-icon.png}" alt="wrapkit">
+                            <img th:src="@{/assets/images/big/icon.png}" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">로그인</h2>
                         <p class="text-center">이메일과 비밀번호를 입력해주세요.</p>
-                        <form class="mt-4" th:action="@{/login/login}" method="post">
+                        <form class="mt-4" th:action="@{/login/admin_login}" method="post">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label class="text-dark" for="uname">User E-mail</label>
+                                        <label class="text-dark" for="uname">Admin E-mail</label>
                                         <input class="form-control" id="uname" type="email"
-                                           name="emplyId" value="id001@ksmart.or.kr" placeholder="enter your e-mail">
+                                           name="superAdminId" value="ksmart43id@ksmart.or.kr" placeholder="enter Admin e-mail">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="text-dark" for="pwd">Password</label>
                                         <input class="form-control" id="pwd" type="password"
-                                           name="emplyPw" value="pw001" placeholder="enter your password">
+                                           name="superAdminPw" value="ksmart43pw" placeholder="enter Admin password">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-center">
@@ -72,9 +70,6 @@
                                 </div>
                                 <div class="col-lg-12 text-center mt-5">
                                     아이디가 없습니까? <a th:href="@{/member/register}" class="text-danger">Sign Up</a>
-                                </div>
-                                <div class="col-lg-12 text-center">
-                               <a th:href="@{/login/admin_login}" class="text-danger">관리자로그인</a>
                                 </div>
                             </div>
                         </form>

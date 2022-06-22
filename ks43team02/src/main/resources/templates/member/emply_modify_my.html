@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+<th:block layout:fragment="customHeadScript">
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon.png}">
+	    <title>개인 정보 수정</title>
+	    <link th:href="@{/dist/css/style.min.css}" rel="stylesheet">
+	</head>
+</th:block>
+
+	<!-- 사용자 정의 contents -->
+	<th:block layout:fragment="customContents">
+		<!-- ============================================================== -->
+	    <!-- Start Page Content -->
+	    <!-- ============================================================== -->
+	    
+	    <div class="card-body">
+	        <h4 class="card-title">개인 정보 수정</h4>
+	        <div class="table-responsive">
+	            <table class="table">
+	                <thead class="bg-primary text-white">
+	                    <tr>
+	                        <th>#</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                	<tr>
+	                		<td>
+	                			<div class="form-group">
+									<div class="row">
+										<label class="col-lg-1 mt-2">프로필사진</label>
+										<div class="col-lg-11">
+											<div class="row">
+												<div class="col-md-3">
+												    <button type="button" class="btn waves-effect waves-light btn-danger">변경</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+	                    </tr>
+	                	<tr>
+	                		<td>
+	                			<div class="form-group">
+									<div class="row">
+										<label class="col-lg-1 mt-2">이름</label>
+										<div class="col-lg-11">
+											<div class="row">
+												<div class="col-md-3">
+												    <input type="text" class="form-control" placeholder="이름" disabled="disabled">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+	                    </tr>
+	                	<tr>
+	                		<td>
+	                			<div class="form-group">
+									<div class="row">
+										<label class="col-lg-1 mt-2">아이디</label>
+										<div class="col-lg-11">
+											<div class="row">
+												<div class="col-md-3">
+												    <input type="text" class="form-control" placeholder="아이디" disabled="disabled">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+	                    </tr>
+	                	<tr>
+	                		<td>
+	                			<div class="form-group">
+									<div class="row">
+										<label class="col-lg-1 mt-2">비밀번호</label>
+										<div class="col-lg-11">
+											<div class="row">
+												<div class="col-md-3">
+												    <input type="password" class="form-control" placeholder="비밀번호">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                        	<div class="form-group">
+	                                <div class="row">
+	                                    <label class="col-lg-1 mt-2">비밀번호확인</label>
+	                                    <div class="col-lg-11">
+	                                        <div class="row">
+	                                            <div class="col-md-3">
+	                                                <input type="password" class="form-control" placeholder="비밀번호확인">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                        	<div class="form-group">
+	                                <div class="row">
+	                                    <label class="col-lg-1 mt-2">핸드폰번호</label>
+	                                    <div class="col-lg-11">
+	                                        <div class="row">
+	                                            <div class="col-md-3">
+	                                                <input type="tel" class="form-control" placeholder="핸드폰번호">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                        	<div class="form-group">
+	                                <div class="row">
+	                                    <label class="col-lg-1 mt-2">집주소</label>
+	                                    <div class="col-lg-11">
+	                                        <div class="row">
+	                                            <div class="col-md-3">
+	                                                <input type="tel" class="form-control" placeholder="집주소">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                    
+	                    <!-- 테이블 마지막 색만 넣은곳 -->
+	                    <tr>
+	                        <td class="bg-primary text-white">#</td>
+	                    </tr>
+	                    <!-- 테이블 마지막 색만 넣은곳 -->
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+		
+	    <!-- ============================================================== -->
+	    <!-- Start Page Content -->
+	    <!-- ============================================================== -->
+	</th:block>
+	<th:block layout:fragment="customScript">
+		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+	    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+	    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+	    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+	    <script th:src="@{/dist/js/feather.min.js}"></script>
+	    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+	    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+	    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+	    <script th:src="@{/dist/js/custom.min.js}"></script>
+	</th:block>
+</html>

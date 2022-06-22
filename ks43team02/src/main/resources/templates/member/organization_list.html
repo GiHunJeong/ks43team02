@@ -1,0 +1,124 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block layout:fragment="customHeadScript">
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <link th:href="@{/dist/css/style.min.css}" rel="stylesheet">
+	    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+	</head>
+</th:block>
+<th:block layout:fragment="organizationList">
+	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+	<script>
+		/* 부 서 대 -> 중 리 스 트 가 져 오 기 */
+		$(function(){
+			$(document).on('change','#organiL', function(){
+				var organiL = $('#organiL option:selected').val();
+				console.log(organiL);
+				/* 에이작스 */
+				var request = $.ajax({
+					url: "/member/organizationMName", 
+					method: "GET", 
+					data: { 'organiL' : organiL}, 
+					dataType: "json"
+				});				 
+				request.done(function( organiMName ) {
+					console.log(organiMName);
+					var option2 = $("<option>"+'Choose...'+"</option>");
+					$('#organiMSelect').css('display','block');
+					$('#organiM').empty();
+					$('#organiM').append(option2);
+					for(var i = 0;i < organiMName.length;i++){
+						console.log(organiMName[i].organizationNameM);
+						var option = $("<option value="+organiMName[i].organizationNameM+">"+organiMName[i].organizationNameM+"</option>");
+						$('#organiM').append(option);
+					}
+					if(organiMName == '' || organiMName == null || organiMName == 'undefined'){
+						$('#organiMSelect').css('display','none');
+						$('#organiSSelect').css('display','none');
+					}
+				});				 
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});
+				/* 에이작스 */
+			});
+		});
+		/* 부 서 대 -> 중 리 스 트 가 져 오 기 */
+		
+		/* 부 서 중 -> 소 리 스 트 가 져 오 기 */
+		$(function(){
+			$(document).on('change','#organiM', function(){
+				var organiM = $('#organiM option:selected').val();
+				console.log(organiL);
+				/* 에이작스 */
+				var request = $.ajax({
+					url: "/member/organizationSName", 
+					method: "GET", 
+					data: { 'organiM' : organiM}, 
+					dataType: "json"
+				});				 
+				request.done(function( organiSName ) {
+					console.log(organiSName);
+					var option2 = $("<option>"+'Choose...'+"</option>");
+					$('#organiSSelect').css('display','block');
+					$('#organiS').empty();
+					$('#organiS').append(option2);
+					for(var i = 0;i < organiSName.length;i++){
+						console.log(organiSName[i].organizationNameS);
+						var option = $("<option value="+organiSName[i].organizationNameS+">"+organiSName[i].organizationNameS+"</option>");
+						$('#organiS').append(option);
+					}
+					if(organiSName == '' || organiSName == null || organiSName == 'undefined'){
+						$('#organiSSelect').css('display','none');
+					}
+				});				 
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});
+				/* 에이작스 */
+			});
+		});
+		/* 부 서 중 -> 소 리 스 트 가 져 오 기 */
+	</script>
+
+	<div class="card-body">
+	    <form th:action="@{/member/organization_list_l}" method="get">
+	        <!-- 조직도 대분류 -->
+	        <div class="form-group mb-4">            
+	            <label class="mr-sm-2" for="organiL">조직도대분류</label>
+	            <select class="custom-select mr-sm-2" id="organiL" name="organiL">
+	                <option>Choose...</option>
+		            <th:block th:if="${not #lists.isEmpty(organiLList)}" th:each="l : ${organiLList}">
+		                <option th:value="${l.organizationNameL}">[[${l.organizationNameL}]]</option>
+		            </th:block>
+		            <th:block th:unless="${not #lists.isEmpty(organiLList)}">
+						<option value="">등록된 조직도가 없습니다.</option>
+					</th:block>
+	            </select>
+	        </div>
+	        <!-- 조직도 대분류 --> 
+	        
+	        <!-- 조직도 중분류 -->
+	        <div class="form-group mb-4" id="organiMSelect" style="display:none;">            
+	            <label class="mr-sm-2" for="organiM">조직도중분류</label>
+	            <select class="custom-select mr-sm-2" id="organiM" name="organiM">
+	            </select>
+	        </div>
+	        <!-- 조직도 중분류 --> 
+	        
+	        <!-- 조직도 소분류 -->
+	        <div class="form-group mb-4" id="organiSSelect" style="display:none;">            
+	            <label class="mr-sm-2" for="organiS">조직도소분류</label>
+	            <select class="custom-select mr-sm-2" id="organiS" name="organiS">
+	            </select>
+	        </div>
+	        <!-- 조직도 소분류 --> 
+	    </form>
+	</div>
+</th:block>
+</html>

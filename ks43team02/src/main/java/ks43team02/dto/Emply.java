@@ -18,6 +18,28 @@ public class Emply {
 	private boolean retireStatus;
 	private String cpName;
 	private String regDate;
+	private RankLevelList rankLevelList;
+	private PositionLevelList positionLevelList;
+	private OrganizationSList organizationSList;
+	
+	public OrganizationSList getOrganizationSList() {
+		return organizationSList;
+	}
+	public void setOrganizationSList(OrganizationSList organizationSList) {
+		this.organizationSList = organizationSList;
+	}
+	public RankLevelList getRankLevelList() {
+		return rankLevelList;
+	}
+	public void setRankLevelList(RankLevelList rankLevelList) {
+		this.rankLevelList = rankLevelList;
+	}
+	public PositionLevelList getPositionLevelList() {
+		return positionLevelList;
+	}
+	public void setPositionLevelList(PositionLevelList positionLevelList) {
+		this.positionLevelList = positionLevelList;
+	}
 	public String getEmplyId() {
 		return emplyId;
 	}
@@ -128,6 +150,7 @@ public class Emply {
 				+ emplyNumber + ", emplyName=" + emplyName + ", emplyBirth=" + emplyBirth + ", emplyAccount="
 				+ emplyAccount + ", emplyHomeAddress=" + emplyHomeAddress + ", emplymentDate=" + emplymentDate
 				+ ", emplymentType=" + emplymentType + ", retireStatus=" + retireStatus + ", cpName=" + cpName
-				+ ", regDate=" + regDate + "]";
+				+ ", regDate=" + regDate + ", rankLevelList=" + rankLevelList + ", positionLevelList="
+				+ positionLevelList + ", organizationSList=" + organizationSList + "]";
 	}
 }
