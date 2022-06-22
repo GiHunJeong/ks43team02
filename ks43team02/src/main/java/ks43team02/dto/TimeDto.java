@@ -1,6 +1,6 @@
 package ks43team02.dto;
 
-public class WorkTime {
+public class TimeDto {
 	private String worktimeCumulativeCode;
 	private String cpRepresentativeCode;
 	private String standardWorksystemCpCode;
@@ -13,6 +13,7 @@ public class WorkTime {
 	private String workBreakTime;
 	private String returnTime;
 	private String statusLate;
+	
 	@Override
 	public String toString() {
 		return "WorkTime [worktimeCumulativeCode=" + worktimeCumulativeCode + ", cpRepresentativeCode="
@@ -93,4 +94,5 @@ public class WorkTime {
 	public void setStatusLate(String statusLate) {
 		this.statusLate = statusLate;
 	}
+	
 }
