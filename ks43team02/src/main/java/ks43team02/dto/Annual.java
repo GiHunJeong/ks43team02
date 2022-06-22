@@ -1,6 +1,6 @@
 package ks43team02.dto;
 
-public class annualDto {
+public class Annual {
 	private String annualDivision;
 	private String startDate;
 	private String endDate;
