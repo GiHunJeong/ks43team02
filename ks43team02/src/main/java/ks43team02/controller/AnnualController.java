@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/annual")
 public class AnnualController {
 
-	@GetMapping("/annual")
-		public String annual() {
-		return "annual/annual";
+	@GetMapping("/annualList")
+		public String annualList() {
+		return "annual/annualList";
 	}
 }
