@@ -56,11 +56,62 @@
 										<div class="tab-pane active" id="home1">							
 											<div class="row" id="annualRegForm">
 												<div class="col-12">
+													<!-- 내 휴가 정보 start -->
+													<div class="col-xl-12">
 													<div class="card">
 														<div class="card-body">
+														<h6 class="card-subtitle" style="text-align: center; padding: 1rem;">당신의 입사일은 <code>&lt;-&gt;</code>일입니다.</h6>
+							
+														<div class="row" id="column">
+															<!-- Column -->
+															<div class="col-md-6 col-lg-3 col-xlg-3">
+																<div class="card card-hover">
+																	<div class="p-2 bg-primary text-center" id="totalWorkDate">
+																		<h1 class="font-light text-white">370</h1>
+																		<h6 class="text-white">총근무일</h6>
+																	</div>
+																</div>
+															</div>
+															<!-- Column -->
+															<div class="col-md-6 col-lg-3 col-xlg-3">
+																<div class="card card-hover">
+																	<div class="p-2 bg-cyan text-center" id="inYear">
+																		<h1 class="font-light text-white">2</h1>
+																		<h6 class="text-white">년차</h6>
+																	</div>
+																</div>
+															</div>
+															<!-- Column -->
+															<div class="col-md-6 col-lg-3 col-xlg-3">
+																<div class="card card-hover" id="anuualGrant">
+																	<div class="p-2 bg-success text-center">
+																		<h1 class="font-light text-white">1100</h1>
+																		<h6 class="text-white">휴가부여일수</h6>
+																	</div>
+																</div>
+															</div>
+															<!-- Column -->
+															<div class="col-md-6 col-lg-3 col-xlg-3">
+																<div class="card card-hover">
+																	<div class="p-2 bg-danger text-center" id="remainingTime">
+																		<h1 class="font-light text-white">9</h1>
+																		<h6 class="text-white">잔여일수</h6>
+																	</div>
+																</div>
+															</div>
+															<!-- Column -->
+														</div> <!-- row end / Column -->
+															
+														</div>
+													</div>
+													</div>
+													<!-- 내 휴가 정보 end -->
+
+													<!-- 휴가등록 form start -->
+													<div class="card">
+														<div class="card-body" style="padding: 0;">												
 															<h4 class="card-title col-12" style="margin-bottom: 1rem;">Annual Registration</h4>
 															<form action="#">
-																<!-- 휴가등록 form start -->
 																<div class="form-body">
 																	<!-- form 1행 -->
 																	<div class="input-group">
@@ -146,9 +197,9 @@
 																						</div>
 																						<!-- 결재자 선택 modal-body -->
 																						<div class="modal-body">
-																						
+																						 
 																						<!-- 연차등록 form 시작 -->
-																							<form>																								
+																							<form method="post" action="/annualList">	<!-- 이런식으로 보내는건가  -->																					
 																								<!-- 부서선택 시작 -->
 																								<div class="card">
 																									<div class="form-group">
@@ -190,6 +241,9 @@
 																											<input type="date"> - <input type="date">	
 																											
 																											<!-- datetimepicker test start -->
+																											
+																											
+																											
 																											
 																											<div class="input-group input-daterange" id="dateFormat">
 																												<input type="date" class="form-control" id="startDate" value="2012-04-05">
@@ -273,62 +327,65 @@
 											
 											<div class="card">
 												<div class="card-body">
-													<div class="table-responsive col-12">
+													<div class=" col-12" style="padding:0;">
 														<!-- 휴가등록 리스트 시작 -->
-														<table class="table" style="text-align: center; font-size: 0.9rem;" id="anuualApplicationTable">
-															<thead class="thead-light" style="font-size: 0.8rem;">
-																<tr>
-																	<th scope="col">번호</th>
-																	<th scope="col">신청일</th>
-																	<th scope="col">시작일</th>
-																	<th scope="col">종료일</th>
-																	<th scope="col">제목</th>
-																	<th scope="col">휴가 구분</th>
-																	<th scope="col">전일/반일 구분</th>
-																	<th scope="col">결재진행상태</th>
-																	<th scope="col">사용여부</th>
-																	<th scope="col">첨부파일</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<th scope="row">1</th>
-																	<td>2022.02.02</td>
-																	<td>2022.02.02</td>
-																	<td>2022.02.03</td>
-																	<td>@mdodfjahldsjkfhs adfsdf </td>
-																	<td>보상</td>
-																	<td>전일</td>
-																	<td>진행중</td>
-																	<td>여</td>
-																	<td>.xlsx</td>
-																</tr>
-																<tr>
-																	<th scope="row">2</th>
-																	<td>2022.02.02</td>
-																	<td>2022.02.02</td>
-																	<td>2022.02.03</td>
-																	<td>@fatejkb jdshjt dsf sdfasdfdsf u</td>
-																	<td>경조</td>
-																	<td>전일</td>
-																	<td>완료</td>
-																	<td>여</td>
-																	<td>.xlsx</td>
-																</tr>
-																<tr>
-																	<th scope="row">3</th>
-																	<td>2022.02.02</td>
-																	<td>2022.02.02</td>
-																	<td>2022.02.03</td>
-																	<td>@twitter dkfhak ei fadf asdf dihs</td>
-																	<td>병가</td>
-																	<td>반일</td>
-																	<td>반려</td>
-																	<td>부</td>
-																	<td>.xlsx</td>
-																</tr>
-															</tbody>
-														</table>
+														
+														<div class="table-responsive">
+															<table class="table" style="text-align: center; font-size: 0.9rem; " id="anuualApplicationTable">
+																<thead>
+																	<tr>
+																		<th scope="col">#</th>
+																		<th scope="col">신청일</th>
+																		<th scope="col">시작일</th>
+																		<th scope="col">종료일</th>
+																		<th scope="col">제목</th>
+																		<th scope="col">휴가 구분</th>
+																		<th scope="col">전일/반일 구분</th>
+																		<th scope="col">결재진행상태</th>
+																		<th scope="col">사용여부</th>
+																		<th scope="col">첨부파일</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<th scope="row">1</th>
+																		<td>2022.02.02</td>
+																		<td>2022.02.02</td>
+																		<td>2022.02.03</td>
+																		<td>@mdodfjahldsjkfhs adfsdf </td>
+																		<td>보상</td>
+																		<td>전일</td>
+																		<td>진행중</td>
+																		<td>여</td>
+																		<td>.xlsx</td>
+																	</tr>
+																	<tr>
+																		<th scope="row">2</th>
+																		<td>2022.02.02</td>
+																		<td>2022.02.02</td>
+																		<td>2022.02.03</td>
+																		<td>@fatejkb jdshjt dsf sdfasdfdsf u</td>
+																		<td>경조</td>
+																		<td>전일</td>
+																		<td>완료</td>
+																		<td>여</td>
+																		<td>.xlsx</td>
+																	</tr>
+																	<tr>
+																		<th scope="row">3</th>
+																		<td>2022.02.02</td>
+																		<td>2022.02.02</td>
+																		<td>2022.02.03</td>
+																		<td>@twitter dkfhak ei fadf asdf dihs</td>
+																		<td>병가</td>
+																		<td>반일</td>
+																		<td>반려</td>
+																		<td>부</td>
+																		<td>.xlsx</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>												
 															<!-- 페이지 번호 시작 -->
 															<div style="display:flex; justify-content: space-around;">
 																<ul class="pagination float-right">
@@ -346,11 +403,13 @@
 																</ul>						
 															</div><!-- 페이지 번호 끝 -->
 													</div> <!-- annaulApplicationList table end -->
+												</div>
+												<div>
 													<!-- 사용휴가조회 start -->
 										
 												<!-- 사용휴가조회 modal 버튼 -->
 												<button type="button" class="btn waves-effect waves-light btn-success" data-toggle="modal" data-target="useAnnualSearch" value="사용휴가조회" 
-												id="btnUseAnnualSearch" style="margin:auto 0; margin-left: 86%;margin-bottom: 1rem;">사용휴가조회</button>
+												id="btnUseAnnualSearch" style="margin:auto 0; margin-left: 86%; position: static;">사용휴가조회</button>
 												
 												<!-- 사용휴가조회 modal form -->
 												<div class="modal fade" id="useAnnualSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="height: 110%">
@@ -362,10 +421,109 @@
 																	<span aria-hidden="true">×</span>
 																</button>															
 															</div>
-															<div class="modal-body">
-															
-															
-															</div>
+															<div class="modal-body">										
+																<div class="card-body">
+																	<div class="table-responsive">
+																		<!-- 사용휴가조회 search >> 생각해보고 넣을지말지 결정-->
+																		<div style="margin-bottom: 1rem;">
+																			 <select class="custom-select mr-sm-2 col-1" id="inlineFormCustomSelect" style="margin: 0">
+									                                            <option selected>Choose...</option>
+									                                            <option value="1">One</option>
+									                                            <option value="2">Two</option>
+									                                            <option value="3">Three</option>
+									                                        </select>
+																			<input type="search" id="annualSearchKeyword">
+																		</div>
+																		
+																		<!-- 사용휴가조회 table -->																																			
+																		<table class="table" style="text-align: center; font-size: 0.9rem;" id="modalDataTable">
+																			<thead class="thead-light">
+																				<tr>
+																					<th scope="col">번호</th>
+																					<th scope="col">시작일시</th>
+																					<th scope="col">종료일시</th>
+																					<th scope="col">제목</th>
+																					<th scope="col">휴가 구분</th>
+																					<th scope="col">전일/반일 구분</th>
+																					<th scope="col">결재진행상태</th>
+																					<th scope="col">사용여부</th>
+																					<th scope="col">첨부파일</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr>
+																					<th scope="row">1</th>
+																					<td>2022.02.02</td>
+																					<td>2022.02.03</td>
+																					<td>@mdodfjahldsjkfhs adfsdf </td>
+																					<td>보상</td>
+																					<td>전일</td>
+																					<td>진행중</td>
+																					<td>여</td>
+																					<td>.xlsx</td>
+																				</tr>
+																				<tr>
+																					<th scope="row">2</th>
+																					<td>2022.02.02</td>
+																					<td>2022.02.03</td>
+																					<td>@fatejkb jdshjt dsf sdfasdfdsf u</td>
+																					<td>경조</td>
+																					<td>전일</td>
+																					<td>완료</td>
+																					<td>여</td>
+																					<td>.xlsx</td>
+																				</tr>
+																				<tr>
+																					<th scope="row">3</th>
+																					<td>2022.02.02</td>
+																					<td>2022.02.03</td>
+																					<td>@twitter dkfhak ei fadf asdf dihs</td>
+																					<td>병가</td>
+																					<td>반일</td>
+																					<td>반려</td>
+																					<td>부</td>
+																					<td>.xlsx</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div> <!-- table-responsive end / modalDataTable -->
+																	<!-- show entries start -->
+																	<div class="row" id="showEntries">
+																		<div class="col-sm-12 col-md-6">
+																			<div class="dataTables_length" id="zero_config_length"  style="display: flex; width:100px;">
+																				<label>
+																					"show"
+																					<select name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm">
+																						<option value="5">5</option>
+																						<option value="10">10</option>
+																						<option value="15">15</option>
+																						<option value="20">20</option>
+																					</select>
+																					<input type="search">
+																				</label>
+																			</div>
+																		</div>
+																	</div> <!-- show entries end -->
+																	<!-- 연차사용내역 테이블 끝 -->
+																				
+																	<!-- 페이지 번호 시작 -->
+																	<div style="display:flex; justify-content: space-around;">
+																		<ul class="pagination float-right">
+																			<li class="page-item disabled">
+																				<a class="page-link" href="#" tabindex="-1">Previous</a>
+																			</li>
+																			<li class="page-item active"><a class="page-link" href="#">1</a></li>
+																			<li class="page-item">
+																				<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+																			</li>
+																			<li class="page-item"><a class="page-link" href="#">3</a></li>
+																			<li class="page-item">
+																				<a class="page-link" href="#">Next</a>
+																			</li>
+																		</ul>						
+																	</div><!-- 페이지 번호 끝 -->
+																</div> 														
+															</div> <!-- 사용휴가조회 modal-body 끝 -->
 														</div>
 													</div>
 												</div> <!-- 사용휴가조회 modal form end -->
@@ -470,157 +628,117 @@
 														
 													</div> <!-- modal-content 끝 -->
 												</div> <!-- 연차등록 modal-dialog 끝 -->
-											</div> <!-- 연차등록 modal 영역 끝 -->
-											
-											 
-											
+											</div> <!-- 연차등록 modal 영역 끝 -->		
 										</div>
 										<!--========== 휴가등록 tab 끝 ==========-->
 										
 										<!--========== 휴가사용내역 tab 시작 ==========-->
-										<div class="tab-pane show" id="profile1">
-											<p>휴가사용내역- 관리자권한</p>
-											<p class="mb-0">내용2</p>
 
-											<h4 class="card-title" style="font: bolder;"> 휴가 사용 내역 </h4>
-											
-										
-											<div class="table-responsive">
-												<table class="table" style="text-align: center; font-size: 0.9rem;" id="modalDataTable">
-													<thead class="thead-light">
-														<tr>
-															<th scope="col">번호</th>
-															<th scope="col">시작일시</th>
-															<th scope="col">종료일시</th>
-															<th scope="col">제목</th>
-															<th scope="col">휴가 구분</th>
-															<th scope="col">전일/반일 구분</th>
-															<th scope="col">결재진행상태</th>
-															<th scope="col">사용여부</th>
-															<th scope="col">첨부파일</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<th scope="row">1</th>
-															<td>2022.02.02</td>
-															<td>2022.02.03</td>
-															<td>@mdodfjahldsjkfhs adfsdf </td>
-															<td>보상</td>
-															<td>전일</td>
-															<td>진행중</td>
-															<td>여</td>
-															<td>.xlsx</td>
-														</tr>
-														<tr>
-															<th scope="row">2</th>
-															<td>2022.02.02</td>
-															<td>2022.02.03</td>
-															<td>@fatejkb jdshjt dsf sdfasdfdsf u</td>
-															<td>경조</td>
-															<td>전일</td>
-															<td>완료</td>
-															<td>여</td>
-															<td>.xlsx</td>
-														</tr>
-														<tr>
-															<th scope="row">3</th>
-															<td>2022.02.02</td>
-															<td>2022.02.03</td>
-															<td>@twitter dkfhak ei fadf asdf dihs</td>
-															<td>병가</td>
-															<td>반일</td>
-															<td>반려</td>
-															<td>부</td>
-															<td>.xlsx</td>
-														</tr>
-													</tbody>
-												</table>
-											</div> <!-- table-responsive end / modalDataTable -->
-											<!-- show entries start -->
-											<div class="row" id="showEntries">
-												<div class="col-sm-12 col-md-6">
-													<div class="dataTables_length" id="zero_config_length"  style="display: flex; width:100px;">
-														<label>
-															"show"
-															<select name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm">
-																<option value="5">5</option>
-																<option value="10">10</option>
-																<option value="15">15</option>
-																<option value="20">20</option>
-															</select>
-															<input type="search">
-														</label>
+										<!-- 휴가사용내역 영역 strat -->
+										<div class="tab-pane show" id="profile1">
+											<div class="card">
+												<div class="card-body" style="padding: 0;">
+													<!-- 휴가사용내역 search form 영역 start -->
+													<div class="card">
+														<div class="card-body">
+															<div class="col-12" style="padding: 0; justify-content: center; display: flex;" id="useListSearchForm">
+																<div class="col-4">
+																
+																	<form>
+																		<select>
+																			<option>2022</option>
+																			<option>2021</option>
+																			<option>2020</option>
+																			<option>2019</option>
+																			<option>...</option>
+																		</select>
+																	</form>
+																</div>
+																<div class="col-4">
+																
+																	<form>
+																		<input type="search">
+																	</form>
+																</div>
+																<div class="col-4">
+																
+																	<form>
+																		<input type="search">
+																		<button type="button">검색</button>
+																	</form>
+																</div>
+															</div>
+														
+														</div>
+													</div> <!-- 휴가사용내역 search form 영역 end -->
+													<!-- 휴가사용내역 table 영역 strat -->
+													<table class="table" style="text-align: center; font-size: 0.9rem;" id="anuualUseTable">
+															<thead class="thead-light" >
+																<tr>
+																	<th scope="col">번호</th>
+																	<th scope="col">신청일</th>
+																	<th scope="col">시작일</th>
+																	<th scope="col">종료일</th>
+																	<th scope="col">제목</th>
+																	<th scope="col">휴가 구분</th>
+																	<th scope="col">전일/반일 구분</th>
+																	<th scope="col">결재진행상태</th>
+																	<th scope="col">사용여부</th>
+																	<th scope="col">첨부파일</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<th scope="row">1</th>
+																	<td>2022.02.02</td>
+																	<td>2022.02.02</td>
+																	<td>2022.02.03</td>
+																	<td>@mdodfjahldsjkfhs adfsdf </td>
+																	<td>보상</td>
+																	<td>전일</td>
+																	<td>진행중</td>
+																	<td>여</td>
+																	<td>.xlsx</td>
+																</tr>
+																<tr>
+																	<th scope="row">2</th>
+																	<td>2022.02.02</td>
+																	<td>2022.02.02</td>
+																	<td>2022.02.03</td>
+																	<td>@fatejkb jdshjt dsf sdfasdfdsf u</td>
+																	<td>경조</td>
+																	<td>전일</td>
+																	<td>완료</td>
+																	<td>여</td>
+																	<td>.xlsx</td>
+																</tr>
+																<tr>
+																	<th scope="row">3</th>
+																	<td>2022.02.02</td>
+																	<td>2022.02.02</td>
+																	<td>2022.02.03</td>
+																	<td>@twitter dkfhak ei fadf asdf dihs</td>
+																	<td>병가</td>
+																	<td>반일</td>
+																	<td>반려</td>
+																	<td>부</td>
+																	<td>.xlsx</td>
+																</tr>
+															</tbody>
+														</table><!-- 휴가사용내역 table 영역 end -->
 													</div>
 												</div>
-											</div> <!-- show entries end -->
-											<!-- 연차사용내역 테이블 끝 -->
-														
-											<!-- 페이지 번호 시작 -->
-											<div style="display:flex; justify-content: space-around;">
-												<ul class="pagination float-right">
-													<li class="page-item disabled">
-														<a class="page-link" href="#" tabindex="-1">Previous</a>
-													</li>
-													<li class="page-item active"><a class="page-link" href="#">1</a></li>
-													<li class="page-item">
-														<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-													</li>
-													<li class="page-item"><a class="page-link" href="#">3</a></li>
-													<li class="page-item">
-														<a class="page-link" href="#">Next</a>
-													</li>
-												</ul>						
-											</div><!-- 페이지 번호 끝 -->
+
+											
 										</div>
 										<!--========== 휴가사용내역 tab 끝 ==========-->
 										
 										<!--========== 연차정보 tab 시작 ==========-->
 										<div class="tab-pane" id="settings1">
-											<p>소제목3 - 연차정보</p>
+											<p>소제목3 - 연차세팅</p>
 											<p class="mb-0">내용3</p>
 
-											<h6 class="card-subtitle" style="text-align: center;">당신의 입사일은 <code>&lt;-&gt;</code>일입니다.</h6>
-				
-											<div class="row" id="column">
-												<!-- Column -->
-												<div class="col-md-6 col-lg-3 col-xlg-3">
-													<div class="card card-hover">
-														<div class="p-2 bg-primary text-center" id="totalWorkDate">
-															<h1 class="font-light text-white">370</h1>
-															<h6 class="text-white">총근무일</h6>
-														</div>
-													</div>
-												</div>
-												<!-- Column -->
-												<div class="col-md-6 col-lg-3 col-xlg-3">
-													<div class="card card-hover">
-														<div class="p-2 bg-cyan text-center" id="inYear">
-															<h1 class="font-light text-white">2</h1>
-															<h6 class="text-white">년차</h6>
-														</div>
-													</div>
-												</div>
-												<!-- Column -->
-												<div class="col-md-6 col-lg-3 col-xlg-3">
-													<div class="card card-hover" id="anuualGrant">
-														<div class="p-2 bg-success text-center">
-															<h1 class="font-light text-white">1100</h1>
-															<h6 class="text-white">휴가부여일수</h6>
-														</div>
-													</div>
-												</div>
-												<!-- Column -->
-												<div class="col-md-6 col-lg-3 col-xlg-3">
-													<div class="card card-hover">
-														<div class="p-2 bg-danger text-center" id="remainingTime">
-															<h1 class="font-light text-white">9</h1>
-															<h6 class="text-white">잔여일수</h6>
-														</div>
-													</div>
-												</div>
-												<!-- Column -->
-											</div> <!-- row end / Column -->
+
 
 										</div>
 										<!--========== 연차정보 tab 끝 ==========-->
@@ -680,9 +798,10 @@
 	<script type="text/javascript">
 		$(function(){
 			$('#btnSubmit').click(function(){
-				alert('신청하시겠습니까?');
+				alert('등록하시겠습니까?');
 				/* 전송 아니면 모달창 띄우기 */
 			});
+		/* alert('등록이 완료되었습니다.'); */
 		});
 	</script>
 	
@@ -713,14 +832,27 @@
 	</script> 
 	 -->
 	 
-	 // 휴가등록테이블 사용휴가조회 modal(사원)
-	 <script type="text/javascript">
-	 	$(function(){
-	 		$('#btnUseAnnualSearch').click(function(){
-	 			$('#useAnnualSearch').modal('show');
-	 		});
-	 	});
-	 </script>
+	 // 휴가등록테이블 사용휴가조회 modal(사원) test
+<!--  <script type="text/javascript">
+ 	$(function(){
+ 		$('#btnUseAnnualSearch').click(function(){
+ 			$('#useAnnualSearch').modal('show');
+ 		});
+ 	});
+ </script> -->
+	 
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#annualSearchKeyword").keyup(function(){
+				var k = $(this).val();
+				$("#modalSearchDataTable > tbody > tr").hide();
+				var temp = $("#modalDataTable > tbody > tr :contains('" + k"')");
+				
+				$(temp).parent().show();
+			})
+		});
+	</script>
+		
 	 
 	 
 	 

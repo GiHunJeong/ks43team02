@@ -6,14 +6,7 @@ public class Annual {
 	private String endDate;
 	private String regDate;
 	private String comment;
-	
-	
-	@Override
-	public String toString() {
-		return "annualDto [annualDivision=" + annualDivision + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", regDate=" + regDate + ", comment=" + comment + "]";
-	}
-	
+		
 	public String getAnnualDivision() {
 		return annualDivision;
 	}
@@ -43,5 +36,11 @@ public class Annual {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	
+	@Override
+	public String toString() {
+		return "annualDto [annualDivision=" + annualDivision + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", regDate=" + regDate + ", comment=" + comment + "]";
 	}
 }
