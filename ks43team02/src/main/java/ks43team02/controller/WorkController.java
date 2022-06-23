@@ -18,17 +18,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ks43team02.dto.WorkTime;
+import ks43team02.service.WorkTimeService;
+
 @Controller
+@RequestMapping("/workWay")
 public class WorkController{
-	
+	//로거
 	private static final Logger log = LoggerFactory.getLogger(WorkController.class);
-	@RequestMapping("/workWay/work_time")
-	@GetMapping("/workWay/work_time")
+	/*
+	 * 의존성주입
+	 */
+	
+	private final WorkTimeService workTimeService;
+	
+	public WorkController(WorkTimeService workTimeService) {
+		this.workTimeService = workTimeService;
+	}
+	@GetMapping("/work_time")
 	public String work(HttpServletRequest time, Model model) {
 		
 		int toYear = 2022;
 		int toMonth = 6;
 		
+		List<WorkTime> workTime = workTimeService.getWorkTimeEmplyName();
 		LocalDateTime toNow = LocalDateTime.now();
 		toNow = toNow.withYear(toYear).withMonth(toMonth);	
 		toNow = toNow.with(TemporalAdjusters.lastDayOfMonth());
@@ -40,11 +53,12 @@ public class WorkController{
 		int to = Integer.parseInt(change);
 		System.out.println(to);
 		List<String> list = new ArrayList<String>();
-		for(int dayvalue =0; dayvalue <= to; ++dayvalue) {
+		for(int dayvalue =1; dayvalue <= to; ++dayvalue) {
 
 			//System.out.println(i);
 			//System.out.println(toYear + "년" + toMonth+ "월" + i);
-			String yearmonthday = toYear + "년" + toMonth+ "월" + dayvalue;
+			String yearmonthday = dayvalue + "일";
+			//toYear + "년" + toMonth+ "월" + 
 			System.out.println(yearmonthday);
 			list.add(yearmonthday);
 			//뷰로 가기 전에 모델 객체에 셋팅 후 포워드 하면 된다.
@@ -59,9 +73,9 @@ public class WorkController{
 			 */
 			  
 			 
-			
 		}
-	  
+		model.addAttribute("workTime", workTime);
+		log.info("가져오는 이름 : {}", workTime);
 		model.addAttribute("list", list);
 		log.info("가져오는 날짜들   :  {}",list);
 		time.setAttribute("list", list);
@@ -69,15 +83,15 @@ public class WorkController{
 		
 		
 	};
-	@GetMapping("/workWay/work_time_management")
+	@GetMapping("/work_time_management")
 	public String workmanagement() {
 		return "workWay/work_time_management";
 	};
-	@GetMapping("/workWay/work_setting")
+	@GetMapping("/work_setting")
 	public String worksetting() {
 		return "workWay/work_setting";
 	};
-	@GetMapping("/workWay/work_setting_list")
+	@GetMapping("/work_setting_list")
 	public String worksettinglist() {
 		return "workWay/work_setting_list";
 	};

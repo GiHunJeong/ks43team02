@@ -4,46 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="ks43team02.mapper.TimeMapper">
-	<resultMap type="TimeDto" id="TimeResultMap">
-		<result column="worktime_cumulative_code" property="worktimeCumulativeCode"/>
-		<result column="cp_representative_code" property="cpRepresentativeCode"/>
-		<result column="standard_worksystem_cp_code" property="standardWorksystemCpCode"/>
-		<result column="workway_code" property="workwayCode"/>
-		<result column="emply_id" property="emplyId"/>
-		<result column="emply_name" property="emplyName"/>
-		<result column="work_date" property="workDate"/>
-		<result column="work_start_time" property="workStartTime"/>
-		<result column="work_end_time" property="workEndTime"/>
-		<result column="return_time" property="workBreakTime"/>
-		<result column="status_late" property="returnTime"/>
-		<result column="status_outside_work" property="statusLate"/>
+	<resultMap type="WorkTime" id="TimeResultMap">
+		<result column="worktime_cumulative_code" 		property="worktimeCumulativeCode"/>
+		<result column="cp_representative_code" 		property="cpRepresentativeCode"/>
+		<result column="standard_worksystem_cp_code"	property="standardWorksystemCpCode"/>
+		<result column="workway_code" 					property="workwayCode"/>
+		<result column="emply_id" 						property="emplyId"/>
+		<result column="emply_name" 					property="emplyName"/>
+		<result column="work_date" 						property="workDate"/>
+		<result column="work_start_time" 				property="workStartTime"/>
+		<result column="work_end_time" 					property="workEndTime"/>
+		<result column="return_time" 					property="workBreakTime"/>
+		<result column="status_late" 					property="returnTime"/>
+		<result column="status_outside_work" 			property="statusLate"/>
 	</resultMap>
-	<select id="getTimeInfoList" parameterType="String" resultMap="TimeResultMap">
-		<!-- SELECT
-		*
-		FROM
-		tb_worktime_cumulative
-		WHERE
-		work_date = '2022-06-22' -->
+	<select id="getWorkTimeEmplyName" parameterType="String" resultMap="TimeResultMap">
+		/* 사원별 일일 출퇴근 누적 전체 가져오기 */
 		SELECT
-			wk.emply_name
-			,wk.emply_id
-			,wk.work_date
-			,wk.work_start_time
-			,wk.work_end_time
-		FROM
-		tb_worktime_cumulative AS wk;
-		
-		<!-- 
-		SELECT
-		   wc.emply_id               AS 'emplyId'
-		   ,wc.emply_name            AS 'emplyName'
-		   ,wc.work_start_time      AS 'workStartTime'
-		   ,wc.work_end_time         AS 'workEndTime'
-		FROM
-		   tb_worktime_cumulative AS wc
-		WHERE
-		   DATE_FORMAT(wc.work_start_time, '%Y-%m-%d') = '2022-06-23';
-		 -->
+			worktime_cumulative_code
+			, cp_representative_code
+			, standard_worksystem_cp_code
+			, workway_code
+			, emply_id
+			, emply_name
+			, work_date
+			, work_start_time
+			, work_end_time
+			, work_break_time
+			, return_time
+			, status_late
+			, status_outside_work
+		FROM 
+			tb_worktime_cumulative
 	</select>
 </mapper>
