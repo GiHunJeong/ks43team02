@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import ks43team02.dto.TimeDto;
+import ks43team02.dto.WorkTime;
 
 @Mapper
 public interface TimeMapper {
 
-	//public List<TimeDto> getEmplyId();
+	public List<WorkTime> getWorkTimeEmplyName();
 	
 	//public TimeDto getTimeInfoById(String emplyId);
 	
