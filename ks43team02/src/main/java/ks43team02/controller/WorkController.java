@@ -6,17 +6,12 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import ks43team02.dto.WorkTime;
 import ks43team02.service.WorkTimeService;
@@ -36,7 +31,7 @@ public class WorkController{
 		this.workTimeService = workTimeService;
 	}
 	@GetMapping("/work_time")
-	public String work(HttpServletRequest time, Model model) {
+	public String work(Model model) {
 		
 		int toYear = 2022;
 		int toMonth = 6;
@@ -53,14 +48,19 @@ public class WorkController{
 		int to = Integer.parseInt(change);
 		System.out.println(to);
 		List<String> list = new ArrayList<String>();
+		List<String> list2 = new ArrayList<String>();
 		for(int dayvalue =1; dayvalue <= to; ++dayvalue) {
 
 			//System.out.println(i);
 			//System.out.println(toYear + "년" + toMonth+ "월" + i);
-			String yearmonthday = dayvalue + "일";
+			String 
+				day = dayvalue + "일"
+				,yearMonthDay = toYear+"-"+toMonth+"-"+dayvalue;
 			//toYear + "년" + toMonth+ "월" + 
-			System.out.println(yearmonthday);
-			list.add(yearmonthday);
+			System.out.println(day);
+			System.out.println(yearMonthDay);
+			list.add(day);
+			list2.add(yearMonthDay);
 			//뷰로 가기 전에 모델 객체에 셋팅 후 포워드 하면 된다.
 			
 			
@@ -77,8 +77,9 @@ public class WorkController{
 		model.addAttribute("workTime", workTime);
 		log.info("가져오는 이름 : {}", workTime);
 		model.addAttribute("list", list);
+		model.addAttribute("list2", list2);
 		log.info("가져오는 날짜들   :  {}",list);
-		time.setAttribute("list", list);
+		log.info("가져오는 날짜들   :  {}",list2);
 		return "workWay/work_time";
 		
 		
