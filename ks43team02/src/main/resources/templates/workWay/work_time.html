@@ -305,7 +305,7 @@
 				<thead>
 					<tr>
 						<th class="flex-row" style="word-break: keep-all;">사원명</th>
-						<th  th:each="l:${list}" th:text="${l}" class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;"></th>
+						<th class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;"></th>
 						<!-- <th th:text="${list}" th:if="${list.size()}" th:each="${list.size()}"></th> -->
 						<!-- <th th:if="${time}" th:each="${time}"></th> -->
 					</tr>
@@ -313,6 +313,9 @@
 				  <tbody>
 				    <tr th:if="${not #lists.isEmpty(workTime)}" th:each="l : ${workTime}">
 				      <td th:text="${l.emplyName}"></td>
+				      <td th:text="${l.workDate}"></td>
+				      <td th:text="${l.workStartTime}"></td>
+				      <td th:text="${l.workEndTime}"></td>
 				    </tr>
 				  </tbody>
 			  </table>

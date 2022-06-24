@@ -11,9 +11,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import ks43team02.dto.WorkSetting;
 import ks43team02.dto.WorkTime;
+import ks43team02.mapper.WorkSettingMapper;
 import ks43team02.service.WorkTimeService;
 
 @Controller
@@ -30,6 +35,10 @@ public class WorkController{
 	public WorkController(WorkTimeService workTimeService) {
 		this.workTimeService = workTimeService;
 	}
+	/*
+	 * 근무제 추가
+	 */
+	
 	@GetMapping("/work_time")
 	public String work(Model model) {
 		
@@ -89,9 +98,30 @@ public class WorkController{
 		return "workWay/work_time_management";
 	};
 	@GetMapping("/work_setting")
-	public String worksetting() {
+	public String worksetting(Model model
+							 ,WorkSetting workSetting
+							 ,@RequestParam(name="worksystemName", required=false) String worksystemName) {
+		List<WorkSetting> workSettingName = workTimeService.getWorkSettingName();
+		model.addAttribute("workSetting" , workSettingName);
+		log.info("근무제 항목들 : {}", workSettingName);
+		 List<WorkSetting> list3 = workTimeService.getWorkSettingName();
+		model.addAttribute("list3", list3);
+		log.info("근무제 항목리스트 : {}", list3);
+		
+		if(worksystemName != null) {
+			log.info("화면에서 입력한 workSetting data : {}", workSetting);
+			log.info("화면에서 입력한 worksystemName : {}", worksystemName);
+			//workSetting.setRegUser("백민주");
+			workTimeService.addWorkSysName(workSetting);
+			return "redirect:/workWay/work_setting";
+		}
+		
 		return "workWay/work_setting";
 	};
+	
+	
+	
+	
 	@GetMapping("/work_setting_list")
 	public String worksettinglist() {
 		return "workWay/work_setting_list";
