@@ -1,6 +1,6 @@
-package ks43team02.dto;
+package ks43team02.service;
 
-public class WorkTime {
+public class workDto {
 	private String startTime;
 	private String endTime;
 	private String breakTime;
@@ -34,6 +34,4 @@ public class WorkTime {
 	public void setReturnTime(String returnTime) {
 		this.returnTime = returnTime;
 	}
-	
-	
 }

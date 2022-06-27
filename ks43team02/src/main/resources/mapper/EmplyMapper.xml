@@ -2,50 +2,60 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="ks43team02.mapper.EmplyMapper">
+
 	<resultMap type="Emply" id="emplyResultMap">
-		<result column="user_name"			property="userName"/>
-		<result column="user_email"			property="userEmail"/>
-		<result column="user_pw"			property="userPw"/>
-		<result column="user_phone"			property="userPhone"/>
-		<result column="user_addr"			property="userAddr"/>
-		<result column="user_lvl"			property="userLvl"/>
-		<result column="user_reg_date"		property="userRegDate"/>
+		<id 	column="emply_id" 				property="emplyId"/>
+		<result column="emply_pw" 				property="emplyPw"/>
+		<result column="emply_number" 			property="emplyNumber"/>
+		<result column="emply_organization" 	property="emplyOrganization"/>
+		<result column="emply_rank" 			property="emplyRank"/>
+		<result column="emply_name" 			property="emplyName"/>
+		<result column="emply_birth" 			property="emplyBirth"/>
+		<result column="salary" 				property="salary"/>
+		<result column="emply_account" 			property="emplyAccount"/>
+		<result column="e_home_address" 		property="emplyAddr"/>
+		<result column="employment_date" 		property="emplymentDate"/>
+		<result column="employment_type" 		property="emplymentType"/>
+		<result column="retire_status"			property="retireStatus"/>
 	</resultMap>
-	<select id="getEmplyInfoById" parameterType="String" resultMap="emplyResultMap">
-		/* 회원 상세정보 조회 */
-		SELECT 
-			user_name
-			, user_email	
-			, user_pw	
-			, user_phone	
-			, user_addr	
-			, user_lvl	
-			, user_reg_date	
-		FROM 
-			test_tb_user
-		WHERE
-			user_email = #{userEmail};
+	
+	<select id="getEmplyList" fetchSize="100" resultMap="emplyResultMap">
+		/* 사원리스트 출력 쿼리문 */
+		SELECT
+			e.emply_id,
+			e.emply_pw,
+			e.emply_number,
+			e.emply_organization,
+			e.emply_rank,
+			e.emply_name,
+			e.emply_birth,
+			e.salary,
+			e.emply_account,
+			e.e_home_address,
+			e.employment_date,
+			e.employment_type,
+			e.retire_status
+		FROM
+			tb_emply_info_reg AS e;
 	</select>
-	<insert id="addEmply" parameterType="Emply">
-		/* 회원가입 테스트 */
-		INSERT INTO test_tb_user
-		(
-			user_name
-			, user_email
-			, user_pw
-			, user_phone
-			, user_addr
-			, user_lvl
-			, user_reg_date
-		) VALUES (
-			#{userName}
-			, #{userEmail}
-			, #{userPw}
-			, #{userPhone}
-			, #{userAddr}
-			, #{userLvl}
-			, CURDATE()
-		);
-	</insert>
-</mapper>
+	
+	<select id="getSearchEmplyList" fetchSize="1000" parameterType="String" resultMap="emplyResultMap">
+		/* 사원 검색 */
+		SELECT
+			e.emply_id,
+			e.emply_name,
+			e.emply_number,
+			e.emply_organization,
+			e.emply_rank
+		FROM
+			tb_emply_info_reg AS e
+		<trim prefix="WHERE" prefixOverrides="AND /OR ">
+			<if test="searchValue != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%',#{searchValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
+</mapper>	

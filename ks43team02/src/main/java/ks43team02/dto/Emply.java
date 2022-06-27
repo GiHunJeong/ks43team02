@@ -1,58 +1,106 @@
 package ks43team02.dto;
 
 public class Emply {
-	private String userName;
-	private String userEmail;
-	private String userPw;
-	private String userPhone;
-	private String userAddr;
-	private int userLvl;
-	private String userRegDate;
-	public String getUserName() {
-		return userName;
+	
+    private String emplyId;
+	private String emplyPw;
+    private String emplyNumber;
+    private String emplyOrganization;
+	private String emplyRank;
+    private String emplyName;
+    private String emplyBirth;
+    private String salary;
+	private String emplyAccount;
+    private String emplyAddr;
+    private String emplymentDate;
+    private String emplymentType;
+    private boolean retireStatus;
+    
+	public String getEmplyId() {
+		return emplyId;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmplyId(String emplyId) {
+		this.emplyId = emplyId;
 	}
-	public String getUserEmail() {
-		return userEmail;
+	public String getEmplyPw() {
+		return emplyPw;
 	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setEmplyPw(String emplyPw) {
+		this.emplyPw = emplyPw;
 	}
-	public String getUserPw() {
-		return userPw;
+	public String getEmplyNumber() {
+		return emplyNumber;
 	}
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
+	public void setEmplyNumber(String emplyNumber) {
+		this.emplyNumber = emplyNumber;
 	}
-	public String getUserPhone() {
-		return userPhone;
+	public String getEmplyOrganization() {
+		return emplyOrganization;
 	}
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
+	public void setEmplyOrganization(String emplyOrganization) {
+		this.emplyOrganization = emplyOrganization;
 	}
-	public String getUserAddr() {
-		return userAddr;
+	public String getEmplyRank() {
+		return emplyRank;
 	}
-	public void setUserAddr(String userAddr) {
-		this.userAddr = userAddr;
+	public void setEmplyRank(String emplyRank) {
+		this.emplyRank = emplyRank;
 	}
-	public int getUserLvl() {
-		return userLvl;
+	public String getEmplyName() {
+		return emplyName;
 	}
-	public void setUserLvl(int userLvl) {
-		this.userLvl = userLvl;
+	public void setEmplyName(String emplyName) {
+		this.emplyName = emplyName;
 	}
-	public String getUserRegDate() {
-		return userRegDate;
+	public String getEmplyBirth() {
+		return emplyBirth;
 	}
-	public void setUserRegDate(String userRegDate) {
-		this.userRegDate = userRegDate;
+	public void setEmplyBirth(String emplyBirth) {
+		this.emplyBirth = emplyBirth;
 	}
+	public String getSalary() {
+		return salary;
+	}
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+	public String getEmplyAccount() {
+		return emplyAccount;
+	}
+	public void setEmplyAccount(String emplyAccount) {
+		this.emplyAccount = emplyAccount;
+	}
+	public String getEmplyAddr() {
+		return emplyAddr;
+	}
+	public void setEmplyAddr(String emplyAddr) {
+		this.emplyAddr = emplyAddr;
+	}
+	public String getEmplymentDate() {
+		return emplymentDate;
+	}
+	public void setEmplymentDate(String emplymentDate) {
+		this.emplymentDate = emplymentDate;
+	}
+	public String getEmplymentType() {
+		return emplymentType;
+	}
+	public void setEmplymentType(String emplymentType) {
+		this.emplymentType = emplymentType;
+	}
+	public boolean getRetireStatus() {
+		return retireStatus;
+	}
+	public void setRetireStatus(boolean retireStatus) {
+		this.retireStatus = retireStatus;
+	}
+	
 	@Override
 	public String toString() {
-		return "Emply [userName=" + userName + ", userEmail=" + userEmail + ", userPw=" + userPw + ", userPhone="
-				+ userPhone + ", userAddr=" + userAddr + ", userLvl=" + userLvl + ", userRegDate=" + userRegDate + "]";
+		return "Emply [emplyId=" + emplyId + ", emplyPw=" + emplyPw + ", emplyNumber=" + emplyNumber
+				+ ", emplyOrganization=" + emplyOrganization + ", emplyRank=" + emplyRank + ", emplyName=" + emplyName
+				+ ", emplyBirth=" + emplyBirth + ", salary=" + salary + ", emplyAccount=" + emplyAccount
+				+ ", emplyAddr=" + emplyAddr + ", emplymentDate=" + emplymentDate + ", emplymentType=" + emplymentType
+				+ ", retireStatus=" + retireStatus + "]";
 	}
 }

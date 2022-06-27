@@ -14,7 +14,7 @@
                 <!-- ============================================================== -->
                 <div class="navbar-brand">
                     <!-- Logo icon -->
-                    <a href="/">
+                    <a href="index.html">
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
                             <img th:src="@{/assets/images/logo-icon.png}" alt="homepage" class="dark-logo" />
@@ -24,12 +24,10 @@
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
-                        	<!-- Text Logo -->
-                            <div class="dark-logo">Ensecretary</div>
                             <!-- dark Logo text -->
-                            <!-- <img th:src="@{/assets/images/logo-text.png}" alt="homepage" class="dark-logo" /> -->
+                            <img th:src="@{/assets/images/logo-text.png}" alt="homepage" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <!-- <img th:src="@{/assets/images/logo-light-text.png}" class="light-logo" alt="homepage" /> -->
+                            <img th:src="@{/assets/images/logo-light-text.png}" class="light-logo" alt="homepage" />
                         </span>
                     </a>
                 </div>
@@ -179,30 +177,15 @@
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" th:if="${session.SEMAIL == null}" href="javascript:void(0)" data-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
                                 width="40">
                             <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                    class="text-dark">You need login.</span> <i data-feather="chevron-down"
+                                    class="text-dark">Jason Doe</span> <i data-feather="chevron-down"
                                     class="svg-icon"></i></span>
                         </a>
-                        <a class="nav-link dropdown-toggle" th:unless="${session.SEMAIL == null}" href="javascript:void(0)" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
-                                width="40">
-                            <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                    class="text-dark">[[${session.SNAME}]] 사원</span> <i data-feather="chevron-down"
-                                    class="svg-icon"></i></span>
-                        </a>
-                        <!-- 로그인 비로그인 상태창 시작 -->                      
-                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:if="${session.SEMAIL == null}">        
-                            <a class="dropdown-item" th:href="@{/login/login}"><i data-feather="power"
-                                    class="svg-icon mr-2 ml-1"></i>
-                                Login</a>
-                            <div class="dropdown-divider"></div>                        
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:unless="${session.SEMAIL == null}">        
+                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                             <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
                                     class="svg-icon mr-2 ml-1"></i>
                                 My Profile</a>
@@ -217,14 +200,13 @@
                                     class="svg-icon mr-2 ml-1"></i>
                                 Account Setting</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/logout}"><i data-feather="power"
+                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
                                 Logout</a>
                             <div class="dropdown-divider"></div>
                             <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
-                                    Profile</a></div>                        
-                        </div>                 
-                        <!-- 로그인 비로그인 상태창 끝 --> 
+                                    Profile</a></div>
+                        </div>
                     </li>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
