@@ -29,7 +29,6 @@ public class PayController {
 	// 급여세팅페이지(현재 세팅값 확인)
 	@GetMapping("/paySetting")
 	public String paySetting() {
-		
 		return "pay/paySetting";
 	};
 	
