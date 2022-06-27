@@ -1,80 +1,26 @@
 package ks43team02.dto;
 
 public class Emply {
-	private String emplyId;
-	private String organizationCodeS;
-	private String rankLevelCode;
-	private String positionLevelCode;
-	private String cpRepresentativeCode;
-	private String superAdminId;
-	private String emplyPw;
-	private String emplyNumber;
-	private String emplyName;
-	private String emplyBirth;
-	private String emplyAccount;
-	private String emplyHomeAddress;
-	private String emplymentDate;
-	private String emplymentType;
-	private boolean retireStatus;
-	private String cpName;
-	private String regDate;
-	private RankLevelList rankLevelList;
-	private PositionLevelList positionLevelList;
-	private OrganizationSList organizationSList;
 	
-	public OrganizationSList getOrganizationSList() {
-		return organizationSList;
-	}
-	public void setOrganizationSList(OrganizationSList organizationSList) {
-		this.organizationSList = organizationSList;
-	}
-	public RankLevelList getRankLevelList() {
-		return rankLevelList;
-	}
-	public void setRankLevelList(RankLevelList rankLevelList) {
-		this.rankLevelList = rankLevelList;
-	}
-	public PositionLevelList getPositionLevelList() {
-		return positionLevelList;
-	}
-	public void setPositionLevelList(PositionLevelList positionLevelList) {
-		this.positionLevelList = positionLevelList;
-	}
+    private String emplyId;
+	private String emplyPw;
+    private String emplyNumber;
+    private String emplyOrganization;
+	private String emplyRank;
+    private String emplyName;
+    private String emplyBirth;
+    private String salary;
+	private String emplyAccount;
+    private String emplyAddr;
+    private String emplymentDate;
+    private String emplymentType;
+    private boolean retireStatus;
+    
 	public String getEmplyId() {
 		return emplyId;
 	}
 	public void setEmplyId(String emplyId) {
 		this.emplyId = emplyId;
-	}
-	public String getOrganizationCodeS() {
-		return organizationCodeS;
-	}
-	public void setOrganizationCodeS(String organizationCodeS) {
-		this.organizationCodeS = organizationCodeS;
-	}
-	public String getRankLevelCode() {
-		return rankLevelCode;
-	}
-	public void setRankLevelCode(String rankLevelCode) {
-		this.rankLevelCode = rankLevelCode;
-	}
-	public String getPositionLevelCode() {
-		return positionLevelCode;
-	}
-	public void setPositionLevelCode(String positionLevelCode) {
-		this.positionLevelCode = positionLevelCode;
-	}
-	public String getCpRepresentativeCode() {
-		return cpRepresentativeCode;
-	}
-	public void setCpRepresentativeCode(String cpRepresentativeCode) {
-		this.cpRepresentativeCode = cpRepresentativeCode;
-	}
-	public String getSuperAdminId() {
-		return superAdminId;
-	}
-	public void setSuperAdminId(String superAdminId) {
-		this.superAdminId = superAdminId;
 	}
 	public String getEmplyPw() {
 		return emplyPw;
@@ -88,6 +34,18 @@ public class Emply {
 	public void setEmplyNumber(String emplyNumber) {
 		this.emplyNumber = emplyNumber;
 	}
+	public String getEmplyOrganization() {
+		return emplyOrganization;
+	}
+	public void setEmplyOrganization(String emplyOrganization) {
+		this.emplyOrganization = emplyOrganization;
+	}
+	public String getEmplyRank() {
+		return emplyRank;
+	}
+	public void setEmplyRank(String emplyRank) {
+		this.emplyRank = emplyRank;
+	}
 	public String getEmplyName() {
 		return emplyName;
 	}
@@ -100,17 +58,23 @@ public class Emply {
 	public void setEmplyBirth(String emplyBirth) {
 		this.emplyBirth = emplyBirth;
 	}
+	public String getSalary() {
+		return salary;
+	}
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
 	public String getEmplyAccount() {
 		return emplyAccount;
 	}
 	public void setEmplyAccount(String emplyAccount) {
 		this.emplyAccount = emplyAccount;
 	}
-	public String getEmplyHomeAddress() {
-		return emplyHomeAddress;
+	public String getEmplyAddr() {
+		return emplyAddr;
 	}
-	public void setEmplyHomeAddress(String emplyHomeAddress) {
-		this.emplyHomeAddress = emplyHomeAddress;
+	public void setEmplyAddr(String emplyAddr) {
+		this.emplyAddr = emplyAddr;
 	}
 	public String getEmplymentDate() {
 		return emplymentDate;
@@ -124,33 +88,19 @@ public class Emply {
 	public void setEmplymentType(String emplymentType) {
 		this.emplymentType = emplymentType;
 	}
-	public boolean isRetireStatus() {
+	public boolean getRetireStatus() {
 		return retireStatus;
 	}
 	public void setRetireStatus(boolean retireStatus) {
 		this.retireStatus = retireStatus;
 	}
-	public String getCpName() {
-		return cpName;
-	}
-	public void setCpName(String cpName) {
-		this.cpName = cpName;
-	}
-	public String getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
+	
 	@Override
 	public String toString() {
-		return "Emply [emplyId=" + emplyId + ", organizationCodeS=" + organizationCodeS + ", rankLevelCode="
-				+ rankLevelCode + ", positionLevelCode=" + positionLevelCode + ", cpRepresentativeCode="
-				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", emplyPw=" + emplyPw + ", emplyNumber="
-				+ emplyNumber + ", emplyName=" + emplyName + ", emplyBirth=" + emplyBirth + ", emplyAccount="
-				+ emplyAccount + ", emplyHomeAddress=" + emplyHomeAddress + ", emplymentDate=" + emplymentDate
-				+ ", emplymentType=" + emplymentType + ", retireStatus=" + retireStatus + ", cpName=" + cpName
-				+ ", regDate=" + regDate + ", rankLevelList=" + rankLevelList + ", positionLevelList="
-				+ positionLevelList + ", organizationSList=" + organizationSList + "]";
+		return "Emply [emplyId=" + emplyId + ", emplyPw=" + emplyPw + ", emplyNumber=" + emplyNumber
+				+ ", emplyOrganization=" + emplyOrganization + ", emplyRank=" + emplyRank + ", emplyName=" + emplyName
+				+ ", emplyBirth=" + emplyBirth + ", salary=" + salary + ", emplyAccount=" + emplyAccount
+				+ ", emplyAddr=" + emplyAddr + ", emplymentDate=" + emplymentDate + ", emplymentType=" + emplymentType
+				+ ", retireStatus=" + retireStatus + "]";
 	}
 }

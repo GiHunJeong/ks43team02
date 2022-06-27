@@ -2,100 +2,59 @@ package ks43team02.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks43team02.dto.Emply;
-import ks43team02.dto.OrganizationLList;
-import ks43team02.dto.OrganizationMList;
-import ks43team02.dto.OrganizationSList;
 import ks43team02.service.EmplyService;
 
 @Controller
-@RequestMapping("/member")
-public class EmplyController {
-	
-	private static final Logger log = LoggerFactory.getLogger(EmplyController.class);
+@RequestMapping("/emply")
+public class EmplyController{
 	
 	private final EmplyService emplyService;
 	
 	public EmplyController(EmplyService emplyService) {
 		this.emplyService = emplyService;
 	}
-	//조직도 소분류
-	@GetMapping("/organizationSName")
-	@ResponseBody
-	public List<OrganizationSList> getOrganiSListByCode(@RequestParam(name="organiM", required=false) String organiM) {
-		log.info("organiM 의 값 {}", organiM);
-		List<OrganizationSList> organiSName = emplyService.getOrganiSListByCode(organiM);
-		log.info("OrganizationSList 값 {}", organiSName);
-		return organiSName;
+	
+	//회원 목록 조회
+	@GetMapping("/emplyList")
+	public String getEmplyList(Model model) {
+		System.out.println("dddd");
+		List<Emply> emplyList = emplyService.getEmplyList();
+		model.addAttribute("emplyList", emplyList);
+		return "emply/emplyList";
 	}
-	//조직도 중분류
-	@GetMapping("/organizationMName")
-	@ResponseBody
-	public List<OrganizationMList> organizationMName(@RequestParam(name="organiL", required=false) String organiL) {
-		log.info("organiL 의 값 {}", organiL);
-		List<OrganizationMList> organiMName = emplyService.getOrganiMListByCode(organiL);
-		log.info("OrganizationMList 값 {}", organiMName);
-		return organiMName;
-	}
-	//조직도 대분류
-
-	//사원 개인정보수정
-	@GetMapping("/emply_modify_my")
-	public String emplyModifyMy() {
-		return "member/emply_modify_my";
-	}
-	//회원전체조회
-	@GetMapping("/emply_list")
-	public String getEmplyInfoList(Model model) {
-		List<Emply> emplyInfoList = emplyService.getEmplyInfoList();
-		model.addAttribute("emplyInfoList", emplyInfoList);
-		
-		return "member/emply_list";
-	}	
-	//아이디중복체크
-	@PostMapping("/emailCheck")
-	@ResponseBody
-	public boolean emailCheck(@RequestParam(name="emplyId", required=false) String emplyId) {
-		log.info("이메일 중복 체크 : {}", emplyId);
-		
-		// true : 아이디 중복 x, false : 아이디 중복 o
-		
-		Emply emply = emplyService.getEmplyInfoById(emplyId);
-
-		boolean isEmailCheck = true;
-		if((emply != null)) {		
-				isEmailCheck = false;			
+	
+	//회원 목록 검색
+	@PostMapping("/emplyList")
+	public String getSearchEmplyList(@RequestParam(name="searchKey") String searchKey
+									 ,@RequestParam(name="searchValue", required = false) String searchValue
+									 ,Model model) {
+		if("emplyId".equals(searchKey)) {
+			searchKey="e.emply_id";
+		} else if("emplyName".equals(searchKey)) {
+			searchKey="e.emply_name";
+		} else if("emplyNumber".equals(searchKey)) {
+			searchKey="e.emply_number";
+		} else if("emplyOrganization".equals(searchKey)) {
+			searchKey="e.emply_organization";
+		} else {
+			searchKey="e.emply_rank";
 		}
-		return isEmailCheck;
-	}
-	//회원가입
-	@PostMapping("/register")
-	public String register(Emply emply
-						  ,@RequestParam(name="emplyId", required = false) String emplyId) {
-		log.info("회원가입화면에서 입력한 emply data : {}", emply);
-		log.info("회원가입화면에서 입력한 userId : {}", emplyId);
-		emply.setRankLevelCode("rank_level_code_01");
-		emply.setPositionLevelCode("position_level_code_01");
-		emplyService.addEmply(emply);
 		
-		return "redirect:/";
-	}
-	//회원가입이동
-	@GetMapping("/register")
-	public String organiLList(Model model) {
-		List<OrganizationLList> organiLList = emplyService.getOrganiLList();
-		model.addAttribute("organiLList", organiLList);
+		List<Emply> searchEmplyList = emplyService.getSearchEmplyList(searchKey, searchValue);
 		
-		return "member/register";
+		if(searchEmplyList != null) {
+			model.addAttribute("emplyList", searchEmplyList);
+		}
+		return "emply/emplyList";
 	}
+	
 }
+
