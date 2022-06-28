@@ -53,9 +53,9 @@ public class WorkTimeService {
 	 * workSettingList = workSettingMapper.getWorkSettingList(); return
 	 * workSettingList; }
 	 */
-	public List<WorkSettingList> getWorkSettingList() {
-		List<WorkSettingList> workSettingList = workSettingMapper.getWorkSettingList();
-		return workSettingList;
+	public int addWorkSettingList(WorkSettingList workSettingList) {
+		int addWorkSettingList = workSettingMapper.addWorkSettingList(workSettingList);
+		return addWorkSettingList;
 	}
 	
 }

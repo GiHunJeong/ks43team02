@@ -10,6 +10,8 @@ public class WorkSettingList {
 	private String breakTime;
 	private String cpName;
 	private String regDate;
+	
+	
 	public String getStandardWorksystemCpCode() {
 		return standardWorksystemCpCode;
 	}

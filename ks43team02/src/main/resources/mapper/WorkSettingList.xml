@@ -31,6 +31,26 @@
 	</select>
 	<insert id="addWorkSettingList" parameterType="WorkSettingList">
 		/*근무제 세팅 추가 리스트 조회*/
-		
+		INSERT INTO 
+			tb_standard_worksystem_cp
+			(standard_worksystem_cp_code
+			, cp_representative_code
+			, super_admin_id
+			, standard_work_code
+			, work_start_time
+			, work_end_time
+			, break_time
+			, cp_name
+			, reg_date)
+			VALUES 
+			('standard_work_cp_code_08'
+			, 'cp_representative_code_01'
+			, 'ksmart43id@ksmart.or.kr'
+			, 'standard_work_code_07'
+			, CURDATE()
+			, CURDATE()
+			, CURDATE()
+			, '한국스마트정보교육원'
+			, CURDATE());
 	</insert>
 </mapper>
