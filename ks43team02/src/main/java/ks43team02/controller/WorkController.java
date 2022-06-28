@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javassist.expr.NewArray;
 import ks43team02.dto.WorkSetting;
 import ks43team02.dto.WorkSettingList;
 import ks43team02.dto.WorkTime;
@@ -124,13 +123,10 @@ public class WorkController{
 	
 	
 	@GetMapping("/work_setting_list")
-	public String workSettingList(@RequestParam (name = "standardWorkCode", required = false) String standardWorkCode
-								) {
-		//List<String> workSettingList = workTimeService.getWorkSettingList();
-		//model.addAttribute(workSettingList);
-		//WorkSettingList workSettingList = workTimeService.getWorkSettingList()
-		log.info(standardWorkCode);
-		return "workWay/work_setting_list";
+	public String workSettingList(Model model
+								,WorkSettingList workSettingList) {
+		workTimeService.addWorkSettingList(workSettingList);
+		return "redirect:/workWay/work_setting_list";
 	};
 	
 	

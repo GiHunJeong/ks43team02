@@ -23,6 +23,7 @@ public interface WorkSettingMapper {
 	public String worksetting(WorkSetting worksetting);
 	
 	//전체 근무제 리스트 가져오기
-	public List<WorkSettingList> getWorkSettingList();
-	public String workSettingList(WorkSettingList workSettingList);
+	public List<WorkSettingList> addWorkSettingList();
+	//public String workSettingList(WorkSettingList workSettingList);
+	public int addWorkSettingList(WorkSettingList workSettingList);
 }

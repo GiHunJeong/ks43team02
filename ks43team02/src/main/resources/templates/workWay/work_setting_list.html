@@ -20,8 +20,8 @@
 	             <div class="table-responsive">
 	                 <table class="table">
 	                     <thead>
-	                         <tr>
-	                             <th th:text="${list4}" scope="col">#</th>
+	                         <tr th:if="${not #lists.isempty(list4)}" th:each="l : ${list4}">
+	                             <th th:text="${l." scope="col">#</th>
 	                           <!--   <th scope="col">First</th>
 	                             <th scope="col">Last</th>
 	                             <th scope="col">Handle</th> -->
