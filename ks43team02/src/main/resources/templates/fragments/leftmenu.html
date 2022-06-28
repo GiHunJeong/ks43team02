@@ -54,12 +54,12 @@
                  	<i data-feather="file-text" class="feather-icon"></i>
                  	  <span class="hide-menu">!게시판(김윤재)</span></a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-						<li class="sidebar-item"><a href="#" class="sidebar-link"><span
+						<li class="sidebar-item"><a th:href="@{/board/notice_list}" class="sidebar-link"><span
 						            class="hide-menu"> 공지사항
 						        </span></a>
 						</li>
-						<li class="sidebar-item"><a href="#" class="sidebar-link"><span
-						            class="hide-menu"> 부서별 게시판
+						<li class="sidebar-item"><a th:href="@{/board/department_list}" class="sidebar-link"><span
+						            class="hide-menu"> 부서별 게시판 
 						        </span></a>
 						</li>
 					</ul>
@@ -130,9 +130,19 @@
                  <!-- 급 여 관 리 끝 -->
                  <!-- 연차 시 작 -->
                  <li class="sidebar-item">
-                 	<a class="sidebar-link sidebar-link" th:href="@{/annual/annualList}"  aria-expanded="false">
+                 	<a class="sidebar-link has-arrow" href="javascript:void(0)"  aria-expanded="false">
                     <i data-feather="calendar" class="feather-icon"></i>
                       <span class="hide-menu">!연차(임소정)</span></a>
+                       <ul aria-expanded="false" class="collapse  first-level base-level-line">
+						<li class="sidebar-item"><a th:href="@{/annual/annualList}" class="sidebar-link"><span
+						            class="hide-menu"> !연차등록
+						        </span></a>
+						</li>
+						<li class="sidebar-item"><a th:href="@{/annual/annualSetting}" class="sidebar-link"><span
+						            class="hide-menu"> !연차세팅
+						        </span></a>
+						</li>
+					</ul>
                  </li>
                  <!-- 연 차 끝 -->
          	</ul>             
