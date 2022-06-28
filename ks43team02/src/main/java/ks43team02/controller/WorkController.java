@@ -6,19 +6,20 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import javassist.expr.NewArray;
 import ks43team02.dto.WorkSetting;
+import ks43team02.dto.WorkSettingList;
 import ks43team02.dto.WorkTime;
-import ks43team02.mapper.WorkSettingMapper;
 import ks43team02.service.WorkTimeService;
 
 @Controller
@@ -123,7 +124,12 @@ public class WorkController{
 	
 	
 	@GetMapping("/work_setting_list")
-	public String worksettinglist() {
+	public String workSettingList(@RequestParam (name = "standardWorkCode", required = false) String standardWorkCode
+								) {
+		//List<String> workSettingList = workTimeService.getWorkSettingList();
+		//model.addAttribute(workSettingList);
+		//WorkSettingList workSettingList = workTimeService.getWorkSettingList()
+		log.info(standardWorkCode);
 		return "workWay/work_setting_list";
 	};
 	

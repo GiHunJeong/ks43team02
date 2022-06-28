@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team02.dto.WorkSetting;
+import ks43team02.dto.WorkSettingList;
 import ks43team02.dto.WorkTime;
 import ks43team02.mapper.TimeMapper;
 import ks43team02.mapper.WorkSettingMapper;
@@ -44,6 +45,17 @@ public class WorkTimeService {
 	public List<WorkSetting> getWorkSettingName(){
 		List<WorkSetting> workSettingName = workSettingMapper.getWorkSettingName();
 		return workSettingName;
+	}
+	
+	//근무제 전체세팅 리스트로 보여주기
+	/*
+	 * public List<WorkSettingList> getWorkSettingList(){ List<WorkSettingList>
+	 * workSettingList = workSettingMapper.getWorkSettingList(); return
+	 * workSettingList; }
+	 */
+	public List<WorkSettingList> getWorkSettingList() {
+		List<WorkSettingList> workSettingList = workSettingMapper.getWorkSettingList();
+		return workSettingList;
 	}
 	
 }
