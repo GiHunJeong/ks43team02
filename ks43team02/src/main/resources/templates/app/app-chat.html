@@ -1,0 +1,167 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+<th:block layout:fragment="customHeadScript">
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <!-- Tell the browser to be responsive to screen width -->
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <!-- Favicon icon -->
+	    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon.png}">
+	    <title>ksmart</title>
+	    <!-- This page css -->
+	    <!-- Custom CSS -->
+	    <link th:href="@{/dist/css/style.min.css}" rel="stylesheet">
+	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	    <!--[if lt IE 9]>
+	        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	        <![endif]-->
+	</head>
+</th:block>
+
+	<!-- 사용자 정의 contents -->
+	<th:block layout:fragment="customContents">
+		<div id="container" class="container">
+	        <div class="col-md-12">
+	            <div class="card">
+	                <div class="row no-gutters">
+	                    <div class="col-lg-3 col-xl-2 border-right">
+	                        <div class="card-body border-bottom">
+	                            <form>
+	                                <input class="form-control" type="text" placeholder="Search">
+	                            </form>
+	                        </div>
+	                        <div class="scrollable position-relative" style="height: calc(100vh - 111px);">
+	                            <ul class="mailbox list-style-none">
+	                                <li>
+	                                    <div class="message-center">
+	                                        <!-- Message -->
+	                                        <a href="javascript:void(0)"
+	                                            class="message-item d-flex align-items-center border-bottom px-3 py-2">
+
+	                                        </a>
+	                                        <!-- Message -->
+	                                    </div>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-9  col-xl-10">
+	                        <div class="chat-box scrollable position-relative"
+	                            style="height: calc(100vh - 111px);">
+	                            <!--chat Row -->
+	                            <ul class="chat-list list-style-none px-3 pt-3">
+	                                <!--chat Row -->
+	                                <li class="chat-item list-style-none mt-3">
+	                                    <div class="">
+	                                    	<h1>메신저</h1>
+	                                    	<input type="hidden" id="sessionId" value=[[${session.SNAME}]]>
+	                                    </div>
+	                                    <div id="container" class="container d-inline-block pl-3">
+	                                        <div id="chating" class="chating">
+											</div>			
+	                                    </div>
+	                                </li>   
+	                                <!--chat Row -->
+	                            </ul>
+	                        </div>
+	                        <div class="card-body border-top">
+	                            <div class="row">
+	                                <div class="col-9">
+	                                    <div class="input-field mt-0 mb-0">
+	                                    	<input id="userName" type="hidden" th:text="${session.SNAME}"/>
+	                                        <input id="chatting" placeholder="보내실 메시지를 입력하세요."
+	                                            class="form-control border-0" type="text">
+	                                    </div>
+	                                </div>
+	                                <div class="col-3" align="right">
+										<button onclick="send()" class="fas fa-paper-plane" id="sendBtn"></button>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</th:block>
+
+	<th:block layout:fragment="customScript">
+	    <!-- ============================================================== -->
+	    <!-- All Jquery -->
+	    <!-- ============================================================== -->
+	    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+	    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+	    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstram.min.js}"></script>
+	    <!-- ============================================================== -->
+	    <!-- apps -->
+	    <!-- ============================================================== -->
+	    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+	    <script th:src="@{/dist/js/feather.min.js}"></script>
+	    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+	    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+	    <!-- ============================================================== -->
+	    <!--Custom JavaScript -->
+	    <!-- ============================================================== -->
+	    <script th:src="@{/dist/js/custom.min.js}"></script>
+	    <!-- ============================================================== -->
+	    <!--This page JavaScript -->
+	    <!-- ============================================================== -->
+	   <script type="text/javascript">
+			var ws;
+		
+			function wsOpen(){
+				ws = new WebSocket("ws://" + location.host + "/app/chating");
+				wsEvt();
+			}
+				
+			function wsEvt() {
+				ws.onopen = function(data){
+					//소켓이 열리면 초기화 세팅하기
+				}
+				
+				ws.onmessage = function(data) {
+					var msg = data.data;
+					if(msg != null && msg.trim() != ''){
+						var m = JSON.parse(msg);
+						if(m.type == "getId"){
+							var si = m.sessionId != null ? m.sessionId : "";
+							if(si != ''){
+								$("#sessionId").val(si); 
+							}
+						}else if(m.type == "message"){
+							if(m.sessionId == $("#sessionId").val()){
+								$("#chating").append("<div><span class='me'> 나 : " + m.msg + new Date().toLocaleTimeString() + "</span></div>");	
+							}else{
+								$("#chating").append("<div><span class='others'> 상대 : " + m.msg + new Date().toLocaleTimeString()) + "</span></div>";
+							}
+						}
+					}
+				}
+		
+				document.addEventListener("keypress", function(e){
+					if(e.keyCode == 13){ //enter press
+						send();
+					}
+				});
+			}
+		
+			wsOpen();
+			
+			function send() {
+				var option = {
+						type : "message",
+						sessionId : $("#sessionId").val(),
+						msg : $("#chatting").val()
+					}
+					ws.send(JSON.stringify(option))
+					$('#chatting').val("");
+			}
+		</script>
+	</th:block>
+</html>

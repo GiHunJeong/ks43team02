@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	  
+	<th:block layout:fragment="customContents">
+		<div class="card">
+			<div class="card-body">
+
+			    <!--/* 게시글 영역 */-->
+			    <div class="table-responsive clearfix">
+					<table class="table table-hover">
+						<thead class="bg-primary text-white">
+							<tr>
+			                    <th>번호</th>
+			                    <th>제목</th>
+			                    <th>작성자 이름</th>
+			                    <th>등록일</th>
+			                    <th>조회 수</th>
+			                </tr>
+						</thead>
+						<tbody>
+							<tr th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
+								<td th:text="${l.cpNoticeCode}"></td>
+								<td><a th:href="@{/board/notice_detail(cpNoticeCode=${l.cpNoticeCode})}"
+									   th:text="${l.noticeTitle}"></a></td>
+								<td th:text="${l.regUserName}"></td>
+								<td th:text="${l.regDate}"></td>
+								<td th:text="${l.viewCnt}"></td>
+							</tr>
+							
+							<!-- <tr th:unless="${not #lists.isEmpty(noticeBoardList)}">
+								<td colspan="6">조회된 내용이 없습니다.</td>
+							</tr> -->
+						</tbody>
+			            <!--/* 게시글 리스트 Rendering 영역 */-->
+
+			        </table>
+			    </div>
+		    
+		    
+		       <div class="btn_wrap text-right">
+		       		<a class="btn btn-primary " href="notice_write" role="button">글쓰기</a>
+		       </div>
+		
+		       <!-- 페이지네이션 Rendering 영역 -->
+		        <nav aria-label="Page navigation">
+					
+				</nav>
+		       
+			</div>
+		</div>
+    </th:block>
+	
+	<th:block layout:fragment="script">
+    	
+    </th:block>
+
+    
+</body>
+</html>

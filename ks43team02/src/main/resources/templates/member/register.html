@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon.png}">
+    <title>Ensecretary Register</title>
+    <!-- Custom CSS -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <link th:href="@{/dist/css/style.min.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative">
+        <!-- style="background:url(/assets/images/big/auth-bg.jpg) no-repeat center center;" <-- 배경이 넣고싶을때 -->
+            <div class="auth-box row text-center">
+                <div class="col-lg-0 col-md-0 modal-bg-img">
+                <!--  style="background-image: url(/assets/images/big/3.jpg);" 오른쪽 배경 넣고 싶을때 -->
+                </div>
+                <div class="col-lg-12 col-md-7 bg-white">
+                    <div class="p-3">
+                        <img th:src="@{/assets/images/logo-icon.png}" alt="wrapkit">
+                        <h2 class="mt-3 text-center">회원가입</h2>
+                        <form class="mt-4" th:action="@{/member/register}" method="post">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="emplyName" placeholder="이름">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="emplyId" name="emplyId" placeholder="이메일">
+                                    </div>
+                                </div>
+                                <!-- 로그인 유효성 검사 성공 실패 -->
+                               	<!-- <input type="email" class="form-control is-valid" id="inputHorizontalSuccess" placeholder="name@example.com">
+                               	<input type="email" class="form-control is-invalid" id="inputHorizontalDnger" placeholder="name@example.com"> -->
+                               	<!-- 로그인 유효성 검사 성공 실패  -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="form-control" type="password" id="emplyPw" name="emplyPw" placeholder="패스워드">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="form-control" type="password" id="emplyPwCheck" name="emplyPwCheck" placeholder="패스워드확인">
+                                    </div>
+                                    <div class="form-group">
+                                    	<span id="passNotMatch" style="display:none;">비밀번호가 일치하지 않습니다.</span>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                <!-- ///////////////////////////////// -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="emplyNumber" placeholder="사원번호">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <!-- <input class="form-control" type="text" name="emplyBirth" placeholder=""> -->
+                                        <h6 class="card-title">생년월일</h6>
+                                        <input type="date" name="emplyBirth" class="form-control"> <!-- 생년월일 -->
+                                    </div>
+                                </div>
+                                <!-- 주소검색 -->
+						        <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="emplyAddr1" name="emplyHomeAddressZip" placeholder="우편번호">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="emplyAddr2" name="emplyHomeAddress" placeholder="주소">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="emplyAddr3" name="emplyHomeAddressDetail" placeholder="상세주소">
+                                    </div>
+                                    <div class="form-group">
+                                    	<button id="addrBtn" type="button" class="btn btn-block btn-dark">주소검색</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="emplyAccount" placeholder="계좌번호">
+                                    </div>
+                                </div>
+                              	
+                               	<!-- 주소검색 -->
+                                <!-- /////////////////조직도리스트//////////////// -->  
+								<div class="col-lg-12">
+							        <!-- 조직도 대분류 -->
+							        <div class="form-group mb-4">            
+							            <label class="mr-sm-2" for="organiL">조직도대분류</label>
+							            <select class="custom-select mr-sm-2" id="organiL" name="organiL">
+							                <option>Choose...</option>
+								            <th:block th:if="${not #lists.isEmpty(organiLList)}" th:each="l : ${organiLList}">
+								                <option th:value="${l.organizationNameL}">[[${l.organizationNameL}]]</option>
+								            </th:block>
+								            <th:block th:unless="${not #lists.isEmpty(organiLList)}">
+												<option value="">등록된 조직도가 없습니다.</option>
+											</th:block>
+							            </select>
+							        </div>
+							        <!-- 조직도 대분류 --> 
+							        
+							        <!-- 조직도 중분류 -->
+							        <div class="form-group mb-4" id="organiMSelect" style="display:none;">            
+							            <label class="mr-sm-2" for="organiM">조직도중분류</label>
+							            <select class="custom-select mr-sm-2" id="organiM" name="organiM">
+							            </select>
+							        </div>
+							        <!-- 조직도 중분류 --> 
+							        
+							        <!-- 조직도 소분류 -->
+							        <div class="form-group mb-4" id="organiSSelect" style="display:none;">            
+							            <label class="mr-sm-2" for="organiS">조직도소분류</label>
+							            <select class="custom-select mr-sm-2" id="organiS" name="organizationCodeS">
+							            </select>
+							        </div>
+							        <!-- 조직도 소분류 --> 
+								</div>
+                                <!-- /////////////////조직도리스트끝//////////////// -->
+                                <div class="col-lg-12 text-center">
+                                    <button id="signUp" type="submit" class="btn btn-block btn-dark">Sign Up</button>
+                                </div>
+                                <div class="col-lg-12 text-center mt-5">
+                                이미 아이디가 있습니까?     <a th:href="@{/login/login}" class="text-danger">Login</a>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                         			<a th:href="@{/login/admin_login}" class="text-danger">관리자로그인</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- All Required js -->
+    <!-- ============================================================== -->
+    <script th:src="@{/dist/js/register.js}"></script>  
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugin js -->
+    <!-- ============================================================== -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        $(".preloader ").fadeOut();
+        $(function(){
+        	$(document).on('click', '#addrBtn', function(){	
+        		console.log('눌렀다.');
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		            	var addr = data.address // 최종 주소 변수
+		            		,zoneCode = data.zonecode;
+		                $('#emplyAddr1').val(zoneCode);
+		                $('#emplyAddr2').val(addr);
+		                $('#emplyAddr3').focus();
+		            }
+		        }).open();
+        	});
+        });
+    </script>
+</body>
+
+</html>
