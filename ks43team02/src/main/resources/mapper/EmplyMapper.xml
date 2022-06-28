@@ -2,60 +2,254 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="ks43team02.mapper.EmplyMapper">
-
 	<resultMap type="Emply" id="emplyResultMap">
-		<id 	column="emply_id" 				property="emplyId"/>
-		<result column="emply_pw" 				property="emplyPw"/>
-		<result column="emply_number" 			property="emplyNumber"/>
-		<result column="emply_organization" 	property="emplyOrganization"/>
-		<result column="emply_rank" 			property="emplyRank"/>
-		<result column="emply_name" 			property="emplyName"/>
-		<result column="emply_birth" 			property="emplyBirth"/>
-		<result column="salary" 				property="salary"/>
-		<result column="emply_account" 			property="emplyAccount"/>
-		<result column="e_home_address" 		property="emplyAddr"/>
-		<result column="employment_date" 		property="emplymentDate"/>
-		<result column="employment_type" 		property="emplymentType"/>
-		<result column="retire_status"			property="retireStatus"/>
+		<id column="emply_id"						property="emplyId"/>
+		<result column="organization_code_S"		property="organizationCodeS"/>
+		<result column="rank_level_code"			property="rankLevelCode"/>
+		<result column="position_level_code"		property="positionLevelCode"/>
+		<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+		<result column="super_admin_id"				property="superAdminId"/>
+		<result column="emply_pw"					property="emplyPw"/>
+		<result column="emply_number"				property="emplyNumber"/>
+		<result column="emply_name"					property="emplyName"/>
+		<result column="emply_birth"				property="emplyBirth"/>
+		<result column="emply_account"				property="emplyAccount"/>
+		<result column="emply_home_address"			property="emplyHomeAddress"/>
+		<result column="emplyment_date"				property="emplymentDate"/>
+		<result column="emplyment_type"				property="emplymentType"/>
+		<result column="retire_status"				property="retireStatus"/>
+		<result column="cp_name"					property="cpName"/>
+		<result column="reg_date"					property="regDate"/>
+		<association property="rankLevelList"  		javaType="RankLevelList">
+			<id column="rank_level_code"				property="rankLevelCode"/>
+			<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+			<result column="super_admin_id"				property="superAdminId"/>
+			<result column="rank_code"					property="rankCode"/>
+			<result column="rank_level"					property="rankLevel"/>
+			<result column="rank_name"					property="rankName"/>
+			<result column="cp_name"					property="cpName"/>
+			<result column="reg_date"					property="regDate"/>
+		</association>	
+		<association property="positionLevelList"  javaType="PositionLevelList">
+			<id column="position_level_code"			property="positionLevelCode"/>
+			<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+			<result column="super_admin_id"				property="superAdminId"/>
+			<result column="position_code"				property="positionCode"/>
+			<result column="position_level"				property="positionLevel"/>
+			<result column="position_name"				property="positionName"/>
+			<result column="cp_name"					property="cpName"/>
+			<result column="reg_date"					property="regDate"/>
+		</association>
+		<association property="organizationSList"  javaType="OrganizationSList">
+			<id column="organization_code_S"			property="organizationCodeS"/>
+			<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+			<result column="super_admin_id"				property="superAdminId"/>
+			<result column="organization_code_L"		property="organizationCodeL"/>
+			<result column="organization_code_M"		property="organizationCodeM"/>
+			<result column="organization_name_L"		property="organizationNameL"/>
+			<result column="organization_name_M"		property="organizationNameM"/>
+			<result column="organization_name_S"		property="organizationNameS"/>
+			<result column="cp_name"					property="cpName"/>
+			<result column="reg_date"					property="regDate"/>
+		</association>
 	</resultMap>
-	
-	<select id="getEmplyList" fetchSize="100" resultMap="emplyResultMap">
-		/* 사원리스트 출력 쿼리문 */
+	<resultMap type="Admin" id="adminResultMap">
+		<id column="super_admin_id"						property="superAdminId"/>
+		<result column="cp_representative_code"			property="cpRepresentativeCode"/>
+		<result column="super_admin_pw"					property="superAdminPw"/>
+		<result column="cp_domain"						property="cpDomain"/>
+		<result column="specified_domain_address"		property="specifiedDomainAddress"/>
+		<result column="reg_date"						property="regDate"/>
+		<association property="cpRepresentative"	javaType="CpRepresentative">
+			<id column="cp_representative_code"				property="cpRepresentativeCode"/>
+			<result column="cp_deposit_status_code"			property="cpDepositStatusCode"/>
+			<result column="cp_uniquemply_number"			property="cpUniquemplyNumber"/>
+			<result column="cp_name"						property="cpName"/>
+			<result column="cp_representativemply_name"		property="cpRepresentativemplyName"/>
+			<result column="cp_tel"							property="cpTel"/>
+			<result column="cp_registration_number"			property="cpRegistrationNumber"/>
+			<result column="cp_addr"						property="cpAddr"/>
+			<result column="super_sw_manager"				property="superSwManager"/>
+			<result column="reg_date"						property="regDate"/>
+		</association>
+	</resultMap>
+	<select id="getOrganiSListByCode" resultType="OrganizationSList">
+		/* 조직도 소분류 에이작스 활용 뿌리기 */
 		SELECT
-			e.emply_id,
-			e.emply_pw,
-			e.emply_number,
-			e.emply_organization,
-			e.emply_rank,
-			e.emply_name,
-			e.emply_birth,
-			e.salary,
-			e.emply_account,
-			e.e_home_address,
-			e.employment_date,
-			e.employment_type,
-			e.retire_status
+			os.organization_code_S			AS organizationCodeS
+			,os.cp_representative_code		AS cpRepresentativeCode
+			,os.super_admin_id				AS superAdminId
+			,os.organization_code_L			AS organizationCodeL
+			,os.organization_code_M			AS organizationCodeM
+			,os.organization_name_L			AS organizationNameL
+			,os.organization_name_M			AS organizationNameM
+			,os.organization_name_S			AS organizationNameS
+			,os.cp_name						AS cpName
+			,os.reg_date					AS regDate
 		FROM
-			tb_emply_info_reg AS e;
+			tb_organization_s AS os
+		WHERE
+			os.organization_name_M = #{organiM};
 	</select>
-	
-	<select id="getSearchEmplyList" fetchSize="1000" parameterType="String" resultMap="emplyResultMap">
-		/* 사원 검색 */
+	<select id="getOrganiMListByCode" resultType="OrganizationMList">
+		/* 조직도 중분류 에이작스 활용 뿌리기 */
 		SELECT
-			e.emply_id,
-			e.emply_name,
-			e.emply_number,
-			e.emply_organization,
-			e.emply_rank
+			om.organization_code_M			AS organizationCodeM
+			,om.cp_representative_code		AS cpRepresentativeCode
+			,om.super_admin_id				AS superAdminId
+			,om.organization_code_L			AS organizationCodeL
+			,om.organization_name_L			AS organizationNameL
+			,om.organization_name_M			AS organizationNameM
+			,om.cp_name						AS cpName
+			,om.reg_date					AS regDate
 		FROM
-			tb_emply_info_reg AS e
-		<trim prefix="WHERE" prefixOverrides="AND /OR ">
-			<if test="searchValue != null and searchValue != ''">
-				${searchKey} LIKE CONCAT('%',#{searchValue}, '%');
-			</if>
-		</trim>
+			tb_organization_m AS om
+		WHERE
+			om.organization_name_L = #{organiL};
 	</select>
-	
-</mapper>	
+	<select id="getOrganiLList" resultType="OrganizationLList">
+		/* 조직도 대분류 뿌리기 */
+		SELECT
+			ol.organization_code_L			AS organizationCodeL
+			,ol.cp_representative_code		AS cpRepresentativeCode
+			,ol.super_admin_id				AS superAdminId
+			,ol.organization_name_L			AS organizationNameL
+			,ol.cp_name						AS cpName
+			,ol.reg_date					AS regDate
+		FROM
+			tb_organization_l AS ol;
+	</select>
+	<select id="getAdminInfo" parameterType="String" resultMap="adminResultMap">
+		/* 어드민 정보 조회 */
+		SELECT 
+			ta.super_admin_id
+			, ta.cp_representative_code
+			, ta.super_admin_pw
+			, ta.cp_domain
+			, ta.specified_domain_address
+			, ta.reg_date
+			, cr.cp_deposit_status_code
+			, cr.cp_uniquemply_number
+			, cr.cp_name
+			, cr.cp_representativemply_name
+			, cr.cp_tel
+			, cr.cp_registration_number
+			, cr.cp_addr
+			, cr.super_sw_manager
+			, cr.reg_date
+		FROM 
+			tb_super_admin AS ta
+			INNER join
+			tb_cp_representative AS cr
+			on
+			ta.cp_representative_code = cr.cp_representative_code
+		WHERE
+			ta.super_admin_id = #{superAdminId};
+	</select>
+	<select id="getEmplyInfoList" parameterType="String" resultType="Emply">
+		/* 사원전체 정보 조회 */
+		SELECT 
+			t.emply_id				        as emplyId
+			, t.organization_code_S			as organizationCodeS
+			, t.rank_level_code				as rankLevelCode
+			, t.position_level_code			as positionLevelCode
+			, t.cp_representative_code		as cpRepresentativeCode
+			, t.super_admin_id				as superAdminId
+			, t.emply_pw					as emplyPw
+			, t.emply_number				as emplyNumber
+			, t.emply_name					as emplyName
+			, t.emply_birth					as emplyBirth
+			, t.emply_account				as emplyAccount
+			, t.emply_home_address			as emplyHomeAddress
+			, t.emplyment_date				as emplymentDate
+			, t.emplyment_type				as emplymentType
+			, t.retire_status				as retireStatus
+			, t.cp_name						as cpName
+			, t.reg_date					as regDate
+		FROM 
+			tb_emply_info_reg as t
+	</select>	
+	<select id="getEmplyInfoById" resultType="Emply" resultMap="emplyResultMap">
+		SELECT 
+			reg.emply_id
+			, reg.organization_code_S
+			, reg.rank_level_code
+			, reg.position_level_code
+			, reg.emply_pw
+			, reg.emply_number
+			, reg.emply_name
+			, reg.emply_birth
+			, reg.emply_account
+			, reg.emply_home_address
+			, reg.emplyment_date
+			, reg.emplyment_type
+			, reg.retire_status
+			, rl.rank_level
+			, rl.rank_name
+			, pl.position_level
+			, pl.position_name
+			, os.organization_code_L
+			, os.organization_code_M
+			, os.organization_name_L
+			, os.organization_name_M
+			, os.organization_name_S
+		FROM 
+			tb_emply_info_reg AS reg
+			INNER join
+			tb_rank_level AS rl
+			on
+			reg.rank_level_code = rl.rank_level_code
+			INNER join
+			tb_position_level AS pl
+			on
+			reg.position_level_code = pl.position_level_code
+			INNER join
+			tb_organization_s AS os
+			on
+			reg.organization_code_S = os.organization_code_S
+		WHERE
+			reg.emply_id = #{emplyId};
+	</select>
+	<insert id="addEmply" parameterType="Emply">
+		/* 회원가입 */
+		INSERT INTO tb_emply_info_reg
+		(
+			emply_id
+			, organization_code_S
+			, rank_level_code
+			, position_level_code
+			, cp_representative_code
+			, super_admin_id
+			, emply_pw
+			, emply_number
+			, emply_name
+			, emply_birth
+			, emply_account
+			, emply_home_address
+			, emply_home_address_detail
+			, emply_home_address_zip
+			, retire_status
+			, cp_name
+			, reg_date
+		)VALUES(
+			#{emplyId}
+			, #{organizationCodeS}
+			, #{rankLevelCode}
+			, #{positionLevelCode}
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
+			, #{emplyPw}
+			, #{emplyNumber}
+			, #{emplyName}
+			, #{emplyBirth}
+			, #{emplyAccount}
+			, #{emplyHomeAddress}
+			, #{emplyHomeAddressDetail}
+			, #{emplyHomeAddressZip}
+			, 0
+			, #{cpName}
+			, NOW()
+		);
+	</insert>
+</mapper>

@@ -1,19 +1,14 @@
 package ks43team02.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks43team02.dto.DeductionList;
 import ks43team02.dto.FixedAllowanceList;
-import ks43team02.dto.PaySet;
 import ks43team02.service.PayService;
 
 @Controller
@@ -31,7 +26,6 @@ public class PayController {
 	public String paySetting() {
 		return "pay/paySetting";
 	};
-	
 	
 	@GetMapping("/addPaySet")
 	public String addPaySet() {

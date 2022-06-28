@@ -15,11 +15,11 @@
 				<table class="table table-bordered" id="payTimeSetTable">
 					<tr>
 						<th class="col-md-4" style="text-align: center;">월급 지급일</th>
-						<th id="paySetDate"><div th:text="${paySet.paySetDate}"></div></th>
+						<th id="paySetDate"></th>
 					</tr>
 					<tr>
 						<th class="col-md-4" style="text-align: center;">자동이체 시간</th>
-						<th id="paySetTime"><div th:text="${paySet.paySetTime}"></div></th>
+						<th id="paySetTime"></th>
 					</tr>
 				</table>
 				</div>
@@ -32,10 +32,7 @@
 			<div class="card">
 				<div class="card-body">
 					<table class="table table-bordered" id="fixedPayList">
-						<tr th:if="${not #arrays.isEmpty(paySet.fixedPayArrays)}" th:each="fixedPay : ${paySet.fixedPayArrays}">
-							<td class="settingTableVal" th:text="${fixedPay}"></td>
-						</tr>
-						<tr th:unless="${not #arrays.isEmpty(paySet.fixedPayArrays)}">
+						<tr>
 							<td class="settingTableVal">선택된 항목이 없습니다.</td>
 						</tr>
 					</table>
@@ -47,10 +44,7 @@
 			<div class="card">
 				<div class="card-body">
 					<table class="table table-bordered" id="deducePayList">
-						<tr th:if="${not #arrays.isEmpty(paySet.deducePayArrays)}" th:each="fixedPay : ${paySet.deducePayArrays}">
-							<td class="settingTableVal" th:text="${fixedPay}"></td>
-						</tr>
-						<tr th:unless="${not #arrays.isEmpty(paySet.deducePayArrays)}">
+						<tr>
 							<td class="settingTableVal">선택된 항목이 없습니다.</td>
 						</tr>
 					</table>
