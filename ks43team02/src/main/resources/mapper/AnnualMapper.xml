@@ -30,7 +30,7 @@
 			annual_application_code
 			,cp_representative_code
 			,super_admin_id
-			,cate_annual
+			,cate_annual_code
 			,approval_request_code
 			,emply_id
 			,emply_name
