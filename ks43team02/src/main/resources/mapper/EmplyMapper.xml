@@ -211,4 +211,45 @@
 		WHERE
 			reg.emply_id = #{emplyId};
 	</select>
+	<insert id="addEmply" parameterType="Emply">
+		/* 회원가입 */
+		INSERT INTO tb_emply_info_reg
+		(
+			emply_id
+			, organization_code_S
+			, rank_level_code
+			, position_level_code
+			, cp_representative_code
+			, super_admin_id
+			, emply_pw
+			, emply_number
+			, emply_name
+			, emply_birth
+			, emply_account
+			, emply_home_address
+			, emply_home_address_detail
+			, emply_home_address_zip
+			, retire_status
+			, cp_name
+			, reg_date
+		)VALUES(
+			#{emplyId}
+			, #{organizationCodeS}
+			, #{rankLevelCode}
+			, #{positionLevelCode}
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
+			, #{emplyPw}
+			, #{emplyNumber}
+			, #{emplyName}
+			, #{emplyBirth}
+			, #{emplyAccount}
+			, #{emplyHomeAddress}
+			, #{emplyHomeAddressDetail}
+			, #{emplyHomeAddressZip}
+			, 0
+			, #{cpName}
+			, NOW()
+		);
+	</insert>
 </mapper>

@@ -9,7 +9,6 @@
 <!-- 사용자 정의 contents -->
 <th:block layout:fragment="customContents">
 	<!-- 출퇴근 시간찍히는 곳 -->
-	<div class="col-lg-12 ">
 	    <!-- <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="card">
                 <div class="card-body">
@@ -23,7 +22,6 @@
                 </div>
             </div>
         </div> -->
-        <div class="col-sm-12 col-md-6 col-lg-12">
             <div class="card">
 				<div class="card-body">
 				<!-- 비밀번호가 일치할때 내용들이 활성화된다. -->
@@ -35,22 +33,34 @@
 				        Success! You've done it.
 				    </div>
 	          	 </form>
-                    <h4 class="card-title">근무설정</h4>
-                    <form class="mt-4">
-                        <div class="form-group mb-4">
-                            <label for="exampleFormControlSelect1">근무제선택</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option name="5일근무제" value="date5">5일근무제</option>
-                                <option value="4일근무제">4일근무제</option>
-                                <option value="유연근무제">유연근무제</option>
-                                <option value="5일근무제">4</option>
-                                <option value="5일근무제">5</option>
-                            </select>
-                        </div>
-                    </form>
+				<form th:action="@{/workWay/work_setting}" method="get" class="mt-4">
+				    <div class="form-group mb-4">
+						<h4 class="card-title">근무설정</h4>
+				        <label for="exampleFormControlSelect1" style="width:100%;">근무제선택</label>
+						<select  class="form-control col-10" id="workSysName123fd2fe" style="float:left;">
+						<th:block  th:if="${not #lists.isEmpty(list3)}" th:each="l : ${list3}">
+							<option th:text="${l.worksystemName}"></option>
+						    	<!-- <option th:each="l:${list}" th:text="${l}"></option> -->
+								<!-- <option name="5일근무제" value="date5">5일근무제</option>
+								<option value="4일근무제">4일근무제</option>
+								<option value="유연근무제">유연근무제</option>
+								<option value="5일근무제">4</option>
+								<option value="5일근무제">5</option> -->
+		                    </th:block>
+	                   	</select>
+						<button type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
+						<div class="collapse" id="collapseExample">
+							<div class="card formgroup" style="padding:1em 0;">
+							    <input id="worksystemName" name="worksystemName" type="text" placeholder="근무제 명을 입력해주세요.">
+							    <button id="addWorksysNameBtn" type="submit" value="확인" class="btn btn-primary">확인</button>
+							</div>
+						</div>
+	                 </div>
+          			<div id="result2"></div>
+				</form>
 					<form id="dayCheck">
-					  <div class="form-group row">
-					    <div class="col-sm-2">근무요일선택</div>
+					  <div class="form-group">
+					  	<label>근무요일선택</label>
 					    <div class="form-check form-check-inline">
 						  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="일" onclick="getCheckboxValue()">일
 						  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="월" onclick="getCheckboxValue()">월
@@ -86,7 +96,6 @@
 				  </div>
                 </div>
             </div>
-        </div>
     <!-- <form>
 		<input type="checkbox" name="test">aa
 		<input type="checkbox" name="test">aa
@@ -95,7 +104,6 @@
 		<input type="checkbox" name="test">aa
 		<input type="submit" value="전송">
 	</form> -->
-	</div>
 	
 </th:block>	
 
@@ -125,6 +133,8 @@
     <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
 	
 	<script type="text/javascript">
+		
+	
 		function getCheckboxValue(){
 			const query = "input[name='dayCheck']:checked";
 			const selectedEls = document.querySelectorAll(query);
@@ -137,7 +147,7 @@
 				
 		
 		var selectOption = document.getElementById("")
-		console.log(test);
+		//console.log(test);
 		$("input[type='checkbox']").on("click", function(){
 			let count = $("input:checked[type='checkbox']").length;
 				if(count > 3){
@@ -145,6 +155,23 @@
 					alert("3개");
 				}
 			});
+		
+		$("option[value='workSystem']").on("selected", function(){
+			$(option).addClass("selected");
+		});
+		
+		/* 근무제 선택에 따른 인서트 */
+		
+	
+		
+		/* 근무제 선택에 따른 인서트 */
+		
+		/* function getWorkSystemValue(){
+			const query = "option[value='workSystem']:select";
+			const selectedEls = document.querySelectorAll(query);
+			let result2 ='';
+			document.getElementById('result2').innerText = result2;
+		} */
 	</script>
 	
 </th:block>

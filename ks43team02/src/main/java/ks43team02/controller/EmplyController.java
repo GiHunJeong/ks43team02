@@ -32,7 +32,8 @@ public class EmplyController {
 	//조직도 소분류
 	@GetMapping("/organizationSName")
 	@ResponseBody
-	public List<OrganizationSList> getOrganiSListByCode(@RequestParam(name="organiM", required=false) String organiM) {
+	public List<OrganizationSList> getOrganiSListByCode(Model model
+													   ,@RequestParam(name="organiM", required=false) String organiM) {
 		log.info("organiM 의 값 {}", organiM);
 		List<OrganizationSList> organiSName = emplyService.getOrganiSListByCode(organiM);
 		log.info("OrganizationSList 값 {}", organiSName);
@@ -82,10 +83,13 @@ public class EmplyController {
 	@PostMapping("/register")
 	public String register(Emply emply
 						  ,@RequestParam(name="emplyId", required = false) String emplyId) {
-		log.info("회원가입화면에서 입력한 emply data : {}", emply);
-		log.info("회원가입화면에서 입력한 userId : {}", emplyId);
+		emply.setCpName("한국스마트정보교육원");
+		emply.setSuperAdminId("ksmart43id@ksmart.or.kr");
+		emply.setCpRepresentativeCode("cp_representative_code_01");
 		emply.setRankLevelCode("rank_level_code_01");
 		emply.setPositionLevelCode("position_level_code_01");
+		log.info("회원가입화면에서 입력한 emply data : {}", emply);
+		log.info("회원가입화면에서 입력한 userId : {}", emplyId);
 		emplyService.addEmply(emply);
 		
 		return "redirect:/";

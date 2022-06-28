@@ -13,6 +13,9 @@ public class Emply {
 	private String emplyBirth;
 	private String emplyAccount;
 	private String emplyHomeAddress;
+	private String emplyHomeAddressDetail;
+	private String emplyHomeAddressZip;
+	private String emplyProfilePic;
 	private String emplymentDate;
 	private String emplymentType;
 	private boolean retireStatus;
@@ -22,6 +25,24 @@ public class Emply {
 	private PositionLevelList positionLevelList;
 	private OrganizationSList organizationSList;
 	
+	public String getEmplyHomeAddressDetail() {
+		return emplyHomeAddressDetail;
+	}
+	public void setEmplyHomeAddressDetail(String emplyHomeAddressDetail) {
+		this.emplyHomeAddressDetail = emplyHomeAddressDetail;
+	}
+	public String getEmplyHomeAddressZip() {
+		return emplyHomeAddressZip;
+	}
+	public void setEmplyHomeAddressZip(String emplyHomeAddressZip) {
+		this.emplyHomeAddressZip = emplyHomeAddressZip;
+	}
+	public String getEmplyProfilePic() {
+		return emplyProfilePic;
+	}
+	public void setEmplyProfilePic(String emplyProfilePic) {
+		this.emplyProfilePic = emplyProfilePic;
+	}
 	public OrganizationSList getOrganizationSList() {
 		return organizationSList;
 	}
@@ -148,9 +169,11 @@ public class Emply {
 				+ rankLevelCode + ", positionLevelCode=" + positionLevelCode + ", cpRepresentativeCode="
 				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", emplyPw=" + emplyPw + ", emplyNumber="
 				+ emplyNumber + ", emplyName=" + emplyName + ", emplyBirth=" + emplyBirth + ", emplyAccount="
-				+ emplyAccount + ", emplyHomeAddress=" + emplyHomeAddress + ", emplymentDate=" + emplymentDate
-				+ ", emplymentType=" + emplymentType + ", retireStatus=" + retireStatus + ", cpName=" + cpName
-				+ ", regDate=" + regDate + ", rankLevelList=" + rankLevelList + ", positionLevelList="
-				+ positionLevelList + ", organizationSList=" + organizationSList + "]";
+				+ emplyAccount + ", emplyHomeAddress=" + emplyHomeAddress + ", emplyHomeAddressDetail="
+				+ emplyHomeAddressDetail + ", emplyHomeAddressZip=" + emplyHomeAddressZip + ", emplyProfilePic="
+				+ emplyProfilePic + ", emplymentDate=" + emplymentDate + ", emplymentType=" + emplymentType
+				+ ", retireStatus=" + retireStatus + ", cpName=" + cpName + ", regDate=" + regDate + ", rankLevelList="
+				+ rankLevelList + ", positionLevelList=" + positionLevelList + ", organizationSList="
+				+ organizationSList + "]";
 	}
 }

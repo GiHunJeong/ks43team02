@@ -1,47 +1,69 @@
 package ks43team02.dto;
 
 public class Annual {
-	private String annualDivision;
-	private String startDate;
-	private String endDate;
-	private String regDate;
-	private String comment;
+	private String annualStandardCode;
+	private String cpRepresentativeCode;
+	private String superAdminId;
+	private int year;
+	private int annualGetDay;
 	
 	
+	public String getAnnualStandardCode() {
+		return annualStandardCode;
+	}
+
+
+	public void setAnnualStandardCode(String annualStandardCode) {
+		this.annualStandardCode = annualStandardCode;
+	}
+
+
+	public String getCpRepresentativeCode() {
+		return cpRepresentativeCode;
+	}
+
+
+	public void setCpRepresentativeCode(String cpRepresentativeCode) {
+		this.cpRepresentativeCode = cpRepresentativeCode;
+	}
+
+
+	public String getSuperAdminId() {
+		return superAdminId;
+	}
+
+
+	public void setSuperAdminId(String superAdminId) {
+		this.superAdminId = superAdminId;
+	}
+
+
+	public int getYear() {
+		return year;
+	}
+
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+
+	public int getAnnualGetDay() {
+		return annualGetDay;
+	}
+
+
+	public void setAnnualGetDay(int annualGetDay) {
+		this.annualGetDay = annualGetDay;
+	}
+
+
 	@Override
 	public String toString() {
-		return "annualDto [annualDivision=" + annualDivision + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", regDate=" + regDate + ", comment=" + comment + "]";
-	}
+		return "Annual [annualStandardCode=" + annualStandardCode + ", cpRepresentativeCode=" + cpRepresentativeCode
+				+ ", superAdminId=" + superAdminId + ", year=" + year + ", annualGetDay=" + annualGetDay + "]";
+	}	
 	
-	public String getAnnualDivision() {
-		return annualDivision;
-	}
-	public void setAnnualDivision(String annualDivision) {
-		this.annualDivision = annualDivision;
-	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	public String getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+
+
 }

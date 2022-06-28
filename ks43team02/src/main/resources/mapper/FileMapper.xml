@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team02.mapper.FileMapper">
+	
+	<insert id="addFile" parameterType="FileDto">
+		/* 단일 파일 등록 */
+		INSERT INTO tb_attach_file
+			( attach_file_code
+			, cp_representative_code
+			, super_admin_id
+			, attach_file_original_name
+			, attach_file_new_name
+			, attach_file_path
+			, reg_user_name
+			, attach_file_size
+			, reg_date
+			)VALUES (
+			  #{attachFileCode}
+			, #{cpRepresentiveCode}
+			, #{superAdminId}
+			, #{attachFileOriginalName}
+			, #{attachFileNewName})
+			, #{attachFilePath})
+			, #{regUserName})
+			, #{attachFileSize})
+			, #{regDate});
+	</insert>
+</mapper>

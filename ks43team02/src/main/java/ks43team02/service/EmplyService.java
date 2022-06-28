@@ -27,6 +27,12 @@ public class EmplyService {
 		this.emplyMapper = emplyMapper;
 	}
 	/*
+	 * 유저 프로필 사진 업로드
+	 */
+	
+
+	
+	/*
 	 * 조직도 소분류 에이작스
 	 */
 	public List<OrganizationSList> getOrganiSListByCode(String organiM) {

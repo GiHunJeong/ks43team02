@@ -184,7 +184,7 @@
                             <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
                                 width="40">
                             <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                    class="text-dark">You need login.</span> <i data-feather="chevron-down"
+                                    class="text-dark">You need login.(!정기훈)</span> <i data-feather="chevron-down"
                                     class="svg-icon"></i></span>
                         </a>
                         <a class="nav-link dropdown-toggle" th:unless="${session.SEMAIL == null}" href="javascript:void(0)" data-toggle="dropdown"
@@ -201,7 +201,7 @@
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:if="${session.SEMAIL == null}">        
                             <a class="dropdown-item" th:href="@{/login/login}"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Login</a>
+                                Login(!정기훈)</a>
                             <div class="dropdown-divider"></div>                        
                         </div>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:unless="${session.SEMAIL == null}">        
@@ -217,11 +217,11 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/member/emply_modify_my}"><i data-feather="settings"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Account Setting</a>
+                                Account Setting(!정기훈)</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/logout}"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Logout</a>
+                                Logout(!정기훈)</a>
                             <div class="dropdown-divider"></div>
                             <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
                                     Profile</a></div>                        

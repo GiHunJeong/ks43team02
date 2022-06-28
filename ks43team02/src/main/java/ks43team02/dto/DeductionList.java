@@ -4,8 +4,8 @@ public class DeductionList {
 
 	private String deductionCode;
 	private String deductionName;
-	private String deductionamount;
-	private String deductioncontents;
+	private String deductionAmount;
+	private String deductionContents;
 	
 	public String getDeductionCode() {
 		return deductionCode;
@@ -19,23 +19,23 @@ public class DeductionList {
 	public void setDeductionName(String deductionName) {
 		this.deductionName = deductionName;
 	}
-	public String getDeductionamount() {
-		return deductionamount;
+	public String getDeductionAmount() {
+		return deductionAmount;
 	}
-	public void setDeductionamount(String deductionamount) {
-		this.deductionamount = deductionamount;
+	public void setDeductionAmount(String deductionAmount) {
+		this.deductionAmount = deductionAmount;
 	}
-	public String getDeductioncontents() {
-		return deductioncontents;
+	public String getDeductionContents() {
+		return deductionContents;
 	}
-	public void setDeductioncontents(String deductioncontents) {
-		this.deductioncontents = deductioncontents;
+	public void setDeductionContents(String deductionContents) {
+		this.deductionContents = deductionContents;
 	}
 	
 	@Override
 	public String toString() {
 		return "DeductionList [deductionCode=" + deductionCode + ", deductionName=" + deductionName
-				+ ", deductionamount=" + deductionamount + ", deductioncontents=" + deductioncontents + "]";
+				+ ", deductionAmount=" + deductionAmount + ", deductionContents=" + deductionContents + "]";
 	}
 	
 }
