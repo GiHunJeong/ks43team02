@@ -6,6 +6,11 @@
 
 <!-- 사용자 정의 contents -->
 <th:block layout:fragment="customContents">
+<style rel="stylesheet" type="text/css">
+	.boxbox{display: inline-flex;width: max-content;}
+	.table-responsive{overflow-x:scroll !important; font-size:0.8rem;}
+	.line-clear{display:inline-grid}
+</style>
 	<!-- 출퇴근 시간찍히는 곳 -->
 	<div class="col-lg-12 ">
 	    <div class="card" >
@@ -15,37 +20,55 @@
 	                 <code>.table</code>-based tables look in Bootstrap. All table styles are inherited
 	                 in Bootstrap 4, meaning any nested tables will be styled in the same manner as the
 	                 parent.</h6>
-	             <h6 class="card-title mt-5"><i class="mr-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> Table With
-	                 Outside Padding</h6>
-	             <div class="table-responsive">
+	             <div class="table-responsive" >
 	                 <table class="table">
-	                     <thead>
-	                         <tr th:if="${not #lists.isempty(list4)}" th:each="l : ${list4}">
-	                             <th th:text="${l." scope="col">#</th>
-	                           <!--   <th scope="col">First</th>
-	                             <th scope="col">Last</th>
-	                             <th scope="col">Handle</th> -->
+	                     
+	                     <tbody class="boxbox">
+                         	<tr scope="row" class="line-clear">
+								<th scope="row" >사원명</th>
+								<td scope="row">백민주</td>
+                        	</tr>
+	                          <tr class="line-clear">
+								<th scope="col">회사코드</th>
+								<td  th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorksystemCpCode}" scope="row">#</td>
 	                         </tr>
-	                     </thead>
-	                     <tbody>
-	                         <tr>
-	                             <th scope="row">1</th>
-	                             <td>Mark</td>
-	                             <td>Otto</td>
-	                             <td>@mdo</td>
+	                          <tr class="line-clear" >
+								<th scope="col">근태방식</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorksystemCpCode}" scope="row">#</td>
 	                         </tr>
-	                         <tr>
-	                             <th scope="row">2</th>
-	                             <td>Jacob</td>
-	                             <td>Thornton</td>
-	                             <td>@fat</td>
+	                          <tr class="line-clear">
+								<th scope="col">회사고유주소</th>
+								<td  th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.cpRepresentativeCode}" scope="row">#</td>
 	                         </tr>
-	                         <tr>
-	                             <th scope="row">3</th>
-	                             <td>Larry</td>
-	                             <td>the Bird</td>
-	                             <td>@twitter</td>
+	                          <tr class="line-clear">
+								<th scope="col">회사대표코드</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.superAdminId}" scope="row">#</td>
 	                         </tr>
+	                          <tr class="line-clear">
+								<th scope="col">회사근무제코드</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorkCode}" scope="row">#</td>
+	                         </tr>
+	                          <tr class="line-clear">
+								<th scope="col">시작시간</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workStartTime}" scope="row">#</td>
+	                         </tr>
+	                          <tr class="line-clear">
+								<th scope="col">종료시간</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workEndTime}" scope="row">#</td>
+	                         </tr>
+	                          <tr class="line-clear">
+								<th scope="col">휴게시간</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.breakTime}" scope="row">#</td>
+	                         </tr>
+	                          <tr class="line-clear">
+								<th scope="col">회사명</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.cpName}" scope="row">#</td>
+	                         </tr>
+	                          <tr class="line-clear">
+								<th scope="col">등록일</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.regDate}" scope="row">#</td>
+	                         </tr>
+	                         
 	                     </tbody>
 	                 </table>
 	             </div>

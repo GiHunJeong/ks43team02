@@ -48,14 +48,13 @@ public class WorkTimeService {
 	}
 	
 	//근무제 전체세팅 리스트로 보여주기
-	/*
-	 * public List<WorkSettingList> getWorkSettingList(){ List<WorkSettingList>
-	 * workSettingList = workSettingMapper.getWorkSettingList(); return
-	 * workSettingList; }
-	 */
-	public int addWorkSettingList(WorkSettingList workSettingList) {
+	
+	public List<WorkSettingList> getWorkSettingList(){
+		List<WorkSettingList> workSettingList = workSettingMapper.getWorkSettingList();
+		return workSettingList;
+	}
+	public int workSettingList(WorkSettingList workSettingList) {
 		int addWorkSettingList = workSettingMapper.addWorkSettingList(workSettingList);
 		return addWorkSettingList;
 	}
-	
 }
