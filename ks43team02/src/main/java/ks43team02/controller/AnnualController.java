@@ -7,11 +7,13 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team02.dto.Annual;
 import ks43team02.dto.AnnualApplication;
@@ -27,30 +29,52 @@ public class AnnualController {
 	
 	public AnnualController(AnnualService annualService) {
 		this.annualService = annualService;
-	}
+	};
 	
 	// 연차등록
+	/*
+	 * @GetMapping("/annualList") public String annualApplication(Model model) {
+	 * List<AnnualApplication> annualApplication =
+	 * annualService.getAnnualApplication();
+	 * 
+	 * model.addAttribute("annualApplication", annualApplication);
+	 * log.info("내용확인1",annualApplication); return "annual/annualList"; }
+	 */
+	
+	/*
 	@PostMapping("/annualList")
 		public String annualList(AnnualApplication annualApplication
 								, HttpSession session
 								, HttpServletRequest request) {
 		
 		return "annualList";
-	}
-	
+	}		
+	*/
+	/*
 	@GetMapping("/annualList")
-		public String annualList(Model model) {
-
+		public String annualList(Model model
+									,@RequestParam(name="annualStandardCode", required = false)String annualStandardCode) {
+		//List<AnnualList> annualList = annualService.getAnnualList();
 		List<Annual> annualList = annualService.getAnnualList();
+		// List<Annual> list = new ArrayList<Annual>(); 
 		
-		model.addAttribute("annual", annualList);
-		log.info("내용확인", annualList);
+		model.addAttribute("annualList", annualList);
+		log.info("내용확인2", annualList);
+		log.info("확인" , annualStandardCode);
 		return "annual/annualList";
 	}
-	
+	*/
+	@GetMapping("/annualList")
+	public String getAnnualApplication(Model model) {
+		List<AnnualApplication> annualApplication = annualService.getAnnualApplication();
+		log.info(">>>>>>>{}", annualApplication);
+		model.addAttribute("annualApplication", annualApplication);
+
+		return "annual/annualList";
+	}
 	// 연차세팅
 	@GetMapping("/annualSetting")
 		public String annualSetting() {
 		return "annual/annualSetting";
-	}
+	};
 }
