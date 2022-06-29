@@ -10,70 +10,89 @@
 	.boxbox{display: inline-flex;width: max-content;}
 	.table-responsive{overflow-x:scroll !important; font-size:0.8rem;}
 	.line-clear{display:inline-grid}
+	.card-position{position:relative;}
+	.btn-position{position:absolute; top:25px; right:25px;}
 </style>
 	<!-- 출퇴근 시간찍히는 곳 -->
 	<div class="col-lg-12 ">
 	    <div class="card" >
-		    <div class="card-body">
-		    <h4 class="card-title">기본값</h4>
-	             <h6 class="card-subtitle">Using the most basic table markup, here’s how
-	                 <code>.table</code>-based tables look in Bootstrap. All table styles are inherited
-	                 in Bootstrap 4, meaning any nested tables will be styled in the same manner as the
-	                 parent.</h6>
+		    <div class="card-body card-position">
+		    <h4 class="card-title">근무제 기본세팅</h4>
+	             <h6 class="card-subtitle">
+	             	회사별 세팅되어져 있는 근무제 값을 확인할 수 있다.
+                 </h6>
+                 <div class="btn-position">
+	                 <button class="btn btn-primary" type="button" onclick="location.href='work_setting'">뒤로가기</button>
+	                 <button class="btn btn-primary" type="button">추가</button>
+                 </div>
 	             <div class="table-responsive" >
 	                 <table class="table">
-	                     
-	                     <tbody class="boxbox">
-                         	<tr scope="row" class="line-clear">
+						<tbody class="boxbox">
+							<tr scope="row" class="line-clear">
 								<th scope="row" >사원명</th>
-								<td scope="row">백민주</td>
-                        	</tr>
-	                          <tr class="line-clear">
+								<!-- <td scope="row">백민주</td> -->
+								<td  th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.regUser}" scope="row">#</td>
+							</tr>
+							<!-- <tr class="line-clear">
 								<th scope="col">회사코드</th>
 								<td  th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorksystemCpCode}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear" >
+							</tr> -->
+							<!-- <tr class="line-clear" >
 								<th scope="col">근태방식</th>
 								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorksystemCpCode}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear">
+							</tr> -->
+							<!-- <tr class="line-clear">
 								<th scope="col">회사고유주소</th>
 								<td  th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.cpRepresentativeCode}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear">
+							</tr> -->
+							<tr class="line-clear">
 								<th scope="col">회사대표코드</th>
 								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.superAdminId}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear">
+							</tr>
+							<!-- <tr class="line-clear">
 								<th scope="col">회사근무제코드</th>
 								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorkCode}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear">
+							</tr> -->
+							<tr class="line-clear">
 								<th scope="col">시작시간</th>
 								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workStartTime}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear">
+							</tr>
+							<tr class="line-clear">
 								<th scope="col">종료시간</th>
 								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workEndTime}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear">
+							</tr>
+							<tr class="line-clear">
 								<th scope="col">휴게시간</th>
 								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.breakTime}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear">
+							</tr>
+							<tr class="line-clear">
 								<th scope="col">회사명</th>
 								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.cpName}" scope="row">#</td>
-	                         </tr>
-	                          <tr class="line-clear">
+							</tr>
+							
+							<!-- <tr class="line-clear">
+								<th scope="col">근태방법코드</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workwayCode}" scope="row">#</td>
+							</tr> -->
+							<tr class="line-clear">
+								<th scope="col">근태방법</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workwayName}" scope="row">#</td>
+							</tr>
+							<tr class="line-clear">
+								<th scope="col">근무제</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.worksystemName}" scope="row">#</td>
+							</tr>
+							<tr class="line-clear">
+								<th scope="col">등록자</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.regUser}" scope="row">#</td>
+							</tr>
+							<tr class="line-clear">
 								<th scope="col">등록일</th>
 								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.regDate}" scope="row">#</td>
-	                         </tr>
-	                         
-	                     </tbody>
-	                 </table>
+							</tr>
+						</tbody>
+					</table>
 	             </div>
-	             <h6 class="card-title"><i class="mr-1 font-18 mdi mdi-numeric-2-box-multiple-outline"></i> Table Without
-	                 Outside Padding</h6>
 	         </div>
 	    </div>
 	</div>
