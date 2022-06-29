@@ -45,67 +45,48 @@
 								<div class="col-xl-12">
 								<div class="card">
 									<div class="card-body">
-									<h6 class="card-subtitle" style="text-align: center; padding: 1rem;">당신의 입사일은 <code>&lt;-&gt;</code>일입니다.</h6>
-		
-									<div class="row" id="column">
-										<!-- Column -->
-										<div class="col-md-6 col-lg-3 col-xlg-3">
-											<div class="card card-hover">
-												<div class="p-2 bg-primary text-center" id="totalWorkDate">
-													<h1 class="font-light text-white">370</h1>
-													<h6 class="text-white">총근무일</h6>																	
+										<h6 class="card-subtitle" style="text-align: center; padding: 1rem;">당신의 입사일은 <code>&lt;-&gt;</code>일입니다.</h6>
+										<div class="row" id="column">
+											<!-- Column -->
+											<div class="col-md-6 col-lg-3 col-xlg-3">
+												<div class="card card-hover">
+													<div class="p-2 bg-primary text-center" id="totalWorkDate">
+														<h1 class="font-light text-white">370</h1>
+														<h6 class="text-white">총근무일</h6>																	
+													</div>
 												</div>
 											</div>
 											
-											
-											<!-- <div class="card card-hover">
-												<div class="p-2 bg-primary text-center" id="totalWorkDate">
-													<h1 class="font-light text-white" style="margin: auto 0;">370</h1>
-																													
-												</div>
-												<button type="button" class="btn waves-effect waves-light btn-outline-secondary" data-container="body"
-			                                       		title="Popover title" data-toggle="popover" data-placement="bottom"
-			                                        	data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-			                                        	총근무일
-			                                    </button>
-											</div> -->
-											
-											
-		                                    
-		                                    
-										</div>
-										
-										<!-- Column -->
-										<div class="col-md-6 col-lg-3 col-xlg-3">
-											<div class="card card-hover">
-												<div class="p-2 bg-cyan text-center" id="inYear">
-													<h1 class="font-light text-white">2</h1>
-													<h6 class="text-white">년차</h6>
+											<!-- Column -->
+											<div class="col-md-6 col-lg-3 col-xlg-3">
+												<div class="card card-hover">
+													<div class="p-2 bg-cyan text-center" id="inYear">
+														<h1 class="font-light text-white">2</h1>
+														<h6 class="text-white">년차</h6>
+													</div>
 												</div>
 											</div>
-										</div>
-										<!-- Column -->
-										<div class="col-md-6 col-lg-3 col-xlg-3">
-											<div class="card card-hover" id="anuualGrant">
-												<div class="p-2 bg-success text-center">
-													<h1 class="font-light text-white">1100</h1>
-													<h6 class="text-white">휴가부여일수</h6>
+											<!-- Column -->
+											<div class="col-md-6 col-lg-3 col-xlg-3">
+												<div class="card card-hover" id="anuualGrant">
+													<div class="p-2 bg-success text-center">
+														<h1 class="font-light text-white">1100</h1>
+														<h6 class="text-white">휴가부여일수</h6>
+													</div>
 												</div>
 											</div>
-										</div>
-										<!-- Column -->
-										<div class="col-md-6 col-lg-3 col-xlg-3">
-											<div class="card card-hover">
-												<div class="p-2 bg-danger text-center" id="remainingTime">
-													<h1 class="font-light text-white">9</h1>
-													<h6 class="text-white">잔여일수</h6>
+											<!-- Column -->
+											<div class="col-md-6 col-lg-3 col-xlg-3">
+												<div class="card card-hover">
+													<div class="p-2 bg-danger text-center" id="remainingTime">
+														<h1 class="font-light text-white">9</h1>
+														<h6 class="text-white">잔여일수</h6>
+													</div>
 												</div>
 											</div>
-										</div>
-										<!-- Column -->
-									</div> <!-- row end / Column -->
-										
-									</div>
+											<!-- Column -->
+										</div> <!-- row end / Column -->										
+									</div><!-- card-body end -->
 								</div>
 								</div>
 								<!-- 내 휴가 정보 end -->
@@ -114,7 +95,7 @@
 								<div class="card">
 									<div class="card-body" id="annualSubmitCard" style="padding: 0;">												
 										<h4 class="card-title col-12" style="margin-bottom: 1rem;">Annual Registration</h4>
-										<form action="annualList.html #annualApplicationList " id="annualForm">
+										<form th:action="@{/annual/annualList}" id="annualForm">
 											<div class="form-body">
 												<!-- form 1행 -->
 												<div class="input-group">
@@ -129,15 +110,19 @@
 													<div class="col-4" style="padding:0;">
 														<div class="input-group-append">
 															<span class="input-group-text" id="basic-addon2">휴가 구분</span>
-														<select class="form-control" id="controlSelect">
-															<option value="val1">연차</option>
-															<option value="val2">보상</option>
-															<option value="val3">경조</option>
-															<option value="val4">병가</option>
-															<option value="val5">보건</option>
-															<option value="val6">공가</option>
-															<option value="val7">기타</option>
-														</select>
+															<select class="form-control" id="controlSelect">
+										<!-- 수정!  -->
+																<th:block th:if="${not #lists.isEmpty(list3)}" th:each="l : ${list3}">
+																	<option th:text="${l.annual}"></option>
+																	<option value="val1">연차</option>
+																	<option value="val2">보상</option>
+																	<option value="val3">경조</option>
+																	<option value="val4">병가</option>
+																	<option value="val5">보건</option>
+																	<option value="val6">공가</option>
+																	<option value="val7">기타</option>
+																</th:block>
+															</select>
 														</div>																																				
 													</div>
 													<div class="input-group mb-3 col-4">
@@ -205,7 +190,7 @@
 																	<div class="modal-body">
 																	 
 																	<!-- 결재자 선택 form 시작 -->
-																		<form method="post" action="/annualList">	<!-- 이런식으로 보내는건가?  -->																					
+																		<form action="@{/annual/annualList}" method="get">	<!-- 이런식으로 보내는건가?  -->																					
 																			<!-- 부서선택 시작 -->
 																			<div class="card">
 																				<div class="form-group">
@@ -275,14 +260,14 @@
 												
 											</div> <!-- 휴가등록 form end -->
 											<!-- 휴가등록 form-actions start -->
-											<div class="form-actions col-12">
+											<div class="col-12">
 												<div class="text-right">
 													<div>
-													<input type="button" onclick="document.getElementById('annualForm').submit();" value="전송">
-													<a href="#" onclick="document.getElementById('annualForm').submit();"></a>
-													</div>
-													<button type="submit" class="btn btn-info" value="등록" id="btnSubmit">Submit</button>
+													<button type="button" class="btn btn-info" id="btnSubmit" onclick="document.getElementById('#annualForm').submit();" value="전송">Submit</button>
+													<a href="#" onclick="document.getElementById('#annualForm').submit();"></a>
 													<button type="reset" class="btn btn-dark" value="취소" id="btnReset">Reset</button>
+													</div>
+													<!-- <button type="submit" class="btn btn-info" value="등록" id="btnSubmit">Submit</button> -->
 												</div>
 											</div> <!-- 휴가등록 form-actions end -->
 										</form>
@@ -297,67 +282,37 @@
 						<div class="card">
 							<div class="card-body" id="annualApplicationList">
 								<div class=" col-12" style="padding:0;">
-									<!-- 휴가등록 리스트 시작 -->
-									
+									<!-- 휴가등록 list table 시작 -->
 									<div class="table-responsive">
 										<table class="table" style="text-align: center; font-size: 0.9rem; " id="anuualApplicationTable">
 											<thead>
 												<tr>
-													<th:block th:if="${not #lists.isEmpty(list1)}" th:each="l : ${list1}">
+													<!-- <th:block th:if="${not #lists.isEmpty(list1)}" th:each="l : ${list1}">
 														<th th:text="${l.anuual}">
-													</th:block>
+													</th:block> -->
 													<th scope="col">#</th>
 													<th scope="col">신청일</th>
 													<th scope="col">시작일</th>
 													<th scope="col">종료일</th>
-													<th scope="col">제목</th>
 													<th scope="col">휴가 구분</th>
-													<th scope="col">전일/반일 구분</th>
+													<th scope="col">사용일수</th>
 													<th scope="col">결재진행상태</th>
-													<th scope="col">사용여부</th>
 													<th scope="col">첨부파일</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<th scope="row">1</th>
-													<td>2022.02.02</td>
-													<td>2022.02.02</td>
-													<td>2022.02.03</td>
-													<td>@mdodfjahldsjkfhs adfsdf </td>
-													<td>보상</td>
-													<td>전일</td>
-													<td>진행중</td>
-													<td>여</td>
-													<td>.xlsx</td>
-												</tr>
-												<tr>
-													<th scope="row">2</th>
-													<td>2022.02.02</td>
-													<td>2022.02.02</td>
-													<td>2022.02.03</td>
-													<td>@fatejkb jdshjt dsf sdfasdfdsf u</td>
-													<td>경조</td>
-													<td>전일</td>
-													<td>완료</td>
-													<td>여</td>
-													<td>.xlsx</td>
-												</tr>
-												<tr>
-													<th scope="row">3</th>
-													<td>2022.02.02</td>
-													<td>2022.02.02</td>
-													<td>2022.02.03</td>
-													<td>@twitter dkfhak ei fadf asdf dihs</td>
-													<td>병가</td>
-													<td>반일</td>
-													<td>반려</td>
-													<td>부</td>
-													<td>.xlsx</td>
+												<tr th:if="${not #lists.isEmpty(annualApplication)}" th:each="l : ${annualApplication}"> 
+													<td></td>
+													<td th:text="${l.annualStartDate}"></td>
+													<td th:text="${l.annualEndDate}"></td>
+													<td th:text="${l.cateAnnual}"></td>
+													<td th:text="${l.useDate}"></td>
+													<td th:text="${l.approvalRequestCode}"></td>
+													<td th:text="${l.attachFileName}"></td>
 												</tr>
 											</tbody>
 										</table>
-									</div>												
+									</div><!-- 휴가등록 list table 끝 -->												
 										<!-- 페이지 번호 시작 -->
 										<div style="display:flex; justify-content: space-around;">
 											<ul class="pagination float-right">
@@ -377,230 +332,14 @@
 								</div> <!-- annaulApplicationList table end -->
 							</div>
 							<div>
-							<!-- 사용휴가조회 start -->
-					
-							<!-- 사용휴가조회 modal 버튼 start -->
-							<button type="button" class="btn waves-effect waves-light btn-success" data-toggle="modal" data-target="useAnnualSearch" value="사용휴가조회" 
-							id="btnUseAnnualSearch" style="margin:auto 0; margin-left: 86%; position: static;">사용휴가조회</button>
-							
-							<!-- 사용휴가조회 modal form start -->
-							<div class="modal fade" id="useAnnualSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="height: 110%">
-								<div class="modal-dialog modal-xl" role="document">
-									<div class="modal-content">
-										<div class="modal-header">																	
-											<h4 class="modal-title" id="useAnnualSearch">사용휴가조회</h4>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">×</span>
-											</button>															
-										</div>
-										<div class="modal-body">										
-											<div class="card-body">
-												<div class="table-responsive">
-													<!-- 사용휴가조회 search >> 생각해보고 넣을지말지 결정-->
-													<div style="margin-bottom: 1rem;">
-														 <select class="custom-select mr-sm-2 col-1" id="inlineFormCustomSelect" style="margin: 0">
-				                                            <option selected>Choose...</option>
-				                                            <option value="1">One</option>
-				                                            <option value="2">Two</option>
-				                                            <option value="3">Three</option>
-				                                        </select>
-														<input type="search" id="annualSearchKeyword">
-													</div>
-													
-													<!-- 사용휴가조회 table -->																																			
-													<table class="table" style="text-align: center; font-size: 0.9rem;" id="modalDataTable">
-														<thead class="thead-light">
-															<tr>
-																<th scope="col">번호</th>
-																<th scope="col">시작일시</th>
-																<th scope="col">종료일시</th>
-																<th scope="col">제목</th>
-																<th scope="col">휴가 구분</th>
-																<th scope="col">전일/반일 구분</th>
-																<th scope="col">결재진행상태</th>
-																<th scope="col">사용여부</th>
-																<th scope="col">첨부파일</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<th scope="row">1</th>
-																<td>2022.02.02</td>
-																<td>2022.02.03</td>
-																<td>@mdodfjahldsjkfhs adfsdf </td>
-																<td>보상</td>
-																<td>전일</td>
-																<td>진행중</td>
-																<td>여</td>
-																<td>.xlsx</td>
-															</tr>
-															<tr>
-																<th scope="row">2</th>
-																<td>2022.02.02</td>
-																<td>2022.02.03</td>
-																<td>@fatejkb jdshjt dsf sdfasdfdsf u</td>
-																<td>경조</td>
-																<td>전일</td>
-																<td>완료</td>
-																<td>여</td>
-																<td>.xlsx</td>
-															</tr>
-															<tr>
-																<th scope="row">3</th>
-																<td>2022.02.02</td>
-																<td>2022.02.03</td>
-																<td>@twitter dkfhak ei fadf asdf dihs</td>
-																<td>병가</td>
-																<td>반일</td>
-																<td>반려</td>
-																<td>부</td>
-																<td>.xlsx</td>
-															</tr>
-														</tbody>
-													</table>
-												</div> <!-- table-responsive end / modalDataTable -->
-												<!-- show entries start -->
-												<div class="row" id="showEntries">
-													<div class="col-sm-12 col-md-6">
-														<div class="dataTables_length" id="zero_config_length"  style="display: flex; width:100px;">
-															<label>
-																"show"
-																<select name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm">
-																	<option value="5">5</option>
-																	<option value="10">10</option>
-																	<option value="15">15</option>
-																	<option value="20">20</option>
-																</select>
-																<input type="search">
-															</label>
-														</div>
-													</div>
-												</div> <!-- show entries end -->
-												<!-- 연차사용내역 테이블 끝 -->
-															
-												<!-- 페이지 번호 시작 -->
-												<div style="display:flex; justify-content: space-around;">
-													<ul class="pagination float-right">
-														<li class="page-item disabled">
-															<a class="page-link" href="#" tabindex="-1">Previous</a>
-														</li>
-														<li class="page-item active"><a class="page-link" href="#">1</a></li>
-														<li class="page-item">
-															<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-														</li>
-														<li class="page-item"><a class="page-link" href="#">3</a></li>
-														<li class="page-item">
-															<a class="page-link" href="#">Next</a>
-														</li>
-													</ul>						
-												</div><!-- 페이지 번호 끝 -->
-											</div> 														
-										</div> <!-- 사용휴가조회 modal-body 끝 -->
-									</div>
-								</div>
-							</div> <!-- 사용휴가조회 modal form end -->
-					
-						<!-- 사용휴가조회 end -->		
+	
 							</div> <!-- card-body end -->												
 						</div> <!-- card end -->
 						
 						
 						 
 						
-						<!-- 연차등록 모달을 열기 위한 버튼 +++모달 내용으로 폼 짜보기 -->
-						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="btnMyModal">
-							연차등록
-						</button>
-						<!-- 연차등록 modal 영역 시작 -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="height: 110%">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<!-- 연차등록 버튼 시작 -->
-										<h4 class="modal-title" id="myModalLabel">휴가 신청</h4>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">×</span>
-										</button>
-										<!-- 연차등록 버튼 끝 -->
-									</div>
-									<div class="modal-body">
-										<!-- 연차등록 form 시작 -->
-										<form>																								
-											<div class="form-group">
-												<!-- 연차구분 셀렉트박스 시작 -->
-												<label for="controlSelect">구분</label>
-												<select class="form-control" id="controlSelect">
-													<option value="val1">연차</option>
-													<option value="val2">보상</option>
-													<option value="val3">경조</option>
-													<option value="val4">병가</option>
-													<option value="val5">보건</option>
-													<option value="val6">공가</option>
-													<option value="val7">기타</option>
-												</select> <!-- 연차구분 셀렉트박스 끝 -->
-											</div>
-											
-											<!-- 연차등록 휴가일정 시작 -->
-											<div class="card">	
-												<div class="form-group">
-													<label for="exampleFormControlInput1" style="width:100%;">휴가 일정</label>
-													<div style="text-align: center;">
-														<input type="date"> - <input type="date">	
-														
-														<!-- datetimepicker test start -->
-														
-														<div class="input-group input-daterange" id="dateFormat">
-															<input type="date" class="form-control" id="startDate" value="2012-04-05">
-															<div class="input-group-addon"> - </div>
-															<input type="date" class="form-control" id="endDate" value="2012-04-19">
-														</div>
-													<!-- datetimepicker test end -->
-													
-													</div>
-												</div>
-											</div> <!-- 연차등록 휴가일정 끝 -->
-											
-											<!-- 연차등록 제목입력 시작 -->
-											<div class="card">
-												<div class="form-group">
-													<label for="exampleFormControlTextarea1">제목</label>
-													<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-												</div>
-											</div> <!-- 연차등록 제목입력 끝 -->							
-		
-											<!-- 연차등록 메세지 입력 시작 -->
-											<div class="card">
-												<div class="form-group">
-													<label for="exampleFormControlTextarea2">메세지 입력</label>
-													<textarea class="form-control" id="exampleFormControlTextarea2" rows="2"></textarea>
-												</div>
-											</div> <!-- 연차등록 메세지 입력 끝 -->
-											
-											<!-- 연차등록 증명자료 첨부 시작 -->
-											<div class="card" style="margin: 0px;">	
-												<div class="form-group">
-													<div>
-														<label for="exampleFormControlFile1">증명자료 첨부</label>
-													</div>	
-													<label class="custom-file-label" for="inputGroupFile01" style="top:30px;">Choose file</label>
-													<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">																										
-												</div>
-											</div> <!-- 연차등록 증명자료 첨부 끝 -->
-										</form> <!-- 연차등록 form 끝 -->
-									</div> <!-- modal-body end -->
-									
-									<div class="modal-footer" style="padding: 0.5rem">
-										<button type="button" class="btn btn-cancle" data-dismiss="modal" id="btnCancle">
-											취소
-										</button>
-										<button type="button" class="btn btn-primary" id="btnPrimary">
-											확인	
-										</button>
-									</div> <!-- modal-footer end -->
-									
-								</div> <!-- modal-content 끝 -->
-							</div> <!-- 연차등록 modal-dialog 끝 -->
-						</div> <!-- 연차등록 modal 영역 끝 -->		
+	
 					</div>
 					<!--========== 휴가등록 tab 끝 ==========-->
 					
@@ -626,20 +365,12 @@
 													</select>
 												</form>
 											</div>
-											<div class="col-3">
-											
+											<div class="col-3"></div>
+											<div class="col-3"></div>
+											<div class="col-3" style="display: inline;">
 												<form>
-													<input type="search">
+													<input type="search" class="form-control form-control-sm">
 												</form>
-											</div>
-											<div class="col-3">
-											
-												<form>
-													<input type="search">
-													
-												</form>
-											</div>
-											<div class="col-3">
 												<button type="button">검색</button>
 											</div>
 											
@@ -917,11 +648,11 @@
 					
 					for(var i=0; i<len; i++;){
 						dataArrayToSend.push($(this).find("td").eq(i).text());
-					}
+					};
 					dataArrayToSend1.push(dataArrayToSend);
 				});
 								
-			})
+			});
 			
 		});
 	</script>

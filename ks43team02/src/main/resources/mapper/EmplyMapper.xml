@@ -76,6 +76,31 @@
 			<result column="reg_date"						property="regDate"/>
 		</association>
 	</resultMap>
+	<update id="modifyEmply" parameterType="Emply">
+		/* 회원정보수정 */
+		UPDATE tb_emply_info_reg
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="emplyPw != null and emplyPw != ''">			
+				 emply_pw = #{emplyPw}
+			</if>
+			<if test="emplyNumber != null and emplyNumber != ''">			
+				 ,emply_number = #{emplyNumber}
+			</if>
+			<if test="emplyBirth != null and emplyBirth != ''">			
+				 ,emply_birth = #{emplyBirth}
+			</if>
+			<if test="emplyHomeAddress != null and emplyHomeAddress != ''">			
+				 ,emply_home_address = #{emplyHomeAddress}
+			</if>
+			<if test="emplyHomeAddressDetail != null and emplyHomeAddressDetail != ''">			
+				 ,emply_home_address_detail = #{emplyHomeAddressDetail}
+			</if>
+			<if test="emplyHomeAddressZip != null and emplyHomeAddressZip != ''">			
+				 ,emply_home_address_zip = #{emplyHomeAddressZip}
+			</if>
+		</trim>
+		WHERE emply_id = #{emplyId};
+	</update>
 	<select id="getOrganiSListByCode" resultType="OrganizationSList">
 		/* 조직도 소분류 에이작스 활용 뿌리기 */
 		SELECT

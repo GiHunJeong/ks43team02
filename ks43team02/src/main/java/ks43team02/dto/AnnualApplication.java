@@ -1,140 +1,114 @@
 package ks43team02.dto;
 
 public class AnnualApplication {
-	private String annual_application_code;
-	private String cp_representative_code;
-	private String super_admin_id;
-	private String cate_annual;
-	private String approval_request_code;
-	private String emply_id;
-	private String emply_name;
-	private String annual_start_date;
-	private String annual_end_date;
-	private String use_date;
+	private String annualApplicationCode;
+	private String cpRepresentativeCode;
+	private String superAdminId;
+	private String cateAnnual;
+	private String approvalRequestCode;
+	private String emplyId;
+	private String emplyName;
+	private String annualStartDate;
+	private String annualEndDate;
+	private String useDate;
 	private String comment;
-	private String attach_file_name;
-	private String reg_date;
-	private String group_code;
-	
-	public String getAnnual_application_code() {
-		return annual_application_code;
+	private String attachFileName;
+	private String regDate;
+	private String groupCode;
+	public String getAnnualApplicationCode() {
+		return annualApplicationCode;
 	}
-
-	public void setAnnual_application_code(String annual_application_code) {
-		this.annual_application_code = annual_application_code;
+	public void setAnnualApplicationCode(String annualApplicationCode) {
+		this.annualApplicationCode = annualApplicationCode;
 	}
-
-	public String getCp_representative_code() {
-		return cp_representative_code;
+	public String getCpRepresentativeCode() {
+		return cpRepresentativeCode;
 	}
-
-	public void setCp_representative_code(String cp_representative_code) {
-		this.cp_representative_code = cp_representative_code;
+	public void setCpRepresentativeCode(String cpRepresentativeCode) {
+		this.cpRepresentativeCode = cpRepresentativeCode;
 	}
-
-	public String getSuper_admin_id() {
-		return super_admin_id;
+	public String getSuperAdminId() {
+		return superAdminId;
 	}
-
-	public void setSuper_admin_id(String super_admin_id) {
-		this.super_admin_id = super_admin_id;
+	public void setSuperAdminId(String superAdminId) {
+		this.superAdminId = superAdminId;
 	}
-
-	public String getCate_annual() {
-		return cate_annual;
+	public String getCateAnnual() {
+		return cateAnnual;
 	}
-
-	public void setCate_annual(String cate_annual) {
-		this.cate_annual = cate_annual;
+	public void setCateAnnual(String cateAnnual) {
+		this.cateAnnual = cateAnnual;
 	}
-
-	public String getApproval_request_code() {
-		return approval_request_code;
+	public String getApprovalRequestCode() {
+		return approvalRequestCode;
 	}
-
-	public void setApproval_request_code(String approval_request_code) {
-		this.approval_request_code = approval_request_code;
+	public void setApprovalRequestCode(String approvalRequestCode) {
+		this.approvalRequestCode = approvalRequestCode;
 	}
-
-	public String getEmply_id() {
-		return emply_id;
+	public String getEmplyId() {
+		return emplyId;
 	}
-
-	public void setEmply_id(String emply_id) {
-		this.emply_id = emply_id;
+	public void setEmplyId(String emplyId) {
+		this.emplyId = emplyId;
 	}
-
-	public String getEmply_name() {
-		return emply_name;
+	public String getEmplyName() {
+		return emplyName;
 	}
-
-	public void setEmply_name(String emply_name) {
-		this.emply_name = emply_name;
+	public void setEmplyName(String emplyName) {
+		this.emplyName = emplyName;
 	}
-
-	public String getAnnual_annual_start_date() {
-		return annual_start_date;
+	public String getAnnualStartDate() {
+		return annualStartDate;
 	}
-
-	public void setAnnual_annual_start_date(String annual_annual_start_date) {
-		this.annual_start_date = annual_annual_start_date;
+	public void setAnnualStartDate(String annualStartDate) {
+		this.annualStartDate = annualStartDate;
 	}
-
-	public String getAnnual_annual_end_date() {
-		return annual_end_date;
+	public String getAnnualEndDate() {
+		return annualEndDate;
 	}
-
-	public void setAnnual_annual_end_date(String annual_annual_end_date) {
-		this.annual_end_date = annual_annual_end_date;
+	public void setAnnualEndDate(String annualEndDate) {
+		this.annualEndDate = annualEndDate;
 	}
-
-	public String getUse_date() {
-		return use_date;
+	public String getUseDate() {
+		return useDate;
 	}
-
-	public void setUse_date(String use_date) {
-		this.use_date = use_date;
+	public void setUseDate(String useDate) {
+		this.useDate = useDate;
 	}
-
 	public String getComment() {
 		return comment;
 	}
-
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
-	public String getAttach_file_name() {
-		return attach_file_name;
+	public String getAttachFileName() {
+		return attachFileName;
 	}
-
-	public void setAttach_file_name(String attach_file_name) {
-		this.attach_file_name = attach_file_name;
+	public void setAttachFileName(String attachFileName) {
+		this.attachFileName = attachFileName;
 	}
-
-	public String getReg_date() {
-		return reg_date;
+	public String getRegDate() {
+		return regDate;
 	}
-
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
-
-	public String getGroup_code() {
-		return group_code;
+	public String getGroupCode() {
+		return groupCode;
 	}
-
-	public void setGroup_code(String group_code) {
-		this.group_code = group_code;
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
 	}
-
 	@Override
 	public String toString() {
-		return "AnnualApplication [annual_application_code=" + annual_application_code + ", cp_representative_code="
-				+ cp_representative_code + ", super_admin_id=" + super_admin_id + ", cate_annual=" + cate_annual
-				+ ", approval_request_code=" + approval_request_code + ", emply_id=" + emply_id + ", emply_name="
-				+ emply_name + ", annual_annual_start_date=" + annual_start_date + ", annual_annual_end_date="
-				+ annual_end_date + ", use_date=" + use_date + ", comment=" + comment + ", attach_file_name="
-				+ attach_file_name + ", reg_date=" + reg_date + ", group_code=" + group_code + "]";
+		return "AnnualApplication [annualApplicationCode=" + annualApplicationCode + ", cpRepresentativeCode="
+				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", cateAnnual=" + cateAnnual
+				+ ", approvalRequestCode=" + approvalRequestCode + ", emplyId=" + emplyId + ", emplyName=" + emplyName
+				+ ", annualStartDate=" + annualStartDate + ", annualEndDate=" + annualEndDate + ", useDate=" + useDate
+				+ ", comment=" + comment + ", attachFileName=" + attachFileName + ", regDate=" + regDate
+				+ ", groupCode=" + groupCode + "]";
 	}
+	
+	
+	
 }

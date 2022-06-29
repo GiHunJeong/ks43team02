@@ -20,37 +20,10 @@
 		<result column="reg_user" 					property="regUser"/>
 
 		<result column="dayCheck" 					property="dayCheck"/>
+
 	</resultMap>
-	<select id="getWorkSettingList" parameterType="String" resultMap="WorkSettingListMap">
+	<select id="getWorkSettingL	ist" parameterType="String" resultMap="WorkSettingListMap">
 		/*근무제 세팅 완료 리스트 조회*/
-		SELECT
-			cp.standard_worksystem_cp_code
-			,cp.cp_representative_code
-			,cp.super_admin_id
-			,cp.standard_work_code
-			,cp.work_start_time
-			,cp.work_end_time
-			,cp.break_time
-			,cp.cp_name
-			,cp.reg_date
-			,ww.workway_code
-			,ww.workway_name
-			,ws.worksystem_name
-			,ws.reg_user
-		FROM
-			tb_standard_worksystem_cp AS cp
-		left JOIN 
-			tb_workway_standard AS ww
-				ON cp.super_admin_id = ww.super_admin_id
-		LEFT JOIN
-			tb_worksystem_standard AS ws
-				ON ww.super_admin_id = ws.super_admin_id
-		WHERE
-			cp.super_admin_id = 'ksmart43id@ksmart.or.kr'
-		GROUP BY
-			ws.worksystem_name;
-			
-		/*
 		SELECT
 			sw.standard_worksystem_cp_code
 			,sw.cp_representative_code
@@ -63,8 +36,6 @@
 			,sw.reg_date
 		FROM
 		tb_standard_worksystem_cp AS sw;
-		*/
-		
 	</select>
 	<insert id="addWorkSettingList" parameterType="String">
 		/*근무제 세팅 추가 리스트 조회*/
