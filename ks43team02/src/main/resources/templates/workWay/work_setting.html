@@ -33,13 +33,13 @@
 		        Success! You've done it.
 		    </div>
 		</form>
-			<form th:action="@{/workWay/work_setting}" method="get" class="mt-4">
+			<form th:action="@{/workWay/work_setting_list}" name="SettingPost"  method="get|post" class="mt-4">
 				<div class="form-group mb-4">
 					<h4 class="card-title">근무설정</h4>
-					      <label for="exampleFormControlSelect1" style="width:100%;">근무제선택</label>
-					<select  class="form-control col-10" id="workSysName123fd2fe" name="standardWorkCode" style="float:left;">
+			      	<label for="test" style="width:100%;">근무제선택</label>
+					<select  class="form-control col-10" name="standardWorkCode" style="float:left;">
 						<th:block  th:if="${not #lists.isEmpty(list3)}" th:each="l : ${list3}">
-							<option th:text="${l.worksystemName}"></option>
+							<option th:text="${l.worksystemName}" value="worksystemName"></option>
 					    	<!-- <option th:each="l:${list}" th:text="${l}"></option> -->
 							<!-- <option name="5일근무제" value="date5">5일근무제</option>
 							<option value="4일근무제">4일근무제</option>
@@ -56,38 +56,28 @@
 						</div>
 					</div>
 				</div>
-				<div id="result2"></div>
 				<div id="dayCheck" class="form-group">
 					<label>근무요일선택</label>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="일" onclick="getCheckboxValue()">일
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="월" onclick="getCheckboxValue()">월
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="화" onclick="getCheckboxValue()">화
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="수" onclick="getCheckboxValue()">수
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="목" onclick="getCheckboxValue()">목
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="금" onclick="getCheckboxValue()">금
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="토" onclick="getCheckboxValue()">토
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sun" onclick="getCheckboxValue()">일
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="mon" onclick="getCheckboxValue()">월
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="tue" onclick="getCheckboxValue()">화
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="wen" onclick="getCheckboxValue()">수
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="thr" onclick="getCheckboxValue()">목
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="fri" onclick="getCheckboxValue()">금
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sat" onclick="getCheckboxValue()">토
 						<!-- <label class="form-check-label" for="inlineCheckbox1">일</label> -->
 					</div>
-					<div id="result"></div>
-					<!-- <div id ="result" class="alert alert-primary alert-dismissible bg-primary text-white border-0 fade show" role="alert">
-			              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			                  <span aria-hidden="true">×</span>
-			              </button>
-			        </div> -->
 				</div>
+				<div id="result"></div>
 				<div>
-					시작시간 : <input type="time"  value="09:00:00">
-					종료시간 : <input type="time" value="18:00:00">
-					휴게시간 : <input type="time" value="01:00:00">
+					시작시간 : <input type="time" name="startTime" value="09:00:00">
+					종료시간 : <input type="time" name="endTime" value="18:00:00">
+					휴게시간 : <input type="time" name="breackTime" value="01:00:00">
 				</div>
-				<div class="form-group row">
-				  <div class="col-sm-10">
-				  	<a th:href="@{/workWay/work_setting_list}">
-				  	  <submit type="submit" class="btn btn-primary">양식보내기</submit>
-				  	</a>
-				  </div>
-				</div>
+	  	 	 	<!-- <submit  type="submit" onclick="location.href='work_setting_list'" class="btn btn-primary">양식보내기</submit> -->
+	  	  		<!-- <submit type="submit" onclick="location.href='work_setting_list'" class="btn btn-primary">양식보내기</submit> -->
+				<input type="submit" value="등록하기" class="btn btn-primary">
 			</form>
 	    </div>
 	</div>
@@ -167,7 +157,13 @@
 			let result2 ='';
 			document.getElementById('result2').innerText = result2;
 		} */
-		
+		function SettingPostsubmit(){
+			if(standardWorkCode.value == ''){
+				return flase;
+			}
+			console.log(SettingPostsubmit);
+			return true;
+		}
 		/*근무제 세팅완료 리스트로 보내는 쿼리문*/
 		
 	</script>
