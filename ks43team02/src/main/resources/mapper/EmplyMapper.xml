@@ -16,6 +16,8 @@
 		<result column="emply_birth"				property="emplyBirth"/>
 		<result column="emply_account"				property="emplyAccount"/>
 		<result column="emply_home_address"			property="emplyHomeAddress"/>
+		<result column="emply_home_address_zip"		property="emplyHomeAddressZip"/>
+		<result column="emply_home_address_detail"	property="emplyHomeAddressDetail"/>
 		<result column="emplyment_date"				property="emplymentDate"/>
 		<result column="emplyment_type"				property="emplymentType"/>
 		<result column="retire_status"				property="retireStatus"/>
@@ -182,6 +184,8 @@
 			, reg.emply_birth
 			, reg.emply_account
 			, reg.emply_home_address
+			, reg.emply_home_address_zip
+			, reg.emply_home_address_detail
 			, reg.emplyment_date
 			, reg.emplyment_type
 			, reg.retire_status

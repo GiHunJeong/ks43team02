@@ -79,12 +79,6 @@ public class LoginController {
 			if(emplyPw != null && emplyPw.equals(emplyPwCheck)) {
 				//사원
 				session.setAttribute("SEMAIL"		, emplyId);
-				if(emply.getRankLevelCode() == null) {
-					session.setAttribute("SRANKNAME"	, "직급미입력");
-					session.setAttribute("SPOSITION"	, "포지션없음");
-					session.setAttribute("SNAME"		, emply.getEmplyName());
-					return "redirect:/";
-				}
 				session.setAttribute("SRANKNAME"	, emply.getRankLevelList().getRankName());
 				session.setAttribute("SPOSITION"	, emply.getPositionLevelCode());
 				session.setAttribute("SNAME"		, emply.getEmplyName());

@@ -30,7 +30,13 @@ public class EmplyService {
 	 * 유저 프로필 사진 업로드
 	 */
 	
-
+	/*
+	 * 사원 개인정보 수정
+	 */
+	public int modifyEmply(Emply emply) {
+		int result = emplyMapper.modifyEmply(emply);
+		return result;
+	}
 	
 	/*
 	 * 조직도 소분류 에이작스
