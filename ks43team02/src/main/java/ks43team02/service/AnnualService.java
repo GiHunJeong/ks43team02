@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team02.dto.Annual;
+import ks43team02.dto.AnnualApplication;
+import ks43team02.dto.AnnualSetting;
 import ks43team02.mapper.AnnualMapper;
+import ks43team02.mapper.AnnualSettingMapper;
 
 @Service
 @Transactional
@@ -15,21 +18,39 @@ public class AnnualService {
 	 * 의존성 주입
 	 * */
 	private final AnnualMapper annualMapper;
+	private final AnnualSettingMapper annualSettingMapper;
 	
-	public AnnualService(AnnualMapper annualMapper) {
+	public AnnualService(AnnualMapper annualMapper, AnnualSettingMapper annualSettingMapper) {
 		this.annualMapper = annualMapper;
-		
+		this.annualSettingMapper = annualSettingMapper;
+	}
+
+	//연차등록
+	/*
+	 * public AnnualApplication addAnnualApplication(AnnualApplication
+	 * annualApplication) { int addAnnualApplication =
+	 * annualMapper.addAnnualApplication(annualApplication); return
+	 * annualApplication; }
+	 * 
+	 * public List<AnnualApplication> getAnnualApplication() {
+	 * List<AnnualApplication> annualApplication =
+	 * annualMapper.getAnnualApplication(); return annualApplication; }
+	 */
+
+	
+	//연차등록 가져오기
+	public List<AnnualApplication> getAnnualApplication() {
+		List<AnnualApplication> annualApplication = annualMapper.getAnnualApplication();
+		return annualApplication;
 	}
 	
-	//
+	//연차세팅
+	
 	/*
-	 * public int annualList(Annual annual) {
-	 * 
-	 * int result = annualMapper }
+	 * public List<AnnualSetting> getAnnualSetting(){ List<AnnualSetting>
+	 * annualSetting = annualSettingMapper.getAnnualSetting(); return annualSetting;
+	 * }
 	 */
-	//
-	public List<Annual> getAnnualList(){
-		List<Annual> annualList = annualMapper.getAnnualList();
-		return annualList;
-	}
+
+	
 }
