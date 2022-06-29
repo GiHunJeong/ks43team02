@@ -49,10 +49,21 @@ public class EmplyController {
 		return organiMName;
 	}
 	//조직도 대분류
-
-	//사원 개인정보수정
+	//개인정보수정
+	@PostMapping("/emply_modify_my")
+	public String emplyModify(Emply emply) {
+		log.info("수정화면에서 입력받은 값 : {}", emply);
+		emplyService.modifyEmply(emply);
+		return "redirect:/member/emply_modify_my";
+	}
+	//개인정보수정 페이지 이동
 	@GetMapping("/emply_modify_my")
-	public String emplyModifyMy() {
+	public String emplyModifyMy(@RequestParam(name="emplyId", required = false) String emplyId
+			   				   ,Model model) {
+		log.info("화면에서 입력받은 emply: {}", emplyId);
+		Emply emply = emplyService.getEmplyInfoById(emplyId);
+		
+		model.addAttribute("emply", emply);
 		return "member/emply_modify_my";
 	}
 	//회원전체조회

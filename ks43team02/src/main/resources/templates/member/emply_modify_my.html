@@ -12,6 +12,7 @@
 	    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon.png}">
 	    <title>개인 정보 수정</title>
 	    <link th:href="@{/dist/css/style.min.css}" rel="stylesheet">
+	    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
 	</head>
 </th:block>
 
@@ -20,7 +21,7 @@
 		<!-- ============================================================== -->
 	    <!-- Start Page Content -->
 	    <!-- ============================================================== -->
-	    
+	    <form th:action="@{/member/emply_modify_my}" method="post">
 	    <div class="card-body">
 	        <h4 class="card-title">개인 정보 수정</h4>
 	        <div class="table-responsive">
@@ -55,7 +56,7 @@
 										<div class="col-lg-11">
 											<div class="row">
 												<div class="col-md-3">
-												    <input type="text" class="form-control" placeholder="이름" disabled="disabled">
+												    <input name="emplyName" th:value="${emply.emplyName}" type="text" class="form-control" placeholder="이름" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -71,7 +72,7 @@
 										<div class="col-lg-11">
 											<div class="row">
 												<div class="col-md-3">
-												    <input type="text" class="form-control" placeholder="아이디" disabled="disabled">
+												    <input name="emplyId" th:value="${emply.emplyId}" type="text" class="form-control" placeholder="아이디" disabled="disabled">
 												</div>
 											</div>
 										</div>
@@ -87,7 +88,7 @@
 										<div class="col-lg-11">
 											<div class="row">
 												<div class="col-md-3">
-												    <input type="password" class="form-control" placeholder="비밀번호">
+												    <input name="emplyPw" th:value="${emply.emplyPw}" type="password" class="form-control" placeholder="비밀번호">
 												</div>
 											</div>
 										</div>
@@ -99,11 +100,11 @@
 	                        <td>
 	                        	<div class="form-group">
 	                                <div class="row">
-	                                    <label class="col-lg-1 mt-2">비밀번호확인</label>
+	                                    <label class="col-lg-1 mt-2">핸드폰번호</label>
 	                                    <div class="col-lg-11">
 	                                        <div class="row">
 	                                            <div class="col-md-3">
-	                                                <input type="password" class="form-control" placeholder="비밀번호확인">
+	                                                <input name="emplyNumber" th:value="${emply.emplyNumber}" type="tel" class="form-control" placeholder="핸드폰번호">
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -115,11 +116,11 @@
 	                        <td>
 	                        	<div class="form-group">
 	                                <div class="row">
-	                                    <label class="col-lg-1 mt-2">핸드폰번호</label>
+	                                    <label class="col-lg-1 mt-2">우편번호</label>
 	                                    <div class="col-lg-11">
 	                                        <div class="row">
 	                                            <div class="col-md-3">
-	                                                <input type="tel" class="form-control" placeholder="핸드폰번호">
+	                                                <input name="emplyHomeAddressZip" th:value="${emply.emplyHomeAddressZip}" type="text" class="form-control" placeholder="집주소">
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -135,7 +136,23 @@
 	                                    <div class="col-lg-11">
 	                                        <div class="row">
 	                                            <div class="col-md-3">
-	                                                <input type="tel" class="form-control" placeholder="집주소">
+	                                                <input name="emplyHomeAddress" th:value="${emply.emplyHomeAddress}" type="text" class="form-control" placeholder="집주소">
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                        	<div class="form-group">
+	                                <div class="row">
+	                                    <label class="col-lg-1 mt-2">상세주소</label>
+	                                    <div class="col-lg-11">
+	                                        <div class="row">
+	                                            <div class="col-md-3">
+	                                                <input name="emplyHomeAddressDetail" th:value="${emply.emplyHomeAddressDetail}" type="text" class="form-control" placeholder="집주소">
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -153,13 +170,12 @@
 	            </table>
 	        </div>
 	    </div>
-		
+		</form>
 	    <!-- ============================================================== -->
 	    <!-- Start Page Content -->
 	    <!-- ============================================================== -->
 	</th:block>
 	<th:block layout:fragment="customScript">
-		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
 	    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
 	    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
 	    <script th:src="@{/dist/js/app-style-switcher.js}"></script>

@@ -12,6 +12,8 @@ import ks43team02.dto.OrganizationSList;
 
 @Mapper
 public interface EmplyMapper {
+	// 사원 개인정보 수정
+	public int modifyEmply(Emply emply);
 	// 조직도 소분류
 	public List<OrganizationSList> getOrganiSListByCode(String organiM);
 	// 조직도 중분류
