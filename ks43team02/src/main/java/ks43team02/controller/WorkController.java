@@ -12,8 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks43team02.dto.WorkSetting;
 import ks43team02.dto.WorkSettingList;
@@ -137,5 +140,37 @@ public class WorkController{
 		return "workWay/work_setting_list";
 	}
 	
+	/*
+	 * @GetMapping("/work_setting_list") public String getTestPage() { return
+	 * "workWay/work_setting_list"; }
+	 */
+	@PostMapping("/work_setting_lsit")
+	@ResponseBody
+	public void workSettingPost(@ModelAttribute WorkSettingList workSettingList) {
+		System.out.println(workSettingList.getWorksystemName());
+		System.out.println(workSettingList.getWorkStartTime());
+		System.out.println(workSettingList.getWorkEndTime());
+		System.out.println(workSettingList.getBreakTime());
+		System.out.println(workSettingList.getDayCheck());
+	}
+	/*
+	@PostMapping("/work_setting_list")
+	public String workSettingPost(Model model, @RequestParam(name="standardWorkCode", required = false)String standardWorkCode
+			,@RequestParam(name = "dayCheck",required = false)String dayCheck
+			,@RequestParam(name ="workStartTime",required = false)String startTime
+			,@RequestParam(name ="workEndTime",required = false)String endTime
+			,@RequestParam(name ="breakTime",required = false)String breackTime) {
+		log.info("standardWorkCode",standardWorkCode);
+		log.info("dayCheck",dayCheck);
+		log.info("workStartTime",startTime);
+		log.info("workEndTime",endTime);
+		log.info("breakTime",breackTime);
+		model.addAttribute(standardWorkCode);
+		List<WorkSettingList> workSettingList = workTimeService.getWorkSettingList();
+		
+		
+		return "redirect:/workWay/work_setting_list";
+	}
+	*/
 	
 }

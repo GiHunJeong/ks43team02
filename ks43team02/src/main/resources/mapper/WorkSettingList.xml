@@ -18,6 +18,8 @@
 		<result column="workway_name" 				property="workwayName"/>
 		<result column="worksystem_name" 			property="worksystemName"/>
 		<result column="reg_user" 					property="regUser"/>
+
+		<result column="dayCheck" 					property="dayCheck"/>
 	</resultMap>
 	<select id="getWorkSettingList" parameterType="String" resultMap="WorkSettingListMap">
 		/*근무제 세팅 완료 리스트 조회*/

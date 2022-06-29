@@ -16,8 +16,14 @@ public class WorkSettingList {
 	private String worksystemName;
 	private String regUser;
 	
+	private String dayCheck;
 	
-	
+	public String getDayCheck() {
+		return dayCheck;
+	}
+	public void setDayCheck(String dayCheck) {
+		this.dayCheck = dayCheck;
+	}
 	public String getWorkwayCode() {
 		return workwayCode;
 	}
@@ -102,6 +108,6 @@ public class WorkSettingList {
 				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", standardWorkCode=" + standardWorkCode
 				+ ", workStartTime=" + workStartTime + ", workEndTime=" + workEndTime + ", breakTime=" + breakTime
 				+ ", cpName=" + cpName + ", regDate=" + regDate + ", workwayCode=" + workwayCode + ", workwayName="
-				+ workwayName + ", worksystemName=" + worksystemName + ", regUser=" + regUser + "]";
+				+ workwayName + ", worksystemName=" + worksystemName + ", regUser=" + regUser + ", dayCheck=" + dayCheck+"]";
 	}
 }
