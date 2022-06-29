@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import ks43team02.dto.Emply;
 import ks43team02.dto.WorkSetting;
 import ks43team02.dto.WorkSettingList;
 
@@ -23,7 +22,8 @@ public interface WorkSettingMapper {
 	public String worksetting(WorkSetting worksetting);
 	
 	//전체 근무제 리스트 가져오기
-	public List<WorkSettingList> addWorkSettingList();
+	public List<WorkSettingList> getWorkSettingList();
+	public String worksettinglist(WorkSettingList workSettingList);
 	//public String workSettingList(WorkSettingList workSettingList);
 	public int addWorkSettingList(WorkSettingList workSettingList);
 }

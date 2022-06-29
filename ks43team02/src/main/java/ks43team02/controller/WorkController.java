@@ -6,6 +6,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -121,13 +122,22 @@ public class WorkController{
 	
 	
 	
-	
+	/*
 	@GetMapping("/work_setting_list")
 	public String workSettingList(Model model
-								,WorkSettingList workSettingList) {
-		workTimeService.addWorkSettingList(workSettingList);
-		return "redirect:/workWay/work_setting_list";
+			//,WorkSettingList workSettingList
+			,HttpServletRequest workSettingList) {
+		model.addAttribute("workSettingList", workSettingList);
+		log.info("근무제 세팅완료 {} " , workSettingList);
+		return "workWay/work_setting_list";
 	};
+	*/
+	@GetMapping("/work_setting_list")
+	public String getWorkSettingList(Model model) {
+		List<WorkSettingList> workSettingList = workTimeService.getWorkSettingList();
+		model.addAttribute("workSettingList", workSettingList);
+		return "workWay/work_setting_list";
+	}
 	
 	
 }
