@@ -32,6 +32,30 @@ public class EmplyController {
 	public EmplyController(EmplyService emplyService) {
 		this.emplyService = emplyService;
 	}
+	@PostMapping("/emply_modify_all")
+	public String adminModifyEmply(Emply emply) {
+		emplyService.adminModifyEmply(emply);
+		log.info("수정화면에서 입력받은 emply : {}", emply);
+		return "redirect:/member/emply_list";
+	}
+	
+	@GetMapping("/emply_modify_all")
+	public String emplyModifyAll(@RequestParam(name="emplyId", required=false) String emplyId
+								,Model model) {
+		Emply emply = emplyService.getEmplyInfoById(emplyId);
+		List<OrganizationLList> organiLList = emplyService.getOrganiLList();
+		log.info("담기는 emplyId 값 : {}",emplyId);
+		log.info("담기는 emply 값 : {}",emply);
+		log.info("담기는 organiLList 값 : {}", organiLList);
+		model.addAttribute("emply",emply);
+		model.addAttribute("organiLList", organiLList);
+		return "member/emply_modify_all";
+	}
+	//수정취소
+	@GetMapping("/modifyCancel")
+	public String modifyCancel() {
+		return "redirect:/";
+	}
 	//조직도 소분류
 	@GetMapping("/organizationSName")
 	@ResponseBody

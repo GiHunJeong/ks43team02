@@ -10,6 +10,7 @@ import ks43team02.dto.Emply;
 import ks43team02.dto.OrganizationLList;
 import ks43team02.dto.OrganizationMList;
 import ks43team02.dto.OrganizationSList;
+import ks43team02.dto.RankLevelList;
 import ks43team02.mapper.EmplyMapper;
 
 @Service
@@ -28,6 +29,13 @@ public class EmplyService {
 	/*
 	 * 유저 프로필 사진 업로드
 	 */
+	/*
+	 * 관리자 사원정보 수정
+	 */
+	public int adminModifyEmply(Emply emply) {
+		int result = emplyMapper.adminModifyEmply(emply);
+		return result;
+	}
 	
 	/*
 	 * 사원 개인정보 수정

@@ -12,6 +12,8 @@ import ks43team02.dto.OrganizationSList;
 
 @Mapper
 public interface EmplyMapper {
+	// 관리자 사원 정보 수정
+	public int adminModifyEmply(Emply emply);
 	// 사원 개인정보 수정
 	public int modifyEmply(Emply emply);
 	// 조직도 소분류

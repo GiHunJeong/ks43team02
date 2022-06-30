@@ -76,6 +76,34 @@
 			<result column="reg_date"						property="regDate"/>
 		</association>
 	</resultMap>
+	<update id="adminModifyEmply" parameterType="Emply">
+		/* 관리자 회원정보수정 */
+		UPDATE tb_emply_info_reg
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="emplyName != null and emplyName != ''">			
+				 emply_name = #{emplyName}
+			</if>
+			<if test="emplyPw != null and emplyPw != ''">			
+				 ,emply_pw = #{emplyPw}
+			</if>
+			<if test="emplyNumber != null and emplyNumber != ''">			
+				 ,emply_number = #{emplyNumber}
+			</if>
+			<if test="emplyBirth != null and emplyBirth != ''">			
+				 ,emply_birth = #{emplyBirth}
+			</if>
+			<if test="emplyHomeAddress != null and emplyHomeAddress != ''">			
+				 ,emply_home_address = #{emplyHomeAddress}
+			</if>
+			<if test="emplyHomeAddressDetail != null and emplyHomeAddressDetail != ''">			
+				 ,emply_home_address_detail = #{emplyHomeAddressDetail}
+			</if>
+			<if test="emplyHomeAddressZip != null and emplyHomeAddressZip != ''">			
+				 ,emply_home_address_zip = #{emplyHomeAddressZip}
+			</if>
+		</trim>
+		WHERE emply_id = #{emplyId};
+	</update>
 	<update id="modifyEmply" parameterType="Emply">
 		/* 회원정보수정 */
 		UPDATE tb_emply_info_reg
@@ -189,6 +217,8 @@
 			, t.emply_birth					as emplyBirth
 			, t.emply_account				as emplyAccount
 			, t.emply_home_address			as emplyHomeAddress
+			, t.emply_home_address_zip		as emplyHomeAddressZip
+			, t.emply_home_address_detail	as emplyHomeAddressDetail
 			, t.emplyment_date				as emplymentDate
 			, t.emplyment_type				as emplymentType
 			, t.retire_status				as retireStatus
