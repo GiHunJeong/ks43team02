@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ks43team02.dto.Annual;
+import ks43team02.dto.AnnualStandard;
 import ks43team02.dto.AnnualApplication;
+import ks43team02.dto.CateAnnual;
 import ks43team02.service.AnnualService;
 
 @Controller
@@ -64,6 +65,7 @@ public class AnnualController {
 		return "annual/annualList";
 	}
 	*/
+	// 연차 등록
 	@GetMapping("/annualList")
 	public String getAnnualApplication(Model model) {
 		List<AnnualApplication> annualApplication = annualService.getAnnualApplication();
@@ -77,4 +79,21 @@ public class AnnualController {
 		public String annualSetting() {
 		return "annual/annualSetting";
 	};
+	
+	// 연차 카테고리 
+	/*
+	  @GetMapping("/annualList") 
+	  public String getCateAnnual(Model model) {
+		  List<AnnualCate> cateAnnual = annualService.getCateAnnual(); 
+		  log.info("{}",cateAnnual); model.addAttribute("cateAnnual", cateAnnual);
+	  
+		  return "annual/annualList"; 
+	  }
+	 */
+	/*
+	@GetMapping("/annualList")
+		public String AnnualCate() {
+		return "annual/annualSetting";
+	}
+	*/
 }

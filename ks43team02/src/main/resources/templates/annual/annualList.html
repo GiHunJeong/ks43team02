@@ -16,8 +16,7 @@
 		<div class="card">
 			<div class="card-body">
 				<!-- tab 영역 시작 -->
-				<h4 class="card-title mb-3">연차/휴가 관리</h4>
-				
+				<h4 class="card-title mb-3">연차/휴가 관리</h4>	
 				<ul class="nav nav-tabs nav-justified nav-bordered mb-3">
 					<li class="nav-item">
 						<a href="#home1" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0 active">
@@ -43,51 +42,50 @@
 							<div class="col-12">
 								<!-- 내 휴가 정보 start -->
 								<div class="col-xl-12">
-								<div class="card">
-									<div class="card-body">
-										<h6 class="card-subtitle" style="text-align: center; padding: 1rem;">당신의 입사일은 <code>&lt;-&gt;</code>일입니다.</h6>
-										<div class="row" id="column">
-											<!-- Column -->
-											<div class="col-md-6 col-lg-3 col-xlg-3">
-												<div class="card card-hover">
-													<div class="p-2 bg-primary text-center" id="totalWorkDate">
-														<h1 class="font-light text-white">370</h1>
-														<h6 class="text-white">총근무일</h6>																	
+									<div class="card">
+										<div class="card-body">
+											<h6 class="card-subtitle" style="text-align: center; padding: 1rem;">당신의 입사일은 <code>&lt;-&gt;</code>일입니다.</h6>
+											<div class="row" id="column">
+												<!-- Column -->
+												<div class="col-md-6 col-lg-3 col-xlg-3">
+													<div class="card card-hover">
+														<div class="p-2 bg-primary text-center" id="totalWorkDate">
+															<h1 class="font-light text-white">370</h1>
+															<h6 class="text-white">총근무일</h6>																	
+														</div>
 													</div>
 												</div>
-											</div>
-											
-											<!-- Column -->
-											<div class="col-md-6 col-lg-3 col-xlg-3">
-												<div class="card card-hover">
-													<div class="p-2 bg-cyan text-center" id="inYear">
-														<h1 class="font-light text-white">2</h1>
-														<h6 class="text-white">년차</h6>
+												<!-- Column -->
+												<div class="col-md-6 col-lg-3 col-xlg-3">
+													<div class="card card-hover">
+														<div class="p-2 bg-cyan text-center" id="inYear">
+															<h1 class="font-light text-white">2</h1>
+															<h6 class="text-white">년차</h6>
+														</div>
 													</div>
 												</div>
-											</div>
-											<!-- Column -->
-											<div class="col-md-6 col-lg-3 col-xlg-3">
-												<div class="card card-hover" id="anuualGrant">
-													<div class="p-2 bg-success text-center">
-														<h1 class="font-light text-white">1100</h1>
-														<h6 class="text-white">휴가부여일수</h6>
+												<!-- Column -->
+												<div class="col-md-6 col-lg-3 col-xlg-3">
+													<div class="card card-hover" id="anuualGrant">
+														<div class="p-2 bg-success text-center">
+															<h1 class="font-light text-white">1100</h1>
+															<h6 class="text-white">휴가부여일수</h6>
+														</div>
 													</div>
 												</div>
-											</div>
-											<!-- Column -->
-											<div class="col-md-6 col-lg-3 col-xlg-3">
-												<div class="card card-hover">
-													<div class="p-2 bg-danger text-center" id="remainingTime">
-														<h1 class="font-light text-white">9</h1>
-														<h6 class="text-white">잔여일수</h6>
+												<!-- Column -->
+												<div class="col-md-6 col-lg-3 col-xlg-3">
+													<div class="card card-hover">
+														<div class="p-2 bg-danger text-center" id="remainingTime">
+															<h1 class="font-light text-white">9</h1>
+															<h6 class="text-white">잔여일수</h6>
+														</div>
 													</div>
 												</div>
-											</div>
-											<!-- Column -->
-										</div> <!-- row end / Column -->										
-									</div><!-- card-body end -->
-								</div>
+												<!-- Column -->
+											</div> <!-- row end / Column -->										
+										</div><!-- card-body end -->
+									</div><!-- card end -->
 								</div>
 								<!-- 내 휴가 정보 end -->
 
@@ -283,7 +281,28 @@
 							<div class="card-body" id="annualApplicationList">
 								<div class=" col-12" style="padding:0;">
 									<!-- 휴가등록 list table 시작 -->
+			<!-- 수정 필 -->
 									<div class="table-responsive">
+										<div class="row">
+											<div class="col-sm-12 col-md-6">
+												<div class="dataTables_length">
+													<div class="dataTables_length" id="zero_config_length">
+														<select name="zero_config_length" class="form-control form-control-sm">
+															<option value="5">5</option>
+															<option value="10">10</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-12 col-md-6" style="display: inline-block;">
+												<div id="zero_config_filter" class="dataTables_filter">
+													<p>search:
+													<input type="search" class="form-control form-control-sm">
+													</p>
+												</div>
+											</div>
+										
+										</div>
 										<table class="table" style="text-align: center; font-size: 0.9rem; " id="anuualApplicationTable">
 											<thead>
 												<tr>
@@ -303,9 +322,10 @@
 											<tbody>
 												<tr th:if="${not #lists.isEmpty(annualApplication)}" th:each="l : ${annualApplication}"> 
 													<td></td>
+													<td th:text="${l.regDate}"></td>
 													<td th:text="${l.annualStartDate}"></td>
 													<td th:text="${l.annualEndDate}"></td>
-													<td th:text="${l.cateAnnual}"></td>
+													<td th:text="${l.cateAnnualCode}"></td>
 													<td th:text="${l.useDate}"></td>
 													<td th:text="${l.approvalRequestCode}"></td>
 													<td th:text="${l.attachFileName}"></td>
@@ -313,7 +333,7 @@
 											</tbody>
 										</table>
 									</div><!-- 휴가등록 list table 끝 -->												
-										<!-- 페이지 번호 시작 -->
+										<!-- 페이징처리 시작 -->
 										<div style="display:flex; justify-content: space-around;">
 											<ul class="pagination float-right">
 												<li class="page-item disabled">
@@ -328,18 +348,10 @@
 													<a class="page-link" href="#">Next</a>
 												</li>
 											</ul>						
-										</div><!-- 페이지 번호 끝 -->
+										</div><!-- 페이징처리 끝 -->
 								</div> <!-- annaulApplicationList table end -->
-							</div>
-							<div>
-	
 							</div> <!-- card-body end -->												
 						</div> <!-- card end -->
-						
-						
-						 
-						
-	
 					</div>
 					<!--========== 휴가등록 tab 끝 ==========-->
 					
@@ -479,26 +491,9 @@
     <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
 	
 
-<!--============ 연차등록 form start ============-->
-	// test
-	<script type="text/javascript">
-		$(function(){
-			$(document).on('click',)
-		});
-	</script>
 
-	// 휴가등록 form submit클릭
-	<script type="text/javascript">
-		$(function(){
-			$('#btnSubmit').click(function(){
-				alert('등록하시겠습니까?');
-				/* 전송 아니면 모달창 띄우기 */
-			});
-		/* alert('등록이 완료되었습니다.'); */
-		});
-	</script>
-	
-	// 휴가등록 결재자 검색 modal 열기
+<!--============ 휴가등록 form start ============-->
+	<!-- 휴가등록 결재자 검색 modal 열기 -->
 	<script type="text/javascript">
 		$(function(){
 			$('#btnApprovalSearch').click(function(){
@@ -507,176 +502,13 @@
 		});
 	</script>
 
+<!--============= 휴가등록 form end =============-->
+
+<!--========== 휴가등록내역 table start ==========-->
+	<!-- 휴가등록내역 테이블 페이징처리(ajax) -->
 
 
-	 
-	 
-	 // 휴가등록테이블 사용휴가조회 modal(사원) test
-  <script type="text/javascript">
- 	$(function(){
- 		$('#btnUseAnnualSearch').click(function(){
- 			$('#useAnnualSearch').modal('show');
- 		});
- 	});
- </script>
-	 
-	 
-	// 연차등록 모달 확인,취소버튼 클릭시 
-<!-- modal 확인취소버튼 test1 -->
- 	<script type="text/javascript">
-	
-   		$(function(){
-			$('#btnPrimary').click(function(){
-				$('#myModal').modal('hide');
-					alert('등록이 완료되었습니다.');
-			});
-			
-			$('#btnCancle').click(function(){
-				alert('취소하시겠습니까?');
-				$('#myModal').modal('hide');
-			});
-		}); 
-   	</script>
-<!-- modal 확인취소버튼 test1 -->
-
-<!-- modal 확인취소버튼 test2 -->
-
-  	<script type="text/javascript">
-	/* 	$(document).ready(function(){
-			$('#btnPrimary').click(function(){
-				
-				var result = confirm('등록하시겠습니까?');
-				
-				if(result){
-					location.relpace('annual.html');
-					/* $('#btnPrimary').modal('hide'); 
-					alert('등록이 완료되었습니다.');
-				}else{
-					
-				}
-			});
-		}); */
-	</script>
-<!-- modal 확인취소버튼 test2 -->	
-
-<!-- form 전송 test1 -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("form").submit(function(event){
-				var addon1 = $('#basic-addon1').val();
-				var addon2 = $('#basic-addon2').val();
-				var addon3 = $('#basic-addon3').val();
-				var addon4 = $('#basic-addon4').val();
-				
-				if(addon1 == ""){
-					alert("신청일을 입력해주세요");
-					event.preventDefault();
-					return;
-				}
-				
-				$('btnSubmit').click(function(){
-					$("form").submit();
-				})
-			})
-		})
-	</script>
-	
-<!-- form 전송 test1 -->	
-
-
-<!--============ 연차등록  form end ============-->
-
-
-
-
-
-
-<!--============ 연차등록  등록버튼 유효성검사 start ============-->
-	<script>
-		function btnSubmit(AnnualList){
-			$('#annualSubmitCard').empty();
-			
-			$(document).ready(function(){
-				$('#btnSubmit').click(function(){
-					
-					if(AnnualList != null $$ AnnualList.lenght > 0){
-						$.each($(AnnualList), function())
-					}
-				});
-			});
-				
-					
-			
-			
-			
-			
-		};
-	
-	</script>
-
-<!--============= 연차등록  등록버튼 유효성검사 end =============-->
-
-
-
-
-<!--============ 연차등록  form 전송/ajax start ============-->
-	<script>
-		$(function(){
-			
-		});
-	</script>
-
-
-<!--============= 연차등록  form 전송/ajax end =============-->
-
-
-
-
-
-<!--============ 휴가사용내역 start ============-->
-/* 테이블에 모달값 받기 */
-
-<!-- modal data test1 -->
- 	<script type="text/javascript">
-		$(function(){
-			$('#btnPrimary').click(function(){
-				var dataArrayToSend=[];
-				var dataArrayToSend1=[];
-				
-				$('#modalDataTable').each(function(){
-					var len =$(this).find('td').length;
-					
-					for(var i=0; i<len; i++;){
-						dataArrayToSend.push($(this).find("td").eq(i).text());
-					};
-					dataArrayToSend1.push(dataArrayToSend);
-				});
-								
-			});
-			
-		});
-	</script>
-<!-- modal data test1 -->
-<!--============ 휴가사용내역 end ==============-->
-
-
-<!--============ 연차등록버튼 modal start ===============-->
-
-	 // 연차등록 모달창 열기
-	<script type="text/javascript">
-		$(function(){
-			$('#btnMyModal').click(function(){
-				$('#MyModal').modal('show');
-			});
-		});
-	// 연차등록 구분 셀렉트박스 
-			$(function(){
-			$('#controlSelect').click(function(){
-				alert('select');
-			});
-		})
-	</script> 
-<!--============= 연차등록버튼 modal end ================-->
+<!--=========== 휴가등록내역 table end ===========-->
 
 
 
