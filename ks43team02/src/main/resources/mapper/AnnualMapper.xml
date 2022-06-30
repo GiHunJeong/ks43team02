@@ -9,10 +9,10 @@
 <mapper namespace="ks43team02.mapper.AnnualMapper">
 
 	<resultMap type="AnnualApplication" id="AnnualAppResultMap">
-  		<result column="annual_application_code"	property="annualApplicationCode"/>
+  		<id column="annual_application_code"		property="annualApplicationCode"/>
   		<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
   		<result column="super_admin_id" 			property="superAdminId"/>
-		<result column="cate_annual" 				property="cateAnnual"/>
+		<result column="cate_annual_code" 			property="cateAnnualCode"/>
   		<result column="approval_request_code" 		property="approvalRequestCode"/>
   		<result column="emply_id" 					property="emplyId"/>
   		<result column="emply_name" 				property="emplyName"/>
@@ -23,14 +23,24 @@
   		<result column="attach_file_name" 			property="attachFileName"/>
   		<result column="reg_date" 					property="regDate"/>
   		<result column="group_code" 				property="groupCode"/>
+  		<association property="cateAnnual"  		javaType="CateAnnual">
+			<id column="cate_annual_code" 				property="cateAnnualCode"/>
+			<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
+			<result column="super_admin_id" 			property="superAdminId"/>
+			<result column="annual_division" 			property="annualDivision"/>
+			<result column="cp_name" 					property="cpName"/>
+			<result column="reg_date" 					property="regDate"/>
+  		</association>
 	</resultMap>
- 	<resultMap type="Annual" id="AnnualResultMap">
-		<result column="annual_standard_code" 			property="annualStandardCode"/>
+	
+ 	<resultMap type="AnnualStandard" id="AnnualStResultMap">
+		<id column="annual_standard_code" 				property="annualStandardCode"/>
 		<result column="cp_representative_code" 		property="cpRepresentativeCode"/>
 		<result column="super_admin_id" 				property="superAdminId"/>
 		<result column="year" 							property="year"/>
 		<result column="annual_get_day" 				property="annualGetDay"/>
 	</resultMap>
+
  	<select id="getAnnualApplication" resultMap="AnnualAppResultMap">
  		 /* 연차신청내역 */
   		SELECT
@@ -49,6 +59,10 @@
 			,aa.reg_date				
 			,aa.group_code				
 		FROM
-			tb_annual_application AS aa;
+			tb_annual_application AS aa
+			;
+			
+
+
  	</select>
 </mapper>
