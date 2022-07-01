@@ -10,12 +10,6 @@ public class WorkSettingList {
 	private String breakTime;
 	private String cpName;
 	private String regDate;
-	
-	private String workwayCode;
-	private String workwayName;
-	private String worksystemName;
-	private String regUser;
-	
 	private String dayCheck;
 	
 	public String getDayCheck() {
@@ -23,30 +17,6 @@ public class WorkSettingList {
 	}
 	public void setDayCheck(String dayCheck) {
 		this.dayCheck = dayCheck;
-	}
-	public String getWorkwayCode() {
-		return workwayCode;
-	}
-	public void setWorkwayCode(String workwayCode) {
-		this.workwayCode = workwayCode;
-	}
-	public String getWorkwayName() {
-		return workwayName;
-	}
-	public void setWorkwayName(String workwayName) {
-		this.workwayName = workwayName;
-	}
-	public String getWorksystemName() {
-		return worksystemName;
-	}
-	public void setWorksystemName(String worksystemName) {
-		this.worksystemName = worksystemName;
-	}
-	public String getRegUser() {
-		return regUser;
-	}
-	public void setRegUser(String regUser) {
-		this.regUser = regUser;
 	}
 	public String getStandardWorksystemCpCode() {
 		return standardWorksystemCpCode;
@@ -107,7 +77,6 @@ public class WorkSettingList {
 		return "WorkSettingList [standardWorksystemCpCode=" + standardWorksystemCpCode + ", cpRepresentativeCode="
 				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", standardWorkCode=" + standardWorkCode
 				+ ", workStartTime=" + workStartTime + ", workEndTime=" + workEndTime + ", breakTime=" + breakTime
-				+ ", cpName=" + cpName + ", regDate=" + regDate + ", workwayCode=" + workwayCode + ", workwayName="
-				+ workwayName + ", worksystemName=" + worksystemName + ", regUser=" + regUser + ", dayCheck=" + dayCheck+"]";
+				+ ", cpName=" + cpName + ", regDate=" + regDate + ", dayCheck=" + dayCheck+"]";
 	}
 }
