@@ -10,6 +10,7 @@ import ks43team02.dto.Emply;
 import ks43team02.dto.OrganizationLList;
 import ks43team02.dto.OrganizationMList;
 import ks43team02.dto.OrganizationSList;
+import ks43team02.dto.RankLevelList;
 import ks43team02.mapper.EmplyMapper;
 
 @Service

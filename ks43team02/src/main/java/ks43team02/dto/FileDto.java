@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 public class FileDto {
 	private String attachFileCode;
-	private String cpRepresentiveCode;
-	private String superAdminId;
 	private String attachFileOriginalName;
 	private String attachFileNewName;
 	private String attachFilePath;
@@ -19,18 +17,14 @@ public class FileDto {
 	public void setAttachFileCode(String attachFileCode) {
 		this.attachFileCode = attachFileCode;
 	}
-	public String getCpRepresentiveCode() {
-		return cpRepresentiveCode;
-	}
-	public void setCpRepresentiveCode(String cpRepresentiveCode) {
-		this.cpRepresentiveCode = cpRepresentiveCode;
-	}
-	public String getSuperAdminId() {
-		return superAdminId;
-	}
-	public void setSuperAdminId(String superAdminId) {
-		this.superAdminId = superAdminId;
-	}
+
+	/*
+	 * public String getCpRepresentiveCode() { return cpRepresentiveCode; } public
+	 * void setCpRepresentiveCode(String cpRepresentiveCode) {
+	 * this.cpRepresentiveCode = cpRepresentiveCode; } public String
+	 * getSuperAdminId() { return superAdminId; } public void setSuperAdminId(String
+	 * superAdminId) { this.superAdminId = superAdminId; }
+	 */
 	public String getAttachFileOriginalName() {
 		return attachFileOriginalName;
 	}
@@ -69,8 +63,8 @@ public class FileDto {
 	}
 	@Override
 	public String toString() {
-		return "File [attachFileCode=" + attachFileCode + ", cpRepresentiveCode=" + cpRepresentiveCode
-				+ ", superAdminId=" + superAdminId + ", attachFileOriginalName=" + attachFileOriginalName
+		return "File [attachFileCode=" + attachFileCode + ", cpRepresentiveCode=" /* + cpRepresentiveCode */
+				+ ", superAdminId=" /* + superAdminId */ + ", attachFileOriginalName=" + attachFileOriginalName
 				+ ", attachFileNewName=" + attachFileNewName + ", attachFilePath=" + attachFilePath + ", regUserName="
 				+ regUserName + ", attachFileSize=" + attachFileSize + ", regDate=" + regDate + "]";
 	}

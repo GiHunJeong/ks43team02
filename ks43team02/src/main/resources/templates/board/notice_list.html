@@ -20,27 +20,40 @@
 			                </tr>
 						</thead>
 						<tbody>
-							<tr th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
-								<td th:text="${l.cpNoticeCode}"></td>
+							<tr th:if="${not #lists.isEmpty(noticePagingList)}" 
+								th:each="l : ${noticePagingList}">
+								<td th:text="${l.cpNoticeIdx}"></td>
 								<td><a th:href="@{/board/notice_detail(cpNoticeCode=${l.cpNoticeCode})}"
 									   th:text="${l.noticeTitle}"></a></td>
 								<td th:text="${l.regUserName}"></td>
 								<td th:text="${l.regDate}"></td>
 								<td th:text="${l.viewCnt}"></td>
 							</tr>
-							
-							<!-- <tr th:unless="${not #lists.isEmpty(noticeBoardList)}">
-								<td colspan="6">조회된 내용이 없습니다.</td>
-							</tr> -->
+							<tr th:unless="${not #lists.isEmpty(noticeBoardList)}">
+								<td colspan="5">조회된 내용이 없습니다.</td>
+							</tr>
 						</tbody>
-			            <!--/* 게시글 리스트 Rendering 영역 */-->
-
+						<tfoot>
+							<tr>
+								<td colspan="4" style="text-align: center;">
+									<a th:href="@{/board/notice_list}">[맨처음]</a>
+									<a th:if="${currentPage > 1}" th:href="@{/board/notice_list(currentPage=${currentPage - 1})}">[이전]</a>
+									<th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+										<label th:if="${currentPage eq num}" th:text="${(num < 10) ? '[0' + num + ']' :'[' + num + ']'}"></label>
+										<a th:unless="${currentPage eq num}" th:href="@{/board/notice_list(currentPage=${num})}" th:text="${(num < 10) ? '[0' + num + ']' :'[' + num + ']'}"></a>
+									</th:block>
+									
+									<a th:if="${currentPage < lastPage}" th:href="@{/board/notice_list(currentPage=${currentPage + 1})}">[다음]</a>
+									<a th:href="@{/board/notice_list(currentPage=${lastPage})}">[마지막]</a>
+								</td>
+							</tr>
+						</tfoot>
 			        </table>
 			    </div>
 		    
 		    
 		       <div class="btn_wrap text-right">
-		       		<a class="btn btn-primary " href="notice_write" role="button">글쓰기</a>
+		       		<a class="btn btn-primary " th:href="notice_write" role="button">글쓰기</a>
 		       </div>
 		
 		       <!-- 페이지네이션 Rendering 영역 -->

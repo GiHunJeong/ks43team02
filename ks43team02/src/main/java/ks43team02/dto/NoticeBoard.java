@@ -7,6 +7,7 @@ public class NoticeBoard {
 	private String cpNoticeCode;
 	private String cpRepresentiveCode;
 	private String superAdminId;
+	private String cpNoticeIdx;
 	private String noticeTitle;
 	private String noticeContents;
 	private String regUserName;
@@ -34,6 +35,12 @@ public class NoticeBoard {
 	}
 	public void setSuperAdminId(String superAdminId) {
 		this.superAdminId = superAdminId;
+	}
+	public String getCpNoticeIdx() {
+		return cpNoticeIdx;
+	}
+	public void setCpNoticeIdx(String cpNoticeIdx) {
+		this.cpNoticeIdx = cpNoticeIdx;
 	}
 	public String getNoticeTitle() {
 		return noticeTitle;
@@ -79,10 +86,11 @@ public class NoticeBoard {
 	}
 	@Override
 	public String toString() {
-		return "board [cpNoticeCode=" + cpNoticeCode + ", cpRepresentiveCode=" + cpRepresentiveCode + ", superAdminId="
-				+ superAdminId + ", noticeTitle=" + noticeTitle + ", noticeContents=" + noticeContents
-				+ ", regUserName=" + regUserName + ", regDate=" + regDate + ", modifiedDate=" + modifiedDate
-				+ ", delDate=" + delDate + ", viewCnt=" + viewCnt + "]";
+		return "NoticeBoard [cpNoticeCode=" + cpNoticeCode + ", cpRepresentiveCode=" + cpRepresentiveCode
+				+ ", superAdminId=" + superAdminId + ", cpNoticeIdx=" + cpNoticeIdx + ", noticeTitle=" + noticeTitle
+				+ ", noticeContents=" + noticeContents + ", regUserName=" + regUserName + ", regDate=" + regDate
+				+ ", modifiedDate=" + modifiedDate + ", delDate=" + delDate + ", viewCnt=" + viewCnt + ", file=" + file
+				+ "]";
 	}
 	public ArrayList<FileDto> getFile() {
 		return file;

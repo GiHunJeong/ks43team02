@@ -3,9 +3,10 @@ package ks43team02.dto;
 import java.time.LocalDateTime;
 
 public class DepartmentBoard {
-	private int departmentPostCode;
+	private String departmentPostCode;
 	private String cpRepresentiveCode;
 	private String superAdminId;
+	private String departmentIdx;
 	private String departmentCate;
 	private String emplyId;
 	private String regUserName;
@@ -15,10 +16,10 @@ public class DepartmentBoard {
 	private LocalDateTime modifiedDate;
 	private LocalDateTime delDate;
 	private int viewCnt;
-	public int getDepartmentPostCode() {
+	public String getDepartmentPostCode() {
 		return departmentPostCode;
 	}
-	public void setDepartmentPostCode(int departmentPostCode) {
+	public void setDepartmentPostCode(String departmentPostCode) {
 		this.departmentPostCode = departmentPostCode;
 	}
 	public String getCpRepresentiveCode() {
@@ -32,6 +33,12 @@ public class DepartmentBoard {
 	}
 	public void setSuperAdminId(String superAdminId) {
 		this.superAdminId = superAdminId;
+	}
+	public String getDepartmentIdx() {
+		return departmentIdx;
+	}
+	public void setDepartmentIdx(String departmentIdx) {
+		this.departmentIdx = departmentIdx;
 	}
 	public String getDepartmentCate() {
 		return departmentCate;
@@ -90,10 +97,10 @@ public class DepartmentBoard {
 	@Override
 	public String toString() {
 		return "DepartmentBoard [departmentPostCode=" + departmentPostCode + ", cpRepresentiveCode="
-				+ cpRepresentiveCode + ", superAdminId=" + superAdminId + ", departmentCate=" + departmentCate
-				+ ", emplyId=" + emplyId + ", regUserName=" + regUserName + ", postTitle=" + postTitle
-				+ ", postContents=" + postContents + ", regDate=" + regDate + ", modifiedDate=" + modifiedDate
-				+ ", delDate=" + delDate + ", viewCnt=" + viewCnt + "]";
+				+ cpRepresentiveCode + ", superAdminId=" + superAdminId + ", departmentIdx=" + departmentIdx
+				+ ", departmentCate=" + departmentCate + ", emplyId=" + emplyId + ", regUserName=" + regUserName
+				+ ", postTitle=" + postTitle + ", postContents=" + postContents + ", regDate=" + regDate
+				+ ", modifiedDate=" + modifiedDate + ", delDate=" + delDate + ", viewCnt=" + viewCnt + "]";
 	}
 	
 }
