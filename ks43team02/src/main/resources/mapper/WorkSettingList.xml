@@ -13,16 +13,16 @@
 		<result column="break_time" 				property="breakTime"/>
 		<result column="cp_name" 					property="cpName"/>
 		<result column="reg_date" 					property="regDate"/>
-
-		<result column="workway_code" 				property="workwayCode"/>
-		<result column="workway_name" 				property="workwayName"/>
-		<result column="worksystem_name" 			property="worksystemName"/>
-		<result column="reg_user" 					property="regUser"/>
-
-		<result column="dayCheck" 					property="dayCheck"/>
-
+		<result column="day_check" 					property="dayCheck"/>
 	</resultMap>
-	<select id="getWorkSettingL	ist" parameterType="String" resultMap="WorkSettingListMap">
+	<select id="maxList" parameterType="String">
+		/*근무제 기본키 자동증가*/
+		SELECT
+			Max(cast(SUBSTRING_INDEX(c.standard_worksystem_cp_code,'_',-1) AS UNSIGNED)) +1
+		FROM
+			tb_standard_worksystem_cp AS c;
+	</select>
+	<select id="getWorkSettingList" parameterType="String" resultMap="WorkSettingListMap">
 		/*근무제 세팅 완료 리스트 조회*/
 		SELECT
 			sw.standard_worksystem_cp_code
@@ -34,35 +34,36 @@
 			,sw.break_time
 			,sw.cp_name
 			,sw.reg_date
+			,sw.day_check
 		FROM
 		tb_standard_worksystem_cp AS sw;
 	</select>
 	<insert id="addWorkSettingList" parameterType="String">
 		/*근무제 세팅 추가 리스트 조회*/
-		INSERT INTO 
-			tb_standard_worksystem_cp
-			(
-				standard_worksystem_cp_code
-				, cp_representative_code
-				, super_admin_id
-				, standard_work_code
-				, work_start_time
-				, work_end_time
-				, break_time
-				, cp_name
-				, reg_date
+		insert INTO 
+		tb_standard_worksystem_cp(
+			standard_worksystem_cp_code
+			, cp_representative_code 
+			, super_admin_id
+			, standard_work_code
+			, work_start_time
+			, work_end_time
+			, break_time
+			, cp_name
+			, reg_date
+			, day_check
 			)
-			VALUES 
-			(
-				#{standardWorksystemCpCode}
-				, #{cpRepresentativeCode}
-				, #{superAdminId}
-				, #{standardWorkCode}
-				, CURDATE()
-				, CURDATE()
-				, CURDATE()
-				, #{cpName}
-				, CURDATE()
-			);
+		VALUES (
+			 'standard_work_cp_code_13'
+			, 'cp_representative_code_02'
+			, 'ksmart43id@test.or.kr'
+			, 'standard_work_code_04'
+			, NOW()
+			, NOW()
+			, NOW()
+			, '한국스마트정보교육원'
+			, NOW()
+			, 'mon'
+		);
 	</insert>
 </mapper>
