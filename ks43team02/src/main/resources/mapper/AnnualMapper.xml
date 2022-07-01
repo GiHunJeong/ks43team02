@@ -7,12 +7,11 @@
 
   
 <mapper namespace="ks43team02.mapper.AnnualMapper">
-
-	<resultMap type="AnnualApplication" id="AnnualAppResultMap">
-  		<id column="annual_application_code"		property="annualApplicationCode"/>
+	<resultMap type="Annual" id="AnnualApplicationMap">
+  		<result column="annual_application_code"	property="annualApplicationCode"/>
   		<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
   		<result column="super_admin_id" 			property="superAdminId"/>
-		<result column="cate_annual_code" 			property="cateAnnualCode"/>
+		<result column="cate_annual" 				property="cateAnnual"/>
   		<result column="approval_request_code" 		property="approvalRequestCode"/>
   		<result column="emply_id" 					property="emplyId"/>
   		<result column="emply_name" 				property="emplyName"/>
@@ -23,46 +22,47 @@
   		<result column="attach_file_name" 			property="attachFileName"/>
   		<result column="reg_date" 					property="regDate"/>
   		<result column="group_code" 				property="groupCode"/>
-  		<association property="cateAnnual"  		javaType="CateAnnual">
-			<id column="cate_annual_code" 				property="cateAnnualCode"/>
-			<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
-			<result column="super_admin_id" 			property="superAdminId"/>
-			<result column="annual_division" 			property="annualDivision"/>
-			<result column="cp_name" 					property="cpName"/>
-			<result column="reg_date" 					property="regDate"/>
-  		</association>
 	</resultMap>
-	
- 	<resultMap type="AnnualStandard" id="AnnualStResultMap">
-		<id column="annual_standard_code" 				property="annualStandardCode"/>
+ 
+ 	<select id="getAnnualApplication" parameterType="String" resultMap="AnnualApplicationMap">
+ 		/* 연차신청내역 */
+  		SELECT
+			annual_application_code
+			,cp_representative_code
+			,super_admin_id
+			,cate_annual_code
+			,approval_request_code
+			,emply_id
+			,emply_name
+			,annual_start_date
+			,annual_end_date
+			,use_date
+			,`comment`
+			,attach_file_name
+			,reg_date
+			,group_code
+		FROM
+			tb_annual_application
+  		
+	</select>
+ 	<resultMap type="Annual" id="AnnualResultMap">
+		<result column="annual_standard_code" 			property="annualStandardCode"/>
 		<result column="cp_representative_code" 		property="cpRepresentativeCode"/>
 		<result column="super_admin_id" 				property="superAdminId"/>
 		<result column="year" 							property="year"/>
 		<result column="annual_get_day" 				property="annualGetDay"/>
 	</resultMap>
-
- 	<select id="getAnnualApplication" resultMap="AnnualAppResultMap">
- 		 /* 연차신청내역 */
-  		SELECT
-			aa.annual_application_code
-			,aa.cp_representative_code	
-			,aa.super_admin_id	
-			,aa.cate_annual_code	
-			,aa.approval_request_code
-			,aa.emply_id				
-			,aa.emply_name				
-			,aa.annual_start_date	
-			,aa.annual_end_date		
-			,aa.use_date				
-			,aa.`comment`			
-			,aa.attach_file_name	
-			,aa.reg_date				
-			,aa.group_code				
+	<select id="getAnnualList" parameterType="String" resultMap="AnnualResultMap">
+		/* 연차 기준 */
+		SELECT
+			annual_standard_code
+			,cp_representative_code
+			,super_admin_id
+			,year
+			,annual_get_day
 		FROM
-			tb_annual_application AS aa
-			;
-			
-
-
- 	</select>
+			tb_annual_standard
+	</select>
+	
+	
 </mapper>

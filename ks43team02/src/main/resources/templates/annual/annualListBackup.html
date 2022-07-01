@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+		
+<!-- th:replace="경로 :: 조각이름" -->
+<head th:replace="fragments/head :: headFragment"></head>
+<link href="/path/to/bootstrap.min.css" rel="stylesheet">
+<link href="dist/css/component-custom-switch.css" rel="stylesheet">
+<body>
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+
+	<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+		<div th:replace="fragments/header :: headerFragment"></div>
+		<div th:replace="fragments/leftmenu :: leftmenuFragment"></div>
+		
+		<div class="page-wrapper">
+		<!-- ============================================================== -->
+		<!-- Container fluid  -->
+		<!-- ============================================================== -->
+			<div class="container-fluid">
+				<th:block layout:fragment="customContents">
+				
+					<!-- 연차등록 모달을 열기 위한 버튼 -->
+					<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="btnMyModal">
+						연차등록
+					</button>
+					<!-- 연차등록 모달 영역 시작-->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="height: 110%">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<!-- 연차등록 버튼 시작 -->
+									<h4 class="modal-title" id="myModalLabel">휴가 신청</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+									<!-- 연차등록 버튼 끝 -->
+								</div>
+								<div class="modal-body">
+									<!-- 연차등록 입력 시작 -->
+									<div class="card">
+										<div class="card-body">
+											<div>
+												<form>
+													<div class="card">									
+														<div class="form-group">
+															<!-- 연차구분 셀렉트박스 시작 -->
+															<label for="controlSelect">구분</label>
+															<select class="form-control" id="controlSelect">
+																<option value="val1">연차</option>
+																<option value="val2">보상</option>
+																<option value="val3">경조</option>
+																<option value="val4">병가</option>
+																<option value="val5">보건</option>
+																<option value="val6">공가</option>
+																<option value="val7">기타</option>
+															</select>
+															<!-- 연차구분 셀렉트박스 끝 -->
+															
+															<!-- 결재선 사용 시작 ? >>결재자선택이 있어야할건데..넣어야할까?  -->
+															<!-- 결재선 사용 끝 -->
+														
+															
+														</div>
+													</div>
+													<!-- 연차등록 휴가일정 시작 -->
+													<div class="card">	
+														<div class="form-group">
+															<label for="exampleFormControlInput1" style="width:100%;">휴가 일정</label>
+															<div style="text-align: center;">
+																<!-- <input type="date"> - <input type="date">	 -->
+																
+																<!-- datetimepicker test start -->
+																
+																<div class="input-group input-daterange" id="dateFormat">
+																	<input type="date" class="form-control" id="startDate" value="2012-04-05">
+																	<div class="input-group-addon"> - </div>
+																	<input type="date" class="form-control" id="endDate" value="2012-04-19">
+																</div>
+															<!-- datetimepicker test end -->
+																
+
+															</div>
+														</div>
+													</div>
+													<!-- 연차등록 휴가일정 끝 -->
+													
+													<!-- 연차등록 제목입력 시작 -->
+													<div class="card">
+														<div class="form-group">
+															<label for="exampleFormControlTextarea1">제목</label>
+															<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+														</div>
+													</div>
+													<!-- 연차등록 제목입력 끝 -->							
+				
+													<!-- 연차등록 메세지 입력 시작 -->
+													<div class="card">
+														<div class="form-group">
+															<label for="exampleFormControlTextarea2">메세지 입력</label>
+															<textarea class="form-control" id="exampleFormControlTextarea2" rows="2"></textarea>
+														</div>
+													</div>
+													<!-- 연차등록 메세지 입력 끝 -->
+													
+													<!-- 연차등록 증명자료 첨부 시작 -->
+													<div class="card" style="margin: 0px;">	
+														<div class="form-group">
+															<div>
+																<label for="exampleFormControlFile1">증명자료 첨부</label>
+															</div>	
+																<label class="custom-file-label" for="inputGroupFile01" style="top:30px;">Choose file</label>
+																<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">																										
+														</div>
+													</div>													
+													<!-- 연차등록 증명자료 첨부 끝 -->
+												</form>
+											</div>
+										</div>
+									</div>
+									<!-- 연차등록 입력 끝 -->
+								</div>
+								<div class="modal-footer" style="padding: 0.5rem">
+									<button type="button" class="btn btn-cancle" data-dismiss="modal" id="btnCancle">
+										취소
+									</button>
+									<button type="button" class="btn btn-primary" id="btnPrimary">
+										확인	
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 연차등록 모달 영역 끝 -->
+
+
+		
+					<!-- 연차 정보 영역 시작 -->
+					<div class="row">
+						<div class="col-12">
+							<div class="card">		
+								<div class="card-body">
+								<h6 class="card-subtitle" style="text-align: center;">당신의 입사일은 <code>&lt;-&gt;</code>일입니다.</h6>
+	
+									<div class="row">
+										<!-- Column -->
+										<div class="col-md-6 col-lg-3 col-xlg-3">
+											<div class="card card-hover">
+												<div class="p-2 bg-primary text-center" id="totalWorkDate">
+													<h1 class="font-light text-white">370</h1>
+													<h6 class="text-white">총근무일</h6>
+												</div>
+											</div>
+										</div>
+										<!-- Column -->
+										<div class="col-md-6 col-lg-3 col-xlg-3">
+											<div class="card card-hover">
+												<div class="p-2 bg-cyan text-center" id="inYear">
+													<h1 class="font-light text-white">2</h1>
+													<h6 class="text-white">년차</h6>
+												</div>
+											</div>
+										</div>
+										<!-- Column -->
+										<div class="col-md-6 col-lg-3 col-xlg-3">
+											<div class="card card-hover" id="anuualGrant">
+												<div class="p-2 bg-success text-center">
+													<h1 class="font-light text-white">1100</h1>
+													<h6 class="text-white">휴가부여일수</h6>
+												</div>
+											</div>
+										</div>
+										<!-- Column -->
+										<div class="col-md-6 col-lg-3 col-xlg-3">
+											<div class="card card-hover">
+												<div class="p-2 bg-danger text-center" id="remainingTime">
+													<h1 class="font-light text-white">9</h1>
+													<h6 class="text-white">잔여일수</h6>
+												</div>
+											</div>
+										</div>
+										<!-- Column -->
+									</div>
+									
+									<!-- 연차사용내역 테이블 시작 -->
+									<div class="col-12">
+										<div class="card">
+											<div class="card-body">
+												<h4 class="card-title" style="font: bolder;"> 휴가 사용 내역 </h4>
+												
+												</div>
+											</div>
+											<div class="table-responsive">
+												<table class="table" style="text-align: center;" id="modalDataTable">
+													<thead class="thead-light">
+														<tr>
+															<th scope="col">번호</th>
+															<th scope="col">시작일시</th>
+															<th scope="col">종료일시</th>
+															<th scope="col">제목</th>
+															<th scope="col">구분</th>
+															<th scope="col">사용일수</th>
+															<th scope="col">결재진행상태</th>
+															<th scope="col">사용여부</th>
+															<th scope="col">첨부파일</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+														<th scope="row">1</th>
+															<td>2022.02.02</td>
+															<td>2022.02.03</td>
+															<td>@mdodfjahldsjkfhs adfsdf </td>
+															<td>보상</td>
+															<td>1.0</td>
+															<td>진행중</td>
+															<td>여</td>
+															<td>.xlsx</td>
+														</tr>
+														<tr>
+															<th scope="row">2</th>
+															<td>2022.02.02</td>
+															<td>2022.02.03</td>
+															<td>@fatejkb jdshjt dsf sdfasdfdsf u</td>
+															<td>경조</td>
+															<td>1.0</td>
+															<td>완료</td>
+															<td>여</td>
+															<td>.xlsx</td>
+														</tr>
+														<tr>
+															<th scope="row">3</th>
+															<td>2022.02.02</td>
+															<td>2022.02.03</td>
+															<td>@twitter dkfhak ei fadf asdf dihs</td>
+															<td>병가</td>
+															<td>0.5</td>
+															<td>반려</td>
+															<td>부</td>
+															<td>.xlsx</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="row">
+													<div class="col-sm-12 col-md-6">
+														<div class="dataTables_length" id="zero_config_length"  style="display: flex; width:100px;">
+															<label>
+																"show"
+																<select name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm">
+																	<option value="5">5</option>
+																	<option value="10">10</option>
+																	<option value="15">15</option>
+																	<option value="20">20</option>
+																</select>
+																<input type="search">
+															
+															</label>
+														</div>
+													</div>
+										</div>
+									</div>
+									<!-- 연차사용내역 테이블 끝 -->
+										
+									<!-- 페이지 번호 시작 -->
+									<div style="display:flex; justify-content: space-around;">
+										<ul class="pagination float-right">
+											<li class="page-item disabled">
+												<a class="page-link" href="#" tabindex="-1">Previous</a>
+											</li>
+											<li class="page-item active"><a class="page-link" href="#">1</a></li>
+											<li class="page-item">
+												<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+											</li>
+											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<li class="page-item">
+												<a class="page-link" href="#">Next</a>
+											</li>
+										</ul>
+									</div>
+									<!-- 페이지 번호 끝 -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 연차 정보 영역 끝 -->
+				</th:block>	
+			</div>				
+		<!-- ============================================================== -->
+		<!-- End Container fluid  -->
+		<!-- ============================================================== -->
+		</div>
+	</div>
+</th:block>			
+	<div th:replace="fragments/footer :: footerFragment"></div>
+
+		
+ 
+
+<th:block layout:fragment="customScript">
+	<!-- ============================================================= -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+	<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+	<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<!-- apps -->
+	<!-- apps -->
+	<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+	<script th:src="@{/dist/js/feather.min.js}"></script>
+	<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+	<!--Custom JavaScript -->
+	<script th:src="@{/dist/js/custom.min.js}"></script>
+	<!--This page JavaScript -->
+	<script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+	<script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+	<script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
+	<script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+	<script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
+	<script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
+	<script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>   
+   
+
+<!--============ 연차등록 Modal start ============-->
+
+	// 연차등록 모달창 열기
+	<script type="text/javascript">
+		$(function(){
+			$('#btnMyModal').click(function(){
+				$('#MyModal').modal('show');
+			});
+		});
+	
+	// 연차등록 구분 셀렉트박스 
+		$(function(){
+			$('#controlSelect').click(function(){
+				alert('select');
+			});
+		})
+	</script> 
+	
+	// 연차등록 모달 확인,취소버튼 클릭시 
+<!-- modal 확인취소버튼 test1 -->
+ 	<script type="text/javascript">
+	
+   		$(function(){
+			$('#btnPrimary').click(function(){
+				$('#myModal').modal('hide');
+					alert('등록이 완료되었습니다.');
+			});
+			
+			$('#btnCancle').click(function(){
+				alert('취소하시겠습니까?');
+				$('#myModal').modal('hide');
+			});
+		}); 
+   	</script>
+<!-- modal 확인취소버튼 test1 -->
+
+<!-- modal 확인취소버튼 test2 -->
+
+  	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#btnPrimary').click(function(){
+				
+				var result = confirm('등록하시겠습니까?');
+				
+				if(result){
+					location.relpace('annual.html');
+					/* $('#btnPrimary').modal('hide'); */
+					alert('등록이 완료되었습니다.');
+				}else{
+					
+				}
+			});
+		});
+	</script>
+<!-- modal 확인취소버튼 test2 -->	
+
+
+
+<!-- ajax test area3 -->
+	<script type="text/javascript">
+		$(function(){
+			$('#myModal').on('click',function(){
+				$.ajax({
+					url: "/anuual/anuualList.html",
+					method: "POST",	
+					success : function(result){
+						('#myModal').modal('show');
+					}
+				})
+			});
+		});
+	</script>
+
+<!-- ajax test area3 -->
+
+<!-- ajax test area1 -->
+	<script type="text/javascript">
+		$(function(){		
+			$('#btnPrimary').click(function() {
+				var request = $.ajax({
+					url: "/anuual/anuualList.html",						//요청 주소
+					method: "POST",									//요청 방식
+					data: {  },		//요청 하는 페이지에 전달할 데이터
+					dataType: "json"								//응답 방식 (html, xml, json, text, function)
+				});
+					 
+				request.done(function( data ) {		//응답 정상 완료시 실행되는 메서드
+					//응답 완료시 응답 페이지의 텍스트를 읽어 콜백 데이터로 전달
+					//응답 장식에 맞춰서 파싱하여 전달
+					console.log(data);
+					$idCheck.val(data.idCheck);
+					
+				});
+				
+				request.fail(function( jqXHR, textStatus ) {
+					//파싱에러 -> 포맷방식이 잘못 전달
+					//에러 -> 서버에서 대부분 에러
+					alert( id중복 );
+				});		
+		});
+	</script>
+<!-- ajax test area1 -->
+	
+	
+<!-- ajax test area2 -->
+	<script type="text/javascript">
+		function btnPrimary(){
+            var totalWorkDate = $('#totalWorkDate').val();
+            var inYear = $('#inYear').val();
+            var anuualGrant = $('#anuualGrant').val();
+            var remainingTime = $('#remainingTime').val();
+            var obj = {"totalWorkDate":totalWorkDate,
+                     "inYear":inYear,
+                     "anuualGrant":anuualGrant,
+                     "remainingTime":remainingTime};
+            console.log(totalWorkDate);
+            console.log(inYear);
+            console.log(anuualGrant);
+            console.log(remainingTime);
+            console.log(obj);
+            
+            $.ajax({
+               type: 'POST',
+               url: '/anuual/anuualList', 
+               contentType: "application/json",
+               data: JSON.stringify(obj),
+               success: function() {
+                     location.href('')
+               }
+            });
+         }
+	</script>
+<!-- ajax test area2 -->
+<!--============ 연차등록  Modal end ============-->
+
+
+<!--============ 휴가사용내역 start ============-->
+/* 테이블에 모달값 받기 */
+
+<!-- modal data test1 -->
+ 	<script type="text/javascript">
+		$(function(){
+			$('#btnPrimary').click(function(){
+				var dataArrayToSend=[];
+				var dataArrayToSend1=[];
+				
+				$('#modalDataTable').each(function(){
+					var len =$(this).find('td').length;
+					
+					for(var i=0; i<len; i++;){
+						dataArrayToSend.push($(this).find("td").eq(i).text());
+					}
+					dataArrayToSend1.push(dataArrayToSend);
+				});
+								
+			})
+			
+		});
+	</script>
+<!-- modal data test1 -->
+
+
+<!--============ 휴가사용내역 end ==============-->
+
+
+
+
+
+
+   
+</th:block>
+   
+   
+</body>
+</html>

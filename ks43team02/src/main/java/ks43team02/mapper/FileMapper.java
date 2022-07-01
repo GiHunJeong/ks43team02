@@ -10,12 +10,11 @@ import ks43team02.dto.FileDto;
 @Mapper
 public interface FileMapper {
 	
-	// 단일 파일 삽입
-	public int addFile(FileDto fileDto);
-	
-	// 여러개 파일 삽입
-	public int addFiles(List<FileDto> fileList);
-	
+	// 파일 삽입
+	public int addFile(List<FileDto> fileList);
+		
 	// 1:N 관계 테이블(파일)
-	public int addFilesContol(List<Map<String,String>> paramMapList);
+	public int addFileControl(List<Map<String,String>> addFileControlList);
+	
+	public List<FileDto> getFileList();
 }
