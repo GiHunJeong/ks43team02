@@ -26,20 +26,25 @@
 	<insert id="addWorkSystem" parameterType="WorkSystem">
 		/*근무제리스트 추가*/
 		INSERT INTO
-			tb_worksystem_standard 
-			(standard_work_code
+			tb_worksystem_standard
+			(
+			
+			standard_work_code
 			,cp_representative_code
 			,super_admin_id
 			,worksystem_name
 			,reg_user
-			,reg_date)
-			VALUES(
+			,reg_date
+			
+			)VALUES(
+			
 			(SELECT CONCAT('standard_work_code_',(SELECT(Max(cast(SUBSTRING_INDEX(standard_work_code,'_',-1) AS UNSIGNED)) +1)
 			from
 			tb_worksystem_standard
 			w)))
-			, 'cp_representative_code_01'
-			, 'ksmart43id@ksmart.or.kr'
+			
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
 			, #{worksystemName}
 			, '백민주'
 			, NOW()

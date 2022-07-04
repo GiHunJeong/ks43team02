@@ -8,6 +8,7 @@
 		<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
 		<result column="super_admin_id" 			property="superAdminId"/>
 		<result column="standard_work_code" 		property="standardWorkCode"/>
+		<result column="workway_code" 				property="workwayCode"/>
 		<result column="work_start_time" 			property="workStartTime"/>
 		<result column="work_end_time" 				property="workEndTime"/>
 		<result column="break_time" 				property="breakTime"/>
@@ -15,55 +16,136 @@
 		<result column="reg_date" 					property="regDate"/>
 		<result column="day_check" 					property="dayCheck"/>
 	</resultMap>
-	<select id="maxList" parameterType="String">
-		/*근무제 기본키 자동증가*/
+	<resultMap type="WorkWayList" id="WorkWayListMap">
+		<result column="workway_code" 				property="workwayCode"/>
+		<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
+		<result column="super_admin_id" 			property="superAdminId"/>
+		<result column="workway_name" 				property="workwayName"/>
+		<result column="cp_name" 					property="cpName"/>
+		<result column="reg_date" 					property="regDate"/>
+	</resultMap>
+	<select id="getWorkWayList" parameterType="String" resultMap="WorkWayListMap">
 		SELECT
-			Max(cast(SUBSTRING_INDEX(c.standard_worksystem_cp_code,'_',-1) AS UNSIGNED)) +1
+			ww.workway_code
+			,ww.cp_representative_code
+			,ww.super_admin_id
+			,ww.workway_name
+			,ww.cp_name
+			,ww.reg_date
 		FROM
-			tb_standard_worksystem_cp AS c;
+		tb_workway_standard AS ww;
 	</select>
 	<select id="getWorkSettingList" parameterType="String" resultMap="WorkSettingListMap">
-		/*근무제 세팅 완료 리스트 조회*/
+		/*회사별 근무제,근무방식 정보테이블*/
+		SELECT
+			standard_worksystem_cp_code
+			,cp_representative_code
+			,super_admin_id
+			,standard_work_code
+			,workway_code
+			,work_start_time
+			,work_end_time
+			,break_time
+			,cp_name
+			,reg_date
+			,day_check
+		From
+		tb_standard_worksystem_cp;
+		/*
 		SELECT
 			sw.standard_worksystem_cp_code
 			,sw.cp_representative_code
 			,sw.super_admin_id
 			,sw.standard_work_code
+			,sw.workway_code
 			,sw.work_start_time
 			,sw.work_end_time
 			,sw.break_time
 			,sw.cp_name
 			,sw.reg_date
 			,sw.day_check
-		FROM
+		From
 		tb_standard_worksystem_cp AS sw;
+		*/
 	</select>
 	<insert id="addWorkSettingList" parameterType="String">
 		/*근무제 세팅 추가 리스트 조회*/
-		insert INTO 
-		tb_standard_worksystem_cp(
-			standard_worksystem_cp_code
-			, cp_representative_code 
-			, super_admin_id
-			, standard_work_code
-			, work_start_time
-			, work_end_time
-			, break_time
-			, cp_name
-			, reg_date
-			, day_check
-			)
-		VALUES (
-			 'standard_work_cp_code_13'
-			, 'cp_representative_code_02'
-			, 'ksmart43id@test.or.kr'
-			, 'standard_work_code_04'
-			, NOW()
-			, NOW()
-			, NOW()
-			, '한국스마트정보교육원'
-			, NOW()
-			, 'mon'
-		);
+		INSERT
+	into
+	tb_standard_worksystem_cp
+	(
+	standard_worksystem_cp_code
+	,cp_representative_code
+	,super_admin_id
+	,standard_work_code
+	,workway_code
+	,work_start_time
+	,work_end_time
+	,break_time
+	,cp_name
+	,reg_date
+	,day_check
+	)
+	VALUES(
+		(SELECT CONCAT('standard_worksystem_cp_code_',(SELECT(Max(cast(SUBSTRING_INDEX(standard_worksystem_cp_code,'_',-1) AS UNSIGNED)) +1)
+			from
+			tb_standard_worksystem_cp
+			sw)))
+			
+		,#{cpRepresentativeCode}
+		,#{superAdminId}
+		
+		,(SELECT tb_worksystem_standard.standard_work_code
+  			FROM tb_worksystem_standard
+			WHERE tb_worksystem_standard.standard_work_code = "standard_work_code_2")
+			
+		,(SELECT #{workway_code}
+  			FROM tb_workway_standard
+			WHERE #{workway_code} = #{workway_code})
+		,TIME(NOW())
+		,TIME(NOW())
+		,TIME(NOW())
+		,'한국스마트'
+		,DATE(NOW())
+		,'[mon,tue]')
+		
+		
+		/*일단 백업*/
+		/*
+		INSERT
+	into
+	tb_standard_worksystem_cp
+	(
+	standard_worksystem_cp_code
+	,cp_representative_code
+	,super_admin_id
+	,standard_work_code
+	,work_way_code
+	,work_start_time
+	,work_end_time
+	,break_time
+	,cp_name
+	,reg_date
+	,day_check
+	)
+	VALUES(
+	
+		(SELECT CONCAT('standard_worksystem_cp_code_',(SELECT(Max(cast(SUBSTRING_INDEX(standard_worksystem_cp_code,'_',-1) AS UNSIGNED)) +1)
+			from
+			tb_standard_worksystem_cp
+			sw)))
+			
+	, #{cpRepresentativeCode}
+	, #{superAdminId}
+	, #{standardWorkCode}
+	, #{workwayCode}
+	, TIME(090000)
+	, TIME(180000)
+	, TIME(010000)
+	, #{cpName}
+	, NOW()
+	, #{dayCheck}
+	);
+	*/
 	</insert>
 </mapper>
