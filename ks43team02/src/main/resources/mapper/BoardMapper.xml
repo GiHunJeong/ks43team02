@@ -15,6 +15,14 @@
 		<result column="modified_date" 			property="modifiedDate"			/>
 		<result column="del_date"				property="delDate"				/>
 		<result column="view_cnt" 				property="viewCnt"				/>
+		<collection property="file" ofType="FileDto">
+			<id		column="attach_file_code" 			property="attachFileCode"		 />
+			<result column="attach_file_original_name"  property="attachFileOriginalName"/>
+			<result column="attach_file_new_name" 		property="attachFileNewName"	 />
+			<result column="attach_file_path" 			property="attachFilePath"		 />
+			<result column="attach_file_size" 			property="attachFileSize" 		 />
+			<result column="reg_date" 					property="regDate"				 />
+		</collection>
 	</resultMap>
 	
 	<resultMap type="DepartmentBoard" 			id="departmentBoardResultMap"	 >
@@ -213,7 +221,7 @@
 		
 	</insert>
 	
-	<update id="noitceViewUpdate" parameterType="int">
+	<update id="noitceViewUpdate" parameterType="String">
 		/* 공지사항 게시글 조회수 증가 */ 
 		UPDATE 
 			tb_all_notice 
@@ -224,23 +232,47 @@
 	</update>
 	
 	<select id="getNoticeDetail" resultMap="noticeBoardResultMap">
-		/* 공지사항 게시글 조회 */
+		/* 공지사항 상세보기 */
 		SELECT
-			cp_notice_code,
-			cp_representative_code,
-			super_admin_id,
-			cp_notice_idx,
-			notice_title,
-			notice_contents,
-			reg_user_name,
-			reg_date,
-			modified_date,
-			del_date,
-			view_cnt
-		FROM 
-			tb_all_notice
-		WHERE
-			tb_all_notice.cp_notice_code = #{cp_notice_code};
+			a.cp_notice_code,
+			a.cp_representative_code,
+			a.super_admin_id,
+			a.cp_notice_idx,
+			a.notice_title,
+			a.notice_contents,
+			a.reg_user_name,
+			a.reg_date,
+			a.modified_date,
+			a.del_date,
+			a.view_cnt,
+			sub.attach_file_code,
+			sub.attach_file_original_name,
+			sub.attach_file_new_name,
+			sub.attach_file_path,
+			sub.attach_file_size,
+			sub.reg_date,
+			sub.reference_code
+		FROM
+			tb_all_notice AS a
+		INNER JOIN
+			(SELECT
+				af.attach_file_code,
+				af.attach_file_original_name,
+				af.attach_file_new_name,
+				af.attach_file_path,
+				af.attach_file_size,
+				af.reg_date,
+				fc.reference_code
+			FROM
+				tb_attach_file AS af
+			INNER JOIN
+				tb_file_control AS fc
+			ON
+				af.attach_file_code = fc.attach_file_code) AS sub
+		ON
+			sub.reference_code = a.cp_notice_code
+			WHERE
+				sub.reference_code = #{cpNoticeCode};
 	</select>
 	
 	<select id="getNoticeBoardList" resultMap="noticeBoardResultMap">
