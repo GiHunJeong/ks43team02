@@ -19,11 +19,11 @@
 		        Success! You've done it.
 		    </div>
 		</form><!-- th:action="@{/workWay/work_setting}" -->
-		<form name="SettingPost"  method="get" class="mt-4">
+		<form  method="get" th:action="@{/workWay/add_work_setting}" class="mt-4">
 			<div class="form-group mb-4">
 				<h4 class="card-title">근무설정</h4>
 		      	<label style="width:100%;">근무제선택</label>
-				<select class="form-control col-10" name="worksystemName" style="float:left;">
+				<select class="form-control col-10" name="selectWorksystemName" style="float:left;">
 					<th:block  th:if="${not #lists.isEmpty(list3)}" th:each="l : ${list3}">
 						<option th:text="${l.worksystemName}"></option>
 		           	</th:block>
@@ -31,8 +31,8 @@
 				<button  type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
 				<div class="collapse" id="collapseExample">
 					<div class="card formgroup" style="padding:1em 0;">
-					    <input id="worksystemName" name="plusWorksystemName" type="text" placeholder="근무제 명을 입력해주세요.">
-					    <button  id="selectadd" type="submit"  value="확인" class="btn btn-primary">확인</button><!-- id="addWorkSystem" -->
+					    <input id="worksystemName" name="worksystemName" type="text" placeholder="근무제 명을 입력해주세요.">
+					    <button type="submit" class="btn btn-primary">확인</button><!-- id="addWorkSystem" -->
 					</div>
 				</div>
 			</div>

@@ -12,14 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import ks43team02.dto.WorkSystem;
 import ks43team02.dto.WorkSettingList;
+import ks43team02.dto.WorkSystem;
 import ks43team02.dto.WorkTime;
 import ks43team02.dto.WorkWayList;
 import ks43team02.service.WorkTimeService;
@@ -41,7 +38,16 @@ public class WorkController{
 	/*
 	 * 근무제 추가
 	 */
-	
+	@GetMapping("/add_work_setting")
+	public String addWorkSystem(WorkSystem workSystem,
+							   @RequestParam(name="worksystemName", required=false) String worksystemName) {
+		workSystem.setWorksystemName(worksystemName);
+		workSystem.setCpRepresentativeCode("cp_representative_code_01");
+		workSystem.setSuperAdminId("ksmart43id@ksmart.or.kr");
+		workTimeService.addWorkSystem(workSystem);
+		log.info("담기는값 workSystem : {}", workSystem);	
+		return "redirect:/workWay/work_setting";
+	}
 	@GetMapping("/work_time")
 	public String work(Model model) {
 		
@@ -107,7 +113,7 @@ public class WorkController{
 							 ,@RequestParam(name="plusWorksystemName", required=false) String worksystemName 
 							 ,@RequestParam(name="standardWorkCode", required=false) String standardWorkCode) {
 		//List<WorkSystem> workSystem2 = workTimeService.getWorkSystem();
-		model.addAttribute("workSetting" , workSystem);
+		model.addAttribute("workSystem" , workSystem);
 		log.info("근무제 항목들 : {}", workSystem);
 		List<WorkSystem> list3 = workTimeService.getWorkSystem();
 		model.addAttribute("list3", list3);
@@ -141,12 +147,16 @@ public class WorkController{
 	};
 	*/
 	@GetMapping("/work_setting_list")
-	public String getWorkSettingList(Model model) {
-		//List<WorkSettingList> workSettingList = workTimeService.getWorkSettingList();
-		//model.addAttribute("workSettingList", workSettingList);
+	public String workSettingList(Model model) {
+		List<WorkSettingList> workSetting = workTimeService.getWorkSettingList();
 		List<WorkWayList> workWayList = workTimeService.getWorkWayList();
+		List<WorkSystem> workSystem = workTimeService.getWorkSystem();
+		model.addAttribute("workSettingList", workSetting);
 		model.addAttribute("workWayList", workWayList);
-		log.info("세팅리스트확인" ,workWayList);
+		model.addAttribute("workSystem", workSystem);
+		log.info("회사별전체근무방식 리스트" ,workSetting);
+		log.info("근태방식리스트" ,workWayList);
+		log.info("근무제리스트" ,workSystem);
 		return "workWay/work_setting_list";
 	}
 	
@@ -154,16 +164,7 @@ public class WorkController{
 	 * @GetMapping("/work_setting_list") public String getTestPage() { return
 	 * "workWay/work_setting_list"; }
 	 */
-	@PostMapping("/work_setting_lsit")
-	@ResponseBody
-	public void workSettingPost(@ModelAttribute WorkSettingList workSettingList
-								,@ModelAttribute WorkSystem workSystem) {
-		System.out.println("확인" + workSystem.getWorksystemName());
-		System.out.println(workSettingList.getWorkStartTime());
-		System.out.println(workSettingList.getWorkEndTime());
-		System.out.println(workSettingList.getBreakTime());
-		System.out.println(workSettingList.getDayCheck());
-	}
+
 	/*
 	@PostMapping("/work_setting_list")
 	public String workSettingPost(Model model, @RequestParam(name="standardWorkCode", required = false)String standardWorkCode

@@ -16,14 +16,16 @@ public interface WorkSystemMapper {
 	public String workSystem(WorkSystem workSystem);
 	 
 	//근무제 추가 insert
-	public int addWorkSystem();
+	public int addWorkSystem(WorkSystem workSystem);
 	
 	//근무제 리스트 select
 	public List<WorkSystem> getWorkSystem();
 	
 	public String workSystemList(WorkSystem workSystem);
 	public int WorkSystem(WorkSystemMapper worksystemName);
+	
 	public List<WorkSystem> getWorkSystem(WorkSystem workSystem);
 	public List<WorkSystem> getRegUser(String regUser);
 	
+
 }
