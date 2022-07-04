@@ -1,14 +1,29 @@
 package ks43team02.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import ks43team02.dto.DepartmentBoard;
@@ -98,6 +114,52 @@ public class BoardController {
 		model.addAttribute("departmentBoardList", departmentBoardList);
 		
 		return "board/department_list";
+	}
+	
+	@RequestMapping("/file/download")
+	@ResponseBody
+	/* 공지사항 파일 다운로드 */
+	public ResponseEntity<Object> attachFileDownload(@RequestParam(value="attachFileCode", required = false)String attachFileCode
+												 ,HttpServletRequest request
+												 ,HttpServletResponse response) throws URISyntaxException{
+		
+		String serverName = request.getServerName();
+		
+		
+		if(attachFileCode != null) {
+			FileDto fileDto = fileService.getFileInfoByIdx(attachFileCode);
+			File file;
+			if("localhost".equals(serverName)) {				
+				file = new File(System.getProperty("user.dir") + "/src/main/resources/static/"+ fileDto.getAttachFilePath());
+			}else {
+				file = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/") + fileDto.getAttachFilePath());
+			}
+		
+			Path path = Paths.get(file.getAbsolutePath());
+	        Resource resource;
+			try {
+				resource = new UrlResource(path.toUri());
+				String contentType = null;
+				contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+				if(contentType == null) {
+					contentType = "application/octet-stream";
+				}
+				return ResponseEntity.ok()
+						.contentType(MediaType.parseMediaType(contentType))
+						.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(fileDto.getAttachFileOriginalName(),"UTF-8") + "\";")
+						.body(resource);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		URI redirectUri = new URI("/");
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setLocation(redirectUri);
+		
+        return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
 	}
 	
 	/* 공지사항 상세화면 이동 */

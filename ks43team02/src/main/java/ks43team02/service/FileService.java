@@ -45,5 +45,8 @@ public class FileService {
 	public List<FileDto> getFileList(){
 		return fileMapper.getFileList();
 	}
-
+	
+	public FileDto getFileInfoByIdx(String attachFileCode) {
+		return fileMapper.getFileInfoByIdx(attachFileCode);
+	}
 }

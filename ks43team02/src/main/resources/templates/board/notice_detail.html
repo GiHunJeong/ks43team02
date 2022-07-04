@@ -80,17 +80,19 @@
 															</div>
 														</td>
 													</tr>
-													<tr th:if="${not #lists.isEmpty(noticeDetail.file)}" th:each="t : ${noticeDetail.file}">
-													<th scope="row">첨부파일</th>
+													<tr>
+													<th scope="row" th:rowspan="${#lists.size(noticeDetail.file)}">첨부파일</th>
 														<td>
-															<div class="form-group row">
-																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="noticeFile"></label>
+															<th:block  th:if="${not #lists.isEmpty(noticeDetail.file)}" th:each="t : ${noticeDetail.file}">	
+																<div class="form-group row">
+																	<div class="col-md-2 col-sm-2">
+																		<label class="control-label" for="noticeFile">파일</label>
+																	</div>
+																	<div class="col-md-6 col-sm-6 ">
+																		<a th:text="${t.attachFileOriginalName}" th:href="@{/board/file/download(attachFileCode=${t.attachFileCode})}"></a>
+																	</div>
 																</div>
-																<div class="col-md-6 col-sm-6 ">
-																	<input type="hidden" name="noticeFile" th:text="${t.attachFileOriginalName}">
-																</div>
-															</div>
+															</th:block>
 														</td>
 													</tr>
 												</tbody>

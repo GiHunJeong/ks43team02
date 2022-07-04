@@ -17,4 +17,6 @@ public interface FileMapper {
 	public int addFileControl(List<Map<String,String>> addFileControlList);
 	
 	public List<FileDto> getFileList();
+	
+	public FileDto getFileInfoByIdx(String attachFileCode);
 }
