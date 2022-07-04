@@ -157,7 +157,7 @@ $(function(){
 				console.log(organiSName[i].organizationNameS);
 				var option = $("<option value="+organiSName[i].organizationCodeS+">"+organiSName[i].organizationNameS+"</option>");
 				if(organiSName[i].organizationCodeS == organiSNameById) {
-					var option = $("<option value="+organiSName[i].organizationNameS+" selected>"+organiSName[i].organizationNameS+"</option>");
+					var option = $("<option value="+organiSName[i].organizationCodeS+" selected>"+organiSName[i].organizationNameS+"</option>");
 					$('#organiS').append(option);
 				}
 				$('#organiS').append(option);
@@ -174,7 +174,19 @@ $(function(){
 	$('#organiL option[value='+organiLNameById+']').prop('selected', 'selected').change();
 	/* 부 서 중 -> 소 리 스 트 가 져 오 기 */
 	/* 부서 리스트 뿌리기끝 */
+	
+	/* 이름수정 */
 	$(document).on('click','#emplyNameChangeBtn', function(){
 		$('input[name="emplyName"]').prop('disabled', false);
 	});
+	/* 이름수정 */
+	
+	/* 자신의 랭크 */
+	$('#rankLevel option[value='+rankCodeById+']').prop('selected', 'selected').change();
+	/* 자신의 랭크 */
+	
+	/* 자신의 포지션 */
+	$('#positionLevel option[value='+positionCodeById+']').prop('selected', 'selected').change();
+	/* 자신의 포지션 */
+	
 });

@@ -19,6 +19,8 @@ import ks43team02.dto.Emply;
 import ks43team02.dto.OrganizationLList;
 import ks43team02.dto.OrganizationMList;
 import ks43team02.dto.OrganizationSList;
+import ks43team02.dto.PositionLevelList;
+import ks43team02.dto.RankLevelList;
 import ks43team02.service.EmplyService;
 
 @Controller
@@ -32,23 +34,37 @@ public class EmplyController {
 	public EmplyController(EmplyService emplyService) {
 		this.emplyService = emplyService;
 	}
+	//어드민 사원 정보 삭제
+	@GetMapping("/emply_del_all")
+	public String adminDelEmply(@RequestParam(name="emplyId", required=false) String emplyId) {
+		log.info("가져온 emplyId 값 : {}", emplyId);
+		emplyService.adminDelEmply(emplyId);
+		return "redirect:/member/emply_list";
+	}
+	//전체사원 선택 수정
 	@PostMapping("/emply_modify_all")
 	public String adminModifyEmply(Emply emply) {
 		emplyService.adminModifyEmply(emply);
 		log.info("수정화면에서 입력받은 emply : {}", emply);
 		return "redirect:/member/emply_list";
 	}
-	
+	//전체사원수정 페이지
 	@GetMapping("/emply_modify_all")
 	public String emplyModifyAll(@RequestParam(name="emplyId", required=false) String emplyId
 								,Model model) {
 		Emply emply = emplyService.getEmplyInfoById(emplyId);
 		List<OrganizationLList> organiLList = emplyService.getOrganiLList();
+		List<PositionLevelList> positionLevelList = emplyService.getPositionLevelList();
+		List<RankLevelList> rankLevelList = emplyService.getRankLevelList();
 		log.info("담기는 emplyId 값 : {}",emplyId);
 		log.info("담기는 emply 값 : {}",emply);
 		log.info("담기는 organiLList 값 : {}", organiLList);
+		log.info("담기는 positionLevelList 값 : {}", positionLevelList);
+		log.info("담기는 rankLevelList 값 : {}", rankLevelList);
 		model.addAttribute("emply",emply);
 		model.addAttribute("organiLList", organiLList);
+		model.addAttribute("positionLevelList",positionLevelList);
+		model.addAttribute("rankLevelList",rankLevelList);
 		return "member/emply_modify_all";
 	}
 	//수정취소

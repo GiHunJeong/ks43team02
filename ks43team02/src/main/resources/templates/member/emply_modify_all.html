@@ -208,6 +208,50 @@
 	                        <td>
 	                        	<div class="form-group">
 	                                <div class="row">
+	                                    <label class="col-lg-1 mt-2">직책</label>
+	                                    <div class="col-lg-11">
+	                                        <div class="row">
+	                                            <div class="col-md-3">
+	                                                <select class="custom-select mr-sm-2" id="positionLevel" name="positionLevelCode">
+										                <option> :: 직책 :: </option>
+											            <th:block th:if="${not #lists.isEmpty(positionLevelList)}" th:each="l : ${positionLevelList}">
+											                <option th:value="${l.positionLevelCode}">[[${l.positionName}]]</option>
+											            </th:block>
+													</select>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                        	<div class="form-group">
+	                                <div class="row">
+	                                    <label class="col-lg-1 mt-2">직급</label>
+	                                    <div class="col-lg-11">
+	                                        <div class="row">
+	                                            <div class="col-md-3">
+	                                                <select class="custom-select mr-sm-2" id="rankLevel" name="rankLevelCode">
+										                <option> :: 직급 :: </option>
+											            <th:block th:if="${not #lists.isEmpty(rankLevelList)}" th:each="l : ${rankLevelList}">
+											                <option th:value="${l.rankLevelCode}">[[${l.rankName}]]</option>
+											            </th:block>
+													</select>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                    <!-- 수정 -->
+	                    <!-- 수정 -->
+	                    <tr>
+	                        <td>
+	                        	<div class="form-group">
+	                                <div class="row">
 	                                    <label class="col-lg-1 mt-2">부서수정</label>
 	                                    <div class="col-lg-11">
 	                                        <div class="row">
@@ -304,9 +348,13 @@
 	    	let organiLNameById = [[${emply.organizationSList.organizationNameL}]];
 	    	let organiMNameById = [[${emply.organizationSList.organizationNameM}]];
 	    	let organiSNameById = [[${emply.organizationSList.organizationCodeS}]];
+	    	let rankCodeById = [[${emply.rankLevelCode}]];
+	    	let positionCodeById = [[${emply.positionLevelCode}]];
 	    	console.log(organiLNameById);
 	    	console.log(organiMNameById);
 	    	console.log(organiSNameById);
+	    	console.log(rankCodeById);
+	    	console.log(positionCodeById);
 	    	/*]]>*/
 	        $(function(){
 	        	$(document).on('click', '#addrSearchBtn', function(){	
@@ -322,7 +370,10 @@
 			            }
 			        }).open();
 	        	});	        	
-	        });
+	    	
+	    	/* 자신의 랭크 */
+	    	/* 자신의 랭크 */
+	    	});
 	    </script>
 	</th:block>
 </html>
