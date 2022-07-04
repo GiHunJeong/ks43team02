@@ -8,20 +8,6 @@
 <body>
 <!-- 사용자 정의 contents -->
 <th:block layout:fragment="customContents">
-	<!-- 출퇴근 시간찍히는 곳 -->
-	    <!-- <div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Password</h4>
-                    <form class="mt-5">
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="passtext" placeholder="Password">
-                            
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
 	<div class="card">
 	<div class="card-body">
 		<!-- 비밀번호가 일치할때 내용들이 활성화된다. -->
@@ -32,53 +18,50 @@
 		    <div class="valid-feedback">
 		        Success! You've done it.
 		    </div>
+		</form><!-- th:action="@{/workWay/work_setting}" -->
+		<form  method="get" th:action="@{/workWay/add_work_setting}" class="mt-4">
+			<div class="form-group mb-4">
+				<h4 class="card-title">근무설정</h4>
+		      	<label style="width:100%;">근무제선택</label>
+				<select class="form-control col-10" name="selectWorksystemName" style="float:left;">
+					<th:block  th:if="${not #lists.isEmpty(list3)}" th:each="l : ${list3}">
+						<option th:text="${l.worksystemName}"></option>
+		           	</th:block>
+	           	</select>
+				<button  type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
+				<div class="collapse" id="collapseExample">
+					<div class="card formgroup" style="padding:1em 0;">
+					    <input id="worksystemName" name="worksystemName" type="text" placeholder="근무제 명을 입력해주세요.">
+					    <button type="submit" class="btn btn-primary">확인</button><!-- id="addWorkSystem" -->
+					</div>
+				</div>
+			</div>
+			<div id="dayCheck" class="form-group">
+				<label>근무요일선택</label>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sun" onclick="getCheckboxValue()">일
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="mon" onclick="getCheckboxValue()">월
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="tue" onclick="getCheckboxValue()">화
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="wen" onclick="getCheckboxValue()">수
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="thr" onclick="getCheckboxValue()">목
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="fri" onclick="getCheckboxValue()">금
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sat" onclick="getCheckboxValue()">토
+					<!-- <label class="form-check-label" for="inlineCheckbox1">일</label> -->
+				</div>
+			</div>
+			<div id="result"></div>
+			<div>
+				시작시간 : <input type="time" name="startTime" value="09:00:00">
+				종료시간 : <input type="time" name="endTime" value="18:00:00">
+				휴게시간 : <input type="time" name="breackTime" value="01:00:00">
+			</div>
+  	 	 	<button id="pagechange" name="pagechange" type="submit" class="btn btn-primary">양식보내기</button>
+  	 	 	<!-- <button type="submit" onclick="pagechange()" class="btn btn-primary">양식보내기</button> -->
+  	  		<!-- <submit type="submit" onclick="location.href='work_setting_list'" class="btn btn-primary">양식보내기</submit> -->
 		</form>
-			<form th:action="@{/workWay/work_setting_list}" name="SettingPost"  method="get|post" class="mt-4">
-				<div class="form-group mb-4">
-					<h4 class="card-title">근무설정</h4>
-			      	<label for="test" style="width:100%;">근무제선택</label>
-					<select  class="form-control col-10" name="standardWorkCode" style="float:left;">
-						<th:block  th:if="${not #lists.isEmpty(list3)}" th:each="l : ${list3}">
-							<option th:text="${l.worksystemName}" value="worksystemName"></option>
-					    	<!-- <option th:each="l:${list}" th:text="${l}"></option> -->
-							<!-- <option name="5일근무제" value="date5">5일근무제</option>
-							<option value="4일근무제">4일근무제</option>
-							<option value="유연근무제">유연근무제</option>
-							<option value="5일근무제">4</option>
-							<option value="5일근무제">5</option> -->
-			           	</th:block>
-		           	</select>
-					<button type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
-					<div class="collapse" id="collapseExample">
-						<div class="card formgroup" style="padding:1em 0;">
-						    <input id="worksystemName" name="worksystemName" type="text" placeholder="근무제 명을 입력해주세요.">
-						    <button id="addWorksysNameBtn" type="submit" value="확인" class="btn btn-primary">확인</button>
-						</div>
-					</div>
-				</div>
-				<div id="dayCheck" class="form-group">
-					<label>근무요일선택</label>
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sun" onclick="getCheckboxValue()">일
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="mon" onclick="getCheckboxValue()">월
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="tue" onclick="getCheckboxValue()">화
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="wen" onclick="getCheckboxValue()">수
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="thr" onclick="getCheckboxValue()">목
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="fri" onclick="getCheckboxValue()">금
-						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sat" onclick="getCheckboxValue()">토
-						<!-- <label class="form-check-label" for="inlineCheckbox1">일</label> -->
-					</div>
-				</div>
-				<div id="result"></div>
-				<div>
-					시작시간 : <input type="time" name="startTime" value="09:00:00">
-					종료시간 : <input type="time" name="endTime" value="18:00:00">
-					휴게시간 : <input type="time" name="breackTime" value="01:00:00">
-				</div>
-	  	 	 	<!-- <submit  type="submit" onclick="location.href='work_setting_list'" class="btn btn-primary">양식보내기</submit> -->
-	  	  		<!-- <submit type="submit" onclick="location.href='work_setting_list'" class="btn btn-primary">양식보내기</submit> -->
-				<input type="submit" value="등록하기" class="btn btn-primary">
-			</form>
+		<!-- <form>
+			<input type="hidden" name="worksystemName" id="worksystemName">
+		</form> -->
 	    </div>
 	</div>
     <!-- <form>
@@ -141,22 +124,17 @@
 				}
 			});
 		
-		$("option[value='workSystem']").on("selected", function(){
-			$(option).addClass("selected");
+		
+		$("#selectadd").click(function(){
+			$("form").attr("action", "/workWay/work_setting");
+		});
+
+		$("#pagechange").click(function(){
+			$("form").attr("action", "/workWay/work_setting_list");
 		});
 		
-		/* 근무제 선택에 따른 인서트 */
 		
-	
-		
-		/* 근무제 선택에 따른 인서트 */
-		
-		/* function getWorkSystemValue(){
-			const query = "option[value='workSystem']:select";
-			const selectedEls = document.querySelectorAll(query);
-			let result2 ='';
-			document.getElementById('result2').innerText = result2;
-		} */
+		//-------
 		function SettingPostsubmit(){
 			if(standardWorkCode.value == ''){
 				return flase;
@@ -164,8 +142,6 @@
 			console.log(SettingPostsubmit);
 			return true;
 		}
-		/*근무제 세팅완료 리스트로 보내는 쿼리문*/
-		
 	</script>
 	
 </th:block>

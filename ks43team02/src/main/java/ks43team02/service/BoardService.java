@@ -30,8 +30,16 @@ public class BoardService {
 		this.fileMapper = fileMapper;
 	}
 	
+	//부서별 게시판 검색
+	public List<DepartmentBoard> getSearchDepartmentList(String searchKey, String searchValue){
+		
+		List<DepartmentBoard> searchDepartmentList = boardMapper.getSearchDepartmentList(searchKey, searchValue);
+		
+		return searchDepartmentList;
+	}
+	
 	//부서별 게시판 게시글 조회
-	public DepartmentBoard getDepartmentDetail(int departmentPostCode) {
+	public DepartmentBoard getDepartmentDetail(String departmentPostCode) {
 		DepartmentBoard departmentDetail = boardMapper.getDepartmentDetail(departmentPostCode);
 		
 		return departmentDetail;
@@ -49,35 +57,84 @@ public class BoardService {
 	public int addNotice(NoticeBoard noticeBoard, String sessionName, MultipartFile[] fileImage, String fileRealPath) {
 		
 		System.out.println("BoardService/addNotice");
-		String cpNoticeCode = noticeBoard.getCpNoticeCode();
-		
+	
 		noticeBoard.setRegUserName(sessionName);
-		  
-		int result = boardMapper.addNotice(noticeBoard);
-
+		String temp = boardMapper.getCpNoticeIdx();
+		System.out.println("______temp_____" + temp);
+		noticeBoard.setCpNoticeIdx(temp);
+		int result =  boardMapper.addNotice(noticeBoard);
+		System.out.println(noticeBoard.getCpNoticeCode()+ "!!!!!!!!!!");
 		List<FileDto> fileList = fileUtil.parseFileInfo(fileImage, fileRealPath);
 		System.out.println("BoardService/addNotice/fileDto");
-		fileMapper.addFiles(fileList);
+		fileMapper.addFile(fileList);
 		
 		List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
 		System.out.println("BoardService/addNotice/paramList");
-		Map<String, String> paramMap = null; 
-		
+		Map<String, String> paramMap = null;
+
 		for(FileDto fileDto : fileList) {
 			paramMap = new HashMap<String, String>();
-			paramMap.put("referenceCode", cpNoticeCode);
+			paramMap.put("reference_code", noticeBoard.getCpNoticeCode());
 			paramMap.put("attach_file_code", fileDto.getAttachFileCode());
 			paramList.add(paramMap);
 		}
 		
-		fileMapper.addFilesContol(paramList);
+		fileMapper.addFileControl(paramList);
 		
 		return result;
 	}
+		
+	// 공지사항 게시판 페이징 처리
+	public Map<String, Object> getNoticePaging(int currentPage){
+		// 몇개 행 노출
+		int rowPerPage = 5;
+		int startPageNum = 1;
+		int endPageNum = 3;
+		
+		// 총 행의 갯수
+		double rowCount = boardMapper.getNoticePagingCount();
+		
+		// 마지막페이지
+		int lastPage = (int) Math.ceil(rowCount/rowPerPage);
+		
+		//페이징 처리
+		int startRow = (currentPage - 1) * rowPerPage;
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("startRow", startRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		
+		List<Map<String, Object>> noticePagingList = boardMapper.getNoticePaging(paramMap);
+		
+		// 동적 페이지번호 
+		if(currentPage > 3) {
+			startPageNum = currentPage - 2;
+			endPageNum = currentPage + 1;
+		
+			if(endPageNum >= lastPage) {
+				startPageNum = lastPage - 2;
+				endPageNum = lastPage;
+			}
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("lastPage", lastPage);
+		resultMap.put("noticePagingList", noticePagingList);
+		resultMap.put("startPageNum", startPageNum);
+		resultMap.put("endPageNum", endPageNum);
+				
+		return resultMap;
+	}
 	
 	
+	// 공지 게시글 조회수 증가
+	public int noticeViewUpdate(String cpNoticeCode) {
+		
+		return boardMapper.noitceViewUpdate(cpNoticeCode);
+	}
+
 	//공지 게시글 조회
-	public NoticeBoard getNoticeDetail(int cpNoticeCode) {
+	public NoticeBoard getNoticeDetail(String cpNoticeCode) {
 		
 		NoticeBoard noticeDetail = boardMapper.getNoticeDetail(cpNoticeCode);
 		
@@ -85,9 +142,9 @@ public class BoardService {
 	}
 	
 	//공지 리스트 조회
-	public List<NoticeBoard> getNoticeBoardList(){
+	public List<NoticeBoard> getNoticeBoardList(Map<String, Object> paramMap){
 		
-		List<NoticeBoard> noticeBoardList = boardMapper.getNoticeBoardList();
+		List<NoticeBoard> noticeBoardList = boardMapper.getNoticeBoardList(paramMap);
 		
 		return noticeBoardList;
 	}

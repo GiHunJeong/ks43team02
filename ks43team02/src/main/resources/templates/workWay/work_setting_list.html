@@ -28,10 +28,14 @@
 	             <div class="table-responsive" >
 	                 <table class="table">
 						<tbody class="boxbox">
-							<tr scope="row" class="line-clear">
+							<tr th:if="${not #lists.isEmpty(WorkSystem)}" scope="row" class="line-clear">
 								<th scope="row" >사원명</th>
 								<!-- <td scope="row">백민주</td> -->
-								<td  th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.regUser}" scope="row">#</td>
+								<td type="text" name="regUser" th:each="w : ${WorkSystem}" th:text="${w.regUser}" scope="row">#</td>
+							</tr>
+							<tr class="line-clear">
+								<th scope="col">회사코드</th>
+								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorksystemCpCode}" scope="row">#{code}</td>
 							</tr>
 							<!-- <tr class="line-clear">
 								<th scope="col">회사코드</th>
@@ -76,15 +80,11 @@
 							</tr> -->
 							<tr class="line-clear">
 								<th scope="col">근태방법</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workwayName}" scope="row">#</td>
+								<td th:if="${not #lists.isEmpty(workWayList)}" th:each="w : ${workWayList}" th:text="${w.workwayName}" scope="row">#</td>
 							</tr>
 							<tr class="line-clear">
 								<th scope="col">근무제</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.worksystemName}" scope="row">#</td>
-							</tr>
-							<tr class="line-clear">
-								<th scope="col">등록자</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.regUser}" scope="row">#</td>
+								<td th:if="${not #lists.isEmpty(workSystem)}" th:each="w : ${workSystem}" th:text="${w.worksystemName}" scope="row">#</td>
 							</tr>
 							<tr class="line-clear">
 								<th scope="col">등록일</th>
@@ -126,7 +126,17 @@
     <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>   
 
 <script>
- 
+ 	/* function test(){
+ 		
+	var formData = new FormData();
+	formData.append('worksystemName','주5일');
+	
+	var SettingPost = document.getElementById('SettingPost');
+	formData = new FormData(SettingPost);
+	
+	console.log(SettingPost);
+ 		return true;
+ 	} */
 
 </script>
 

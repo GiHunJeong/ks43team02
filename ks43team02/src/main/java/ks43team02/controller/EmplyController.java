@@ -2,8 +2,6 @@ package ks43team02.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team02.dto.Emply;
 import ks43team02.dto.OrganizationLList;
@@ -94,20 +91,16 @@ public class EmplyController {
 	//조직도 대분류
 	//개인정보수정
 	@PostMapping("/emply_modify_my")
-	public String emplyModify(Emply emply
-							 ,RedirectAttributes attr) {
-		log.info("수정화면에서 입력받은 emply : {}", emply);
-		log.info("수정화면에서 입력받은 emplyId : {}",emply.getEmplyId());
+	public String emplyModify(Emply emply) {
+		log.info("수정화면에서 입력받은 값 : {}", emply);
 		emplyService.modifyEmply(emply);
-		attr.addAttribute("emplyId", emply.getEmplyId());
-
 		return "redirect:/member/emply_modify_my";
 	}
 	//개인정보수정 페이지 이동
 	@GetMapping("/emply_modify_my")
 	public String emplyModifyMy(@RequestParam(name="emplyId", required = false) String emplyId
 			   				   ,Model model) {
-		log.info("화면에서 입력받은 emplyId: {}", emplyId);
+		log.info("화면에서 입력받은 emply: {}", emplyId);
 		Emply emply = emplyService.getEmplyInfoById(emplyId);
 		
 		model.addAttribute("emply", emply);

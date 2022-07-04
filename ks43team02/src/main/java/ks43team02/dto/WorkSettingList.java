@@ -5,48 +5,19 @@ public class WorkSettingList {
 	private String cpRepresentativeCode;
 	private String superAdminId;
 	private String standardWorkCode;
+	private String workWayCode;
 	private String workStartTime;
 	private String workEndTime;
 	private String breakTime;
 	private String cpName;
 	private String regDate;
-	
-	private String workwayCode;
-	private String workwayName;
-	private String worksystemName;
-	private String regUser;
-	
-	private String dayCheck;
-	
-	public String getDayCheck() {
-		return dayCheck;
-	}
-	public void setDayCheck(String dayCheck) {
-		this.dayCheck = dayCheck;
-	}
-	public String getWorkwayCode() {
-		return workwayCode;
-	}
-	public void setWorkwayCode(String workwayCode) {
-		this.workwayCode = workwayCode;
-	}
-	public String getWorkwayName() {
-		return workwayName;
-	}
-	public void setWorkwayName(String workwayName) {
-		this.workwayName = workwayName;
-	}
-	public String getWorksystemName() {
-		return worksystemName;
-	}
-	public void setWorksystemName(String worksystemName) {
-		this.worksystemName = worksystemName;
-	}
-	public String getRegUser() {
-		return regUser;
-	}
-	public void setRegUser(String regUser) {
-		this.regUser = regUser;
+	@Override
+	public String toString() {
+		return "WorkSettingList [standardWorksystemCpCode=" + standardWorksystemCpCode + ", cpRepresentativeCode="
+				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", standardWorkCode=" + standardWorkCode
+				+ ", workWayCode=" + workWayCode + ", workStartTime=" + workStartTime + ", workEndTime=" + workEndTime
+				+ ", breakTime=" + breakTime + ", cpName=" + cpName + ", regDate=" + regDate + ", dayCheck=" + dayCheck
+				+ "]";
 	}
 	public String getStandardWorksystemCpCode() {
 		return standardWorksystemCpCode;
@@ -71,6 +42,12 @@ public class WorkSettingList {
 	}
 	public void setStandardWorkCode(String standardWorkCode) {
 		this.standardWorkCode = standardWorkCode;
+	}
+	public String getWorkWayCode() {
+		return workWayCode;
+	}
+	public void setWorkWayCode(String workWayCode) {
+		this.workWayCode = workWayCode;
 	}
 	public String getWorkStartTime() {
 		return workStartTime;
@@ -102,12 +79,12 @@ public class WorkSettingList {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	@Override
-	public String toString() {
-		return "WorkSettingList [standardWorksystemCpCode=" + standardWorksystemCpCode + ", cpRepresentativeCode="
-				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", standardWorkCode=" + standardWorkCode
-				+ ", workStartTime=" + workStartTime + ", workEndTime=" + workEndTime + ", breakTime=" + breakTime
-				+ ", cpName=" + cpName + ", regDate=" + regDate + ", workwayCode=" + workwayCode + ", workwayName="
-				+ workwayName + ", worksystemName=" + worksystemName + ", regUser=" + regUser + ", dayCheck=" + dayCheck+"]";
+	public String getDayCheck() {
+		return dayCheck;
 	}
+	public void setDayCheck(String dayCheck) {
+		this.dayCheck = dayCheck;
+	}
+	private String dayCheck;
+	
 }

@@ -7,6 +7,7 @@
 		<id 	column="cp_notice_code" 		property="cpNoticeCode"		 	/>
 		<result column="cp_representative_code" property="cpRepresentiveCode"	/>
 		<result column="super_admin_id"			property="superAdminId"			/>
+		<result column="cp_notice_idx"			property="cpNoticeIdx"			/>
 		<result column="notice_title"			property="noticeTitle"			/>
 		<result column="notice_contents" 		property="noticeContents"		/>
 		<result column="reg_user_name" 			property="regUserName"			/>
@@ -14,24 +15,21 @@
 		<result column="modified_date" 			property="modifiedDate"			/>
 		<result column="del_date"				property="delDate"				/>
 		<result column="view_cnt" 				property="viewCnt"				/>
-		<collection property="file" javaType="List" ofType="FileDto">
-			<id 	column="attach_file_code" 			property="attachFileCode"/>
-			<result	column="cp_representative_code" 	property="cpRepresentiveCode"/>
-			<result column="super_admin_id" 			property="superAdminId"/>
-			<result column="attach_file_original_name" 	property="attachFileOriginalName"/>
-			<result column="attach_file_new_name" 		property="attachFileNewName"/>
-			<result column="attach_file_path" 			property="attachFilePath"/>
-			<result column="reg_user_name" 				property="regUserName"/>
-			<result column="attach_file_size" 			property="attachFileSize"/>
-			<result column="reg_date" 					property="regDate"/>
+		<collection property="file" ofType="FileDto">
+			<id		column="attach_file_code" 			property="attachFileCode"		 />
+			<result column="attach_file_original_name"  property="attachFileOriginalName"/>
+			<result column="attach_file_new_name" 		property="attachFileNewName"	 />
+			<result column="attach_file_path" 			property="attachFilePath"		 />
+			<result column="attach_file_size" 			property="attachFileSize" 		 />
+			<result column="reg_date" 					property="regDate"				 />
 		</collection>
 	</resultMap>
-	
 	
 	<resultMap type="DepartmentBoard" 			id="departmentBoardResultMap"	 >
 		<id		column="department_post_code"	property="departmentPostCode"	/>
 		<result column="cp_representative_code"	property="cpRepresentiveCode"	/>
 		<result column="super_admin_id"			property="superAdminId"			/>
+		<result column="department_idx"			property="departmentIdx"		/>
 		<result column="department_cate"		property="departmentCate"		/>
 		<result column="emply_id"				property="emplyId"				/>
 		<result column="reg_user_name"			property="regUserName"			/>
@@ -43,12 +41,58 @@
 		<result column="viewCnt"				property="viewCnt"				/>
 	</resultMap>
 	
+	<resultMap type="Admin" id="adminResultMap">
+		<id column="super_admin_id"							property="superAdminId"/>
+		<result column="cp_representative_code"				property="cpRepresentativeCode"/>
+		<result column="super_admin_pw"						property="superAdminPw"/>
+		<result column="cp_domain"							property="cpDomain"/>
+		<result column="specified_domain_address"			property="specifiedDomainAddress"/>
+		<result column="reg_date"							property="regDate"/>
+		<association property="cpRepresentative"			javaType="CpRepresentative">
+			<id column="cp_representative_code"				property="cpRepresentativeCode"/>
+			<result column="cp_deposit_status_code"			property="cpDepositStatusCode"/>
+			<result column="cp_uniquemply_number"			property="cpUniquemplyNumber"/>
+			<result column="cp_name"						property="cpName"/>
+			<result column="cp_representativemply_name"		property="cpRepresentativemplyName"/>
+			<result column="cp_tel"							property="cpTel"/>
+			<result column="cp_registration_number"			property="cpRegistrationNumber"/>
+			<result column="cp_addr"						property="cpAddr"/>
+			<result column="super_sw_manager"				property="superSwManager"/>
+			<result column="reg_date"						property="regDate"/>
+		</association>
+	</resultMap>
+	
+	<select id="getSearchDepartmentList" fetchSize="1000" parameterType="String" resultMap="departmentBoardResultMap">
+		SELECT
+			d.department_post_code,
+			d.cp_representative_code,
+			d.super_admin_id,
+			d.department_idx,
+			d.department_cate,
+			d.emply_id,
+			d.reg_user_name,
+			d.post_title,
+			d.post_contents,
+			d.reg_date,
+			d.modified_date,
+			d.del_date,
+			d.view_cnt
+		FROM
+			tb_department_post AS d
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="searchValue != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
 	<select id="getDepartmentDetail" resultMap="departmentBoardResultMap">
 		/* 부서별 게시판 게시글 조회 */
 		SELECT
 			department_post_code,
 			cp_representative_code,
 			super_admin_id,
+			department_idx,
 			department_cate,
 			emply_id,
 			reg_user_name,
@@ -70,6 +114,7 @@
 			d.department_post_code,
 			d.cp_representative_code,
 			d.super_admin_id,
+			d.department_idx,
 			d.department_cate,
 			d.emply_id,
 			d.reg_user_name,
@@ -83,11 +128,55 @@
 			tb_department_post AS d;
 	</select>
 	
+	<select id="getNoticePaging" parameterType="map" resultType="map">
+		SELECT
+			a.cp_notice_code			AS cpNoticeCode,           
+			a.cp_representative_code	AS cpRepresentiveCode,
+			a.super_admin_id			AS superAdminId,
+			a.cp_notice_idx				AS cpNoticeIdx,
+			a.notice_title				AS noticeTitle,
+			a.notice_contents			AS noticeContents,
+			a.reg_user_name				AS regUserName,
+			a.reg_date					AS regDate,
+			a.modified_date				AS modifiedDate,
+			a.del_date					AS delDate,
+			a.view_cnt					AS viewCnt
+		FROM
+			tb_all_notice as a
+		LIMIT #{startRow}, #{rowPerPage};
+	</select>
+	
+	<select id="getNoticePagingCount" resultType="int">
+		SELECT
+			COUNT(a.cp_notice_code)
+		FROM
+			tb_all_notice AS a;
+	</select>
+	
+	<select id="getCpNoticeIdx" resultType="String">
+		/* 공지사항 게시글 번호 조회 */
+		SELECT
+			IFNULL(MAX(cp_notice_idx), 0) + 1 as cpNoticeIdx
+		FROM
+			tb_all_notice;
+	</select>
+	
 	<insert id="addNotice">
 		/* 공지사항 작성 */
+		<selectKey resultType="String" keyProperty="cpNoticeCode" order="AFTER">  
+	        SELECT
+				tbn.cp_notice_code
+			FROM
+				tb_all_notice AS tbn
+			ORDER BY
+				tbn.cp_notice_code desc
+			LIMIT 1
+	    </selectKey>
 		INSERT INTO tb_all_notice
-			( cp_representative_code
+			( cp_notice_code
+			, cp_representative_code
 			, super_admin_id
+			, cp_notice_idx
 			, notice_title
 			, notice_contents
 			, reg_user_name
@@ -96,42 +185,94 @@
 			, del_date
 			, view_cnt)
 		VALUES (
-			 (SELECT 
-			  	cp_representative_code
-			  FROM
-				tb_cp_representative
+			sf_new_notice_code(),
+			 (
+				SELECT 
+					tb_cp_rep.cp_representative_code
+				FROM
+					tb_cp_representative 	AS tb_cp_rep
+					INNER JOIN
+					tb_emply_info_reg		AS tb_emply
+					on
+					tb_cp_rep.cp_representative_code = tb_emply.cp_representative_code
+				WHERE
+					tb_emply.emply_id = 'id001@ksmart.or.kr'
 			 )
-			,(SELECT 
-			  super_admin_id
-			  FROM
-			  tb_super_admin
-			 )
+			, (
+				SELECT 
+					tb_super.super_admin_id
+				FROM	
+					tb_super_admin 			AS tb_super 
+					INNER JOIN
+					tb_emply_info_reg		AS tb_emply
+					on
+						tb_super.super_admin_id = tb_emply.super_admin_id
+					WHERE
+						tb_emply.emply_id = 'id001@ksmart.or.kr'
+				)
+			, #{cpNoticeIdx}
 			, #{noticeTitle}
 			, #{noticeContents}
 			, #{regUserName}
-			, CURDATE()
+			, NOW()
 			, NULL
 			, NULL
-			, #{viewCnt});
+			, #{viewCnt})
+		
 	</insert>
 	
-	<select id="getNoticeDetail" resultMap="noticeBoardResultMap">
-		/* 공지사항 게시글 조회 */
-		SELECT
-			cp_notice_code,
-			cp_representative_code,
-			super_admin_id,
-			notice_title,
-			notice_contents,
-			reg_user_name,
-			reg_date,
-			modified_date,
-			del_date,
-			view_cnt
-		FROM 
-			tb_all_notice
+	<update id="noitceViewUpdate" parameterType="String">
+		/* 공지사항 게시글 조회수 증가 */ 
+		UPDATE 
+			tb_all_notice 
+	 	SET 
+	 		view_cnt = view_cnt + 1 
 		WHERE
-			tb_all_notice.cp_notice_code = #{cp_notice_code};
+	 		cp_notice_code = #{cpNoticeCode};
+	</update>
+	
+	<select id="getNoticeDetail" resultMap="noticeBoardResultMap">
+		/* 공지사항 상세보기 */
+		SELECT
+			a.cp_notice_code,
+			a.cp_representative_code,
+			a.super_admin_id,
+			a.cp_notice_idx,
+			a.notice_title,
+			a.notice_contents,
+			a.reg_user_name,
+			a.reg_date,
+			a.modified_date,
+			a.del_date,
+			a.view_cnt,
+			sub.attach_file_code,
+			sub.attach_file_original_name,
+			sub.attach_file_new_name,
+			sub.attach_file_path,
+			sub.attach_file_size,
+			sub.reg_date,
+			sub.reference_code
+		FROM
+			tb_all_notice AS a
+		INNER JOIN
+			(SELECT
+				af.attach_file_code,
+				af.attach_file_original_name,
+				af.attach_file_new_name,
+				af.attach_file_path,
+				af.attach_file_size,
+				af.reg_date,
+				fc.reference_code
+			FROM
+				tb_attach_file AS af
+			INNER JOIN
+				tb_file_control AS fc
+			ON
+				af.attach_file_code = fc.attach_file_code) AS sub
+		ON
+			sub.reference_code = a.cp_notice_code
+			WHERE
+				sub.reference_code = #{cpNoticeCode};
 	</select>
 	
 	<select id="getNoticeBoardList" resultMap="noticeBoardResultMap">
@@ -140,6 +281,7 @@
 			a.cp_notice_code,
 			a.cp_representative_code,
 			a.super_admin_id,
+			a.cp_notice_idx,
 			a.notice_title,
 			a.notice_contents,
 			a.reg_user_name,

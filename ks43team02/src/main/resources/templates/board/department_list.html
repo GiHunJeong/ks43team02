@@ -9,7 +9,7 @@
 
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">
-		<div class="card">
+		<!-- <div class="card">
 			<div class="card-body">
 			
 			    <div class="input-group" id="adv-search">
@@ -27,7 +27,7 @@
 		    	</div>
 			
 			</div>
-		</div>
+		</div> -->
 		
 		<div class="card">
 			<div class="card-body">
@@ -47,7 +47,7 @@
 						</thead>
 						<tbody>
 							<tr th:if="${not #lists.isEmpty(departmentBoardList)}" th:each="l : ${departmentBoardList}">
-								<td th:text="${l.departmentPostCode}"></td>
+								<td th:text="${l.departmentIdx}"></td>
 								<td th:text="${l.departmentCate}"></td>
 								<td><a th:href="@{/board/department_detail(departmentPostCode=${l.departmentPostCode})}"
 									   th:text="${l.postTitle}"></a></td>
