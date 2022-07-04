@@ -23,13 +23,13 @@
 			, reg_date
 			)VALUES
 			<foreach collection="list" item="item" separator=",">
-			( #{item.attachFileCode}
-			 ,#{item.attachFileOriginalName}
-			 ,#{item.attachFileNewName}
-			 ,#{item.attachFilePath}
-			 ,#{item.attachFileSize}
-			 ,NOW()
-			 )
+				( #{item.attachFileCode}
+				 ,#{item.attachFileOriginalName}
+				 ,#{item.attachFileNewName}
+				 ,#{item.attachFilePath}
+				 ,#{item.attachFileSize}
+				 ,NOW()
+				 )
 			</foreach>		
 	</insert>
 	
@@ -58,4 +58,19 @@
 		FROM
 			tb_attach_file
 	</select>
+	
+	<select id="getFileInfoByIdx" parameterType="String" resultMap="fileResultMap">
+		SELECT
+			attach_file_code,
+			attach_file_original_name,
+			attach_file_new_name,
+			attach_file_path,
+			attach_file_size,
+			reg_date
+		FROM
+			tb_attach_file
+		WHERE
+			attach_file_code = #{attachFileCode};
+	</select>
+	
 </mapper>
