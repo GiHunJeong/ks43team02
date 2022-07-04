@@ -18,7 +18,7 @@ import ks43team02.mapper.WorkWayMapper;
 @Transactional
 public class WorkTimeService {
 	/*
-	 * 의존성주입
+	 * 의존성주입 -워크세팅맵퍼 확인
 	 */
 	
 	private final TimeMapper timeMapper;
