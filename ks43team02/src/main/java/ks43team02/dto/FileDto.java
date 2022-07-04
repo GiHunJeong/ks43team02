@@ -7,7 +7,6 @@ public class FileDto {
 	private String attachFileOriginalName;
 	private String attachFileNewName;
 	private String attachFilePath;
-	private String regUserName;
 	private Long attachFileSize;
 	private LocalDateTime regDate;
 	
@@ -43,12 +42,6 @@ public class FileDto {
 	public void setAttachFilePath(String attachFilePath) {
 		this.attachFilePath = attachFilePath;
 	}
-	public String getRegUserName() {
-		return regUserName;
-	}
-	public void setRegUserName(String regUserName) {
-		this.regUserName = regUserName;
-	}
 	public Long getAttachFileSize() {
 		return attachFileSize;
 	}
@@ -65,8 +58,8 @@ public class FileDto {
 	public String toString() {
 		return "File [attachFileCode=" + attachFileCode + ", cpRepresentiveCode=" /* + cpRepresentiveCode */
 				+ ", superAdminId=" /* + superAdminId */ + ", attachFileOriginalName=" + attachFileOriginalName
-				+ ", attachFileNewName=" + attachFileNewName + ", attachFilePath=" + attachFilePath + ", regUserName="
-				+ regUserName + ", attachFileSize=" + attachFileSize + ", regDate=" + regDate + "]";
+				+ ", attachFileNewName=" + attachFileNewName + ", attachFilePath=" + attachFilePath  
+				+ ", attachFileSize=" + attachFileSize + ", regDate=" + regDate + "]";
 	}
 	
 	

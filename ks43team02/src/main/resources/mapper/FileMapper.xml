@@ -47,7 +47,7 @@
 			</foreach>
 	</insert>
 	
-		<select id="getFileList" resultMap="fileResultMap">
+	<select id="getFileList" resultMap="fileResultMap">
 		SELECT
 			 attach_file_code
 			,attach_file_original_name

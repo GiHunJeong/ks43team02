@@ -111,7 +111,7 @@ public class BoardController {
 		model.addAttribute("noticeDetail", noticeDetail);
 		model.addAttribute("fileList", fileList);
 		
-		return "/board/notice_detail";
+		return "board/notice_detail";
 	}
 	
 	/* 공지사항 작성 */
@@ -125,10 +125,13 @@ public class BoardController {
 		//파일 업로드
 		String serverName = request.getServerName();
 		String fileRealPath = "";
-		if("localhost".equals(serverName)) {				
+		
+		if("localhost".equals(serverName)) {
+			//서버가 host 일때
 			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
 			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
 		}else {
+			//배포용 주소
 			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
 		}
 		
