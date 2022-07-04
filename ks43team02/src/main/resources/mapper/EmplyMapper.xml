@@ -76,7 +76,6 @@
 			<result column="reg_date"						property="regDate"/>
 		</association>
 	</resultMap>
-<<<<<<< HEAD
 	<delete id="adminDelEmply" parameterType="String">
 		/* 어드민 사원정보 삭제 */
 		DELETE
@@ -174,8 +173,6 @@
 		</trim>
 		WHERE emply_id = #{emplyId};
 	</update>
-=======
->>>>>>> refs/heads/develop
 	<select id="getOrganiSListByCode" resultType="OrganizationSList">
 		/* 조직도 소분류 에이작스 활용 뿌리기 */
 		SELECT
