@@ -9,9 +9,19 @@ import ks43team02.dto.Emply;
 import ks43team02.dto.OrganizationLList;
 import ks43team02.dto.OrganizationMList;
 import ks43team02.dto.OrganizationSList;
+import ks43team02.dto.PositionLevelList;
+import ks43team02.dto.RankLevelList;
 
 @Mapper
 public interface EmplyMapper {
+	// 관리자 사원 정보 삭제
+	public int adminDelEmply(String emplyId);
+	// 포지션리스트조회
+	public List<PositionLevelList> getPositionLevelList();
+	// 랭크리스트조회
+	public List<RankLevelList> getRankLevelList();
+	// 관리자 사원 정보 수정
+	public int adminModifyEmply(Emply emply);
 	// 사원 개인정보 수정
 	public int modifyEmply(Emply emply);
 	// 조직도 소분류

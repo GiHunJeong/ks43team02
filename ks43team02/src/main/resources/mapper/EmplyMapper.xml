@@ -76,6 +76,106 @@
 			<result column="reg_date"						property="regDate"/>
 		</association>
 	</resultMap>
+<<<<<<< HEAD
+	<delete id="adminDelEmply" parameterType="String">
+		/* 어드민 사원정보 삭제 */
+		DELETE
+		FROM 
+			tb_emply_info_reg 
+		WHERE emply_id = #{emplyId};
+	</delete>
+	<select id="getRankLevelList" resultType="RankLevelList">
+		/* 랭크레벨리스트 조회 */
+		SELECT 
+			rl.rank_level_code				AS rankLevelCode
+			, rl.cp_representative_code	AS cpRepresentativeCode
+			, rl.super_admin_id				AS superAdminId
+			, rl.rank_code						AS rankCode
+			, rl.rank_level					AS rankLevel
+			, rl.rank_name						AS rankName
+			, rl.cp_name						AS cpName
+			, rl.reg_date						AS regDate
+		FROM 
+			tb_rank_level AS rl
+	</select>
+	<select id="getPositionLevelList" resultType="PositionLevelList">
+		/* 포지션레벨리스트 조회 */
+		SELECT
+			pl.position_level_code			AS positionLevelCode
+			, pl.cp_representative_code	AS cpRepresentativeCode
+			, pl.super_admin_id				AS superAdminId
+			, pl.position_code				AS positionCode
+			, pl.position_level				AS positionLevel
+			, pl.position_name				AS positionName
+			, pl.cp_name						AS cpName
+			, pl.reg_date						AS regDate
+		FROM
+			tb_position_level AS pl
+	</select>
+	<update id="adminModifyEmply" parameterType="Emply">
+		/* 관리자 회원정보수정 */
+		UPDATE tb_emply_info_reg
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="organizationCodeS != null and organizationCodeS != ''">			
+				 organization_code_S = #{organizationCodeS}
+			</if>
+			<if test="rankLevelCode != null and rankLevelCode != ''">			
+				 ,rank_level_code = #{rankLevelCode}
+			</if>
+			<if test="positionLevelCode != null and positionLevelCode != ''">			
+				 ,position_level_code = #{positionLevelCode}
+			</if>
+			<if test="emplyName != null and emplyName != ''">			
+				 ,emply_name = #{emplyName}
+			</if>
+			<if test="emplyPw != null and emplyPw != ''">			
+				 ,emply_pw = #{emplyPw}
+			</if>
+			<if test="emplyNumber != null and emplyNumber != ''">			
+				 ,emply_number = #{emplyNumber}
+			</if>
+			<if test="emplyBirth != null and emplyBirth != ''">			
+				 ,emply_birth = #{emplyBirth}
+			</if>
+			<if test="emplyHomeAddress != null and emplyHomeAddress != ''">			
+				 ,emply_home_address = #{emplyHomeAddress}
+			</if>
+			<if test="emplyHomeAddressDetail != null and emplyHomeAddressDetail != ''">			
+				 ,emply_home_address_detail = #{emplyHomeAddressDetail}
+			</if>
+			<if test="emplyHomeAddressZip != null and emplyHomeAddressZip != ''">			
+				 ,emply_home_address_zip = #{emplyHomeAddressZip}
+			</if>
+		</trim>
+		WHERE emply_id = #{emplyId};
+	</update>
+	<update id="modifyEmply" parameterType="Emply">
+		/* 회원정보수정 */
+		UPDATE tb_emply_info_reg
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="emplyPw != null and emplyPw != ''">			
+				 emply_pw = #{emplyPw}
+			</if>
+			<if test="emplyNumber != null and emplyNumber != ''">			
+				 ,emply_number = #{emplyNumber}
+			</if>
+			<if test="emplyBirth != null and emplyBirth != ''">			
+				 ,emply_birth = #{emplyBirth}
+			</if>
+			<if test="emplyHomeAddress != null and emplyHomeAddress != ''">			
+				 ,emply_home_address = #{emplyHomeAddress}
+			</if>
+			<if test="emplyHomeAddressDetail != null and emplyHomeAddressDetail != ''">			
+				 ,emply_home_address_detail = #{emplyHomeAddressDetail}
+			</if>
+			<if test="emplyHomeAddressZip != null and emplyHomeAddressZip != ''">			
+				 ,emply_home_address_zip = #{emplyHomeAddressZip}
+			</if>
+		</trim>
+		WHERE emply_id = #{emplyId};
+	</update>
+=======
+>>>>>>> refs/heads/develop
 	<select id="getOrganiSListByCode" resultType="OrganizationSList">
 		/* 조직도 소분류 에이작스 활용 뿌리기 */
 		SELECT
@@ -164,6 +264,8 @@
 			, t.emply_birth					as emplyBirth
 			, t.emply_account				as emplyAccount
 			, t.emply_home_address			as emplyHomeAddress
+			, t.emply_home_address_zip		as emplyHomeAddressZip
+			, t.emply_home_address_detail	as emplyHomeAddressDetail
 			, t.emplyment_date				as emplymentDate
 			, t.emplyment_type				as emplymentType
 			, t.retire_status				as retireStatus
