@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+	  
+<!-- th:replace="경로 :: 조각이름" -->
+
+<head th:replace="fragments/head :: headFragment"></head>
+<body>
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card">
+				<div class="card-body">
+					<!-- ================================================== -->
+					<!--list 영역 시작 -->
+					<!-- ================================================== -->
+					<div class="content" id="anuualList">
+						<h4 class="card-title mb-3">연차/휴가 내역</h4>	
+						
+							
+						<!-- annaulApplicationList table start -->
+						<h4 class="card-title col-12" style="margin: auto 0;">Annual Application List</h4>
+						
+						<div class="card">
+							<div class="card-body" id="annualApplicationList">
+								<div class=" col-12" style="padding:0;">
+									<!-- 휴가등록 list table 시작 -->
+			<!-- 수정 필 -->
+									<div class="table-responsive">
+										<div class="row">
+											<div class="col-sm-12 col-md-6">
+												<div class="dataTables_length">
+													<div class="dataTables_length" id="zero_config_length">
+														<select name="zero_config_length" class="form-control form-control-sm">
+															<option value="5">5</option>
+															<option value="10">10</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-12 col-md-6" style="display: inline-block;">
+												<div id="zero_config_filter" class="dataTables_filter">
+													<p>search:
+													<input type="search" class="form-control form-control-sm">
+													</p>
+												</div>
+											</div>
+										
+										</div>
+										<table class="table" style="text-align: center; font-size: 0.9rem; " id="anuualApplicationTable">
+											<thead>
+												<tr>
+													<!-- <th:block th:if="${not #lists.isEmpty(list1)}" th:each="l : ${list1}">
+														<th th:text="${l.anuual}">
+													</th:block> -->
+													<th scope="col">#</th>
+													<th scope="col">신청일</th>
+													<th scope="col">시작일</th>
+													<th scope="col">종료일</th>
+													<th scope="col">휴가 구분</th>
+													<th scope="col">사용일수</th>
+													<th scope="col">결재진행상태</th>
+													<th scope="col">첨부파일</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:if="${not #lists.isEmpty(annualApplication)}" th:each="l : ${annualApplication}"> 
+													<td></td>
+													<td th:text="${l.regDate}"></td>
+													<td th:text="${l.annualStartDate}"></td>
+													<td th:text="${l.annualEndDate}"></td>
+													<td th:text="${l.cateAnnualCode}"></td>
+													<td th:text="${l.useDate}"></td>
+													<td th:text="${l.approvalRequestCode}"></td>
+													<td th:text="${l.attachFileName}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div><!-- 휴가등록 list table 끝 -->												
+									<!-- 페이징처리 시작 -->
+									<div style="display:flex; justify-content: space-around;">
+										<ul class="pagination float-right">
+											<li class="page-item disabled">
+												<a class="page-link" href="#" tabindex="-1">Previous</a>
+											</li>
+											<li class="page-item active"><a class="page-link" href="#">1</a></li>
+											<li class="page-item">
+												<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+											</li>
+											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<li class="page-item">
+												<a class="page-link" href="#">Next</a>
+											</li>
+										</ul>						
+									</div><!-- 페이징처리 끝 -->
+								</div> <!-- annaulApplicationList table end -->
+							</div>
+						</div>
+					</div> <!-- end / anuualList  -->
+					<!-- ================================================== -->
+					<!-- list 영역 끝 -->
+					<!-- ================================================== -->
+				</div> <!-- end card-body -->
+			</div> <!-- end card -->
+		</div> <!-- end col  -->
+	</div> <!-- end row -->	
+</th:block>	
+
+<th:block layout:fragment="customScript">
+	
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+    <script th:src="@{/dist/js/feather.min.js}"></script>
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!--This page JavaScript -->
+    <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
+    <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
+	
+
+
+<!--============ 휴가등록 form start ============-->
+	<!-- 휴가등록 결재자 검색 modal 열기 -->
+	<script type="text/javascript">
+		$(function(){
+			$('#btnApprovalSearch').click(function(){
+				$('#ApprovalSearchModal').modal('show');
+			});
+		});
+	</script>
+
+<!--============= 휴가등록 form end =============-->
+
+<!--========== 휴가등록내역 table start ==========-->
+	<!-- 휴가등록내역 테이블 페이징처리(ajax) -->
+
+
+<!--=========== 휴가등록내역 table end ===========-->
+
+
+
+
+	
+</th:block>

@@ -1,12 +1,11 @@
 package ks43team02.dto;
 
-public class Annual {
+public class AnnualStandard {
 	private String annualStandardCode;
 	private String cpRepresentativeCode;
 	private String superAdminId;
 	private int year;
 	private int annualGetDay;
-	
 	
 	public String getAnnualStandardCode() {
 		return annualStandardCode;
@@ -60,10 +59,9 @@ public class Annual {
 
 	@Override
 	public String toString() {
-		return "Annual [annualStandardCode=" + annualStandardCode + ", cpRepresentativeCode=" + cpRepresentativeCode
-				+ ", superAdminId=" + superAdminId + ", year=" + year + ", annualGetDay=" + annualGetDay + "]";
-	}	
-	
-
+		return "AnnualStandard [annualStandardCode=" + annualStandardCode + ", cpRepresentativeCode="
+				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", year=" + year + ", annualGetDay="
+				+ annualGetDay + "]";
+	}
 
 }
