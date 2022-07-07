@@ -31,14 +31,21 @@
 		<result column="super_admin_id"			property="superAdminId"			/>
 		<result column="department_idx"			property="departmentIdx"		/>
 		<result column="department_cate"		property="departmentCate"		/>
-		<result column="emply_id"				property="emplyId"				/>
 		<result column="reg_user_name"			property="regUserName"			/>
 		<result column="post_title"				property="postTitle"			/>
 		<result column="post_contents"			property="postContents"			/>
 		<result column="reg_date"				property="regDate"				/>
 		<result column="modified_date"			property="modifiedDate"			/>
 		<result column="del_date"				property="delDate"				/>
-		<result column="viewCnt"				property="viewCnt"				/>
+		<result column="viewCnt"				property="viewCnt"			/>
+	</resultMap>
+	
+	<resultMap type="DepartmentBoardCate" 			id="departmentBoardCateResultMap">
+		<id	column="department_cate_code" 			property="departmentCateCode"	/>
+		<result column="cp_representative_code" 	property="cpRepresentiveCode"	/>
+		<result column="super_admin_id" 			property="superAdminId"			/>
+		<result column="board_cate" 				property="boardCate"			/>
+		<result column="reg_date" 					property="regDate"				/>
 	</resultMap>
 	
 	<resultMap type="Admin" id="adminResultMap">
@@ -62,14 +69,14 @@
 		</association>
 	</resultMap>
 	
-	<select id="getSearchDepartmentList" fetchSize="1000" parameterType="String" resultMap="departmentBoardResultMap">
+	<!-- 부서별 게시판 목록 검색 -->
+	<select id="getSearchDepartmentList" fetchSize="10" parameterType="String" resultMap="departmentBoardResultMap">
 		SELECT
 			d.department_post_code,
 			d.cp_representative_code,
 			d.super_admin_id,
 			d.department_idx,
-			d.department_cate,
-			d.emply_id,
+			d.department_cate_code,
 			d.reg_user_name,
 			d.post_title,
 			d.post_contents,
@@ -86,15 +93,14 @@
 		</trim>
 	</select>
 	
+	<!-- 부서별 게시판 게시글 조회 -->
 	<select id="getDepartmentDetail" resultMap="departmentBoardResultMap">
-		/* 부서별 게시판 게시글 조회 */
 		SELECT
 			department_post_code,
 			cp_representative_code,
 			super_admin_id,
 			department_idx,
-			department_cate,
-			emply_id,
+			department_cate_code,
 			reg_user_name,
 			post_title,
 			post_contents,
@@ -108,15 +114,123 @@
 			tb_department_post.department_post_code = #{department_post_code};
 	</select>
 	
+	<!-- 부서별 게시판 목록 페이징 처리 -->
+	<select id="getDepartmentPaging" parameterType="map" resultType="map">
+		SELECT
+			d.department_post_code			AS departmentPostCode,
+			d.cp_representative_code		AS cpRepresentiveCode,
+			d.super_admin_id				AS superAdminId,
+			d.department_idx				AS departmentIdx,
+			d.department_cate_code			AS departmentCate,
+			d.reg_user_name					AS regUserName,
+			d.post_title					AS postTitle,
+			d.post_contents					AS postContents,
+			d.reg_date						AS regDate,
+			d.modified_date					AS modifiedDate,
+			d.del_date						AS delDate,
+			d.view_cnt						AS viewCnt
+		FROM
+			tb_department_post AS d
+		LIMIT #{startRow}, #{rowPerPage};
+	</select>
+	
+	<!-- 부서별 게시판 목록 페이징 카운트 -->
+	<select id="getDepartmentPagingCount" resultType="int">
+		SELECT
+			COUNT(d.department_post_code)
+		FROM
+			tb_department_post AS d;
+	</select>
+	
+	<!--  부서별게시판 게시글 번호 조회  -->
+	<select id="getDepartmentIdx" resultType="String">
+		SELECT
+			IFNULL(MAX(department_idx), 0) + 1 as departmentIdx
+		FROM
+			tb_department_post;
+	</select>
+	
+	<!-- 부서별 게시판 게시글 카테고리 조회 -->	
+	<select id="getBoardCateCode" parameterType="String" resultMap="departmentBoardCateResultMap">
+		SELECT
+			dc.department_cate_code,
+			dc.cp_representative_code,
+			dc.super_admin_id,
+			dc.board_cate,
+			dc.reg_date
+		FROM
+			tb_department_cate AS dc;
+	</select>
+	
+	<!-- 부서별 게시판 게시글 작성 -->
+	<insert id="addDepartment">
+		<selectKey resultType="String" keyProperty="departmentPostCode" order="AFTER">  
+	        SELECT
+				tbd.department_post_code
+			FROM
+				tb_department_post AS tbd
+			ORDER BY
+				tbd.department_post_code desc
+			LIMIT 1
+	    </selectKey>
+		INSERT INTO tb_department_post
+			( department_post_code, 
+			  cp_representative_code,
+			  super_admin_id,
+			  department_idx, 
+			  department_cate_code,
+			  reg_user_name,
+			  post_title,
+			  post_contents,
+			  reg_date,
+ 			  modified_date,
+ 		 	  del_date,
+ 		  	  view_cnt)
+		VALUES (
+			sf_new_post_code(),
+			 (
+				SELECT 
+					tb_cp_rep.cp_representative_code
+				FROM
+					tb_cp_representative 	AS tb_cp_rep
+					INNER JOIN
+					tb_emply_info_reg		AS tb_emply
+					on
+					tb_cp_rep.cp_representative_code = tb_emply.cp_representative_code
+				WHERE
+					tb_emply.emply_id = 'id001@ksmart.or.kr'
+			 )
+			, (
+				SELECT 
+					tb_super.super_admin_id
+				FROM	
+					tb_super_admin 			AS tb_super 
+					INNER JOIN
+					tb_emply_info_reg		AS tb_emply
+					on
+						tb_super.super_admin_id = tb_emply.super_admin_id
+					WHERE
+						tb_emply.emply_id = 'id001@ksmart.or.kr'
+				)
+			, #{departmentIdx}
+			, #{boardCate.departmentCateCode}
+			, #{regUserName}
+			, #{postTitle}
+			, #{postContents}
+			, NOW()
+			, NULL
+			, NULL
+			, #{viewCnt})
+	</insert>
+	
+	<!-- 부서별 게시판 목록 조회 -->
 	<select id="getDepartmentBoardList" resultMap="departmentBoardResultMap">
-		/* 부서별 게시판 목록 조회 */
 		SELECT
 			d.department_post_code,
 			d.cp_representative_code,
 			d.super_admin_id,
 			d.department_idx,
-			d.department_cate,
-			d.emply_id,
+			d.department_cate_code,
 			d.reg_user_name,
 			d.post_title,
 			d.post_contents,
@@ -128,6 +242,7 @@
 			tb_department_post AS d;
 	</select>
 	
+	<!-- 공지사항 목록 페이징 처리 -->
 	<select id="getNoticePaging" parameterType="map" resultType="map">
 		SELECT
 			a.cp_notice_code			AS cpNoticeCode,           
@@ -146,6 +261,7 @@
 		LIMIT #{startRow}, #{rowPerPage};
 	</select>
 	
+	<!-- 공지사항 목록 페이징 카운트 -->
 	<select id="getNoticePagingCount" resultType="int">
 		SELECT
 			COUNT(a.cp_notice_code)
@@ -153,16 +269,16 @@
 			tb_all_notice AS a;
 	</select>
 	
+	<!--  공지사항 게시글 번호 조회  -->
 	<select id="getCpNoticeIdx" resultType="String">
-		/* 공지사항 게시글 번호 조회 */
 		SELECT
 			IFNULL(MAX(cp_notice_idx), 0) + 1 as cpNoticeIdx
 		FROM
 			tb_all_notice;
 	</select>
 	
+	<!-- 공지사항 작성 -->
 	<insert id="addNotice">
-		/* 공지사항 작성 */
 		<selectKey resultType="String" keyProperty="cpNoticeCode" order="AFTER">  
 	        SELECT
 				tbn.cp_notice_code
@@ -221,8 +337,8 @@
 		
 	</insert>
 	
+	<!--공지사항 게시글 조회수 증가  -->
 	<update id="noitceViewUpdate" parameterType="String">
-		/* 공지사항 게시글 조회수 증가 */ 
 		UPDATE 
 			tb_all_notice 
 	 	SET 
@@ -231,8 +347,8 @@
 	 		cp_notice_code = #{cpNoticeCode};
 	</update>
 	
+	<!-- 공지사항 상세보기  -->
 	<select id="getNoticeDetail" resultMap="noticeBoardResultMap">
-		/* 공지사항 상세보기 */
 		SELECT
 			a.cp_notice_code,
 			a.cp_representative_code,
@@ -275,8 +391,8 @@
 				sub.reference_code = #{cpNoticeCode};
 	</select>
 	
+	<!--  공지사항 목록 조회  -->
 	<select id="getNoticeBoardList" resultMap="noticeBoardResultMap">
-		/* 공지사항 목록 조회 */
 		SELECT
 			a.cp_notice_code,
 			a.cp_representative_code,

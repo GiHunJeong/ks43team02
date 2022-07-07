@@ -35,7 +35,7 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="4" style="text-align: center;">
+								<td colspan="5" style="text-align: center;">
 									<a th:href="@{/board/notice_list}">[맨처음]</a>
 									<a th:if="${currentPage > 1}" th:href="@{/board/notice_list(currentPage=${currentPage - 1})}">[이전]</a>
 									<th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">

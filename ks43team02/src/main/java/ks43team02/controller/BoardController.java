@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import ks43team02.dto.DepartmentBoard;
+import ks43team02.dto.DepartmentBoardCate;
 import ks43team02.dto.FileDto;
 import ks43team02.dto.NoticeBoard;
 import ks43team02.service.BoardService;
@@ -69,16 +70,41 @@ public class BoardController {
 	
 	/* 게시글 작성 */
 	@PostMapping("/department_write")
-	public String boardwrite() {
+	public String boardwrite(DepartmentBoard departmentBoard,
+							DepartmentBoardCate boardCate
+							 ,HttpSession session
+							 ,@RequestParam MultipartFile[] fileImage
+							 ,HttpServletRequest request) {
+		departmentBoard.setDepartmentBoardCate(boardCate);
+		log.info("게시물작성 post");
+		System.out.println("__________");
+		String sessionName = (String)session.getAttribute("SNAME");
+		//파일 업로드
+		String serverName = request.getServerName();
+		String fileRealPath = "";
 		
-		return "board/department_list";
+		if("localhost".equals(serverName)) {
+			//서버가 host 일때
+			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
+			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}else {
+			//배포용 주소
+			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}
+		
+		boardService.addDepartment(departmentBoard, sessionName, fileImage, fileRealPath);
+		
+		return "redirect:/board/department_list";
 	}
 	
 	/* 게시글 등록 페이지 이동 */
 	@GetMapping("/department_write")
-	public String boardwrite(Model model) {
+	public String departmentWrite(DepartmentBoard departmentBoard, DepartmentBoardCate boardCate ,Model model) {
 		
-
+		List<DepartmentBoardCate> departmentBoardCateList = boardService.getBoardCateCode(boardCate);
+		
+		model.addAttribute("departmentBoardCateList", departmentBoardCateList);
+		
 		return "board/department_write";
 	}
 	
@@ -106,9 +132,18 @@ public class BoardController {
 	
 	/* 게시글 리스트 페이지 */
 	@GetMapping("/department_list")
-	public String boardlist(Model model){
+	public String boardlist(@RequestParam(name="currentPage", required = false, defaultValue = "1") 
+										  int currentPage, Model model){
 		
 		List<DepartmentBoard> departmentBoardList = boardService.getDepartmentBoardList();
+		
+		Map<String, Object> resultMap = boardService.getDepartmentPaging(currentPage);
+		
+		model.addAttribute("currentPage", 		currentPage);
+		model.addAttribute("departmentPagingList", 	resultMap.get("departmentPagingList"));
+		model.addAttribute("lastPage", 			resultMap.get("lastPage"));
+		model.addAttribute("startPageNum", 		resultMap.get("startPageNum"));
+		model.addAttribute("endPageNum", 		resultMap.get("endPageNum"));
 		
 		log.info("게시글 전체 목록 : {}", departmentBoardList);
 		model.addAttribute("departmentBoardList", departmentBoardList);
@@ -169,6 +204,8 @@ public class BoardController {
 		
 		NoticeBoard noticeDetail = boardService.getNoticeDetail(cpNoticeCode);
 		List<FileDto> fileList = fileService.getFileList();
+		
+		boardService.noitceViewUpdate(cpNoticeCode);
 		
 		model.addAttribute("noticeDetail", noticeDetail);
 		model.addAttribute("fileList", fileList);
