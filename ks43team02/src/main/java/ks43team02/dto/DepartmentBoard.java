@@ -8,14 +8,15 @@ public class DepartmentBoard {
 	private String superAdminId;
 	private String departmentIdx;
 	private String departmentCate;
-	private String emplyId;
 	private String regUserName;
 	private String postTitle;
 	private String postContents;
 	private LocalDateTime regDate;
 	private LocalDateTime modifiedDate;
 	private LocalDateTime delDate;
-	private int viewCnt;
+	private int ViewCnt;
+	private DepartmentBoardCate boardCate;
+	
 	public String getDepartmentPostCode() {
 		return departmentPostCode;
 	}
@@ -45,12 +46,6 @@ public class DepartmentBoard {
 	}
 	public void setDepartmentCate(String departmentCate) {
 		this.departmentCate = departmentCate;
-	}
-	public String getEmplyId() {
-		return emplyId;
-	}
-	public void setEmplyId(String emplyId) {
-		this.emplyId = emplyId;
 	}
 	public String getRegUserName() {
 		return regUserName;
@@ -89,18 +84,24 @@ public class DepartmentBoard {
 		this.delDate = delDate;
 	}
 	public int getViewCnt() {
-		return viewCnt;
+		return ViewCnt;
 	}
-	public void setViewCnt(int viewCnt) {
-		this.viewCnt = viewCnt;
+	public void setViewCnt(int ViewCnt) {
+		this.ViewCnt = ViewCnt;
+	}
+	public DepartmentBoardCate getDepartmentBoardCate() {
+		return boardCate;
+	}
+	public void setDepartmentBoardCate(DepartmentBoardCate boardCate) {
+		this.boardCate = boardCate;
 	}
 	@Override
 	public String toString() {
 		return "DepartmentBoard [departmentPostCode=" + departmentPostCode + ", cpRepresentiveCode="
 				+ cpRepresentiveCode + ", superAdminId=" + superAdminId + ", departmentIdx=" + departmentIdx
-				+ ", departmentCate=" + departmentCate + ", emplyId=" + emplyId + ", regUserName=" + regUserName
+				+ ", departmentCate=" + departmentCate + ", regUserName=" + regUserName
 				+ ", postTitle=" + postTitle + ", postContents=" + postContents + ", regDate=" + regDate
-				+ ", modifiedDate=" + modifiedDate + ", delDate=" + delDate + ", viewCnt=" + viewCnt + "]";
+				+ ", modifiedDate=" + modifiedDate + ", delDate=" + delDate + ", viewCnt=" + ViewCnt + "]";
 	}
 	
 }
