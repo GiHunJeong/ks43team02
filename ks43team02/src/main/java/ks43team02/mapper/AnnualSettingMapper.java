@@ -12,9 +12,11 @@ public interface AnnualSettingMapper {
 	
 	//연차세팅
 	public List<AnnualSetting> getAnnualSetting();
+	public int addAnnualSetting(AnnualSetting annualSetting);
+
+	//연차기준
 	public List<AnnualStandard> getAnnualApplication();
 	
-	public int addAnnualSetting(AnnualSetting annualSetting);
 	
 
 }
