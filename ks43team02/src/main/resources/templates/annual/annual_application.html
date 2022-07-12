@@ -18,7 +18,7 @@
 					<!-- ================================================== -->
 					<div class="content" id="application">
 						<h4 class="card-title mb-3">연차/휴가 등록</h4>	
-						<!-- 내 휴가 정보 start -->
+						<!--==== 내 휴가 정보 start ====-->
 						<div class="col-xl-12">
 							<div class="card" id="applicationInfoCard">
 								<div class="card-body" id="applicationInfoCardBody">
@@ -65,31 +65,29 @@
 								</div><!-- card-body end / applicationInfoCardBody -->
 							</div><!-- card end / applicationInfoCard -->
 						</div>
-						<!-- 내 휴가 정보 end -->
+						<!--==== 내 휴가 정보 end ====-->
 	
-						<!-- 휴가등록 form start -->
+						<!--==== 휴가등록 form start ====-->
 						<div class="card" id="annaulRegFormCard">
 							<div class="card-body" id="annaulRegFormCardBody" style="padding: 0;">												
 								<h4 class="card-title col-12" style="margin-bottom: 1rem;">Annual Registration</h4>
-								<form th:action="@{/annual/annualApplication}" id="annualRegForm">
-									<div class="form-body">
-										<!-- form 1line start -->
-										<div class="input-group">
-											<!-- 휴가신청일 시작 -->
-											<div class=" col-4">
-												<div class="input-group-prepend">
-													<span class="input-group-text " id="basic-addon1">휴가신청일</span>
-													<input type="date" class="form-control" id="regDate" value="yyyy-mm-dd">
-												</div>
-											</div> <!-- 휴가신청일 끝 -->
-											<!-- 휴가구분 시작-->
-											<div class="col-4" style="padding:0;">
-												<div class="input-group-append">
-													<span class="input-group-text" id="basic-addon2">휴가 구분</span>
-													<select class="form-control" id="controlSelect">
-								<!-- 수정!  -->
-														<th:block th:if="${not #lists.isEmpty(list3)}" th:each="l : ${list3}">
-															<option th:text="${l.annual}"></option>
+								<form class="" id="annualRegForm" method="post">
+									<th:block>
+										<div class="form-body"  >									
+											<!-- form 1line start -->
+											<div class="input-group">
+												<!-- 휴가신청일 시작 -->
+												<div class=" col-4">
+													<div class="input-group-prepend" >
+														<span class="input-group-text" id="basic-addon1">휴가신청일</span>
+														<input type="date" class="form-control" name="regDate" id="regDate">
+													</div>
+												</div> <!-- 휴가신청일 끝 -->
+												<!-- 휴가구분 시작-->
+												<div class="col-4" style="padding:0;">
+													<div class="input-group-append">
+														<span class="input-group-text" id="basic-addon2">휴가 구분</span>
+														<select class="form-control" id="controlSelect" name="cateAnnualCode">
 															<option value="val1">연차</option>
 															<option value="val2">보상</option>
 															<option value="val3">경조</option>
@@ -97,161 +95,152 @@
 															<option value="val5">보건</option>
 															<option value="val6">공가</option>
 															<option value="val7">기타</option>
-														</th:block>
-													</select>
-												</div>																																				
-											</div> <!-- 휴가구분 끝 -->
-											<!-- 사용일수 선택 시작 -->
-											<div class="input-group mb-3 col-4" id="selectRadio">												
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="basic-addon3" >사용일수</span>
-													<div class="radio"  style="margin:auto 0;">
-														<label for="radio1" style="margin:0 0 0 1em;">
-															<input type="radio" id="radio1" name="radio" value="1.0"> 1.0
-														</label>
-														<label for="radio1" style="margin:0 0 0 1em;">
-															<input type="radio" id="radio2" name="radio" value="0.5"> 0.5
-														</label>
-														<!-- 기타선택시 입력 >> 수정
-														<label for="radio1" id="etcView" style="margin:0 0 0 1em; display: none;">
-															<input type="radio" id="radio3" name="radio" value="기타" placeholder="기타 선택 시 입력해주세요">
-														</label> -->
-													</div>
-												</div>																														
-											</div> <!-- 사용일수 선택 끝 -->
-										</div> <!-- form 1line end -->
-										
-										<!-- form 2line start -->
-										<div class="input-group mb-3 col-12" style="padding: 0;">
-											<!-- 휴가 기간 시작 -->
-											<div class="col-5">
-												<div style="display: flex; margin: auto 0; width: auto;">
-													<div class="input-group-append">
-														<span class="input-group-text" id="basic-addon4">휴가 기간</span>
-													</div>														
-													<div class="input-group input-daterange" id="dateFormat">
-														<input type="date" class="form-control" id="startDate" value="yyyy-mm-dd">
-														<div class="input-group-addon" style="margin: auto 0;"> - </div>
-														<input type="date" class="form-control" id="endDate" value="yyyy-mm-dd">
-														<!-- <p>(  일)</p> >> 일 수 계산할 수 있으면 좋을것같은데~ -->
-													</div>																			
-												</div>																
-											</div> <!-- 휴가기간 끝 -->																
-											<!-- 결재자 선택 modal 시작 -->																											
-											<div class="col-3" style="margin: auto 0; display: flex;">
-												<div class="input-group-append">
-													<span class="input-group-text" id="basic-addon5">결재자</span>																			
-												</div>																		
-												<input type="text" class="form-control" id="chooseApproval">
-												<!-- 결재자 선택 modal창 버튼 -->
-												<button type="button" class="btn waves-effect waves-light btn-light" data-toggle="modal" data-target="#ApprovalSearchModal" id="btnApprovalSearchModal">											
-													<span aria-hidden="true">
-														<i class="fas fa-search"></i>
-													</span>
-												</button>
-												<!-- 결재자 선택 modal form 시작 -->
-												<div class="modal fade" id="ApprovalSearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="height: 110%">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h4 class="modal-title" id="myModalLabel">휴가 신청</h4>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">×</span>
-																</button>
-															</div>
-															<!-- 결재자 선택 modal-body -->
-															<div class="modal-body">
-															 
-															<!-- 결재자 선택 form 시작 -->
-																<form action="@{/annual/annualList}" method="post">	<!-- 이런식으로 보내는건가?  -->																					
-																	<!-- 부서선택 시작 -->
-																	<div class="card">
-																		<div class="form-group">
-																			<label for="controlSelect">부서</label>
-																			<select class="form-control" id="department">
-																				<option value="val1">부서선택</option>
-																				<option value="val2">경영/관리</option>
-																				<option value="val3">총무/서무</option>
-																				<option value="val4">인사/노무</option>
-																				<option value="val5">세무/회계</option>
-																				<option value="val6">판매/영업</option>
-																				<option value="val7">제조/생산</option>
-																				<option value="val8">직접입력</option>
-																			</select> 
-																		</div>
-																	</div><!-- 부서선택 끝 -->
-																	<!-- 직급선택 시작 -->
-																	<div class="card">
-																		<div class="form-group">
-																			<label for="controlSelect">직급</label>
-																			<select class="form-control" id="department">
-																				<option value="val1">직급선택</option>
-																				<option value="val2">사원</option>
-																				<option value="val3">대리</option>
-																				<option value="val4">과장</option>
-																				<option value="val5">부장</option>
-																				<option value="val6">부사장</option>
-																				<option value="val7">사장</option>
-																				<option value="val8">직접입력</option>
-																			</select> 
-																		</div>
-																	</div><!-- 직급선택 끝 -->
-																</form> <!-- 결재자 선택 form 끝 -->
-															
-															</div>
-															<!-- 결재자 선택 modal-footer -->
-															<div class="modal-footer" style="padding: 0.5rem">
-																<button type="button" class="btn btn-cancle" data-dismiss="modal" id="btnCancle">
-																	취소
-																</button>
-																<button type="button" class="btn btn-primary" id="btnPrimary">
-																	확인	
-																</button>
-															</div> <!-- 결재자 선택 modal-footer end -->
+														</select>
+													</div>																																				
+												</div> <!-- 휴가구분 끝 -->
+												<!-- 사용일수 선택 시작 -->
+												<div class="input-group mb-3 col-4" id="selectRadio">											
+													<div class="input-group-prepend">
+														<span class="input-group-text" id="basic-addon3">사용일수</span>
+														<div class="radio"  style="margin:auto 0;">
+															<label for="radio1" style="margin:0 0 0 1em;">
+																<input type="radio" id="radio1" name="useDate" value="1.0"> 1.0
+															</label>
+															<label for="radio1" style="margin:0 0 0 1em;">
+																<input type="radio" id="radio2" name="useDate" value="0.5"> 0.5
+															</label>
+															<!-- 기타선택시 입력 >> 수정
+															<label for="radio1" id="etcView" style="margin:0 0 0 1em; display: none;">
+																<input type="radio" id="radio3" name="radio" value="기타" placeholder="기타 선택 시 입력해주세요">
+															</label> -->
 														</div>
-													</div>
-												</div> <!-- 결재자 선택 modal form 끝 -->
-											</div> <!-- 결재자 선택 modal 끝 -->
-											<!-- 첨부파일 등록 시작 -->
-							<!-- 수정 -->										
-											<div class="col-4">
-												<div style="margin: auto 0;">
-												<span class="input-group-text" id="basic-addon4" style="display: block;">증명자료 첨부</span>
+													</div>																														
+												</div> <!-- 사용일수 선택 끝 -->
+											</div> <!-- form 1line end -->
 											
-												<label class="custom-file-label" for="inputGroupFile01" style="width: 70%;">Choose file..</label>
-												</div>
-											</div> <!-- 첨부파일 등록 끝 -->
-										</div> <!-- form 2line end -->
-										
-										<!-- form 3line start -->
-										<div class="input-group mb-3 col-12" style="padding: 0;">
-											<!-- 휴가 사유 -->
-											<div class="input-group mb-3 col-12">																	
-												<div class="input-group-prepend">
-													<span class="input-group-text " id="basic-addon1">휴가 사유</span>
-												</div>																	
-												<input type="text" class="form-control col-12" placeholder="" aria-label="title" aria-describedby="basic-addon1">															
-											</div> <!-- 휴가사유 끝 -->
-										</div> <!-- form 3line end -->
-									</div> <!-- 휴가등록 form-body end -->
-									
-									<!-- 휴가등록 form-actions start -->
-									<div class="col-12">
-										<div class="text-right">
-											<div>
-											<button type="button" class="btn btn-info" id="btnSubmit" onclick="document.getElementById('#annualForm').submit();" value="전송">Submit</button>
-											<a href="#" onclick="document.getElementById('#annualForm').submit();"></a>
-											<button type="reset" class="btn btn-dark" value="취소" id="btnReset">Reset</button>
-											</div>
-											<!-- <button type="submit" class="btn btn-info" value="등록" id="btnSubmit">Submit</button> -->
+											<!-- form 2line start -->
+											<div class="input-group mb-3 col-12" style="padding: 0;">
+												<!-- 휴가 기간 시작 -->
+												<div class="col-5">
+													<div style="display: flex; margin: auto 0; width: auto;">
+														<div class="input-group-append">
+															<span class="input-group-text" id="basic-addon4">휴가 기간</span>
+														</div>														
+														<div class="input-group input-daterange" id="dateFormat">
+															<input type="date" class="form-control" id="startDate" name="annualStartDate">
+															<div class="input-group-addon" style="margin: auto 0;"> - </div>
+															<input type="date" class="form-control" id="endDate" name="annualEndDate">
+															<!-- <p>(  일)</p> >> 일 수 계산할 수 있으면 좋을것같은데~ -->
+														</div>																			
+													</div>																
+												</div> <!-- 휴가기간 끝 -->																
+												<!-- 결재자 선택 modal 시작 -->																											
+												<div class="col-3" style="margin: auto 0; display: flex;">
+													<div class="input-group-append">
+														<span class="input-group-text" id="basic-addon5">결재자</span>																			
+													</div>																		
+													<input type="text" class="form-control" id="chooseApproval" name="approvalRequestCode">
+													<!-- 결재자 선택 modal창 버튼 -->
+													<button type="button" class="btn waves-effect waves-light btn-light" data-toggle="modal" data-target="ApprovalSrchModal" id="btnApprovalSrchModal">											
+														<span aria-hidden="true">
+															<i class="fas fa-search"></i>
+														</span>
+													</button>
+													<!-- 결재자 선택 modal form 시작 -->
+													<div class="modal fade" id="ApprovalSrchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="height: 110%">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h4 class="modal-title" id="myModalLabel">결재자 선택</h4>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">×</span>
+																	</button>
+																</div>
+																<!-- 결재자 선택 modal-body --> <!-- ajax/json? -->
+																<div class="modal-body">
+																	<div id="approvalModal">
+																		<div class="card">
+																			<!-- 부서선택 시작 -->
+																			<div class="form-group">
+																				<!-- <label for="controlSelect">부서</label> -->
+																				<select class="form-control" id="department" name="department">
+																					<option value="val1">부서</option>
+																					<option value="val2">경영/관리</option>
+																					<option value="val3">총무/서무</option>
+																					<option value="val4">인사/노무</option>
+																					<option value="val5">세무/회계</option>
+																					<option value="val6">판매/영업</option>
+																					<option value="val7">제조/생산</option>
+																					<option value="val8">직접입력</option>
+																				</select> 
+																			</div><!-- 부서선택 끝 -->
+																		
+																			<!-- 직급선택 시작 -->																	
+																			<div class="form-group">
+																				<!-- <label for="controlSelect">직급</label> -->
+																				<select class="form-control" id="rank" name="rank" >
+																					<option value="val11">직급</option>
+																					<option value="val22">사원</option>
+																					<option value="val33">대리</option>
+																					<option value="val44">과장</option>
+																					<option value="val55">부장</option>
+																					<option value="val66">부사장</option>
+																					<option value="val77">사장</option>
+																					<option value="val88">직접입력</option>
+																				</select> 
+																			</div><!-- 직급선택 끝 -->										
+																			<div>
+																				<input type="text" class="form-control" placeholder="이름" id="appSrchName">
+																			</div>
+																		</div><!-- 결재자선택 modal-body card end -->
+																		<button type="button" class="btn btn-block btn-sm btn-info" id="btnAppSrchName">조회</button>													
+																	</div>																							
+																</div> <!-- 결재자 선택 modal-body  끝 -->
+																<!-- 결재자 선택 modal-footer -->
+																<div class="modal-footer" style="padding: 0.5rem">
+																	<button type="button" class="btn btn-cancle" data-dismiss="modal" id="btnModalCan">
+																		취소
+																	</button>
+																	<button type="button" class="btn btn-primary" data-dismiss="modal" id="btnModalSub">
+																		확인	
+																	</button>
+																</div> <!-- 결재자 선택 modal-footer end -->
+															</div>
+														</div>
+													</div> <!-- 결재자 선택 modal form 끝 -->
+												</div> <!-- 결재자 선택 modal 끝 -->
+												
+												<!-- 첨부파일 등록 시작 -->
+								<!-- 수정 필요 -->										
+												<div class="col-4">
+													<div style="margin: auto 0;">
+													<span class="input-group-text" id="basic-addon4" style="display: block;" >증명자료 첨부</span>
+													<label class="custom-file-label" for="inputGroupFile01"  style="width: 70%;">Choose file..</label>
+													</div>
+												</div> <!-- 첨부파일 등록 끝 -->
+											</div> <!-- form 2line end -->
+											
+											<!-- form 3line start -->
+											<div class="input-group mb-3 col-12" style="padding: 0;">
+												<!-- 휴가 사유 -->
+												<div class="input-group mb-3 col-12">																	
+													<div class="input-group-prepend">
+														<span class="input-group-text " id="basic-addon1">휴가 사유</span>
+													</div>																	
+													<input type="text" class="form-control col-12" name="comment" placeholder="" aria-label="title" aria-describedby="basic-addon1">															
+												</div> <!-- 휴가사유 끝 -->
+											</div> <!-- form 3line end -->
+										</div> <!-- 휴가등록 form-body end -->
+										<div>
+											<button type="button" class="btn btn-info" id="btnSubmit" name="btnSubmit">Submit</button>
+											<a th:href="@{/annual/annual_application}"><button type="reset" class="btn btn-dark" id="btnReset" name="btnReset" value="리셋" >Reset</button></a>
 										</div>
-									</div> <!-- 휴가등록 form-actions end -->
+									</th:block>
 								</form> <!-- form end / annualRegForm -->
 							</div> <!-- card-body end / annaulRegFormCardBody -->
 						</div> <!-- card end / annaulRegFormCard -->
-							
-						
-					</div> <!-- end / application  -->
+						<!--==== 휴가등록 form end ====-->
+					</div>
 					<!-- ================================================== -->
 					<!-- application 영역 끝 -->
 					<!-- ================================================== -->
@@ -281,7 +270,7 @@
     <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
     <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
     <script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
-    <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+    <!-- <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script> -->
     <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
     <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
     <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
@@ -289,14 +278,185 @@
 
 
 <!--============ 휴가등록 form start ============-->
-	<!-- 휴가등록 결재자 검색 modal 열기 -->
+<!--==== 결재자선택 modal start ====-->
 	<script type="text/javascript">
+	//결재자 검색버튼 클릭시 modal 열기
 		$(function(){
-			$('#btnApprovalSearch').click(function(){
-				$('#ApprovalSearchModal').modal('show');
+			$('#btnApprovalSrchModal').click(function(){
+				$('#ApprovalSrchModal').modal('show');
 			});
 		});
 	</script>
+	
+	<script type="text/javascript">
+	//결재자선택 모달 내부 검색(ajax)
+	/*
+	$(function(){
+		
+		$("#btnAppSrchName").click(function(){
+			var modal1 = ("#ApprovalSrchModal").serialize();
+			 
+			$.ajax({
+                type: "post",
+                url: "/annual/annual_application",
+                data: modal1,
+                dataType: 'text',
+                success: function (data) {
+                    alert("success");
+                    location.href = data;
+                },
+                error: function (request, status, error) {
+                    console.log();
+
+                }
+            });
+			
+		});
+	});
+	*/
+	</script>
+
+	<script type="text/javascript">
+	//모달에서 부모창으로 결재자 전달(ajax)
+
+		$(function(){
+			$(document).on('click','#appSrchName',function(){
+				var appSrchName = $('#appSrchName').val();
+				console.log(appSrchName);
+				$.ajax({
+					url: "/annual/annual_application",
+					method: "post",
+					data: {'appSrchName' : appSrchName },
+					datatype: "json"
+				});
+			});
+		});
+
+	
+		/* 1
+		$(function(){
+			$("#btnModalSub").click(function(){
+				let modal2 = "approvalRequestCode"+$('input[name=approvalRequestCode]'.val()); 
+				var modal2 = {"chooseApproval" : "appSrchName"}
+				
+				$.ajax({
+	                type: "post",
+	                url: "/annual/annual_application",
+	                data: {
+	                	"chooseApproval" : $("#appSrchName").val();
+	                }
+	                dataType: 'json',
+	                dontentType: 'application/json',
+	                success: function (data) {
+	                    alert("success");
+	                    location.href = data;
+	                },
+	                error: function (request, status, error) {
+	                    console.log();
+	
+	                }
+	            });
+			})
+		});
+		*/
+	</script>
+	
+	<script type="text/javascript">
+	//모달 확인버튼 클릭시
+		$(function(){
+			$('#btnModalSub').on("click",function(){
+				alert("선택하시겠습니까?"); 
+			});
+			$('#ApprovalSrchModal').modal('hide');
+	//모달 취소버튼 클릭시 
+			$('#btnModalCan').on("click",function(){
+				$('#approvalModal')[0].reset();
+			});
+	
+		});
+		/*
+		$(function(){
+			$('btnPrimary').on("click",function(){
+				var modal1 = ("approvalModal").serialize();
+				
+				$.ajax({
+	                type: "post",
+	                url: "/annual/annual_application",
+	                data: modal1,
+	                dataType: 'text',
+	                success: function (data) {
+	                    alert("success");
+	                    location.href = data;
+	                },
+	                error: function (request, status, error) {
+	                    console.log();
+	
+	                }
+	            });
+			});
+		});
+		*/
+		
+		
+	</script>
+<!--==== 결재자 선택 modal end ====-->
+		
+
+	
+	
+	<!-- 폼 전송 / 페이지 전환 -->
+	<script type="text/javascript">
+		function(){
+			$("#btnSubmit").click(function(){
+				$("form").attr("action", "/annual/annual_list");
+			});
+			
+			
+		}
+		/*
+		$(function(){
+			$('#btnSubmit').click(function(){
+				alert('go?');
+			});
+		}); */
+	</script>
+	<script>
+	/*
+		$("#btnSubmit").click(function()){
+			$("annualRegForm").attr("action","/annual/annual_list";)
+		}
+	*/
+	</script>
+	
+	<!-- 연차등록 form 전송 ajax start -->
+	<script type="text/javascript">
+	
+		$(function(){
+			$('#btnSubmit').on("click",function(){
+				
+				var form1 = $("#annualRegForm").serialize();
+				console.log(form1);
+				
+				$.ajax({
+	                type: "post",
+	                url: "/annual/annual_application",
+	                data: form1,
+	                dataType: 'text',
+	                success: function (data) {
+	                    alert("success");
+	                    //console.log(data);
+	                    location.href = data;
+	                },
+	                error: function (request, status, error) {
+	                    console.log();
+	
+	                }
+	            });
+				
+	        });
+		});
+	</script>
+	<!-- 연차등록 form 전송 ajax end -->
 
 <!--============= 휴가등록 form end =============-->
 

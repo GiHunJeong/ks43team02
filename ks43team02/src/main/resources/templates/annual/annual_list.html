@@ -30,6 +30,11 @@
 			<!-- 수정 필 -->
 									<div class="table-responsive">
 										<div class="row">
+											<div style="display: block;"> <!-- 이전페이지로 돌아가기  -->
+												<a><button type="button" class="info" onclick="history.back(-1)">back</button></a>
+												<!-- <a type="button" class="returnPage" onclick="history.back(-1)">back</a> -->
+											</div>
+											<!--  검색 >> 수정
 											<div class="col-sm-12 col-md-6">
 												<div class="dataTables_length">
 													<div class="dataTables_length" id="zero_config_length">
@@ -46,15 +51,12 @@
 													<input type="search" class="form-control form-control-sm">
 													</p>
 												</div>
-											</div>
-										
+											</div>					
+										 -->
 										</div>
 										<table class="table" style="text-align: center; font-size: 0.9rem; " id="anuualApplicationTable">
 											<thead>
 												<tr>
-													<!-- <th:block th:if="${not #lists.isEmpty(list1)}" th:each="l : ${list1}">
-														<th th:text="${l.anuual}">
-													</th:block> -->
 													<th scope="col">#</th>
 													<th scope="col">신청일</th>
 													<th scope="col">시작일</th>
@@ -66,7 +68,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:if="${not #lists.isEmpty(annualApplication)}" th:each="l : ${annualApplication}"> 
+												<tr th:if="${not #lists.isEmpty(annualList)}" th:each="l : ${annualList}" th:href="@{/annual/annual_list(annualApplicationCode=${annualApplicationCode})}"> 
 													<td></td>
 													<td th:text="${l.regDate}"></td>
 													<td th:text="${l.annualStartDate}"></td>
@@ -79,7 +81,7 @@
 											</tbody>
 										</table>
 									</div><!-- 휴가등록 list table 끝 -->												
-									<!-- 페이징처리 시작 -->
+									<!-- 페이징처리 시작 -->  <!-- +++해야함+++  -->
 									<div style="display:flex; justify-content: space-around;">
 										<ul class="pagination float-right">
 											<li class="page-item disabled">
