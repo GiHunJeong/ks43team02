@@ -1,4 +1,3 @@
-<!DOCTYPE html><!-- 출퇴근관리정리 -->
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout/default.html}">
@@ -12,6 +11,7 @@
 	.line-clear{display:inline-grid}
 	.card-position{position:relative;}
 	.btn-position{position:absolute; top:25px; right:25px;}
+	.tableClean{width:max-content; display:inline-flex;}
 </style>
 	<!-- 출퇴근 시간찍히는 곳 -->
 	<div class="col-lg-12 ">
@@ -22,86 +22,85 @@
 	             	회사별 세팅되어져 있는 근무제 값을 확인할 수 있다.
                  </h6>
                  <div class="btn-position">
-	                 <button class="btn btn-primary" type="button" onclick="location.href='work_setting'">뒤로가기</button>
-	                 <button class="btn btn-primary" type="button">추가</button>
+	                 <a class="btn btn-primary" type="button" th:href="@{/workWay/work_setting}">추가</a>
                  </div>
 	             <div class="table-responsive" >
 	                 <table class="table">
-						<tbody class="boxbox">
-							<tr th:if="${not #lists.isEmpty(WorkSystem)}" scope="row" class="line-clear">
-								<th scope="row" >사원명</th>
-								<!-- <td scope="row">백민주</td> -->
-								<td type="text" name="regUser" th:each="w : ${WorkSystem}" th:text="${w.regUser}" scope="row">#</td>
-							</tr>
-							<tr class="line-clear">
-								<th scope="col">회사코드</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorksystemCpCode}" scope="row">#{code}</td>
-							</tr>
-							<!-- <tr class="line-clear">
-								<th scope="col">회사코드</th>
-								<td  th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorksystemCpCode}" scope="row">#</td>
-							</tr> -->
-							<!-- <tr class="line-clear" >
-								<th scope="col">근태방식</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorksystemCpCode}" scope="row">#</td>
-							</tr> -->
-							<!-- <tr class="line-clear">
-								<th scope="col">회사고유주소</th>
-								<td  th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.cpRepresentativeCode}" scope="row">#</td>
-							</tr> -->
-							<tr class="line-clear">
-								<th scope="col">회사대표코드</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.superAdminId}" scope="row">#</td>
-							</tr>
-							<!-- <tr class="line-clear">
-								<th scope="col">회사근무제코드</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.standardWorkCode}" scope="row">#</td>
-							</tr> -->
-							<tr class="line-clear">
-								<th scope="col">시작시간</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workStartTime}" scope="row">#</td>
-							</tr>
-							<tr class="line-clear">
-								<th scope="col">종료시간</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workEndTime}" scope="row">#</td>
-							</tr>
-							<tr class="line-clear">
-								<th scope="col">휴게시간</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.breakTime}" scope="row">#</td>
-							</tr>
-							<tr class="line-clear">
-								<th scope="col">회사명</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.cpName}" scope="row">#</td>
-							</tr>
-							
-							<!-- <tr class="line-clear">
-								<th scope="col">근태방법코드</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.workwayCode}" scope="row">#</td>
-							</tr> -->
-							<tr class="line-clear">
-								<th scope="col">근태방법</th>
-								<td th:if="${not #lists.isEmpty(workWayList)}" th:each="w : ${workWayList}" th:text="${w.workwayName}" scope="row">#</td>
-							</tr>
-							<tr class="line-clear">
-								<th scope="col">근무제</th>
-								<td th:if="${not #lists.isEmpty(workSystem)}" th:each="w : ${workSystem}" th:text="${w.worksystemName}" scope="row">#</td>
-							</tr>
-							<tr class="line-clear">
-								<th scope="col">등록일</th>
-								<td th:if="${not #lists.isEmpty(workSettingList)}" th:each="w : ${workSettingList}" th:text="${w.regDate}" scope="row">#</td>
-							</tr>
+	                 	<thead>
+	                 		<tr>
+	                 			<!-- <th>코드</th>
+	                 			<th>근무제명</th>
+	                 			<th>근무방식</th>
+	                 			<th>근무요일</th>
+	                 			<th>출근시간</th>
+	                 			<th>퇴근시간</th>
+	                 			<th>휴게시간</th>
+	                 			<th>어드민ID</th>
+	                 			<th>등록자</th>
+	                 			<th>등록일</th>
+	                 			<th>수정</th>
+	                 			<th>삭제</th> -->
+           						<th nowrap>근태코드</th>
+								<th nowrap>회사코드</th>
+								<th nowrap>회사명</th>
+								<th nowrap>관리자 ID</th>
+	                 			<th nowrap>근무제코드</th>
+	                 			<th nowrap>근무제명</th>
+	                 			<th nowrap>근태방식코드</th>
+	                 			<th nowrap>근태방식명</th>
+	                 			<th nowrap>근무요일</th>
+	                 			<th nowrap>출근시간</th>
+	                 			<th nowrap>퇴근시간</th>
+	                 			<th nowrap>휴게시간</th>
+	                 			<!-- <th>슈퍼 관리자 Id</th> -->
+	                 			<th nowrap>등록자</th>
+	                 			<th nowrap>등록일</th>
+	                 			<th nowrap>수정</th>
+	                 			<th nowrap>삭제</th>
+	                 		</tr>
+	                 	</thead>
+						<tbody>
+							<tr th:if="${not #lists.isEmpty(workSettingList)}" th:each="l : ${workSettingList}">
+								<td nowrap th:text="${l.standardWorksystemCpCode}"></td>
+								<td nowrap th:text="${l.cpRepresentativeCode}"></td>
+								<td nowrap th:text="${l.cpName}"></td>
+								<td nowrap th:text="${l.superAdminId}"></td>
+								<td nowrap th:text="${l.standardWorkCode}"></td>
+								<td nowrap th:text="${l.workSystem.worksystemName}"></td>
+								<td th:text="${l.WorkWay.workwayCode}"></td>
+								<td th:text="${l.WorkWay.workwayName}"></td>
+								<td th:text="${l.dayCheck}"></td>
+								<td th:text="${l.workStartTime}"></td>
+								<td th:text="${l.workEndTime}"></td>
+								<td th:text="${l.breakTime}"></td>
+								<!--<td th:text="${l.superAdminId}"></td> -->
+								<td th:text="${l.workSystem.regUser}"></td>
+								<td nowrap th:text="${l.regDate}"></td>
+								<td nowrap>
+									<a class="btn waves-effect waves-light btn-success" type="button"
+										th:href="@{/workWay/work_setting_info_modify(standardWorksystemCpCode = ${l.standardWorksystemCpCode}
+										, standardWorkCode = ${l.standardWorkCode}
+										, dayCheck = ${l.dayCheck})}" >
+										수정
+									</a>
+								</td>
+								<td nowrap>
+									<a class="btn waves-effect waves-light btn-danger" type="button" 
+									   th:href="@{/workWay/work_setting_list_del(standardWorksystemCpCode=${l.standardWorksystemCpCode})}">
+									      삭제
+									</a>
+								</td>
+							</tr>							
 						</tbody>
 					</table>
 	             </div>
 	         </div>
 	    </div>
-	</div>
-		
+	</div>		
 </th:block>
  
 
-<th:block layout:fragment="customScript">
-   
+<th:block layout:fragment="customScript">   
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
@@ -124,19 +123,5 @@
     <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
     <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
     <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>   
-
-<script>
- 	/* function test(){
- 		
-	var formData = new FormData();
-	formData.append('worksystemName','주5일');
-	
-	var SettingPost = document.getElementById('SettingPost');
-	formData = new FormData(SettingPost);
-	
-	console.log(SettingPost);
- 		return true;
- 	} */
-
-</script>
+</th:block>
 

@@ -7,12 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks43team02.dto.WorkSettingList;
 import ks43team02.dto.WorkSystem;
-import ks43team02.dto.WorkTime;
-import ks43team02.dto.WorkWayList;
-import ks43team02.mapper.TimeMapper;
-import ks43team02.mapper.WorkSettingMapper;
-import ks43team02.mapper.WorkSystemMapper;
-import ks43team02.mapper.WorkWayMapper;
+import ks43team02.dto.WorkWay;
+import ks43team02.mapper.WorkTimeMapper;
+
 
 @Service
 @Transactional
@@ -20,52 +17,10 @@ public class WorkTimeService {
 	/*
 	 * 의존성주입 -워크세팅맵퍼 확인
 	 */
+	private final WorkTimeMapper workTimeMapper;
 	
-	private final TimeMapper timeMapper;
-	private final WorkSystemMapper workSystemMapper;
-	private final WorkWayMapper workWayMapper;
-	private final WorkSettingMapper workSettingMapper;
-	
-	public WorkTimeService(TimeMapper timeMapper
-						, WorkSystemMapper workSystemMapper
-						, WorkWayMapper workWayMapper
-						, WorkSettingMapper workSettingMapper) {
-		
-		this.timeMapper = timeMapper;
-		this.workSystemMapper = workSystemMapper;
-		this.workWayMapper = workWayMapper;
-		this.workSettingMapper = workSettingMapper;
+	public WorkTimeService(WorkTimeMapper workTimeMapper) {
+		this.workTimeMapper = workTimeMapper;
 	}
-	
-
-	//사원이름가져오기
-	public List<WorkTime> getWorkTimeEmplyName() {
-		List<WorkTime> workTimeEmplyName = timeMapper.getWorkTimeEmplyName();
-		return workTimeEmplyName;
-	}
-	//근무제 가져오기
-	public List<WorkSystem> getWorkSystem(){
-		List<WorkSystem> workSystemList = workSystemMapper.getWorkSystem();
-		return workSystemList;
-	}
-	public int addWorkSystem(WorkSystem workSystem) {
-		int result =  workSystemMapper.addWorkSystem(workSystem);
-		return result;
-	}
-	
-	public List<WorkWayList> getWorkWayList(){
-		List<WorkWayList> workWayList = workWayMapper.getWorkWayList();
-		return workWayList;
-	}
-	public List<WorkSettingList> getWorkSettingList(){
-		List<WorkSettingList> workSettingList = workSettingMapper.getWorkSettingList();
-		return workSettingList;
-	}
-	//회사별 전체 근무제 리스트
-	/*
-	 * public List<WorkSettingList> getWorkSetting(){ List<WorkSettingList>
-	 * workSettingList = workSettingMapper.getWorkSettingList(); return
-	 * workSettingList; }
-	 */
-	
+	//
 }

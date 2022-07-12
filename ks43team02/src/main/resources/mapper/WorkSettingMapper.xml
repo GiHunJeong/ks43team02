@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team02.mapper.WorkSettingMapper">
+	<resultMap type="WorkSettingList" id="WorkSettingListResultMap">
+		<id column="standard_worksystem_cp_code"	property="standardWorksystemCpCode"/>
+		<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+		<result column="super_admin_id"				property="superAdminId"/>
+		<result column="standard_work_code"			property="standardWorkCode"/>
+		<result column="workway_code"				property="workwayCode"/>
+		<result column="work_start_time"			property="workStartTime"/>
+		<result column="work_end_time"				property="workEndTime"/>
+		<result column="break_time"					property="breakTime"/>
+		<result column="cp_name"					property="cpName"/>
+		<result column="reg_date"					property="regDate"/>
+		<result column="day_check"					property="dayCheck"/>
+		<association property="workWay"  		javaType="WorkWay">
+			<id column="workway_code"					property="workwayCode"/>
+			<result column="workway_name"				property="workwayName"/>
+			<result column="reg_date"					property="regDate"/>
+		</association>
+		<association property="workSystem"  		javaType="WorkSystem">
+			<id column="standard_work_code"				property="standardWorkCode"/>
+			<result column="super_adminId"				property="superAdminId"/>
+			<result column="worksystem_name"			property="worksystemName"/>
+			<result column="reg_user"					property="regUser"/>
+			<result column="reg_date"					property="regDate"/>
+		</association>
+	</resultMap>
+	<update id="workSettingModify" parameterType="WorkSettingList">
+		/*회사 근무설정정보수정*/
+		UPDATE	tb_standard_worksystem_cp
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="cpRepresentativeCode != null and cpRepresentativeCode != ''">			
+				cp_representative_code = #{cpRepresentativeCode}
+			</if>
+			<if test="superAdminId != null and superAdminId != ''">			
+				,super_admin_id = #{superAdminId}
+			</if>
+			<if test="standardWorkCode != null and standardWorkCode != ''">			
+				,standard_work_code = #{standardWorkCode}
+			</if>
+			<if test="workwayCode != null and workwayCode != ''">			
+				,workway_code = #{workwayCode}
+			</if>
+			<if test="workStartTime != null and workStartTime != ''">			
+				,work_start_time = #{workStartTime}
+			</if>
+			<if test="workEndTime != null and workEndTime != ''">			
+				,work_end_time = #{workEndTime}
+			</if>
+			<if test="breakTime != null and breakTime != ''">			
+				,break_time = #{breakTime}
+			</if>
+			<if test="dayCheck != null and dayCheck != ''">			
+				,day_check = #{dayCheck}
+			</if>
+		</trim>
+		WHERE 
+			standard_worksystem_cp_code = #{standardWorksystemCpCode};
+	</update>
+	<delete id="delWorkSettingList" parameterType="String">
+		/* 근무세팅리스트 삭제 */
+		DELETE 
+		FROM 
+			tb_standard_worksystem_cp
+		WHERE 
+			standard_worksystem_cp_code = #{standardWorksystemCpCode};
+	</delete>
+	<insert id="addWorkSystemCp" parameterType="WorkSettingList">
+		/* 근무세팅리스트 추가 */
+		INSERT INTO tb_standard_worksystem_cp(
+			standard_worksystem_cp_code
+			, cp_representative_code
+			, super_admin_id
+			, standard_work_code
+			, workway_code
+			, work_start_time
+			, work_end_time
+			, break_time
+			, cp_name
+			, reg_date
+			, day_check
+		)VALUES(
+			(SELECT CONCAT('standard_worksystem_cp_code_',(SELECT(Max(cast(SUBSTRING_INDEX(standard_worksystem_cp_code,'_',-1) AS UNSIGNED)) +1)
+               from
+               tb_standard_worksystem_cp
+               ws)))
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
+			, #{standardWorkCode}
+			, #{workwayCode}
+			, #{workStartTime}
+			, #{workEndTime}
+			, #{breakTime}
+			, #{cpName}
+			, NOW()
+			, #{dayCheck}
+		);
+	</insert>
+	<insert id="addWorkSystem" parameterType="WorkSystem">
+		/* 설정관리 근무제선택에 근무제 직접 추가하기 */
+		INSERT INTO tb_worksystem_standard(
+			standard_work_code
+			, cp_representative_code
+			, super_admin_id
+			, worksystem_name
+			, reg_user
+			, reg_date
+		)VALUES(
+			(SELECT CONCAT('standard_work_code_',(SELECT(Max(cast(SUBSTRING_INDEX(standard_work_code,'_',-1) AS UNSIGNED)) +1)
+               from
+               tb_worksystem_standard
+               sw)))
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
+			, #{worksystemName}
+			, #{regUser}
+			, NOW()
+		);
+	</insert>
+	<select id="getWorkSystem" resultType="WorkSystem">
+		/* 설정관리 근무제선택에 근무제 뿌리기  */
+		SELECT
+			ws.standard_work_code			as standardWorkCode
+			,ws.cp_representative_code 		as cpRepresentativeCode
+			,ws.super_admin_id 				as superAdminId
+			,ws.worksystem_name 			as worksystemName
+			,ws.reg_user 					as regUser
+			,ws.reg_date					as regDate
+		FROM
+			tb_worksystem_standard AS ws;
+	</select>
+	<select id="getWorkSettingList" resultMap="WorkSettingListResultMap">
+		/* 설정관리에서 세팅한 회사근무방식 리스트 뿌리기 */
+		SELECT
+			swc.standard_worksystem_cp_code
+			, swc.cp_representative_code
+			, swc.cp_name
+			, swc.super_admin_id
+			, wss.standard_work_code
+			, wss.worksystem_name
+			, ws.workway_code
+			, ws.workway_name
+			, swc.day_check
+			, swc.work_start_time
+			, swc.work_end_time
+			, swc.break_time
+			, swc.super_admin_id
+			, wss.reg_user
+			, swc.reg_date
+		FROM
+			tb_standard_worksystem_cp AS swc
+			INNER join
+			tb_workway_standard AS ws
+			on
+			ws.workway_code = swc.workway_code
+			INNER join
+			tb_worksystem_standard AS wss
+			on
+			wss.standard_work_code = swc.standard_work_code;
+	</select>
+	<select id="getModifySetting" resultType="WorkSettingList" resultMap="WorkSettingListResultMap">
+		/*하나의 근무제 만 선택해서 보기*/
+		SELECT 
+		sw.standard_worksystem_cp_code
+		, sw.cp_representative_code
+		, sw.super_admin_id
+		, sw.standard_work_code
+		, sw.workway_code
+		, sw.work_start_time
+		, sw.work_end_time
+		, sw.break_time
+		, sw.cp_name
+		, sw.reg_date
+		, sw.day_check
+		, ws.standard_work_code
+		, ws.cp_representative_code
+		, ws.super_admin_id
+		, ws.worksystem_name
+		, ws.reg_user
+		, ws.reg_date
+		, ww.workway_code
+		, ww.workway_name
+		, ww.reg_date
+		FROM 
+			tb_standard_worksystem_cp AS sw
+			INNER join
+			tb_worksystem_standard AS ws
+			on
+			sw.standard_work_code = ws.standard_work_code
+			INNER join
+			tb_workway_standard AS ww
+			on
+			sw.workway_code = ww.workway_code
+		WHERE
+			sw.standard_worksystem_cp_code = #{standardWorksystemCpCode};
+	</select>
+</mapper>
