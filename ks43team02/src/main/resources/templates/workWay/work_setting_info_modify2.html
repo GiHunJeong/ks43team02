@@ -10,22 +10,12 @@
 <th:block layout:fragment="customContents">
 <div class="card">
 	<div class="card-body">
-		<!-- 비밀번호가 일치할때 내용들이 활성화된다. -->
-		<h4 class="card-title">비밀번호 확인</h4>
-		    <label class="form-control-label" for="inputSuccess1">비밀번호를 확인해 주세요.</label>
-		    <input type="text" class="form-control is-valid" id="inputSuccess1">
-		    <div class="valid-feedback">
-		        Success! You've done it.
-		    </div>
-		<form id="workSettingSendForm" method="post" th:action="@{/workWay/work_setting}" class="mt-4">
-			<h4 class="card-title">근무설정</h4>
+		
+		<form id="workSettingSendForm" method="post" th:action="@{/workWay/work_setting_info_modify}" class="mt-4">
+			<h4 class="card-title">근무정보 수정</h4>
 			<div class="form-group mb-1">
 		      	<label style="width:100%;">근무제선택</label>
-				<select class="test form-control col-10" name="standardWorkCode" style="float:left;">
-					<th:block th:if="${not #lists.isEmpty(workSetting)}" th:each="l : ${workSetting}">
-						<option th:value="${l.standardWorkCode}">[[${l.worksystemName}]]</option>
-					</th:block>
-	           	</select>
+      			<input type="text" name="standardWorksystemCpCode" th:value="${WorkSettingList.standardWorksystemCpCode}" readonly><!-- [[${worksystemName}]] -->
 				<button id="plusBtn" type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
 				<div class="collapse" id="collapseExample">
 					<div class="card formgroup" style="padding:1em 0;">
@@ -48,6 +38,7 @@
 				</div>
 			</div>
 			<div id="result"></div>
+			
 			<div>
 				시작시간 : <input id="workTimeSet1" type="time" name="workStartTime">
 				종료시간 : <input id="workTimeSet2" type="time" name="workEndTime">
@@ -111,6 +102,8 @@
 					$(this).attr('class','btn btn-primary col-2');
 				}
 			});
+			
+			//$('input[name=worksystemName]').attr('value', "[[${worksystemName}]]");
 		});
 	</script>
 	
