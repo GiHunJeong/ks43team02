@@ -78,8 +78,15 @@ public class BoardService {
 		return departmentCate;
 	}
 	
+	// 공지 게시글 조회수 증가
+	public int departmentViewUpdate(String departmentPostCode) {
+			
+		return boardMapper.departmentViewUpdate(departmentPostCode);
+	}
+	
 	//부서별 게시판 게시글 조회
 	public DepartmentBoard getDepartmentDetail(String departmentPostCode) {
+		
 		DepartmentBoard departmentDetail = boardMapper.getDepartmentDetail(departmentPostCode);
 		
 		return departmentDetail;
@@ -133,6 +140,16 @@ public class BoardService {
 		List<DepartmentBoard> departmentBoardList = boardMapper.getDepartmentBoardList();
 		
 		return departmentBoardList;
+	}
+	
+	//공지 게시글 삭제
+	public int removeNotice(String cpNoticeCode) {
+		
+		int result = boardMapper.removeNotice(cpNoticeCode);
+		
+		result += boardMapper.removeNotice(cpNoticeCode);
+		
+		return result;
 	}
 	
 	//공지 게시글 작성

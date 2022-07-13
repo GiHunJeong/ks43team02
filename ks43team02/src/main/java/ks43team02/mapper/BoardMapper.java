@@ -13,6 +13,9 @@ import ks43team02.dto.NoticeBoard;
 @Mapper
 public interface BoardMapper {
 	
+	//공지사항 조회수 업데이트
+	public int departmentViewUpdate(String departmentPostCode);
+	
 	//부서별 게시판 게시글 조회
 	public DepartmentBoard getDepartmentDetail(String departmentPostCode);
 	
@@ -36,6 +39,9 @@ public interface BoardMapper {
 	
 	//부서별 게시판 게시글 번호 조회
 	public String getDepartmentIdx();
+	
+	//공지사항 삭제
+	public int removeNotice(String cpNoticeCode);
 	
 	//공지사항 작성
 	public int addNotice(NoticeBoard notice);
