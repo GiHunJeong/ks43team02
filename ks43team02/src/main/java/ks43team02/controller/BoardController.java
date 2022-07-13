@@ -29,7 +29,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,10 +45,11 @@ import ks43team02.service.FileService;
 @RequestMapping("/board")
 public class BoardController {
 	
+	private static final Logger log = LoggerFactory.getLogger(BoardController.class);
+	
+	//DI 의존성 주입 생성자 메소드 주입 방식
 	private final BoardService boardService;
 	private final FileService fileService;
-	
-	private static final Logger log = LoggerFactory.getLogger(BoardController.class);
 	
 	public BoardController(BoardService boardService, FileService fileService) {
 		this.boardService = boardService;
@@ -62,10 +62,16 @@ public class BoardController {
 															  required = false) String departmentPostCode) {
 		
 		DepartmentBoard departmentDetail = boardService.getDepartmentDetail(departmentPostCode);
+		List<FileDto> departmentFileList = fileService.getFileList();
 		
 		model.addAttribute("departmentDetail", departmentDetail);
+	
+		boardService.departmentViewUpdate(departmentPostCode);
 		
-		return "/board/department_detail";
+		model.addAttribute("departmentDetail", departmentDetail);
+		model.addAttribute("departmentFileList", departmentFileList);
+		
+		return "board/department_detail";
 	}
 	
 	/* 게시글 작성 */
@@ -97,7 +103,7 @@ public class BoardController {
 		return "redirect:/board/department_list";
 	}
 	
-	/* 게시글 등록 페이지 이동 */
+	 /* 게시글 등록 페이지 이동 */
 	@GetMapping("/department_write")
 	public String departmentWrite(DepartmentBoard departmentBoard, DepartmentBoardCate boardCate ,Model model) {
 		
@@ -153,7 +159,7 @@ public class BoardController {
 	
 	@RequestMapping("/file/download")
 	@ResponseBody
-	/* 공지사항 파일 다운로드 */
+	/* 파일 다운로드 */
 	public ResponseEntity<Object> attachFileDownload(@RequestParam(value="attachFileCode", required = false)String attachFileCode
 												 ,HttpServletRequest request
 												 ,HttpServletResponse response) throws URISyntaxException{
@@ -195,6 +201,17 @@ public class BoardController {
 		httpHeaders.setLocation(redirectUri);
 		
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
+	}
+	
+	/* 공지사항 삭제 */
+	@GetMapping("/notice_remove")
+	public String removeNotice(NoticeBoard noticeBoard) {
+		
+		String cpNoticeCode = noticeBoard.getCpNoticeCode();
+		
+		boardService.removeNotice(cpNoticeCode);
+		
+		return "redirect:/board/notice_list";
 	}
 	
 	/* 공지사항 상세화면 이동 */

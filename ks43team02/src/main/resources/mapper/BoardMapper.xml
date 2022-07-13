@@ -37,7 +37,15 @@
 		<result column="reg_date"				property="regDate"				/>
 		<result column="modified_date"			property="modifiedDate"			/>
 		<result column="del_date"				property="delDate"				/>
-		<result column="viewCnt"				property="viewCnt"			/>
+		<result column="viewCnt"				property="viewCnt"				/>
+		<collection property="file" ofType="FileDto">
+			<id		column="attach_file_code" 			property="attachFileCode"		 />
+			<result column="attach_file_original_name"  property="attachFileOriginalName"/>
+			<result column="attach_file_new_name" 		property="attachFileNewName"	 />
+			<result column="attach_file_path" 			property="attachFilePath"		 />
+			<result column="attach_file_size" 			property="attachFileSize" 		 />
+			<result column="reg_date" 					property="regDate"				 />
+		</collection>
 	</resultMap>
 	
 	<resultMap type="DepartmentBoardCate" 			id="departmentBoardCateResultMap">
@@ -93,25 +101,57 @@
 		</trim>
 	</select>
 	
+	<!--부서별 게시판 게시글 조회수 증가  -->
+	<update id="departmentViewUpdate" parameterType="String">
+		UPDATE 
+			tb_department_post 
+	 	SET 
+	 		view_cnt = view_cnt + 1 
+		WHERE
+	 		department_post_code = #{departmentPostCode};
+	</update>
+	
 	<!-- 부서별 게시판 게시글 조회 -->
 	<select id="getDepartmentDetail" resultMap="departmentBoardResultMap">
 		SELECT
-			department_post_code,
-			cp_representative_code,
-			super_admin_id,
-			department_idx,
-			department_cate_code,
-			reg_user_name,
-			post_title,
-			post_contents,
-			reg_date,
-			modified_date,
-			del_date,
-			view_cnt
-		FROM 
-			tb_department_post
-		WHERE
-			tb_department_post.department_post_code = #{department_post_code};
+			d.department_post_code,
+			d.cp_representative_code,
+			d.super_admin_id,
+			d.department_idx,
+			d.department_cate_code,
+			d.reg_user_name,
+			d.post_title,
+			d.post_contents,
+			d.reg_date,
+			d.modified_date,
+			d.del_date,
+			d.view_cnt,
+			sub.attach_file_code,
+			sub.attach_file_original_name,
+			sub.attach_file_new_name,
+			sub.attach_file_path,
+			sub.attach_file_size,
+			sub.reg_date,
+			sub.reference_code
+		FROM
+			tb_department_post AS d
+			INNER JOIN
+					(SELECT
+						af.attach_file_code,
+						af.attach_file_original_name,
+						af.attach_file_new_name,
+						af.attach_file_path,
+						af.attach_file_size,
+						af.reg_date,
+						fc.reference_code
+					FROM
+						tb_attach_file AS af
+					INNER JOIN
+						tb_file_control AS fc
+					ON
+						af.attach_file_code = fc.attach_file_code) AS sub
+				ON
+					sub.reference_code = #{departmentPostCode};
 	</select>
 	
 	<!-- 부서별 게시판 목록 페이징 처리 -->
@@ -276,6 +316,16 @@
 		FROM
 			tb_all_notice;
 	</select>
+	
+	<!-- 공지사항 게시글 삭제 -->
+	<delete id="removeNotice" parameterType="String">
+  		DELETE 
+  		FROM 
+  			tb_all_notice
+  		WHERE 
+  			cp_notice_code = #{cpNoticeCode};
+  		
+  	</delete>
 	
 	<!-- 공지사항 작성 -->
 	<insert id="addNotice">

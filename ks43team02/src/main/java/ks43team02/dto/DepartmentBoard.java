@@ -1,6 +1,7 @@
 package ks43team02.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class DepartmentBoard {
 	private String departmentPostCode;
@@ -16,6 +17,7 @@ public class DepartmentBoard {
 	private LocalDateTime delDate;
 	private int ViewCnt;
 	private DepartmentBoardCate boardCate;
+	private List<FileDto> file;
 	
 	public String getDepartmentPostCode() {
 		return departmentPostCode;
@@ -95,13 +97,25 @@ public class DepartmentBoard {
 	public void setDepartmentBoardCate(DepartmentBoardCate boardCate) {
 		this.boardCate = boardCate;
 	}
+	public DepartmentBoardCate getBoardCate() {
+		return boardCate;
+	}
+	public void setBoardCate(DepartmentBoardCate boardCate) {
+		this.boardCate = boardCate;
+	}
+	public List<FileDto> getFile() {
+		return file;
+	}
+	public void setFile(List<FileDto> file) {
+		this.file = file;
+	}
 	@Override
 	public String toString() {
 		return "DepartmentBoard [departmentPostCode=" + departmentPostCode + ", cpRepresentiveCode="
 				+ cpRepresentiveCode + ", superAdminId=" + superAdminId + ", departmentIdx=" + departmentIdx
-				+ ", departmentCate=" + departmentCate + ", regUserName=" + regUserName
-				+ ", postTitle=" + postTitle + ", postContents=" + postContents + ", regDate=" + regDate
-				+ ", modifiedDate=" + modifiedDate + ", delDate=" + delDate + ", viewCnt=" + ViewCnt + "]";
+				+ ", departmentCate=" + departmentCate + ", regUserName=" + regUserName + ", postTitle=" + postTitle
+				+ ", postContents=" + postContents + ", regDate=" + regDate + ", modifiedDate=" + modifiedDate
+				+ ", delDate=" + delDate + ", ViewCnt=" + ViewCnt + ", boardCate=" + boardCate + ", file=" + file + "]";
 	}
 	
 }
