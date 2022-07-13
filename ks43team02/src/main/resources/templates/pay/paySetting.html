@@ -7,44 +7,51 @@
 	<th:block layout:fragment="customContents">
 		<div>
 			<span>현재 세팅값</span>
-	        <button onClick="location.href='addPaySet'" class="btn btn-primary" style="float: right; margin-bottom: 10px;" id="modifyPaySetting">수정하기</button>
+	        <button type="button" class="btn btn-outline-primary" style="float: right; margin-bottom: 10px;" id="modifyPaySetting">수정하기</button>
 		</div><br>
 		<form id="paySetForm">
 			<div class="card">
 				<div class="card-body">
-				<table class="table table-bordered" id="payTimeSetTable">
-					<tr>
-						<th class="col-md-4" style="text-align: center;">월급 지급일</th>
-						<th id="paySetDate"></th>
-					</tr>
-					<tr>
-						<th class="col-md-4" style="text-align: center;">자동이체 시간</th>
-						<th id="paySetTime"></th>
-					</tr>
-				</table>
-				</div>
-			</div>
-			<!-- 추가버튼 클릭시 모달실행하여 db상에있는 기준테이블 선택하여 추가할수 있게하기 -->
-			<!-- 기본테이블은 식대만 존재, 추가시 열 추가되게끔 -->
-			<div>
-				<span>고정지급 급여</span>
-			</div><br>
-			<div class="card">
-				<div class="card-body">
+					<table class="table table-bordered" id="payTimeSetTable">
+						<tr>
+							<td colspan="2" class="bg-primary text-white">시간세팅</td>
+						</tr>
+						<tr>
+							<th class="col-md-4" style="text-align: center;">월급 지급일</th>
+							<th id="paySetDate" th:text="${paySet.paySetDate}" style="text-align: center;"></th>
+						</tr>
+						<tr>
+							<th class="col-md-4" style="text-align: center;">자동이체 시간</th>
+							<th id="paySetTime" th:text="${paySet.paySetTime}" style="text-align: center;"></th>
+						</tr>
+					</table>
+					<br><br>
+					<!-- 추가버튼 클릭시 모달실행하여 db상에있는 기준테이블 선택하여 추가할수 있게하기 -->
+					<!-- 기본테이블은 식대만 존재, 추가시 열 추가되게끔 -->
 					<table class="table table-bordered" id="fixedPayList">
 						<tr>
+							<td class="bg-primary text-white col-md-8">고정지급급여 항목</td>
+							<td class="bg-primary text-white">금액(원)</td>
+						</tr>
+						<tr th:if="${not #arrays.isEmpty(fixedPayMap)}" th:each="fixedPay : ${fixedPayMap}">
+							<td class="settingTableVal" th:text="${fixedPay.key}" th:value="${fixedPay.key}"></td>
+							<td class="settingTableVal" th:text="${fixedPay.value}" th:value="${fixedPay.value}"></td>
+						</tr>
+						<tr th:unless="${not #arrays.isEmpty(fixedPayMap)}">
 							<td class="settingTableVal">선택된 항목이 없습니다.</td>
 						</tr>
 					</table>
-				</div>
-			</div>
-			<div>
-				<span>공제액</span>
-			</div><br>
-			<div class="card">
-				<div class="card-body">
+					<br><br>
 					<table class="table table-bordered" id="deducePayList">
 						<tr>
+							<td class="bg-primary text-white col-md-8">공제액 항목</td>
+							<td class="bg-primary text-white">금액(원)</td>
+						</tr>
+						<tr th:if="${not #arrays.isEmpty(deducePayMap)}" th:each="deducePay : ${deducePayMap}">
+							<td class="settingTableVal" th:text="${deducePay.key}" th:value="${deducePay.key}"></td>
+							<td class="deducePayAmount" th:text="${deducePay.value}" th:value="${deducePay.value}"></td>
+						</tr>
+						<tr th:unless="${not #arrays.isEmpty(deducePayMap)}">
 							<td class="settingTableVal">선택된 항목이 없습니다.</td>
 						</tr>
 					</table>
@@ -57,7 +64,19 @@
 			<script type="text/javascript" th:src="@{/dist/js/jquery-3.6.0.min.js}"></script>
 
         	<script type="text/javascript">
-        		
+	        	$(document).ready(function(){
+	        		$('#modifyPaySetting').click(function(){
+	        	        var result = confirm('수정시 현재 세팅값은 초기화됩니다. 수정하시겠습니까?');
+	
+	        	        if(result == true) {
+	        	           //yes
+	        	            location.replace('addPaySet');
+	        	        } else {
+	        	        	return false;
+	        	            //no
+	        	        }
+	        	    });
+	        	});
 			</script>
 	
 		</th:block>

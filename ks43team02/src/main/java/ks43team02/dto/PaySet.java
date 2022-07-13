@@ -1,5 +1,6 @@
 package ks43team02.dto;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 public class PaySet {
@@ -8,24 +9,14 @@ public class PaySet {
 	private String paySetDate;
 	private String paySetTime;
 	private String fixedPayList;
-	private String deducePayList;
 	private String[] fixedPayArrays;
-	private String[] deducePayArrays;
-	
-	public String[] getFixedPayArrays() {
-		return fixedPayArrays;
-	}
-	public void setFixedPayArrays(String[] fixedPayArrays) {
-		this.fixedPayArrays = fixedPayArrays;
-	}
-	public String[] getDeducePayArrays() {
-		return deducePayArrays;
-	}
-	public void setDeducePayArrays(String[] deducePayArrays) {
-		this.deducePayArrays = deducePayArrays;
-	}
-
-	private String paySetRegDate;
+	private String fixedPayAmount;
+	private String[] fixedAmountArrays;
+	private String deductionPayList;
+	private String[] deductionPayArrays;
+	private String deductionPayAmount;
+	private String[] deductionAmountArrays;
+	private LocalDate paySetRegDate;
 	
 	public String getPaySetCode() {
 		return paySetCode;
@@ -51,25 +42,65 @@ public class PaySet {
 	public void setFixedPayList(String fixedPayList) {
 		this.fixedPayList = fixedPayList;
 	}
-	public String getDeducePayList() {
-		return deducePayList;
+	public String[] getFixedPayArrays() {
+		return fixedPayArrays;
 	}
-	public void setDeducePayList(String deducePayList) {
-		this.deducePayList = deducePayList;
+	public void setFixedPayArrays(String[] fixedPayArrays) {
+		this.fixedPayArrays = fixedPayArrays;
 	}
-	public String getPaySetRegDate() {
+	public String getFixedPayAmount() {
+		return fixedPayAmount;
+	}
+	public void setFixedPayAmount(String fixedPayAmount) {
+		this.fixedPayAmount = fixedPayAmount;
+	}
+	public String[] getFixedAmountArrays() {
+		return fixedAmountArrays;
+	}
+	public void setFixedAmountArrays(String[] fixedAmountArrays) {
+		this.fixedAmountArrays = fixedAmountArrays;
+	}
+	public String getDeductionPayList() {
+		return deductionPayList;
+	}
+	public void setDeductionPayList(String deductionPayList) {
+		this.deductionPayList = deductionPayList;
+	}
+	public String[] getDeductionPayArrays() {
+		return deductionPayArrays;
+	}
+	public void setDeductionPayArrays(String[] deductionPayArrays) {
+		this.deductionPayArrays = deductionPayArrays;
+	}
+	public String getDeductionPayAmount() {
+		return deductionPayAmount;
+	}
+	public void setDeductionPayAmount(String deductionPayAmount) {
+		this.deductionPayAmount = deductionPayAmount;
+	}
+	public String[] getDeductionAmountArrays() {
+		return deductionAmountArrays;
+	}
+	public void setDeductionAmountArrays(String[] deductionAmountArrays) {
+		this.deductionAmountArrays = deductionAmountArrays;
+	}
+	public LocalDate getPaySetRegDate() {
 		return paySetRegDate;
 	}
-	public void setPaySetRegDate(String paySetRegDate) {
+	public void setPaySetRegDate(LocalDate paySetRegDate) {
 		this.paySetRegDate = paySetRegDate;
 	}
 	
 	@Override
 	public String toString() {
 		return "PaySet [paySetCode=" + paySetCode + ", paySetDate=" + paySetDate + ", paySetTime=" + paySetTime
-				+ ", fixedPayList=" + fixedPayList + ", deducePayList=" + deducePayList + ", fixedPayArrays="
-				+ Arrays.toString(fixedPayArrays) + ", deducePayArrays=" + Arrays.toString(deducePayArrays)
-				+ ", paySetRegDate=" + paySetRegDate + "]";
+				+ ", fixedPayList=" + fixedPayList + ", fixedPayArrays=" + Arrays.toString(fixedPayArrays)
+				+ ", fixedPayAmount=" + fixedPayAmount + ", fixedAmountArrays=" + Arrays.toString(fixedAmountArrays)
+				+ ", deductionPayList=" + deductionPayList + ", deductionPayArrays="
+				+ Arrays.toString(deductionPayArrays) + ", deductionPayAmount=" + deductionPayAmount
+				+ ", deductionAmountArrays=" + Arrays.toString(deductionAmountArrays) + ", paySetRegDate="
+				+ paySetRegDate + "]";
 	}
-
+	
+	
 }
