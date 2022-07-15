@@ -14,14 +14,14 @@
 			<div class="card">
 				<div class="card-body">
 					<!-- ================================================== -->
-					<!--list 영역 시작 -->
+					<!--use list 영역 시작 -->
 					<!-- ================================================== -->
 					<div class="content" id="anuualList">
 						<h4 class="card-title mb-3">연차/휴가 내역</h4>	
 						
 							
 						<!-- annaulApplicationList table start -->
-						<h4 class="card-title col-12" style="margin: auto 0;">Annual Application List</h4>
+						<h4 class="card-title col-12" style="margin: auto 0;">Annual Use List</h4>
 						
 						<div class="card">
 							<div class="card-body" id="annualApplicationList">
@@ -32,29 +32,9 @@
 										<div class="row">
 											<div style="display: block;"> <!-- 이전페이지로 돌아가기  -->
 												<a><button type="button" class="btn btn-block btn-sm btn-info" onclick="history.back(-1)">back</button></a>
-												<!-- <a type="button" class="returnPage" onclick="history.back(-1)">back</a> -->
 											</div>
-											<!--  검색 >> 수정
-											<div class="col-sm-12 col-md-6">
-												<div class="dataTables_length">
-													<div class="dataTables_length" id="zero_config_length">
-														<select name="zero_config_length" class="form-control form-control-sm">
-															<option value="5">5</option>
-															<option value="10">10</option>
-														</select>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-12 col-md-6" style="display: inline-block;">
-												<div id="zero_config_filter" class="dataTables_filter">
-													<p>search:
-													<input type="search" class="form-control form-control-sm">
-													</p>
-												</div>
-											</div>					
-										 -->
 										</div>
-										<table class="table" style="text-align: center; font-size: 0.9rem; " id="anuualApplicationTable">
+										<table class="table" style="text-align: center; font-size: 0.9rem; " id="anuualUseTable">
 											<thead>
 												<tr>
 													<th scope="col">#</th>
@@ -81,7 +61,7 @@
 											</tbody>
 										</table>
 									</div><!-- 휴가등록 list table 끝 -->												
-			<!-- +++수정+++  -->	<!-- 페이징처리 시작 -->  
+									<!-- 페이징처리 시작 -->  <!-- +++해야함+++  -->
 									<div style="display:flex; justify-content: space-around;">
 										<ul class="pagination float-right">
 											<li class="page-item disabled">
@@ -102,7 +82,7 @@
 						</div>
 					</div> <!-- end / anuualList  -->
 					<!-- ================================================== -->
-					<!-- list 영역 끝 -->
+					<!-- use list 영역 끝 -->
 					<!-- ================================================== -->
 				</div> <!-- end card-body -->
 			</div> <!-- end card -->
@@ -135,6 +115,10 @@
     <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
     <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
 	
+
+
+<!--============ 휴가사용리스트 start ============-->
+<!--============ 휴가사용리스트 end ============-->
 
 
 
