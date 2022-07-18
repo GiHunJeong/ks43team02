@@ -36,7 +36,7 @@
 								<td th:value="${l.bonusPay}" 			th:text="${l.bonusPay}"></td>
 								<td th:value="${l.deductionPayList}" 	th:text="${l.deductionPayList}"></td>
 								<td th:value="${l.totalDeduction}" 		th:text="${l.totalDeduction}"></td>
-								<td th:value="${l.totalPayment}" 		th:text="${l.totalPayment}"></td>
+								<td th:value="${l.totalPayment}" 		th:text="${l.totalPayment}" style="color: red;"></td>
 								<td th:value="${l.payAddRegDate}" 		th:text="${l.payAddRegDate}"></td>
 								<td>
 									<a th:href="@{/pay/payRemove(emplyId=${l.emplyId})}" class="btn btn-danger removePayAddList">삭제</a>
