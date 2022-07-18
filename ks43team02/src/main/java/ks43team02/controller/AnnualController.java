@@ -32,11 +32,19 @@ public class AnnualController {
 	public AnnualController(AnnualService annualService, EmplyService emplyService) {
 		this.annualService = annualService;
 		this.emplyService = emplyService;
+		
 	};
 	
 	//연차등록(Post)
 	@PostMapping("/annual_application")
 	@ResponseBody
+	public String annual_application(AnnualApplication annualApplication
+									,HttpSession session) {
+
+		log.info("연차등록 form에서 입력한 data : {}", annualApplication);
+		return "/annual/annual_list";
+	}
+	/*
 	public String annual_application(AnnualApplication annualApplication
 									,HttpSession session) {
 		String emplyId = (String) session.getAttribute("SEMAIL");
@@ -55,7 +63,8 @@ public class AnnualController {
 		//annualService.addAnnualApplication(annualApplication);
 		
 		return "/annual/annual_list";
-		}		
+		}
+	*/
 	
 	
 	//연차등록(Get)
