@@ -69,15 +69,14 @@
 											</thead>
 											<tbody>
 												<tr th:if="${not #lists.isEmpty(annualList)}" th:each="l : ${annualList}"> 
-													<td></td>
+													<td th:text="${l.annualApplicationCode}"></td>
 													<td th:text="${l.regDate}"></td>
 													<td th:text="${l.annualStartDate}"></td>
 													<td th:text="${l.annualEndDate}"></td>
 													<td th:text="${l.cateAnnualCode}"></td>
 													<td th:text="${l.useDate}"></td>
 													<td th:text="${l.approvalRequestCode}"></td>
-													<td th:text="${l.attachFileName}"></td>
-												</tr>
+													<td th:text="${l.attachFileName}"></td>																								</tr>
 											</tbody>
 										</table>
 									</div><!-- 휴가등록 list table 끝 -->												

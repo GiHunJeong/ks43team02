@@ -87,15 +87,17 @@
 												<div class="col-4" style="padding:0;">
 													<div class="input-group-append">
 														<span class="input-group-text" id="basic-addon2">휴가 구분</span>
-														<select class="form-control" id="controlSelect" name="cateAnnualCode">														
-															<option value="val1">구분</option>
-															<option value="val2">연차</option>
-															<option value="val3">보상</option>
-															<option value="val4">경조</option>
-															<option value="val5">병가</option>
-															<option value="val6">보건</option>
-															<option value="val7">공가</option>
-															<option value="val8">기타</option>
+														<select class="form-control" id="controlSelect" name="cateAnnualCode">
+															<!-- <th:block th:if="not #lists.isEmpty(annualList)"> -->
+																<option th:value="val0">구분</option>
+																<option th:value="val1">연차</option>
+																<option th:value="val2">보상</option>
+																<option th:value="val3">경조</option>
+																<option th:value="val4">병가</option>
+																<option th:value="val5">보건</option>
+																<option th:value="val6">공가</option>
+																<option th:value="val7">기타</option>
+															<!-- </th:block>		 -->												
 														</select>
 													</div>																																				
 												</div> <!-- 휴가구분 끝 -->
@@ -106,8 +108,6 @@
 														<div class="radio"  style="margin:auto 0;">
 															<label for="radio1" style="margin:0 0 0 1em;">
 																<input type="radio" id="radio1" name="useDate" value="1.0"> 1.0
-															</label>
-															<label for="radio1" style="margin:0 0 0 1em;">
 																<input type="radio" id="radio2" name="useDate" value="0.5"> 0.5
 															</label>
 															<!-- 기타선택시 입력 >> 수정
