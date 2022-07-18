@@ -90,42 +90,36 @@ public class PayController {
 		if(fixedPayList != null) {
 			fixedPayArray = fixedPayList.split(",");
 		}
-		log.info("msg1");
 		
 		String fixedPayAmount = paySet.getFixedPayAmount();
 		String[] fixedAmountArray = null;
 		if(fixedPayAmount != null) {
 			fixedAmountArray = fixedPayAmount.split(",");
 		}
-		log.info("msg2");
 		
 		if(fixedPayArray != null) {
 			for(int i = 0; i < fixedPayArray.length; i++) {
 				fixedPayMap.put(fixedPayArray[i], fixedAmountArray[i]);
 			}
 		}
-		log.info("msg3");
 		
 		String deducePayList = paySet.getDeductionPayList(); 
 		String[] deducePayArray = null;
 		if(deducePayList != null) {
 			deducePayArray = deducePayList.split(",");
 		}
-		log.info("msg4");
 		
 		String deducePayAmount = paySet.getDeductionPayAmount();
 		String[] deduceAmountArray = null;
 		if(deducePayAmount != null) {
 			deduceAmountArray = deducePayAmount.split(",");
 		}
-		log.info("msg5");
 		
 		if(deducePayArray != null) {
 			for(int j = 0; j < deducePayArray.length; j++) {
 				deducePayMap.put(deducePayArray[j], deduceAmountArray[j]);
 			}
 		}
-		log.info("msg6");
 		
 		System.out.println(fixedPayArray+" <-fixedPayArray");
 		System.out.println(deducePayArray+" <-deducePayArray");
@@ -140,6 +134,8 @@ public class PayController {
 		log.info("paySet", paySet);
 		
 		List<Emply> emplyList = payService.getEmplyListForPayAdd();
+		
+		log.info("emplyList", emplyList);
 		
 		model.addAttribute("paySet", paySet);
 		model.addAttribute("emplyList", emplyList);
@@ -187,42 +183,36 @@ public class PayController {
 		if(fixedPayList != null) {
 			fixedPayArray = fixedPayList.split(",");
 		}
-		log.info("msg1");
 		
 		String fixedPayAmount = paySet.getFixedPayAmount();
 		String[] fixedAmountArray = null;
 		if(fixedPayAmount != null) {
 			fixedAmountArray = fixedPayAmount.split(",");
 		}
-		log.info("msg2");
 		
 		if(fixedPayArray != null) {
 			for(int i = 0; i < fixedPayArray.length; i++) {
 				fixedPayMap.put(fixedPayArray[i], fixedAmountArray[i]);
 			}
 		}
-		log.info("msg3");
 		
 		String deducePayList = paySet.getDeductionPayList(); 
 		String[] deducePayArray = null;
 		if(deducePayList != null) {
 			deducePayArray = deducePayList.split(",");
 		}
-		log.info("msg4");
 		
 		String deducePayAmount = paySet.getDeductionPayAmount();
 		String[] deduceAmountArray = null;
 		if(deducePayAmount != null) {
 			deduceAmountArray = deducePayAmount.split(",");
 		}
-		log.info("msg5");
 		
 		if(deducePayArray != null) {
 			for(int j = 0; j < deducePayArray.length; j++) {
 				deducePayMap.put(deducePayArray[j], deduceAmountArray[j]);
 			}
 		}
-		log.info("msg6");
 		
 		System.out.println(fixedPayArray+" <-fixedPayArray");
 		System.out.println(deducePayArray+" <-deducePayArray");
