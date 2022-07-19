@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout/default.html}">
@@ -31,7 +31,11 @@
 									<div class="table-responsive">
 										<div class="row">
 											<div style="display: block;"> <!-- 이전페이지로 돌아가기  -->
+<<<<<<< HEAD
+												<a><button type="button" class="info" onclick="history.back(-1)">back</button></a>
+=======
 												<a><button type="button" class="btn btn-block btn-sm btn-info" onclick="history.back(-1)">back</button></a>
+>>>>>>> refs/remotes/origin/develop
 												<!-- <a type="button" class="returnPage" onclick="history.back(-1)">back</a> -->
 											</div>
 											<!--  검색 >> 수정
@@ -68,8 +72,13 @@
 												</tr>
 											</thead>
 											<tbody>
+<<<<<<< HEAD
+												<tr th:if="${not #lists.isEmpty(annualList)}" th:each="l : ${annualList}" th:href="@{/annual/annual_list(annualApplicationCode=${annualApplicationCode})}"> 
+													<td></td>
+=======
 												<tr th:if="${not #lists.isEmpty(annualList)}" th:each="l : ${annualList}"> 
 													<td th:text="${l.annualApplicationCode}"></td>
+>>>>>>> refs/remotes/origin/develop
 													<td th:text="${l.regDate}"></td>
 													<td th:text="${l.annualStartDate}"></td>
 													<td th:text="${l.annualEndDate}"></td>
@@ -80,7 +89,11 @@
 											</tbody>
 										</table>
 									</div><!-- 휴가등록 list table 끝 -->												
+<<<<<<< HEAD
+									<!-- 페이징처리 시작 -->  <!-- +++해야함+++  -->
+=======
 			<!-- +++수정+++  -->	<!-- 페이징처리 시작 -->  
+>>>>>>> refs/remotes/origin/develop
 									<div style="display:flex; justify-content: space-around;">
 										<ul class="pagination float-right">
 											<li class="page-item disabled">

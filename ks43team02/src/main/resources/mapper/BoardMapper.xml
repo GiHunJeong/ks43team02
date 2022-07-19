@@ -5,7 +5,7 @@
 <mapper namespace="ks43team02.mapper.BoardMapper">
 	<resultMap type="NoticeBoard" id="noticeBoardResultMap"						 >
 		<id 	column="cp_notice_code" 		property="cpNoticeCode"		 	/>
-		<result column="cp_representative_code" property="cpRepresentiveCode"	/>
+		<result column="cp_representative_code" property="cpRepresentativeCode"	/>
 		<result column="super_admin_id"			property="superAdminId"			/>
 		<result column="cp_notice_idx"			property="cpNoticeIdx"			/>
 		<result column="notice_title"			property="noticeTitle"			/>
@@ -27,7 +27,7 @@
 	
 	<resultMap type="DepartmentBoard" 			id="departmentBoardResultMap"	 >
 		<id		column="department_post_code"	property="departmentPostCode"	/>
-		<result column="cp_representative_code"	property="cpRepresentiveCode"	/>
+		<result column="cp_representative_code"	property="cpRepresentativeCode"	/>
 		<result column="super_admin_id"			property="superAdminId"			/>
 		<result column="department_idx"			property="departmentIdx"		/>
 		<result column="department_cate"		property="departmentCate"		/>
@@ -227,31 +227,9 @@
  		 	  del_date,
  		  	  view_cnt)
 		VALUES (
-			sf_new_post_code(),
-			 (
-				SELECT 
-					tb_cp_rep.cp_representative_code
-				FROM
-					tb_cp_representative 	AS tb_cp_rep
-					INNER JOIN
-					tb_emply_info_reg		AS tb_emply
-					on
-					tb_cp_rep.cp_representative_code = tb_emply.cp_representative_code
-				WHERE
-					tb_emply.emply_id = 'id001@ksmart.or.kr'
-			 )
-			, (
-				SELECT 
-					tb_super.super_admin_id
-				FROM	
-					tb_super_admin 			AS tb_super 
-					INNER JOIN
-					tb_emply_info_reg		AS tb_emply
-					on
-						tb_super.super_admin_id = tb_emply.super_admin_id
-					WHERE
-						tb_emply.emply_id = 'id001@ksmart.or.kr'
-				)
+			sf_new_post_code()
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
 			, #{departmentIdx}
 			, #{boardCate.departmentCateCode}
 			, #{regUserName}
@@ -298,7 +276,6 @@
 			a.view_cnt					AS viewCnt
 		FROM
 			tb_all_notice as a
-		LIMIT #{startRow}, #{rowPerPage};
 	</select>
 	
 	<!-- 공지사항 목록 페이징 카운트 -->
@@ -351,31 +328,9 @@
 			, del_date
 			, view_cnt)
 		VALUES (
-			sf_new_notice_code(),
-			 (
-				SELECT 
-					tb_cp_rep.cp_representative_code
-				FROM
-					tb_cp_representative 	AS tb_cp_rep
-					INNER JOIN
-					tb_emply_info_reg		AS tb_emply
-					on
-					tb_cp_rep.cp_representative_code = tb_emply.cp_representative_code
-				WHERE
-					tb_emply.emply_id = 'id001@ksmart.or.kr'
-			 )
-			, (
-				SELECT 
-					tb_super.super_admin_id
-				FROM	
-					tb_super_admin 			AS tb_super 
-					INNER JOIN
-					tb_emply_info_reg		AS tb_emply
-					on
-						tb_super.super_admin_id = tb_emply.super_admin_id
-					WHERE
-						tb_emply.emply_id = 'id001@ksmart.or.kr'
-				)
+			  sf_new_notice_code()
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
 			, #{cpNoticeIdx}
 			, #{noticeTitle}
 			, #{noticeContents}
@@ -420,7 +375,7 @@
 			sub.reference_code
 		FROM
 			tb_all_notice AS a
-		INNER JOIN
+		LEFT JOIN
 			(SELECT
 				af.attach_file_code,
 				af.attach_file_original_name,
@@ -438,7 +393,7 @@
 		ON
 			sub.reference_code = a.cp_notice_code
 			WHERE
-				sub.reference_code = #{cpNoticeCode};
+				a.cp_notice_code = #{cpNoticeCode};
 	</select>
 	
 	<!--  공지사항 목록 조회  -->

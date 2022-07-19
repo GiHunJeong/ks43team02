@@ -3,7 +3,6 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout/default}">
 	
-</th:block>
 	<th:block layout:fragment="customContents">
 		<div class="panel-hedding">
 			<div class="row justify-content-center mb-4" style="background: #FFF">
@@ -27,11 +26,11 @@
 														<td>
 															<div class="form-group row" style="display: none;">
 																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="noticeNum">공지 번호</label>
+																	<label class="control-label" for="noticeCode">공지 코드</label>
 																</div>
 																<div class="col-md-8 col-sm-8 ">
 																	<input type="text" class="form-control"
-																	 name="noticeNum">
+																	 name="noticeCode" th:value=${noticeDetail.cpNoticeCode}>
 																</div>
 															</div>
 															<div class="form-group row">
@@ -61,13 +60,13 @@
 																	 name="noticeRegUserName" th:value="${noticeDetail.regUserName}">
 																</div>
 															</div>
-															<div class="form-group row" style="display: none;">
+															<div class="form-group row">
 																<div class="col-md-2 col-sm-2 ">
 																	<label class="control-label" for="" >조회수</label>
 																</div>
 																<div class="col-md-3 col-sm-3 ">
 																	<input type="number" class="form-control" readonly="readonly"
-																	 name="noticeView" >
+																	 name="noticeView" th:value="${noticeDetail.viewCnt}">
 																</div>
 															</div>
 															<div class="form-group row">
@@ -82,9 +81,9 @@
 														</td>
 													</tr>
 													<tr>
-													<th scope="row" th:rowspan="${#lists.size(noticeDetail.file)}">첨부파일</th>
+													<th th:if="${not #lists.isEmpty(noticeDetail.file)}" scope="row" th:rowspan="${#lists.size(noticeDetail.file)}">첨부파일</th>
 														<td>
-															<th:block  th:if="${not #lists.isEmpty(noticeDetail.file)}" th:each="t : ${noticeDetail.file}">	
+															<th:block th:if="${not #lists.isEmpty(noticeDetail.file)}" th:each="t : ${noticeDetail.file}">	
 																<div class="form-group row">
 																	<div class="col-md-2 col-sm-2">
 																		<label class="control-label" for="noticeFile">파일</label>
@@ -92,6 +91,11 @@
 																	<div class="col-md-6 col-sm-6 ">
 																		<a th:text="${t.attachFileOriginalName}" th:href="@{/board/file/download(attachFileCode=${t.attachFileCode})}"></a>
 																	</div>
+																</div>
+															</th:block>
+															<th:block th:unless="${not #lists.isEmpty(noticeDetail.file)}" th:each="t : ${noticeDetail.file}">	
+																<div class="form-group row">
+																	<p>첨부파일 없음</p>
 																</div>
 															</th:block>
 														</td>
@@ -103,7 +107,7 @@
 												<div class="col-md-8 col-sm-8  offset-md-4">
 													 <button class="btn btn-info" onclick="#">수정하기</button>
 													 <button class="btn btn-primary" onclick="javascript:history.back(-1)">뒤로가기</button>
-													 <button onclick="remove()" class="btn btn-danger" id="swal-delete-board">삭제하기</button>
+													 <button th:data-cpNoticeCode="${noticeDetail.cpNoticeCode}" class="btn btn-danger" id="deleteButton">삭제하기</button>
 												</div>
 											</div>
 									</div>
@@ -116,35 +120,43 @@
 		</div>
 	</th:block>
 	<th:block layout:fragment="customScript">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-		<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+		<script type="text/javascript" th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
 		
 		
-	<script type="text/javascript">
-		var confirm = function(msg, title, resvNum) {
-			swal({
-				title : title,
-				text : msg,
-				type : "warning",
-				showCancelButton : true,
-				confirmButtonClass : "btn-danger",
-				confirmButtonText : "예",
-				cancelButtonText : "아니오",
-				closeOnConfirm : false,
-				closeOnCancel : true
-			}, function(isConfirm) {
-				if (isConfirm) {
-					swal('삭제완료', '공지사항이 삭제되었습니다.', "success")
-					location.href = '/board/notice_remove?cpNoticeCode=' + cpNoticeCode;
-				}
-	
+		<script type="text/javascript">
+			$("#deleteButton").click(function () {
+				var cpNoticeCode = $(this).attr('data-cpNoticeCode');
+				Swal.fire({
+				title: '정말 삭제 하시겠습니까?',
+				text: '삭제 시 해당 정보는 복구 할 수 없습니다.',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '네',
+				cancelButtonText: '아니오',
+				reverseButtons: false, // 버튼 순서 거꾸로
+		      
+				}).then((result) => {
+					if (result.value) {
+			            Swal.fire(
+			              '삭제완료',
+			              '삭제되었습니다.',
+			              'success'
+			            )
+			            location.href = '/board/notice_remove?cpNoticeCode=' + cpNoticeCode;
+					} else if (result.dismiss === swal.DismissReason.cancel) {
+						Swal.fire(
+							'취소',
+							'취소되었습니다.',
+							'error'
+						)
+					}
+				})
 			});
-		}
-	
-		function remove() {
-			confirm('삭제 클릭시 해당 정보는 복구 할 수 없습니다.', '삭제하시겠습니까?');
-		}
-	</script>
+		</script>
 	
 	</th:block>
 </html>
