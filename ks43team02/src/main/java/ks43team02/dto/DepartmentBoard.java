@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DepartmentBoard {
 	private String departmentPostCode;
-	private String cpRepresentiveCode;
+	private String cpRepresentativeCode;
 	private String superAdminId;
 	private String departmentIdx;
 	private String departmentCate;
@@ -25,11 +25,11 @@ public class DepartmentBoard {
 	public void setDepartmentPostCode(String departmentPostCode) {
 		this.departmentPostCode = departmentPostCode;
 	}
-	public String getCpRepresentiveCode() {
-		return cpRepresentiveCode;
+	public String getCpRepresentativeCode() {
+		return cpRepresentativeCode;
 	}
-	public void setCpRepresentiveCode(String cpRepresentiveCode) {
-		this.cpRepresentiveCode = cpRepresentiveCode;
+	public void setCpRepresentativeCode(String cpRepresentativeCode) {
+		this.cpRepresentativeCode = cpRepresentativeCode;
 	}
 	public String getSuperAdminId() {
 		return superAdminId;
@@ -111,8 +111,8 @@ public class DepartmentBoard {
 	}
 	@Override
 	public String toString() {
-		return "DepartmentBoard [departmentPostCode=" + departmentPostCode + ", cpRepresentiveCode="
-				+ cpRepresentiveCode + ", superAdminId=" + superAdminId + ", departmentIdx=" + departmentIdx
+		return "DepartmentBoard [departmentPostCode=" + departmentPostCode + ", cpRepresentativeCode="
+				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", departmentIdx=" + departmentIdx
 				+ ", departmentCate=" + departmentCate + ", regUserName=" + regUserName + ", postTitle=" + postTitle
 				+ ", postContents=" + postContents + ", regDate=" + regDate + ", modifiedDate=" + modifiedDate
 				+ ", delDate=" + delDate + ", ViewCnt=" + ViewCnt + ", boardCate=" + boardCate + ", file=" + file + "]";

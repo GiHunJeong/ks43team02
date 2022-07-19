@@ -83,6 +83,8 @@ public class BoardController {
 							 ,HttpServletRequest request) {
 		departmentBoard.setDepartmentBoardCate(boardCate);
 		log.info("게시물작성 post");
+		departmentBoard.setCpRepresentativeCode("cp_representative_code_01");
+		departmentBoard.setSuperAdminId("ksmart43id@ksmart.or.kr");
 		System.out.println("__________");
 		String sessionName = (String)session.getAttribute("SNAME");
 		//파일 업로드
@@ -205,11 +207,15 @@ public class BoardController {
 	
 	/* 공지사항 삭제 */
 	@GetMapping("/notice_remove")
-	public String removeNotice(NoticeBoard noticeBoard) {
+	public String removeNotice(Model model,NoticeBoard noticeBoard) {
 		
 		String cpNoticeCode = noticeBoard.getCpNoticeCode();
 		
 		boardService.removeNotice(cpNoticeCode);
+		
+		model.addAttribute("cpNoticeCode", cpNoticeCode);
+		
+		log.info("공지사항 코드 : ", cpNoticeCode);
 		
 		return "redirect:/board/notice_list";
 	}
@@ -220,6 +226,7 @@ public class BoardController {
 														  required = false) String cpNoticeCode) {
 		
 		NoticeBoard noticeDetail = boardService.getNoticeDetail(cpNoticeCode);
+		log.info("----------212321----------- : {}", noticeDetail);
 		List<FileDto> fileList = fileService.getFileList();
 		
 		boardService.noitceViewUpdate(cpNoticeCode);
@@ -237,6 +244,8 @@ public class BoardController {
 							 ,@RequestParam MultipartFile[] fileImage
 							 ,HttpServletRequest request) {
 		System.out.println("ddd");
+		noticeBoard.setCpRepresentativeCode("cp_representative_code_01");
+		noticeBoard.setSuperAdminId("ksmart43id@ksmart.or.kr");
 		String sessionName = (String)session.getAttribute("SNAME");
 		//파일 업로드
 		String serverName = request.getServerName();

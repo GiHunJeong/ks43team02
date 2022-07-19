@@ -6,7 +6,7 @@ import java.util.List;
 
 public class NoticeBoard {
 	private String cpNoticeCode;
-	private String cpRepresentiveCode;
+	private String cpRepresentativeCode;
 	private String superAdminId;
 	private String cpNoticeIdx;
 	private String noticeTitle;
@@ -24,11 +24,11 @@ public class NoticeBoard {
 	public void setCpNoticeCode(String cpNoticeCode) {
 		this.cpNoticeCode = cpNoticeCode;
 	}
-	public String getCpRepresentiveCode() {
-		return cpRepresentiveCode;
+	public String getCpRepresentativeCode() {
+		return cpRepresentativeCode;
 	}
-	public void setCpRepresentiveCode(String cpRepresentiveCode) {
-		this.cpRepresentiveCode = cpRepresentiveCode;
+	public void setCpRepresentativeCode(String cpRepresentativeCode) {
+		this.cpRepresentativeCode = cpRepresentativeCode;
 	}
 	public String getSuperAdminId() {
 		return superAdminId;
@@ -86,7 +86,7 @@ public class NoticeBoard {
 	}
 	@Override
 	public String toString() {
-		return "NoticeBoard [cpNoticeCode=" + cpNoticeCode + ", cpRepresentiveCode=" + cpRepresentiveCode
+		return "NoticeBoard [cpNoticeCode=" + cpNoticeCode + ", cpRepresentativeCode=" + cpRepresentativeCode
 				+ ", superAdminId=" + superAdminId + ", cpNoticeIdx=" + cpNoticeIdx + ", noticeTitle=" + noticeTitle
 				+ ", noticeContents=" + noticeContents + ", regUserName=" + regUserName + ", regDate=" + regDate
 				+ ", modifiedDate=" + modifiedDate + ", delDate=" + delDate + ", viewCnt=" + viewCnt + ", file=" + file
