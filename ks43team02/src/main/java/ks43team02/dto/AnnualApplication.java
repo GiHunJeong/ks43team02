@@ -17,7 +17,7 @@ public class AnnualApplication {
 	private String groupCode;
 	
 	private CateAnnual cateAnnual;
-
+	
 	public String getAnnualApplicationCode() {
 		return annualApplicationCode;
 	}
@@ -147,7 +147,6 @@ public class AnnualApplication {
 				+ ", comment=" + comment + ", attachFileName=" + attachFileName + ", regDate=" + regDate
 				+ ", groupCode=" + groupCode + ", cateAnnual=" + cateAnnual + "]";
 	}
-	
-	
-	
+
+
 }

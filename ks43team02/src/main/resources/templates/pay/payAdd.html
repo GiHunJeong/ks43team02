@@ -6,7 +6,11 @@
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">	
 		
+<<<<<<< HEAD
 		<form th:action="@{/pay/payAdd}" method="post"> 
+=======
+		<form th:action="@{/pay/payAdd}" method="post">
+>>>>>>> refs/remotes/origin/develop
 			<div class="card col-md-12">
 				<div class="card-body ">
 					<!-- 사원정보t -->
@@ -154,6 +158,7 @@
 												<input type="hidden" th:text="${l.emplyNumber}" th:value="${l.emplyNumber}"/>
 											</td>
 											<td>
+<<<<<<< HEAD
 												<input type="hidden" th:text="${l.emplyOrganization}" th:value="${l.emplyOrganization}"/>
 											</td>
 											<td>
@@ -167,6 +172,21 @@
 											</td>
 										</tr>
 										<tr th:unless="${not #arrays.isEmpty(deducePayMap)}">
+=======
+												<input type="hidden" th:text="${l.organizationSList.organizationNameS}" th:value="${l.organizationSList.organizationNameS}"/>
+											</td>
+											<td>
+												<input type="hidden" th:text="${l.rankLevelList.rankName}" th:value="${l.rankLevelList.rankName}"/>
+											</td>
+											<td style="display: none;">
+												<input type="hidden" th:text="${l.emplySalary}" th:value="${l.emplySalary}"/>
+											</td>
+											<td>
+												<input type="checkbox" class="selectEmply" th:value="${l.emplyId}"/>
+											</td>
+										</tr>
+										<tr th:unless="${not #arrays.isEmpty(emplyList)}">
+>>>>>>> refs/remotes/origin/develop
 											<td class="settingTableVal">선택된 항목이 없습니다.</td>
 										</tr>
 									</tbody>
@@ -246,8 +266,13 @@
 		
 	</th:block>
 	
+<<<<<<< HEAD
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript" th:src="@{/dist/js/jquery-3.6.0.min.js}"></script>
+=======
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+>>>>>>> refs/remotes/origin/develop
 		<script type="text/javascript" th:src="@{/dist/js/payAdd.js}"></script>
 	</th:block>
 

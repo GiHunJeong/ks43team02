@@ -44,16 +44,37 @@
   		<result column="comment" 					property="comment"/>
   		<result column="attach_file_name" 			property="attachFileName"/>
   		<result column="reg_date" 					property="regDate"/>
+<<<<<<< HEAD
   		<result column="group_code" 				property="groupCode"/>
   		
 	</resultMap>
 	
+=======
+  		<result column="group_code" 				property="groupCode"/>	
+  		<association property="cateAnnual"  		javaType="CateAnnual">
+			<id column="cate_annual_code" 				property="cateAnnualCode"/>
+			<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
+			<result column="super_admin_id" 			property="superAdminId"/>
+			<result column="annual_division" 			property="annualDivision"/>
+			<result column="cp_name" 					property="cpName"/>
+			<result column="reg_date" 					property="regDate"/>
+  		</association>
+	</resultMap>
+>>>>>>> refs/remotes/origin/develop
  	<resultMap type="AnnualStandard" id="AnnualStResultMap">
 		<id column="annual_standard_code" 				property="annualStandardCode"/>
 		<result column="cp_representative_code" 		property="cpRepresentativeCode"/>
 		<result column="super_admin_id" 				property="superAdminId"/>
 		<result column="year" 							property="year"/>
 		<result column="annual_get_day" 				property="annualGetDay"/>
+	</resultMap>	
+ 	<resultMap type="CateAnnual" id="CateAnnualResultMap">
+		<id column="cate_annual_code" 				property="cateAnnualCode"/>
+		<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
+		<result column="super_admin_id" 			property="superAdminId"/>
+		<result column="annual_division"			property="annualDivision"/>
+		<result column="cp_name" 					property="cpName"/>
+		<result column="reg_Date" 					property="regDate"/>
 	</resultMap>
 	
  	<resultMap type="CateAnnual" id="CateAnnualResultMap">
@@ -68,6 +89,7 @@
  	<select id="getAnnualApplication" resultMap="AnnualAppResultMap">
  		 /* 연차등록 */
 		SELECT
+<<<<<<< HEAD
 			aa.annual_application_code		AS annualApplicationCode
 			,aa.cp_representative_code		AS cpRepresentativeCode
 			,aa.super_admin_id				AS	superAdminId
@@ -82,10 +104,105 @@
 			,aa.attach_file_name			AS attachFileName
 			,aa.reg_date					AS regDate
 			,aa.group_code					AS groupCode
+=======
+			aa.annual_application_code
+			,aa.reg_date
+			,ca.annual_division
+			,aa.use_date
+			,aa.annual_start_date
+			,aa.annual_end_date
+			,aa.approval_name
+			,aa.attach_file_name
+			,aa.`comment`
+
+			,aa.emply_name
+		FROM
+			tb_annual_application AS aa
+			INNER JOIN
+			tb_cate_annual AS ca
+			on
+			aa.cate_annual_code = ca.cate_annual_code
+			INNER JOIN
+			tb_approval_request AS ar
+			on
+			aa.approval_request_code = ar.approval_request_code
+			INNER JOIN
+			tb_cp_representative AS cr
+			on
+			aa.cp_representative_code = cr.cp_representative_code
+			INNER JOIN
+			tb_super_admin AS sa
+			on
+			aa.super_admin_id = sa.super_admin_id
+			INNER JOIN
+			tb_emply_info_reg AS ei
+			on
+			aa.emply_id = ei.emply_id
+		WHERE
+			aa.annual_application_code = #{annualApplicationCode}
+
+ 	</select>
+ 	<insert id="addAnnualApplication">
+ 		/* 연차등록 INSERT */
+	 	INSERT INTO tb_annual_application(
+	 		  annual_application_code
+			, cp_representative_code
+			, super_admin_id
+			, cate_annual_code
+			, approval_request_code
+			, emply_id
+			, emply_name
+			, annual_start_date
+			, annual_end_date
+			, use_date
+			, comment
+			, attach_file_name
+			, reg_date
+			, group_code
+		)VALUES (
+			(SELECT CONCAT('annual_application_code_',(SELECT(Max(cast(SUBSTRING_INDEX(annual_application_code,'_',-1) AS UNSIGNED)) +1)
+		               from
+		               tb_annual_application
+		               aa)))
+
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
+			, #{cateAnnualCode}
+			, #{approvalRequestCode}
+			, #{emplyId}
+			, #{emplyName}
+			, #{annualStartDate}
+			, #{annualEndDate}
+			, #{useDate}
+			, #{comment}
+			, #{attachFileName}
+			, #{regDate}
+			, #{groupCode}
+		);
+ 	</insert>
+ 	<select id="getAnnualList" resultType="AnnualList">
+ 		 /* 연차신청 목록 */
+		SELECT
+			aa.annual_application_code	AS annualApplicationCode
+			,aa.cp_representative_code	AS cpRepresentativeCode
+			,aa.super_admin_id			AS	superAdminId
+			,aa.cate_annual_code		AS cateAnnualCode
+			,aa.approval_request_code	AS approvalRequestCode
+			,aa.emply_id				AS emplyId
+			,aa.emply_name				AS emplyName
+			,aa.annual_start_date		AS annualStartDate
+			,aa.annual_end_date			AS annualEndDate
+			,aa.use_date				AS useDate
+			,aa.`comment`				AS `comment`
+			,aa.attach_file_name		AS attachFileName
+			,aa.reg_date				AS regDate
+			,aa.group_code				AS groupCode
+>>>>>>> refs/remotes/origin/develop
 		FROM
 			tb_annual_application AS aa
 			;
  	</select>
+<<<<<<< HEAD
  	<insert id="addAnnualApplication">
  		/* 연차등록 추가 */
 	 	INSERT INTO tb_annual_application
@@ -144,6 +261,8 @@
 			tb_annual_application AS aa
 			;
  	</select>
+=======
+>>>>>>> refs/remotes/origin/develop
  	
  	
 </mapper>

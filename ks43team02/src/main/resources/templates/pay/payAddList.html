@@ -7,6 +7,7 @@
 	<th:block layout:fragment="customContents">
 		<form id="payAddListForm" th:action="@{pay/payAddList}" method="post">
 			<div class="card">
+<<<<<<< HEAD
 				<div class="card-body"> 
 					<table class="table table-striped table-bordered dataTable no-wrap table-responsive" style="table-layout: fixed;">
 						<thead class="bg-primary text-white">
@@ -37,6 +38,38 @@
 								<td th:value="${l.deductionPayList}" 	th:text="${l.deductionPayList}"></td>
 								<td th:value="${l.totalDeduction}" 		th:text="${l.totalDeduction}"></td>
 								<td th:value="${l.totalPayment}" 		th:text="${l.totalPayment}"></td>
+=======
+				<div class="card-body">
+					<table class="table table-striped table-bordered dataTable no-wrap table-responsive" style="table-layout: fixed;">
+						<thead class="bg-primary text-white">
+							<tr>
+								<th>사원명</th>
+								<th>아이디</th>
+								<th>직급</th>
+								<th>부서</th>
+								<th>기본급</th>
+								<th>추가급여 내역</th>
+								<th>추가급여</th>
+								<th>공제액 내역</th>
+								<th>공제액</th>
+								<th>급여</th>
+								<th>등록일자</th>
+								<th>삭제</th>
+							</tr>	
+						</thead>
+						<tbody>
+							<tr th:if="${not #lists.isEmpty(payAddList)}" th:each="l : ${payAddList}">
+								<td th:value="${l.emplyName}" 			th:text="${l.emplyName}"></td>
+								<td th:value="${l.emplyId}" 			th:text="${l.emplyId}"></td>
+								<td th:value="${l.emplyRank}" 			th:text="${l.emplyRank}"></td>
+								<td th:value="${l.emplyOrganization}" 	th:text="${l.emplyOrganization}"></td>
+								<td th:value="${l.basicPay}" 			th:text="${l.basicPay}"></td>
+								<td th:value="${l.fixedPayList}" 		th:text="${l.fixedPayList}"></td>
+								<td th:value="${l.bonusPay}" 			th:text="${l.bonusPay}"></td>
+								<td th:value="${l.deductionPayList}" 	th:text="${l.deductionPayList}"></td>
+								<td th:value="${l.totalDeduction}" 		th:text="${l.totalDeduction}"></td>
+								<td th:value="${l.totalPayment}" 		th:text="${l.totalPayment}" style="color: red;"></td>
+>>>>>>> refs/remotes/origin/develop
 								<td th:value="${l.payAddRegDate}" 		th:text="${l.payAddRegDate}"></td>
 								<td>
 									<a th:href="@{/pay/payRemove(emplyId=${l.emplyId})}" class="btn btn-danger removePayAddList">삭제</a>

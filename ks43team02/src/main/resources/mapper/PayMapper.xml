@@ -31,6 +31,7 @@
 	</resultMap>
 	
 	<resultMap type="Emply" id="emplyResultMap">
+<<<<<<< HEAD
 		<id 	column="emply_id" 				property="emplyId"/>
 		<result column="emply_name" 			property="emplyName"/>
 		<result column="emply_number" 			property="emplyNumber"/>
@@ -38,6 +39,50 @@
 		<result column="emply_rank" 			property="emplyRank"/>
 		<result column="salary" 				property="salary"/>
 		<result column="emply_account" 			property="emplyAccount"/>
+=======
+		<id column="emply_id"						property="emplyId"/>
+		<result column="organization_code_S"		property="organizationCodeS"/>
+		<result column="rank_level_code"			property="rankLevelCode"/>
+		<result column="position_level_code"		property="positionLevelCode"/>
+		<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+		<result column="super_admin_id"				property="superAdminId"/>
+		<result column="emply_pw"					property="emplyPw"/>
+		<result column="emply_number"				property="emplyNumber"/>
+		<result column="emply_name"					property="emplyName"/>
+		<result column="emply_birth"				property="emplyBirth"/>
+		<result column="emply_account"				property="emplyAccount"/>
+		<result column="emply_salary"				property="emplySalary"/>
+		<result column="emply_home_address"			property="emplyHomeAddress"/>
+		<result column="emply_home_address_detail"	property="emplyHomeAddressDetail"/>
+		<result column="emply_home_address_zip"		property="emplyHomeAddressZip"/>
+		<result column="emplyment_date"				property="emplymentDate"/>
+		<result column="emplyment_type"				property="emplymentType"/>
+		<result column="retire_status"				property="retireStatus"/>
+		<result column="cp_name"					property="cpName"/>
+		<result column="reg_date"					property="regDate"/>
+		<association property="rankLevelList"  		javaType="RankLevelList">
+			<id column="rank_level_code"				property="rankLevelCode"/>
+			<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+			<result column="super_admin_id"				property="superAdminId"/>
+			<result column="rank_code"					property="rankCode"/>
+			<result column="rank_level"					property="rankLevel"/>
+			<result column="rank_name"					property="rankName"/>
+			<result column="cp_name"					property="cpName"/>
+			<result column="reg_date"					property="regDate"/>
+		</association>
+		<association property="organizationSList"  javaType="OrganizationSList">
+			<id column="organization_code_S"			property="organizationSList"/>
+			<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+			<result column="super_admin_id"				property="superAdminId"/>
+			<result column="organization_code_L"		property="organizationCodeL"/>
+			<result column="organization_code_M"		property="organizationCodeM"/>
+			<result column="organization_name_L"		property="organizationNameL"/>
+			<result column="organization_name_M"		property="organizationNameM"/>
+			<result column="organization_name_S"		property="organizationNameS"/>
+			<result column="cp_name"					property="cpName"/>
+			<result column="reg_date"					property="regDate"/>
+		</association>
+>>>>>>> refs/remotes/origin/develop
 	</resultMap>
 	
 	<resultMap type="PayAdd" id="payAddResultMap">
@@ -58,23 +103,23 @@
 	<select id="getFixedAllowList" fetchSize="100" resultMap="fixedResultMap">
 		/* 고정지급금 내역 출력 쿼리문 */
 		SELECT
-			f.pay_fixedAllowance_list,
-			f.fixedAllowance,
-			f.amount,
-			f.contents
+			pay_fixedAllowance_list,
+			fixedAllowance,
+			amount,
+			contents
 		FROM
-			tb_pay_fixedallowance_list AS f
+			tb_pay_fixedallowance_list
 	</select>
 	
 	<select id="getDeductionList" fetchSize="100" resultMap="deductionResultMap">
 		/* 공제액 내역 출력 쿼리문 */
 		SELECT
-			d.pay_deduction_list,
-			d.deduction,
-			d.amount,
-			d.contents
+			pay_deduction_list,
+			deduction,
+			amount,
+			contents
 		FROM
-			tb_pay_deduction_list AS d
+			tb_pay_deduction_list
 	</select>
 	
 	<insert id="addPaySet" parameterType="PaySet">
@@ -88,8 +133,12 @@
 			deductionPay_list, 
 			deductionPay_amount, 
 			paySet_regDate
+<<<<<<< HEAD
 		) VALUES
 			(
+=======
+		) VALUES (
+>>>>>>> refs/remotes/origin/develop
 			sf_paySetCode(), 
 			#{paySetDate}, 
 			#{paySetTime}, 
@@ -98,12 +147,17 @@
 			#{deductionPayList}, 
 			#{deductionPayAmount}, 
 			CURDATE()
+<<<<<<< HEAD
 			)
+=======
+		)
+>>>>>>> refs/remotes/origin/develop
 	</insert>
 
 	<select id="getPaySet" fetchSize="100" resultMap="paySetResultMap">
 		/* 급여세팅값 조회 */
 		SELECT 
+<<<<<<< HEAD
 			s.paySet_date, 
 			s.paySet_time, 
 			s.fixedPay_list,
@@ -113,11 +167,23 @@
 			s.paySet_regDate
 		FROM tb_pay_setting AS s
 		ORDER BY s.paySet_code DESC LIMIT 1
+=======
+			paySet_date, 
+			paySet_time, 
+			fixedPay_list,
+			fixedPay_amount, 
+			deductionPay_list,
+			deductionPay_amount,
+			paySet_regDate
+		FROM tb_pay_setting
+		ORDER BY paySet_code DESC LIMIT 1
+>>>>>>> refs/remotes/origin/develop
 	</select>
 	
 	<select id="getPaySetForPayAdd" fetchSize="100" resultMap="paySetResultMap">
 		/* 급여세팅값 조회 */
 		SELECT 
+<<<<<<< HEAD
 			s.paySet_date, 
 			s.paySet_time, 
 			s.fixedPay_list, 
@@ -201,6 +267,96 @@
 		WHERE
 			emply_id=#{emplyId};
 	</delete>
+=======
+			paySet_date, 
+			paySet_time, 
+			fixedPay_list, 
+			fixedPay_amount,
+			deductionPay_list,
+			deductionPay_amount,
+			paySet_regDate
+		FROM tb_pay_setting
+		ORDER BY paySet_code DESC LIMIT 1
+	</select>
+>>>>>>> refs/remotes/origin/develop
 	
+	<insert id="payAdd" parameterType="PayAdd">
+		/* 급여내역 등록 */
+		INSERT INTO tb_pay_payadd (
+			payAdd_code, 
+			emply_name, 
+			emply_id, 
+			emply_rank, 
+			emply_organization, 
+			basic_pay, 
+			fixedPay_list, 
+			bonus_pay, 
+			deductionPay_list, 
+			total_deduction, 
+			total_payment, 
+			payAdd_regDate
+		) VALUES (
+			sf_payAddCode(),  
+			#{emplyName}, 
+			#{emplyId}, 
+			#{emplyRank}, 
+			#{emplyOrganization}, 
+			#{basicPay}, 
+			#{fixedPayList}, 
+			#{bonusPay}, 
+			#{deductionPayList}, 
+			#{totalDeduction}, 
+			#{totalPayment}, 
+			CURDATE()
+		)
+	</insert>
+	
+	<select id="getPayAddList" fetchSize="100" resultMap="payAddResultMap">
+		/* 급여등록 내역 출력 쿼리문 */
+		SELECT 
+			emply_name,
+			emply_id,
+			emply_rank,
+			emply_organization, 
+			basic_pay, 
+			fixedPay_list, 
+			bonus_pay, 
+			deductionPay_list, 
+			total_deduction, 
+			total_payment, 
+			payAdd_regDate
+		FROM 
+			tb_pay_payadd
+	</select>
+	
+	<delete id="removePayAdd" parameterType="String">
+		/* 급여등록 내역 삭제 */
+		DELETE
+		FROM
+			tb_pay_payadd
+		WHERE
+			emply_id=#{emplyId};
+	</delete>
+	
+	<select id="getEmplyListForPayAdd" resultMap="emplyResultMap">
+		/* 사원정보조회 test */
+		SELECT
+			emply_id,
+			emply_name,
+			emply_number,
+			organization_name_S,
+			rank_name,
+			emply_salary
+		FROM
+			tb_emply_info_reg AS e
+		INNER JOIN 
+			tb_organization_s AS os
+		ON
+			e.organization_code_S = os.organization_code_S
+		INNER JOIN 
+			tb_rank_level AS rl
+		ON
+			e.rank_level_code = rl.rank_level_code
+	</select>
 	
 </mapper>	
