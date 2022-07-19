@@ -5,7 +5,6 @@
   
   
 <mapper namespace="ks43team02.mapper.AnnualMapper">
-
 	<resultMap type="AnnualApplication" id="AnnualAppResultMap">
   		<id column="annual_application_code"		property="annualApplicationCode"/>
   		<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
@@ -166,8 +165,7 @@
 			,aa.reg_date				AS regDate
 			,aa.group_code				AS groupCode
 		FROM
-			tb_annual_application AS aa
-			;
+			tb_annual_application AS aa;
  	</select>
  	
  	
