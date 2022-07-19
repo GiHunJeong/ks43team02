@@ -12,7 +12,7 @@
 		<result column="contents" 						property="fixedAllowContents"/>
 	</resultMap>
 	
-	<resultMap type="DeductionList" id="deductionResultMap">
+	<resultMap type="DeductionList" id="deductionResultMap"> 
 		<id 	column="pay_deduction_list" 			property="deductionCode"/>
 		<result column="deduction" 						property="deductionName"/>
 		<result column="amount" 						property="deductionAmount"/>
