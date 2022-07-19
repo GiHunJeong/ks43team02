@@ -121,262 +121,295 @@
 	</style>
 	<!-- 출퇴근 시간찍히는 곳 -->
 	<div class="col-lg-12 ">
-	    <div class="card" >
-	    <ul class="nav nav-tabs mb-3">
-             <li class="nav-item">
-                 <a href="#home" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                     <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
-                     <span class=" d-lg-block">근태확인</span>
-                 </a>
-             </li>
-             <li class="nav-item">
-                 <a href="#profile" data-toggle="tab" aria-expanded="true" class="nav-link">
-                     <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
-                     <span class=" d-lg-block">근무요일확인</span>
-                 </a>
-             </li>
-             <li class="nav-item">
-                 <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link">
-                     <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
-                     <span class=" d-lg-block">Settings</span>
-                 </a>
-             </li>
-         </ul>
+		<div class="card" >
+			<ul class="nav nav-tabs mb-3">
+				<li class="nav-item">
+				    <a href="#home" data-toggle="tab" aria-expanded="false" class="nav-link active">
+				        <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+				        <span class=" d-lg-block">근태확인</span>
+				    </a>
+				</li>
+				<li class="nav-item">
+				    <a href="#profile" data-toggle="tab" aria-expanded="true" class="nav-link">
+				        <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+				        <span class=" d-lg-block">근무요일확인</span>
+				    </a>
+				</li>
+				<li class="nav-item">
+				    <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link">
+				        <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+				        <span class=" d-lg-block">Settings</span>
+				    </a>
+				</li>
+			</ul>
          
-<div class="tab-content">
-	<div class="tab-pane active" id="home">
-		<div class="card-body">
-	 		<h3 class="card-title">Today</h3>
-	 		<div class="col-md-12" style="border-left:2px solid #5f76e8";>
-		     	<div>오늘일자</div>
-		     	<div>근무상 정해진 출퇴근시간</div>
-		     </div>
-			<div class="table-responsive mt-3">
-       	  	<table class="table table-bordered table-responsive-lg">
- 	           <tbody>
-	               <tr>
-	                   <td class="col-lg-2">출근</td>
-                       <td class=" col-lg-4" id="startTime"></td>
-                       <td class="col-lg-2">퇴근</td>
-                       <td class="endTime col-lg-4" id="endTime"></td>
-                   </tr>
-                   <tr> 
-                       <td class="col-lg-2">외출</td>
-                       <td class="breakTime col-lg-4" id="breakTime"></td>
-                       <td class="col-lg-2">복귀</td>
-                       <td class="returnTime col-lg-4" id="returnTime"></td>
-                   </tr>
-              </tbody>
-         	</table>
-	       </div>	        
-			<div class="btn-list text-center">
-            	<button type="button" class="btn waves-effect waves-light btn-primary "  data-toggle="modal" data-target="#myModal1" id="startTimeBtn">출근</button>
-            	<button type="button" class="btn waves-effect waves-light btn-primary"   data-toggle="modal" data-target="#myModal2" id="endTimeBtn">퇴근</button>
-            	<button type="button" class="btn waves-effect waves-light btn-primary"  data-toggle="modal" data-target="#myModal3" id="breakTimeBtn">외출</button>
-            	<button type="button" class="btn waves-effect waves-light btn-primary" data-toggle="modal" data-target="#myModal4" id="returnTimeBtn">복귀</button>
+		<div class="tab-content">
+			<div class="tab-pane active" id="home">
+				<div class="card-body">
+			 		<h3 class="card-title">Today</h3>
+			 		<div class="col-md-12" style="border-left:2px solid #5f76e8";>
+				     	<div>오늘일자</div>
+				     	<div>근무상 정해진 출퇴근시간</div>
+				     </div>
+					<div class="table-responsive mt-3">
+		       	  	<table class="table table-bordered table-responsive-lg">
+		 	           <tbody>
+			               <tr>
+			                   <td class="col-lg-2">출근</td>
+		                       <td class=" col-lg-4" id="startTime"></td>
+		                       <td class="col-lg-2">퇴근</td>
+		                       <td class="endTime col-lg-4" id="endTime"></td>
+		                   </tr>
+		                   <tr> 
+		                       <td class="col-lg-2">외출</td>
+		                       <td class="breakTime col-lg-4" id="breakTime"></td>
+		                       <td class="col-lg-2">복귀</td>
+		                       <td class="returnTime col-lg-4" id="returnTime"></td>
+		                   </tr>
+		              </tbody>
+		         	</table>
+			       </div>	        
+					<div class="btn-list text-center">
+		            	<button type="button" class="btn waves-effect waves-light btn-primary "  data-toggle="modal" data-target="#myModal1" id="startTimeBtn">출근</button>
+		            	<button type="button" class="btn waves-effect waves-light btn-primary"   data-toggle="modal" data-target="#myModal2" id="endTimeBtn">퇴근</button>
+		            	<button type="button" class="btn waves-effect waves-light btn-primary"  data-toggle="modal" data-target="#myModal3" id="breakTimeBtn">외출</button>
+		            	<button type="button" class="btn waves-effect waves-light btn-primary" data-toggle="modal" data-target="#myModal4" id="returnTimeBtn">복귀</button>
+					</div>
+				
+			    <!-- sample modal content -->
+				<div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" th:action="@{/workWay/work_time}">
+				<div class="modal-dialog">
+				    <div class="modal-content">
+				        <div class="modal-header">
+				            <h4 class="modal-title" id="myModalLabel">출근</h4>
+				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				        </div>
+				        <div class="modal-body">
+				            <p>현재일자는 </p>
+				            <p class="startTime col-lg-4"></p>
+				            <p>입니다. 확인하시겠습니까?</p>
+				        </div>
+				        <div class="modal-footer">
+				            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+				            <button type="button" class="btn btn-primary" id="saveBtn1">Save changes</button>
+				        </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!-- sample modal content -->
+				<div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" th:action="@{/workWay/work_time}">
+				<div class="modal-dialog">
+				    <div class="modal-content">
+				        <div class="modal-header">
+				            <h4 class="modal-title" id="myModalLabel">퇴근</h4>
+				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				        </div>
+				        <div class="modal-body">
+				            <p>현재일자는 </p>
+				            <p class="endTime col-lg-4"></p>
+				            <p>입니다. 확인하시겠습니까?</p>
+				        </div>
+				        <div class="modal-footer">
+				            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+				            <button type="button" class="btn btn-primary" id="saveBtn2">Save changes</button>
+				        </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!-- sample modal content -->
+				<div id="myModal3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" th:action="@{/workWay/work_time}">
+				<div class="modal-dialog">
+				    <div class="modal-content">
+				        <div class="modal-header">
+				            <h4 class="modal-title" id="myModalLabel">외출</h4>
+				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				        </div>
+				        <div class="modal-body">
+				            <p>현재일자는 </p>
+				            <p class="breakTime col-lg-4"></p>
+				            <p>입니다. 확인하시겠습니까?</p>
+				        </div>
+				        <div class="modal-footer">
+				            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+				            <button type="button" class="btn btn-primary" id="saveBtn3">Save changes</button>
+				        </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!-- sample modal content -->
+				<div id="myModal4" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" th:action="@{/workWay/work_time}">
+				<div class="modal-dialog">
+				    <div class="modal-content">
+				        <div class="modal-header">
+				            <h4 class="modal-title" id="myModalLabel">복귀</h4>
+				            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				        </div>
+				        <div class="modal-body">
+				            <p>현재일자는 </p>
+				            <p class="returnTime col-lg-4"></p>
+				            <p>입니다. 확인하시겠습니까?</p>
+				        </div>
+				        <div class="modal-footer">
+				            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+				            <button type="button" class="btn btn-primary" id="saveBtn4">Save changes</button>
+				        </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				     
+				</div>
+				<div class="card-header">
+			    	나의 근태현황	<span style="font-size:10px;">(한달기준)</span>
+			    </div>
+			    <div class="card-body">
+			    	<div class="box col-lg-7" style="margin:0 auto;">
+				    	<div class="row" style="text-align:center;">
+				    		<div class="col">
+								<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
+									<span style="line-height: 50px;">1</span>
+								</h5>
+								<p>출근현황</p> 		    		
+				    		</div>
+				    		<div class="col">
+								<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
+									<span style="line-height: 50px;">1</span>
+								</h5>
+								<p>지각현황</p> 		    		
+				    		</div>
+				    		<div class="col">
+								<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
+									<span style="line-height: 50px;">1</span>
+								</h5>
+								<p>조퇴</p> 		    		
+				    		</div>
+				    		<div class="col">
+								<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
+									<span style="line-height: 50px;">1</span>
+								</h5>
+								<p>외출</p> 		    		
+				    		</div>
+				    		<div class="col">
+								<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
+									<span style="line-height: 50px;">1</span>
+								</h5>
+								<p>무단결석</p> 		    		
+				    		</div>
+				    	</div>
+					</div>
+				<div class="tab-pane show" id="profile">
+					<div class="container-fluid">
+						<div>
+						  <table id="default_order" class="table table-striped table-bordered display no-wrap"  style="width:100%">
+							<thead>
+								<tr>
+									<th class="flex-row" style="word-break: keep-all;">사원명</th>
+									<th class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;">일자</th>
+									<th class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;">출근시간</th>
+									<th class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;">퇴근시간</th>
+									<th class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;">지각</th>
+									<!-- <th th:text="${list}" th:if="${list.size()}" th:each="${list.size()}"></th> -->
+									<!-- <th th:if="${time}" th:each="${time}"></th> -->
+								</tr>
+							</thead>
+							  <tbody>
+								<th:block >
+									<tr th:if="${not #lists.isEmpty(workTime)}" th:each="l : ${workTime}">
+										<td th:text="${l.emplyId}">[[${l.emplyId}]]</td>      <!-- [[${l.emplyId}]] -->
+										<td th:text="${l.emplyName}"></td>
+										<td th:text="${l.workStartTime}"></td>
+										<td th:text="${l.workEndTime}"></td>
+										<td th:text="${l.workBreakTime}"></td>
+										<td th:text="${l.statusOutsideWork}"></td>
+										<td th:text="${l.statusLate}"></td>
+									</tr>
+									<tr th:unless="${not #lists.isEmpty(workTime)}" th:each="l : ${workTime}">
+										<td colspan="5">조회된 내용이 없습니다.</td>
+									</tr>
+								</th:block>
+							</tbody>
+						  </table>
+						</div>
+					</div>
+				</div>
+				</div>
 			</div>
-		
-	    <!-- sample modal content -->
-		<div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" th:action="@{/workWay/work_time}">
-		<div class="modal-dialog">
-		    <div class="modal-content">
-		        <div class="modal-header">
-		            <h4 class="modal-title" id="myModalLabel">출근</h4>
-		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		        </div>
-		        <div class="modal-body">
-		            <p>현재일자는 </p>
-		            <p class="startTime col-lg-4"></p>
-		            <p>입니다. 확인하시겠습니까?</p>
-		        </div>
-		        <div class="modal-footer">
-		            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-		            <button type="button" class="btn btn-primary" id="saveBtn1">Save changes</button>
-		        </div>
-		    </div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		<!-- sample modal content -->
-		<div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" th:action="@{/workWay/work_time}">
-		<div class="modal-dialog">
-		    <div class="modal-content">
-		        <div class="modal-header">
-		            <h4 class="modal-title" id="myModalLabel">퇴근</h4>
-		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		        </div>
-		        <div class="modal-body">
-		            <p>현재일자는 </p>
-		            <p class="endTime col-lg-4"></p>
-		            <p>입니다. 확인하시겠습니까?</p>
-		        </div>
-		        <div class="modal-footer">
-		            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-		            <button type="button" class="btn btn-primary" id="saveBtn2">Save changes</button>
-		        </div>
-		    </div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		<!-- sample modal content -->
-		<div id="myModal3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" th:action="@{/workWay/work_time}">
-		<div class="modal-dialog">
-		    <div class="modal-content">
-		        <div class="modal-header">
-		            <h4 class="modal-title" id="myModalLabel">외출</h4>
-		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		        </div>
-		        <div class="modal-body">
-		            <p>현재일자는 </p>
-		            <p class="breakTime col-lg-4"></p>
-		            <p>입니다. 확인하시겠습니까?</p>
-		        </div>
-		        <div class="modal-footer">
-		            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-		            <button type="button" class="btn btn-primary" id="saveBtn3">Save changes</button>
-		        </div>
-		    </div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		<!-- sample modal content -->
-		<div id="myModal4" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" th:action="@{/workWay/work_time}">
-		<div class="modal-dialog">
-		    <div class="modal-content">
-		        <div class="modal-header">
-		            <h4 class="modal-title" id="myModalLabel">복귀</h4>
-		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		        </div>
-		        <div class="modal-body">
-		            <p>현재일자는 </p>
-		            <p class="returnTime col-lg-4"></p>
-		            <p>입니다. 확인하시겠습니까?</p>
-		        </div>
-		        <div class="modal-footer">
-		            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-		            <button type="button" class="btn btn-primary" id="saveBtn4">Save changes</button>
-		        </div>
-		    </div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		     
-		</div>
-		<div class="card-header">
-	    	나의 근태현황	<span style="font-size:10px;">(한달기준)</span>
-	    </div>
-	    <div class="card-body">
-	    	<div class="box col-lg-7" style="margin:0 auto;">
-		    	<div class="row" style="text-align:center;">
-		    		<div class="col">
-						<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
-							<span style="line-height: 50px;">1</span>
-						</h5>
-						<p>출근현황</p> 		    		
-		    		</div>
-		    		<div class="col">
-						<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
-							<span style="line-height: 50px;">1</span>
-						</h5>
-						<p>지각현황</p> 		    		
-		    		</div>
-		    		<div class="col">
-						<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
-							<span style="line-height: 50px;">1</span>
-						</h5>
-						<p>조퇴</p> 		    		
-		    		</div>
-		    		<div class="col">
-						<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
-							<span style="line-height: 50px;">1</span>
-						</h5>
-						<p>외출</p> 		    		
-		    		</div>
-		    		<div class="col">
-						<h5 class="badge badge-secondary rounded-circle" style="padding:0; width:50px; height:50px;">
-							<span style="line-height: 50px;">1</span>
-						</h5>
-						<p>무단결석</p> 		    		
-		    		</div>
-		    	</div>
-			</div>
-		</div>
-	</div>
-	<div class="tab-pane show" id="profile">
-		<div class="container-fluid">
-			<div>
-			  <table class="table table-responsive row" style="overflow-x:scroll ">
-				<thead>
-					<tr>
-						<th class="flex-row" style="word-break: keep-all;">사원명</th>
-						<th class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;"></th>
-						<!-- <th th:text="${list}" th:if="${list.size()}" th:each="${list.size()}"></th> -->
-						<!-- <th th:if="${time}" th:each="${time}"></th> -->
-					</tr>
-				</thead>
-				  <tbody>
-				    <tr th:if="${not #lists.isEmpty(workTime)}" th:each="l : ${workTime}">
-				      <td th:text="${l.emplyName}"></td>
-				      <td th:text="${l.workDate}"></td>
-				      <td th:text="${l.workStartTime}"></td>
-				      <td th:text="${l.workEndTime}"></td>
-				    </tr>
-				  </tbody>
-			  </table>
-			</div>
-		</div>
-	</div>
-     <div class="tab-pane" id="settings">
-        
-     </div>
- </div>
-                                
-	    
-	    
-	    </div>
-	    
-	</div>
-		
+				<div class="tab-pane show" id="profile">
+					<div class="container-fluid">
+						<div class="table table-responsive">
+							<table class=" row">
+								<thead>
+									<tr>
+										<th class="flex-row" style="word-break: keep-all;">사원명</th>
+										<th class="flex-row" style="word-break: keep-all; border-left:1px solid #eee;"></th>
+									</tr>
+								</thead>
+								 <tbody>
+									<tr th:if="${not #lists.isEmpty(workTime)}" th:each="l : ${workTime}">
+										<td th:text="${l.emplyName}"></td>
+										<td th:text="${l.workDate}"></td>
+										<td th:text="${l.workStartTime}"></td>
+										<td th:text="${l.workEndTime}"></td>
+									</tr>
+								 </tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="settings">
+				   
+				</div>
+			</div><!-- tabcontent -->
+		</div><!-- card -->
+	</div><!-- col-lg-12 -->
 </th:block>
  
 
 <th:block layout:fragment="customScript">
-		<!-- ============================================================== -->
-	    <!-- All Jquery -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-	    <script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
-	    <script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
-	    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
-	    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
-	    <!-- ============================================================== -->
-	    <!-- apps -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
-	    <script th:src="@{/dist/js/feather.min.js}"></script>
-	    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
-	    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
-	    <!-- ============================================================== -->
-	    <!--Custom JavaScript -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/dist/js/custom.min.js}"></script>
-	    <!-- ============================================================== -->
-	    <!--This page JavaScript -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
-	    <script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
-	    <script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+	<!-- ============================================================== -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+	<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+	<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+	<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+	<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<!-- ============================================================== -->
+	<!-- apps -->
+	<!-- ============================================================== -->
+	<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+	<script th:src="@{/dist/js/feather.min.js}"></script>
+	<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+	<!-- ============================================================== -->
+	<!--Custom JavaScript -->
+	<!-- ============================================================== -->
+	<script th:src="@{/dist/js/custom.min.js}"></script>
+	<!-- ============================================================== -->
+	<!--This page JavaScript -->
+	<!-- ============================================================== -->
+	<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+	<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+	<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+    <!-- 확인 -->
+    <!-- Bootstrap tether Core JavaScript -->
     
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    
+    <!--This page plugins -->
+    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+    <!-- 확인//// -->
     <script type="text/javascript">
+    /*
 	    $(document).ready(function() {
 		    calendarInit();
 		});
-		/*
+		
 		    달력 렌더링 할 때 필요한 정보 목록 
 		
 		    현재 월(초기값 : 현재 시간)
 		    금월 마지막일 날짜와 요일
 		    전월 마지막일 날짜와 요일
-		*/
-		
-
-
 		
 		function calendarInit() {
 			
@@ -465,153 +498,149 @@
 		        renderCalender(thisMonth); 
 		    });
 		}
+		    */
     </script>
     
 	<script type="text/javascript">
-	//출근시간기록
-	  $(".btn-list #startTimeBtn").click(function() {
-	         let today = new Date();   
-	  
-	         let year = today.getFullYear(); // 년도
-	         let month = today.getMonth() + 1;  // 월
-	         let date = today.getDate();  // 날짜
-	         
-	         let hours = today.getHours(); // 시
-	         let minutes = today.getMinutes();  // 분
-	         let seconds = today.getSeconds();  // 초
-	         let milliseconds = today.getMilliseconds(); // 밀리초
-	  
-	         //$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
-	         $('p.startTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds + '초 ');
-	         
-	         
-	         
-	   $("#saveBtn1").click(function() {
-		  
-		  /* let today = new Date();   
+		//출근시간기록
+		$(".btn-list #startTimeBtn").click(function() {
+			let today = new Date();   
+			
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초
+			
+			//$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
+			$('p.startTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds + '초 ');
+		
+		});
+		        
+		$("#saveBtn1").click(function() {
+					  
+			let today = new Date();   
+					   
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초
+			document.getElementById('startTime').innerHTML=(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds+'초 ');
+			
+			$('#myModal1').modal('hide');
+			$(".modal-backdrop").remove(); 
+		});
+		
+		//퇴근시간기록
+		$(".btn-list #endTimeBtn").click(function() {
+			let today = new Date();   
+			
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초
+			
+			//$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
+			$('p.endTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds + '초 ');
+		});
+		         
+		$("#saveBtn2").click(function() {
+			let today = new Date();   
+			
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초
+			document.getElementById('endTime').innerHTML=(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds+'초 ');
+			
+			$('#myModal2').modal('hide');
+			$(".modal-backdrop").remove(); 
+		});
+		
+		//외출시간기록
+		$(".btn-list #breakTimeBtn").click(function() {
+			let today = new Date();   
+			
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초
+			
+			//$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
+			$('p.breakTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds + '초 ');
+		});
+	       
+		$("#saveBtn3").click(function() {
+		
+			let today = new Date();   
+			 
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초 
+			document.getElementById('breakTime').innerHTML=(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds+'초 ');
+			
+			$('#myModal3').modal('hide');
+			$(".modal-backdrop").remove(); 
+		});
 		   
-	         let year = today.getFullYear(); // 년도
-	         let month = today.getMonth() + 1;  // 월
-	         let date = today.getDate();  // 날짜
-	         
-	         let hours = today.getHours(); // 시
-	         let minutes = today.getMinutes();  // 분
-	         let seconds = today.getSeconds();  // 초
-	         let milliseconds = today.getMilliseconds(); // 밀리초 */
-	      document.getElementById('startTime').innerHTML=(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds+'초 ');
-	      
-	         $('#myModal1').modal('hide');
-	         $(".modal-backdrop").remove(); 
-	   });
-	  });
-	//퇴근시간기록
-	  $(".btn-list #endTimeBtn").click(function() {
-	         let today = new Date();   
-	  
-	         let year = today.getFullYear(); // 년도
-	         let month = today.getMonth() + 1;  // 월
-	         let date = today.getDate();  // 날짜
-	         
-	         let hours = today.getHours(); // 시
-	         let minutes = today.getMinutes();  // 분
-	         let seconds = today.getSeconds();  // 초
-	         let milliseconds = today.getMilliseconds(); // 밀리초
-	  
-	         //$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
-	         $('p.endTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds + '초 ');
-	         
-	         
-	         
-	   $("#saveBtn2").click(function() {
-		  
-		  /* let today = new Date();   
-		   
-	         let year = today.getFullYear(); // 년도
-	         let month = today.getMonth() + 1;  // 월
-	         let date = today.getDate();  // 날짜
-	         
-	         let hours = today.getHours(); // 시
-	         let minutes = today.getMinutes();  // 분
-	         let seconds = today.getSeconds();  // 초
-	         let milliseconds = today.getMilliseconds(); // 밀리초 */
-	      document.getElementById('endTime').innerHTML=(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds+'초 ');
-	      
-	         $('#myModal2').modal('hide');
-	         $(".modal-backdrop").remove(); 
-	   });
-	  });
-	//외출시간기록
-	  $(".btn-list #breakTimeBtn").click(function() {
-	         let today = new Date();   
-	  
-	         let year = today.getFullYear(); // 년도
-	         let month = today.getMonth() + 1;  // 월
-	         let date = today.getDate();  // 날짜
-	         
-	         let hours = today.getHours(); // 시
-	         let minutes = today.getMinutes();  // 분
-	         let seconds = today.getSeconds();  // 초
-	         let milliseconds = today.getMilliseconds(); // 밀리초
-	  
-	         //$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
-	         $('p.breakTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds + '초 ');
-	         
-	         
-	         
-	   $("#saveBtn3").click(function() {
-		  
-		  /* let today = new Date();   
-		   
-	         let year = today.getFullYear(); // 년도
-	         let month = today.getMonth() + 1;  // 월
-	         let date = today.getDate();  // 날짜
-	         
-	         let hours = today.getHours(); // 시
-	         let minutes = today.getMinutes();  // 분
-	         let seconds = today.getSeconds();  // 초
-	         let milliseconds = today.getMilliseconds(); // 밀리초 */
-	      document.getElementById('breakTime').innerHTML=(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds+'초 ');
-	      
-	         $('#myModal3').modal('hide');
-	         $(".modal-backdrop").remove(); 
-	   });
-	  });
-	//외출시간기록
-	  $(".btn-list #returnTimeBtn").click(function() {
-	         let today = new Date();   
-	  
-	         let year = today.getFullYear(); // 년도
-	         let month = today.getMonth() + 1;  // 월
-	         let date = today.getDate();  // 날짜
-	         
-	         let hours = today.getHours(); // 시
-	         let minutes = today.getMinutes();  // 분
-	         let seconds = today.getSeconds();  // 초
-	         let milliseconds = today.getMilliseconds(); // 밀리초
-	  
-	         //$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
-	         $('p.returnTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds + '초 ');
-	         
-	         
-	         
-	   $("#saveBtn4").click(function() {
-		  
-		  /* let today = new Date();   
-		   
-	         let year = today.getFullYear(); // 년도
-	         let month = today.getMonth() + 1;  // 월
-	         let date = today.getDate();  // 날짜
-	         
-	         let hours = today.getHours(); // 시
-	         let minutes = today.getMinutes();  // 분
-	         let seconds = today.getSeconds();  // 초
-	         let milliseconds = today.getMilliseconds(); // 밀리초 */
-	      document.getElementById('returnTime').innerHTML=(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds+'초 ');
-	      
-	         $('#myModal4').modal('hide');
-	         $(".modal-backdrop").remove(); 
-	   });
-	  });
-	
+		//외출시간기록
+		$(".btn-list #returnTimeBtn").click(function() {
+			let today = new Date();   
+			
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초
+			
+			//$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
+			$('p.returnTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds + '초 ');
+		});
+		         
+		$("#saveBtn4").click(function() {
+		
+			let today = new Date();   
+			 
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초 */
+			document.getElementById('returnTime').innerHTML=(year+'년 '+month+'월 '+date+'일 '+ hours + '시 ' + minutes + '분 ' + seconds+'초 ');
+			   
+			$('#myModal4').modal('hide');
+			$(".modal-backdrop").remove(); 
+		});
+		
 	</script>
 </th:block>

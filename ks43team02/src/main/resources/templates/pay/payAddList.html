@@ -54,22 +54,54 @@
 	</th:block>
 	
 	<th:block layout:fragment="customScript">
-		<script type="text/javascript" th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-		<script type="text/javascript">
-		$(document).ready(function(){
-    		$('.removePayAddList').click(function(){
-    	        var result = confirm('정말 삭제하시겠습니까?');
-
-    	        if(result == true) {
-    	           //yes
-    	           	alert('삭제되었습니다.')
-    	            location.replace('payAddList');
-    	        } else {
-    	        	return false;
-    	            //no
-    	        }
-    	    });
-    	});
-		</script>
-
-</html>
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+		<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+		<!-- ============================================================== -->
+		<!-- apps -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+		<script th:src="@{/dist/js/feather.min.js}"></script>
+		<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+		<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+		<!-- ============================================================== -->
+		<!--Custom JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/custom.min.js}"></script>
+		<!-- ============================================================== -->
+		<!--This page JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+		<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+		<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+	    <!-- 확인 -->
+	    <!-- Bootstrap tether Core JavaScript -->
+	    
+	    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+	    
+	    <!--This page plugins -->
+	    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+			
+			<script type="text/javascript">
+			$(document).ready(function(){
+	    		$('.removePayAddList').click(function(){
+	    	        var result = confirm('정말 삭제하시겠습니까?');
+	
+	    	        if(result == true) {
+	    	           //yes
+	    	           	alert('삭제되었습니다.')
+	    	            location.replace('payAddList');
+	    	        } else {
+	    	        	return false;
+	    	            //no
+	    	        }
+	    	    });
+	    	});
+			</script>
+	</th:block>

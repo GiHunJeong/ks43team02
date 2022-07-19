@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks43team02.dto.WorkSettingList;
 import ks43team02.dto.WorkSystem;
+import ks43team02.dto.WorkTime;
 import ks43team02.dto.WorkWay;
 import ks43team02.mapper.WorkTimeMapper;
 
@@ -22,5 +23,13 @@ public class WorkTimeService {
 	public WorkTimeService(WorkTimeMapper workTimeMapper) {
 		this.workTimeMapper = workTimeMapper;
 	}
+	
 	//
+	
+	  public List<WorkTime> getWorkTimeEmplyName(String emplyId){ 
+		  List<WorkTime> workTime = workTimeMapper.getWorkTimeEmplyName();
+		  return workTime; 
+		  }
+	 
+	
 }
