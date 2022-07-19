@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -31,15 +31,6 @@
 	</resultMap>
 	
 	<resultMap type="Emply" id="emplyResultMap">
-<<<<<<< HEAD
-		<id 	column="emply_id" 				property="emplyId"/>
-		<result column="emply_name" 			property="emplyName"/>
-		<result column="emply_number" 			property="emplyNumber"/>
-		<result column="emply_organization" 	property="emplyOrganization"/>
-		<result column="emply_rank" 			property="emplyRank"/>
-		<result column="salary" 				property="salary"/>
-		<result column="emply_account" 			property="emplyAccount"/>
-=======
 		<id column="emply_id"						property="emplyId"/>
 		<result column="organization_code_S"		property="organizationCodeS"/>
 		<result column="rank_level_code"			property="rankLevelCode"/>
@@ -82,7 +73,6 @@
 			<result column="cp_name"					property="cpName"/>
 			<result column="reg_date"					property="regDate"/>
 		</association>
->>>>>>> refs/remotes/origin/develop
 	</resultMap>
 	
 	<resultMap type="PayAdd" id="payAddResultMap">
@@ -133,12 +123,7 @@
 			deductionPay_list, 
 			deductionPay_amount, 
 			paySet_regDate
-<<<<<<< HEAD
-		) VALUES
-			(
-=======
 		) VALUES (
->>>>>>> refs/remotes/origin/develop
 			sf_paySetCode(), 
 			#{paySetDate}, 
 			#{paySetTime}, 
@@ -147,27 +132,12 @@
 			#{deductionPayList}, 
 			#{deductionPayAmount}, 
 			CURDATE()
-<<<<<<< HEAD
-			)
-=======
 		)
->>>>>>> refs/remotes/origin/develop
 	</insert>
 
 	<select id="getPaySet" fetchSize="100" resultMap="paySetResultMap">
 		/* 급여세팅값 조회 */
 		SELECT 
-<<<<<<< HEAD
-			s.paySet_date, 
-			s.paySet_time, 
-			s.fixedPay_list,
-			s.fixedPay_amount, 
-			s.deductionPay_list,
-			s.deductionPay_amount,
-			s.paySet_regDate
-		FROM tb_pay_setting AS s
-		ORDER BY s.paySet_code DESC LIMIT 1
-=======
 			paySet_date, 
 			paySet_time, 
 			fixedPay_list,
@@ -177,97 +147,11 @@
 			paySet_regDate
 		FROM tb_pay_setting
 		ORDER BY paySet_code DESC LIMIT 1
->>>>>>> refs/remotes/origin/develop
 	</select>
 	
 	<select id="getPaySetForPayAdd" fetchSize="100" resultMap="paySetResultMap">
 		/* 급여세팅값 조회 */
 		SELECT 
-<<<<<<< HEAD
-			s.paySet_date, 
-			s.paySet_time, 
-			s.fixedPay_list, 
-			s.fixedPay_amount,
-			s.deductionPay_list,
-			s.deductionPay_amount,
-			s.paySet_regDate
-		FROM tb_pay_setting AS s
-		ORDER BY s.paySet_code DESC LIMIT 1
-	</select>
-	
-	<select id="getEmplyListForPayAdd" fetchSize="1000" parameterType="String" resultMap="emplyResultMap">
-		/* 사원 검색 */
-		SELECT 
-			e.emply_id,
-			e.emply_number, 
-			e.emply_organization,
-			e.emply_rank, 
-			e.emply_name, 
-			e.salary, 
-			e.emply_account
-		FROM 
-			tb_emply_info_reg AS e
-	</select>
-	
-	<insert id="payAdd" parameterType="PayAdd">
-		/* 급여내역 등록 */
-		INSERT INTO tb_pay_payadd (
-			payAdd_code, 
-			emply_name, 
-			emply_id, 
-			emply_rank, 
-			emply_organization, 
-			basic_pay, 
-			fixedPay_list, 
-			bonus_pay, 
-			deductionPay_list, 
-			total_deduction, 
-			total_payment, 
-			payAdd_regDate
-		) VALUES
-			(
-			sf_payAddCode(),  
-			#{emplyName}, 
-			#{emplyId}, 
-			#{emplyRank}, 
-			#{emplyOrganization}, 
-			#{basicPay}, 
-			#{fixedPayList}, 
-			#{bonusPay}, 
-			#{deductionPayList}, 
-			#{totalDeduction}, 
-			#{totalPayment}, 
-			CURDATE()
-			);
-	</insert>
-	
-	<select id="getPayAddList" fetchSize="100" resultMap="payAddResultMap">
-		/* 급여등록 내역 출력 쿼리문 */
-		SELECT 
-			a.emply_name,
-			a.emply_id,
-			a.emply_rank,
-			a.emply_organization, 
-			a.basic_pay, 
-			a.fixedPay_list, 
-			a.bonus_pay, 
-			a.deductionPay_list, 
-			a.total_deduction, 
-			a.total_payment, 
-			a.payAdd_regDate
-		FROM 
-			tb_pay_payadd AS a
-	</select>
-	
-	<delete id="removePayAdd" parameterType="String">
-		/* 급여등록 내역 삭제 */
-		DELETE
-		FROM
-			tb_pay_payadd
-		WHERE
-			emply_id=#{emplyId};
-	</delete>
-=======
 			paySet_date, 
 			paySet_time, 
 			fixedPay_list, 
@@ -278,7 +162,6 @@
 		FROM tb_pay_setting
 		ORDER BY paySet_code DESC LIMIT 1
 	</select>
->>>>>>> refs/remotes/origin/develop
 	
 	<insert id="payAdd" parameterType="PayAdd">
 		/* 급여내역 등록 */

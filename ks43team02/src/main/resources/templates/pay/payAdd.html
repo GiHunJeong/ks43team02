@@ -1,279 +1,284 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout/default.html}">
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{layout/default.html}">
 
-	<!-- 사용자 정의 contents -->
-	<th:block layout:fragment="customContents">	
-		
-<<<<<<< HEAD
-		<form th:action="@{/pay/payAdd}" method="post"> 
-=======
-		<form th:action="@{/pay/payAdd}" method="post">
->>>>>>> refs/remotes/origin/develop
-			<div class="card col-md-12">
-				<div class="card-body ">
-					<!-- 사원정보t -->
-					<table id="emplyInfoTable" class="table table-bordered">
-						<tr>
-							<td class="bg-primary text-white" style="text-align: center; ">사원명</td>
-							<td colspan="3">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">사원검색</button>
-								<input type="text" name="emplyName" class="delTarget col-md-10" readonly/>
-							</td>
-						</tr>
-						<tr>
-							<td class="bg-primary text-white" style="text-align: center;">사원아이디</td>
-							<td>
-								<input type="text" name="emplyId" class="delTarget col-md-12" readonly/>
-							</td>
-							<td class="bg-primary text-white" style="text-align: center;">사원번호</td>
-							<td>
-								<input type="text" name="emplyNumber" class="delTarget col-md-12" readonly/>
-							</td>
-						</tr>
-						<tr>
-							<td class="bg-primary text-white" style="text-align: center;">부서</td>
-							<td>
-								<input type="text" name="emplyOrganization" class="delTarget col-md-12" readonly/>
-							</td>
-							<td class="bg-primary text-white" style="text-align: center;">직급</td>
-							<td>
-								<input type="text" name="emplyRank" class="delTarget col-md-12" readonly/>
-							</td>
-						</tr>
-						<tr>
-							<td class="bg-primary text-white" style="text-align: center; ">기본급</td>
-							<td class="delTarget" colspan="3">
-								<input type="number" name="salary" class="delTarget col-md-10" value="salary" readonly/> 원
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<!-- 고정지급급 세팅정보 -->
-			<button type="button" id="fixedModify" class="btn btn-outline-primary" data-toggle="modal" data-target="#fixedMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
-			<table id="fixedPayList" class="table table-bordered">
-				<tr>
-					<td class="bg-primary text-white col-md-8">고정지급급여 항목</td>
-					<td class="bg-primary text-white">금액(원)</td>
-				</tr>
-				<tr th:if="${not #arrays.isEmpty(fixedPayMap)}" th:each="fixedPay : ${fixedPayMap}">
-					<td>
-						<input type="hidden" class="fixedPayList" name="fixedPayList" th:text="${fixedPay.key}" th:value="${fixedPay.key}"/>
-					</td>
-					<td class="fixedPayAmount" th:text="${fixedPay.value}" th:value="${fixedPay.value}"></td>
-				</tr>
-				<tr th:unless="${not #arrays.isEmpty(fixedPayMap)}">
-					<td class="settingTableVal">선택된 항목이 없습니다.</td>
-				</tr>
-			</table>
-			
-			<!-- 공제액 세팅정보 -->
-			<button type="button" id="deductionModify" class="btn btn-outline-primary" data-toggle="modal" data-target="#deduceMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
-			<table id="deducePayList" class="table table-bordered">
-				<tr>
-					<td class="bg-primary text-white col-md-8">공제액 항목</td>
-					<td class="bg-primary text-white">금액(원)</td>
-				</tr>
-				<tr th:if="${not #arrays.isEmpty(deducePayMap)}" th:each="deducePay : ${deducePayMap}">
-					<td>
-						<input type="hidden" class="deductionPayList" name="deductionPayList" th:text="${deducePay.key}" th:value="${deducePay.key}"/>
-					</td>
-					<td class="deducePayAmount" th:text="${deducePay.value}" th:value="${deducePay.value}"></td>
-				</tr>
-				<tr th:unless="${not #arrays.isEmpty(deducePayMap)}">
-					<td class="settingTableVal">선택된 항목이 없습니다.</td>
-				</tr>
-			</table>
-			
-			<!-- 급여내역뿌리기 -->
-			<table class="table table-bordered">
-				<tr>
-					<td colspan="2" class="bg-primary text-white">급여내역</td>
-				</tr>
-				<tr>
-					<td>기본급여</td>
-					<td class="delTarget payCalculate">
-						<input type="text" name="basicPay" class="delTarget col-md-10" value="0" readonly/> 원
-					</td>
-				</tr>
-				<tr>
-					<td>추가급여</td>
-					<td class="delTarget payCalculate">
-						<input type="number" name="bonusPay" class="delTarget col-md-10" value="0" readonly/> 원
-					</td>
-				</tr>
-				<tr>
-					<td>공제액</td>
-					<td class="delTarget payCalculate">
-						<input type="number" name="totalDeduction" class="delTarget col-md-10" value="0" readonly/> 원
-					</td>
-				</tr>
-				<tr>
-					<td>급여</td>
-					<td class="delTarget payCalculate">
-						<input type="number" name="totalPayment" class="delTarget col-md-10" value="0" readonly/> 원
-					</td>
-				</tr>
-			</table>
-		<!-- 전송버튼 -->
-			<div class="col-12" style="display: flex; justify-content: space-around;">
-				<button type="submit" id="addBtn" class="btn btn-primary" style="text-align=center;" disabled>저장하기</button>
-			</div>
-		</form>
-				
-		<!-- 사원정보 불러오기 modal Start -->
-		<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
- 				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel">사원검색</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					</div>
-					<div class="modal-body">
-					<div class="card">
-						<div class="card-body">
-							<table class="table table-bordered">
-									<thead class="bg-primary text-white">
-										<tr>
-											<th>사원명</th>
-											<th>사원아이디</th>
-											<th>사원번호</th>
-											<th>부서</th>
-											<th>직급</th>
-											<th style="display: none;">기본급</th>
-											<th>선택</th>
-										</tr>	
-									</thead>
-									<tbody>
-										<tr th:if="${not #arrays.isEmpty(emplyList)}" th:each="l : ${emplyList}">
-											<td>
-												<input type="hidden" th:text="${l.emplyName}" th:value="${l.emplyName}"/>
-											</td>
-											<td>
-												<input type="hidden" th:text="${l.emplyId}" th:value="${l.emplyId}"/>
-											</td>
-											<td>
-												<input type="hidden" th:text="${l.emplyNumber}" th:value="${l.emplyNumber}"/>
-											</td>
-											<td>
-<<<<<<< HEAD
-												<input type="hidden" th:text="${l.emplyOrganization}" th:value="${l.emplyOrganization}"/>
-											</td>
-											<td>
-												<input type="hidden" th:text="${l.emplyRank}" th:value="${l.emplyRank}"/>
-											</td>
-											<td style="display: none;">
-												<input type="hidden" th:text="${l.salary}" th:value="${l.salary}"/>
-											</td>
-											<td>
-												<input type="checkbox" class="selectEmply" th:value="${l.emplyId}"/>
-											</td>
-										</tr>
-										<tr th:unless="${not #arrays.isEmpty(deducePayMap)}">
-=======
-												<input type="hidden" th:text="${l.organizationSList.organizationNameS}" th:value="${l.organizationSList.organizationNameS}"/>
-											</td>
-											<td>
-												<input type="hidden" th:text="${l.rankLevelList.rankName}" th:value="${l.rankLevelList.rankName}"/>
-											</td>
-											<td style="display: none;">
-												<input type="hidden" th:text="${l.emplySalary}" th:value="${l.emplySalary}"/>
-											</td>
-											<td>
-												<input type="checkbox" class="selectEmply" th:value="${l.emplyId}"/>
-											</td>
-										</tr>
-										<tr th:unless="${not #arrays.isEmpty(emplyList)}">
->>>>>>> refs/remotes/origin/develop
-											<td class="settingTableVal">선택된 항목이 없습니다.</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
- 					<div class="modal-footer">
-						<button type="button" id="closeEmplySearchModal" class="btn btn-primary">등록하기</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div>	
-		<!-- 사원정보 불러오기 modal End-->
-		
-		<!-- 고정지급급여 내역 불러오기 modal Start -->
-		<div id="fixedMyModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fixedMyModalLabel" style="display: none;" aria-hidden="true">
-			<div class="modal-dialog">
-					<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="fixedMyModalLabel">고정지급 급여 항목 수정</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					</div>
-					<div class="modal-body">
-						<table class="table table-bordered" id="selectedFixedList">
-							<tr>
-								<td class="bg-primary text-white col-md-2">항목명</td>
-								<td class="bg-primary text-white col-md-2">금액</td>
-							</tr>
-							<tr>
-								
-							</tr>
-						</table>
-						<select id="setFixedList" class="form-control">
-							<option value="" selected>추가항목을 선택하세요</option>
-						</select>
-					</div>
-						<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="closeFixedModal">확인</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div>
-		<!-- 고정지급급여 내역 불러오기 modal End -->
-		
-		<!-- 공제액 내역 불러오기 modal Start -->
-		<div id="deduceMyModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deduceMyModalLabel" style="display: none;" aria-hidden="true">
-			<div class="modal-dialog">
-					<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="deduceMyModalLabel">공제액 항목 수정</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					</div>
-					<div class="modal-body">
-						<table class="table table-bordered" id="selectedDeduceList">
-							<tr>
-								<td class="bg-primary text-white col-md-2">항목명</td>
-								<td class="bg-primary text-white col-md-2">금액</td>
-							</tr>
-							<tr>
-								
-							</tr>
-						</table>
-						<select id="setDeduceList" class="form-control">
-                             	<option value="" selected>추가항목을 선택하세요</option>
-						</select>
-					</div>
-						<div class="modal-footer">
-						<button type="button"  class="btn btn-primary" id="closeDeduceModal">확인</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div>
-		<!-- 공제액 내역 불러오기 modal End -->
-		
-				
-		
-	</th:block>
-	
-<<<<<<< HEAD
-	<th:block layout:fragment="customJs">
-		<script type="text/javascript" th:src="@{/dist/js/jquery-3.6.0.min.js}"></script>
-=======
-	<th:block layout:fragment="customScript">
-		<script type="text/javascript" th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
->>>>>>> refs/remotes/origin/develop
-		<script type="text/javascript" th:src="@{/dist/js/payAdd.js}"></script>
-	</th:block>
-
-</html>
+   <!-- 사용자 정의 contents -->
+   <th:block layout:fragment="customContents">   
+      
+      <form th:action="@{/pay/payAdd}" method="post">
+         <div class="card col-md-12">
+            <div class="card-body ">
+               <!-- 사원정보t -->
+               <table id="emplyInfoTable" class="table table-bordered">
+                  <tr>
+                     <td class="bg-primary text-white" style="text-align: center; ">사원명</td>
+                     <td colspan="3">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">사원검색</button>
+                        <input type="text" name="emplyName" class="delTarget col-md-10" readonly/>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="bg-primary text-white" style="text-align: center;">사원아이디</td>
+                     <td>
+                        <input type="text" name="emplyId" class="delTarget col-md-12" readonly/>
+                     </td>
+                     <td class="bg-primary text-white" style="text-align: center;">사원번호</td>
+                     <td>
+                        <input type="text" name="emplyNumber" class="delTarget col-md-12" readonly/>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="bg-primary text-white" style="text-align: center;">부서</td>
+                     <td>
+                        <input type="text" name="emplyOrganization" class="delTarget col-md-12" readonly/>
+                     </td>
+                     <td class="bg-primary text-white" style="text-align: center;">직급</td>
+                     <td>
+                        <input type="text" name="emplyRank" class="delTarget col-md-12" readonly/>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="bg-primary text-white" style="text-align: center; ">기본급</td>
+                     <td class="delTarget" colspan="3">
+                        <input type="number" name="salary" class="delTarget col-md-10" value="salary" readonly/> 원
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <!-- 고정지급급 세팅정보 -->
+         <button type="button" id="fixedModify" class="btn btn-outline-primary" data-toggle="modal" data-target="#fixedMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
+         <table id="fixedPayList" class="table table-bordered">
+            <tr>
+               <td class="bg-primary text-white col-md-8">고정지급급여 항목</td>
+               <td class="bg-primary text-white">금액(원)</td>
+            </tr>
+            <tr th:if="${not #arrays.isEmpty(fixedPayMap)}" th:each="fixedPay : ${fixedPayMap}">
+               <td>
+                  <input type="hidden" class="fixedPayList" name="fixedPayList" th:text="${fixedPay.key}" th:value="${fixedPay.key}"/>
+               </td>
+               <td class="fixedPayAmount" th:text="${fixedPay.value}" th:value="${fixedPay.value}"></td>
+            </tr>
+            <tr th:unless="${not #arrays.isEmpty(fixedPayMap)}">
+               <td class="settingTableVal">선택된 항목이 없습니다.</td>
+            </tr>
+         </table>
+         
+         <!-- 공제액 세팅정보 -->
+         <button type="button" id="deductionModify" class="btn btn-outline-primary" data-toggle="modal" data-target="#deduceMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
+         <table id="deducePayList" class="table table-bordered">
+            <tr>
+               <td class="bg-primary text-white col-md-8">공제액 항목</td>
+               <td class="bg-primary text-white">금액(원)</td>
+            </tr>
+            <tr th:if="${not #arrays.isEmpty(deducePayMap)}" th:each="deducePay : ${deducePayMap}">
+               <td>
+                  <input type="hidden" class="deductionPayList" name="deductionPayList" th:text="${deducePay.key}" th:value="${deducePay.key}"/>
+               </td>
+               <td class="deducePayAmount" th:text="${deducePay.value}" th:value="${deducePay.value}"></td>
+            </tr>
+            <tr th:unless="${not #arrays.isEmpty(deducePayMap)}">
+               <td class="settingTableVal">선택된 항목이 없습니다.</td>
+            </tr>
+         </table>
+         
+         <!-- 급여내역뿌리기 -->
+         <table class="table table-bordered">
+            <tr>
+               <td colspan="2" class="bg-primary text-white">급여내역</td>
+            </tr>
+            <tr>
+               <td>기본급여</td>
+               <td class="delTarget payCalculate">
+                  <input type="text" name="basicPay" class="delTarget col-md-10" value="0" readonly/> 원
+               </td>
+            </tr>
+            <tr>
+               <td>추가급여</td>
+               <td class="delTarget payCalculate">
+                  <input type="number" name="bonusPay" class="delTarget col-md-10" value="0" readonly/> 원
+               </td>
+            </tr>
+            <tr>
+               <td>공제액</td>
+               <td class="delTarget payCalculate">
+                  <input type="number" name="totalDeduction" class="delTarget col-md-10" value="0" readonly/> 원
+               </td>
+            </tr>
+            <tr>
+               <td>급여</td>
+               <td class="delTarget payCalculate">
+                  <input type="number" name="totalPayment" class="delTarget col-md-10" value="0" readonly/> 원
+               </td>
+            </tr>
+         </table>
+      <!-- 전송버튼 -->
+         <div class="col-12" style="display: flex; justify-content: space-around;">
+            <button type="submit" id="addBtn" class="btn btn-primary" style="text-align=center;" disabled>저장하기</button>
+         </div>
+      </form>
+            
+      <!-- 사원정보 불러오기 modal Start -->
+      <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title" id="myModalLabel">사원검색</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+               </div>
+               <div class="modal-body">
+               <div class="card">
+                  <div class="card-body">
+                     <table class="table table-bordered">
+                           <thead class="bg-primary text-white">
+                              <tr>
+                                 <th>사원명</th>
+                                 <th>사원아이디</th>
+                                 <th>사원번호</th>
+                                 <th>부서</th>
+                                 <th>직급</th>
+                                 <th style="display: none;">기본급</th>
+                                 <th>선택</th>
+                              </tr>   
+                           </thead>
+                           <tbody>
+                              <tr th:if="${not #arrays.isEmpty(emplyList)}" th:each="l : ${emplyList}">
+                                 <td>
+                                    <input type="hidden" th:text="${l.emplyName}" th:value="${l.emplyName}"/>
+                                 </td>
+                                 <td>
+                                    <input type="hidden" th:text="${l.emplyId}" th:value="${l.emplyId}"/>
+                                 </td>
+                                 <td>
+                                    <input type="hidden" th:text="${l.emplyNumber}" th:value="${l.emplyNumber}"/>
+                                 </td>
+                                 <td>
+                                    <input type="hidden" th:text="${l.organizationSList.organizationNameS}" th:value="${l.organizationSList.organizationNameS}"/>
+                                 </td>
+                                 <td>
+                                    <input type="hidden" th:text="${l.rankLevelList.rankName}" th:value="${l.rankLevelList.rankName}"/>
+                                 </td>
+                                 <td style="display: none;">
+                                    <input type="hidden" th:text="${l.emplySalary}" th:value="${l.emplySalary}"/>
+                                 </td>
+                                 <td>
+                                    <input type="checkbox" class="selectEmply" th:value="${l.emplyId}"/>
+                                 </td>
+                              </tr>
+                              <tr th:unless="${not #arrays.isEmpty(emplyList)}">
+                                 <td class="settingTableVal">선택된 항목이 없습니다.</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+                <div class="modal-footer">
+                  <button type="button" id="closeEmplySearchModal" class="btn btn-primary">등록하기</button>
+               </div>
+            </div><!-- /.modal-content -->
+         </div><!-- /.modal-dialog -->
+      </div>   
+      <!-- 사원정보 불러오기 modal End-->
+      
+      <!-- 고정지급급여 내역 불러오기 modal Start -->
+      <div id="fixedMyModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fixedMyModalLabel" style="display: none;" aria-hidden="true">
+         <div class="modal-dialog">
+               <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title" id="fixedMyModalLabel">고정지급 급여 항목 수정</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+               </div>
+               <div class="modal-body">
+                  <table class="table table-bordered" id="selectedFixedList">
+                     <tr>
+                        <td class="bg-primary text-white col-md-2">항목명</td>
+                        <td class="bg-primary text-white col-md-2">금액</td>
+                     </tr>
+                     <tr>
+                        
+                     </tr>
+                  </table>
+                  <select id="setFixedList" class="form-control">
+                     <option value="" selected>추가항목을 선택하세요</option>
+                  </select>
+               </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="closeFixedModal">확인</button>
+               </div>
+            </div><!-- /.modal-content -->
+         </div><!-- /.modal-dialog -->
+      </div>
+      <!-- 고정지급급여 내역 불러오기 modal End -->
+      
+      <!-- 공제액 내역 불러오기 modal Start -->
+      <div id="deduceMyModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deduceMyModalLabel" style="display: none;" aria-hidden="true">
+         <div class="modal-dialog">
+               <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title" id="deduceMyModalLabel">공제액 항목 수정</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+               </div>
+               <div class="modal-body">
+                  <table class="table table-bordered" id="selectedDeduceList">
+                     <tr>
+                        <td class="bg-primary text-white col-md-2">항목명</td>
+                        <td class="bg-primary text-white col-md-2">금액</td>
+                     </tr>
+                     <tr>
+                        
+                     </tr>
+                  </table>
+                  <select id="setDeduceList" class="form-control">
+                                <option value="" selected>추가항목을 선택하세요</option>
+                  </select>
+               </div>
+                  <div class="modal-footer">
+                  <button type="button"  class="btn btn-primary" id="closeDeduceModal">확인</button>
+               </div>
+            </div><!-- /.modal-content -->
+         </div><!-- /.modal-dialog -->
+      </div>
+      <!-- 공제액 내역 불러오기 modal End -->
+      
+            
+      
+   </th:block>
+   
+   <th:block layout:fragment="customScript">
+      <!-- ============================================================== -->
+      <!-- All Jquery -->
+      <!-- ============================================================== -->
+      <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+      <script th:src="@{/dist/js/payAdd.js}"></script>
+      <script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+      <script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+      <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+      <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+      <!-- ============================================================== -->
+      <!-- apps -->
+      <!-- ============================================================== -->
+      <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+      <script th:src="@{/dist/js/feather.min.js}"></script>
+      <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+      <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+      <!-- ============================================================== -->
+      <!--Custom JavaScript -->
+      <!-- ============================================================== -->
+      <script th:src="@{/dist/js/custom.min.js}"></script>
+      <!-- ============================================================== -->
+      <!--This page JavaScript -->
+      <!-- ============================================================== -->
+      <script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+      <script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+      <script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+       <!-- 확인 -->
+       <!-- Bootstrap tether Core JavaScript -->
+       
+       <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+       
+       <!--This page plugins -->
+       <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+       <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+   </th:block>
