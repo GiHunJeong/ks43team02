@@ -2,11 +2,13 @@ package ks43team02.service;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team02.dto.AnnualStandard;
 import ks43team02.dto.AnnualApplication;
+import ks43team02.dto.AnnualList;
 import ks43team02.dto.AnnualSetting;
 import ks43team02.dto.CateAnnual;
 import ks43team02.mapper.AnnualMapper;
@@ -32,6 +34,13 @@ public class AnnualService {
 		return annualStandard;
 	}
 
+	//연차등록 폼
+	
+	public int addAnnualApplication(AnnualApplication annualApplication) {
+		int result = annualMapper.addAnnualApplication(annualApplication);
+		return result;
+	}
+
 	
 	//연차등록 가져오기
 	public List<AnnualApplication> getAnnualApplication() {
@@ -51,5 +60,10 @@ public class AnnualService {
 		  return annualSetting;
 	  }
 	 
+	  //등록된 연차 리스트
+	  public List<AnnualList> getAnnualList(){
+		  List<AnnualList> annualList = annualMapper.getAnnualList();
+		  return annualList;
+	  }
  
 }

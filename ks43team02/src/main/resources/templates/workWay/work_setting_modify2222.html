@@ -21,11 +21,9 @@
 			<h4 class="card-title">근무설정</h4>
 			<div class="form-group mb-1">
 		      	<label style="width:100%;">근무제선택</label>
-				<select class="test form-control col-10" name="standardWorkCode" style="float:left;">
-					<th:block th:if="${not #lists.isEmpty(workSetting)}" th:each="l : ${workSetting}">
-						<option th:value="${l.standardWorkCode}">[[${l.worksystemName}]]</option>
-					</th:block>
-	           	</select>
+				<th:block th:if="${not #lists.isEmpty(workSetting)}">
+           			<input th:text="${standardWorkCode}">[[${worksystemName}]]
+				</th:block>
 				<button id="plusBtn" type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
 				<div class="collapse" id="collapseExample">
 					<div class="card formgroup" style="padding:1em 0;">
@@ -48,12 +46,13 @@
 				</div>
 			</div>
 			<div id="result"></div>
+			
 			<div>
 				시작시간 : <input id="workTimeSet1" type="time" name="workStartTime">
 				종료시간 : <input id="workTimeSet2" type="time" name="workEndTime">
 				휴게시간 : <input id="workTimeSet3" type="time" name="breakTime">
 			</div>
-  	 	 	<button id="allSubmitBtn" type="button" class="btn btn-primary mt-3">양식보내기</button>
+  	 	 	<button id="allSubmitBtn" type="button" class="btn btn-primary mt-3">수정하기</button>
 		</form>
 	    </div>
 	</div>

@@ -153,34 +153,49 @@ public class BoardService {
 	}
 	
 	//공지 게시글 작성
-	public int addNotice(NoticeBoard noticeBoard, String sessionName, MultipartFile[] fileImage, String fileRealPath) {
+	public void addNotice(NoticeBoard noticeBoard, String sessionName, MultipartFile[] fileImage, String fileRealPath) {
 		
-		System.out.println("BoardService/addNotice");
-	
-		noticeBoard.setRegUserName(sessionName);
-		String temp = boardMapper.getCpNoticeIdx();
-		System.out.println("______temp_____" + temp);
-		noticeBoard.setCpNoticeIdx(temp);
-		int result =  boardMapper.addNotice(noticeBoard);
-		System.out.println(noticeBoard.getCpNoticeCode()+ "!!!!!!!!!!");
-		List<FileDto> fileList = fileUtil.parseFileInfo(fileImage, fileRealPath);
-		System.out.println("BoardService/addNotice/fileDto");
-		fileMapper.addFile(fileList);
+		boolean fileCheck = true;
 		
-		List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
-		System.out.println("BoardService/addNotice/paramList");
-		Map<String, String> paramMap = null;
-
-		for(FileDto fileDto : fileList) {
-			paramMap = new HashMap<String, String>();
-			paramMap.put("reference_code", noticeBoard.getCpNoticeCode());
-			paramMap.put("attach_file_code", fileDto.getAttachFileCode());
-			paramList.add(paramMap);
+		for (MultipartFile multipartFile : fileImage){
+			if(!multipartFile.isEmpty()) {
+				fileCheck = false;
+			}
 		}
 		
-		fileMapper.addFileControl(paramList);
+		if (!fileCheck) { // 파일이 널이 아니라면
+			noticeBoard.setRegUserName(sessionName);
+			String temp = boardMapper.getCpNoticeIdx();
+			System.out.println("______temp_____" + temp);
+			noticeBoard.setCpNoticeIdx(temp);
+			boardMapper.addNotice(noticeBoard);
+			System.out.println(noticeBoard.getCpNoticeCode()+ "!!!!!!!!!!");
+			
+			//tb_attach_file 삽입
+			List<FileDto> fileList = fileUtil.parseFileInfo(fileImage, fileRealPath);
+			System.out.println("BoardService/addNotice/fileDto");
+			fileMapper.addFile(fileList);
+			
+			List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
+			System.out.println("BoardService/addNotice/paramList");
+			Map<String, String> paramMap = null;
+
+			for(FileDto fileDto : fileList) { 
+				//file_control 테이블 삽입
+				paramMap = new HashMap<String, String>();
+				paramMap.put("reference_code", noticeBoard.getCpNoticeCode());
+				paramMap.put("attach_file_code", fileDto.getAttachFileCode());
+				paramList.add(paramMap);
+				fileMapper.addFileControl(paramList);
+			}
+			
+		}else { //파일이 널이라면
+			noticeBoard.setRegUserName(sessionName);
+			String temp = boardMapper.getCpNoticeIdx();
+			noticeBoard.setCpNoticeIdx(temp);
+			boardMapper.addNotice(noticeBoard);
+		}
 		
-		return result;
 	}
 		
 	// 공지사항 게시판 페이징 처리
