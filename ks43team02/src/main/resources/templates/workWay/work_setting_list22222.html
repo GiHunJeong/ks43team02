@@ -1,0 +1,116 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+<!-- th:replace="경로 :: 조각이름" -->
+
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+	<style rel="stylesheet" type="text/css">
+		.boxbox{display: inline-flex;width: max-content;}
+		.table-responsive{overflow-x:scroll !important; font-size:0.8rem;}
+		.line-clear{display:inline-grid}
+		.card-position{position:relative;}
+		.btn-position{position:absolute; top:25px; right:25px;}
+		.tableClean{width:max-content; display:inline-flex;}
+	</style>
+	<!-- 출퇴근 시간찍히는 곳 -->
+<div class="row">
+	<div class="card" >
+		<div class="col-lg-12 ">
+		    <!-- order table -->
+				<h4 class="card-title">근무제 기본세팅</h4>
+				<h6 class="card-subtitle">회사별 세팅되어져 있는 근무제 값을 확인할 수 있다.</h6>
+				<div class="btn-position">
+				<a class="btn btn-primary" type="button" th:href="@{/workWay/work_setting}">추가</a>
+				</div>
+					<div class="table-responsive" >
+						<table class="table">
+							<thead>
+								<tr>
+									<th nowrap>근태코드</th>
+									<th nowrap>회사코드</th>
+									<th nowrap>회사명</th>
+									<th nowrap>관리자 ID</th>
+									<th nowrap>근무제코드</th>
+									<th nowrap>근무제명</th>
+									<th nowrap>근태방식코드</th>
+									<th nowrap>근태방식명</th>
+									<th nowrap>근무요일</th>
+									<th nowrap>출근시간</th>
+									<th nowrap>퇴근시간</th>
+									<th nowrap>휴게시간</th>
+									<!-- <th>슈퍼 관리자 Id</th> -->
+									<th nowrap>등록자</th>
+									<th nowrap>등록일</th>
+									<th nowrap>수정</th>
+									<th nowrap>삭제</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${not #lists.isEmpty(workSettingList)}" th:each="l : ${workSettingList}">
+									<td nowrap th:text="${l.standardWorksystemCpCode}"></td>
+									<td nowrap th:text="${l.cpRepresentativeCode}"></td>
+									<td nowrap th:text="${l.cpName}"></td>
+									<td nowrap th:text="${l.superAdminId}"></td>
+									<td nowrap th:text="${l.standardWorkCode}"></td>
+									<td nowrap th:text="${l.workSystem.worksystemName}"></td>
+									<td th:text="${l.WorkWay.workwayCode}"></td>
+									<td th:text="${l.WorkWay.workwayName}"></td>
+									<td th:text="${l.dayCheck}"></td>
+									<td th:text="${l.workStartTime}"></td>
+									<td th:text="${l.workEndTime}"></td>
+									<td th:text="${l.breakTime}"></td>
+									<!--<td th:text="${l.superAdminId}"></td> -->
+									<td th:text="${l.workSystem.regUser}"></td>
+									<td nowrap th:text="${l.regDate}"></td>
+									<td nowrap>
+										<a class="btn waves-effect waves-light btn-success" type="button"
+											th:href="@{/workWay/work_setting_info_modify(standardWorksystemCpCode = ${l.standardWorksystemCpCode}
+											, standardWorkCode = ${l.standardWorkCode}
+											, dayCheck = ${l.dayCheck})}" >
+											수정
+										</a>
+									</td>
+									<td nowrap>
+										<a class="btn waves-effect waves-light btn-danger" type="button" 
+										   th:href="@{/workWay/work_setting_list_del(standardWorksystemCpCode=${l.standardWorksystemCpCode})}">
+										      삭제
+										</a>
+									</td>
+								</tr>							
+							</tbody>
+						</table>
+		             </div>
+		         </div>
+		    </div>
+		</div>		
+</th:block>
+ 
+
+<th:block layout:fragment="customScript">   
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+    <script th:src="@{/dist/js/feather.min.js}"></script>
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!--This page JavaScript -->
+    <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
+    <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>   
+    
+    
+</th:block>
+
