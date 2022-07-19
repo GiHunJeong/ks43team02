@@ -1,5 +1,5 @@
 package ks43team02.dto;
-
+ 
 public class AnnualList {
 	private String annualApplicationCode;
 	private String cpRepresentativeCode;

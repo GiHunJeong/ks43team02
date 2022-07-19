@@ -19,7 +19,7 @@ import ks43team02.dto.FixedAllowanceList;
 import ks43team02.dto.PayAdd;
 import ks43team02.dto.PaySet;
 import ks43team02.service.PayService;
-
+ 
 @Controller
 @RequestMapping("/pay")
 public class PayController {
