@@ -246,47 +246,30 @@
 		WHERE
 			ta.super_admin_id = #{superAdminId};
 	</select>
-	<select id="getEmplyInfoList" resultType="Emply" resultMap="emplyResultMap">
+	<select id="getEmplyInfoList" parameterType="String" resultType="Emply">
 		/* 사원전체 정보 조회 */
 		SELECT 
-			reg.emply_id
-			, reg.organization_code_S
-			, reg.rank_level_code
-			, reg.position_level_code
-			, reg.emply_pw
-			, reg.emply_number
-			, reg.emply_name
-			, reg.emply_birth
-			, reg.emply_account
-			, reg.emply_home_address
-			, reg.emply_home_address_zip
-			, reg.emply_home_address_detail
-			, reg.emplyment_date
-			, reg.emplyment_type
-			, reg.retire_status
-			, rl.rank_level
-			, rl.rank_name
-			, pl.position_level
-			, pl.position_name
-			, os.organization_code_L
-			, os.organization_code_M
-			, os.organization_name_L
-			, os.organization_name_M
-			, os.organization_name_S
+			t.emply_id				        as emplyId
+			, t.organization_code_S			as organizationCodeS
+			, t.rank_level_code				as rankLevelCode
+			, t.position_level_code			as positionLevelCode
+			, t.cp_representative_code		as cpRepresentativeCode
+			, t.super_admin_id				as superAdminId
+			, t.emply_pw					as emplyPw
+			, t.emply_number				as emplyNumber
+			, t.emply_name					as emplyName
+			, t.emply_birth					as emplyBirth
+			, t.emply_account				as emplyAccount
+			, t.emply_home_address			as emplyHomeAddress
+			, t.emply_home_address_zip		as emplyHomeAddressZip
+			, t.emply_home_address_detail	as emplyHomeAddressDetail
+			, t.emplyment_date				as emplymentDate
+			, t.emplyment_type				as emplymentType
+			, t.retire_status				as retireStatus
+			, t.cp_name						as cpName
+			, t.reg_date					as regDate
 		FROM 
-			tb_emply_info_reg AS reg
-			INNER join
-			tb_rank_level AS rl
-			on
-			reg.rank_level_code = rl.rank_level_code
-			INNER join
-			tb_position_level AS pl
-			on
-			reg.position_level_code = pl.position_level_code
-			INNER join
-			tb_organization_s AS os
-			on
-			reg.organization_code_S = os.organization_code_S
+			tb_emply_info_reg as t
 	</select>	
 	<select id="getEmplyInfoById" resultType="Emply" resultMap="emplyResultMap">
 		SELECT 
