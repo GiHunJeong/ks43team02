@@ -26,7 +26,7 @@ import ks43team02.service.EmplyService;
 @Controller
 @RequestMapping("/member")
 public class EmplyController {
-//	
+	
 	private static final Logger log = LoggerFactory.getLogger(EmplyController.class);
 	
 	private final EmplyService emplyService;
