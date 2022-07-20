@@ -15,15 +15,10 @@ public class WorkTime {
 	private String statusLate;
 	private String statusOutsideWork;
 	
-	public String getStatusOutsideWork() {
-		return statusOutsideWork;
-	}
-	public void setStatusOutsideWork(String statusOutsideWork) {
-		this.statusOutsideWork = statusOutsideWork;
-	}
-	private String workSettingList;
+	private WorkSettingList workSettingList;
 	
-	private String emply;
+	private Emply emply;
+	
 	@Override
 	public String toString() {
 		return "WorkTime [worktimeCumulativeCode=" + worktimeCumulativeCode + ", cpRepresentativeCode="
@@ -33,18 +28,29 @@ public class WorkTime {
 				+ workBreakTime + ", returnTime=" + returnTime + ", statusLate=" + statusLate + ", statusOutsideWork="
 				+ statusOutsideWork + ", workSettingList=" + workSettingList + ", emply=" + emply + "]";
 	}
-	public String getWorkSettingList() {
+	
+	public String getStatusOutsideWork() {
+		return statusOutsideWork;
+	}
+	public void setStatusOutsideWork(String statusOutsideWork) {
+		this.statusOutsideWork = statusOutsideWork;
+	}
+	public WorkSettingList getWorkSettingList() {
 		return workSettingList;
 	}
-	public void setWorkSettingList(String workSettingList) {
+
+	public void setWorkSettingList(WorkSettingList workSettingList) {
 		this.workSettingList = workSettingList;
 	}
-	public String getEmply() {
+
+	public Emply getEmply() {
 		return emply;
 	}
-	public void setEmply(String emply) {
+
+	public void setEmply(Emply emply) {
 		this.emply = emply;
 	}
+
 	public String getWorktimeCumulativeCode() {
 		return worktimeCumulativeCode;
 	}
