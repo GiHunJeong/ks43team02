@@ -35,6 +35,18 @@ public class PayService {
 		return result;
 	}
 	
+	// 급여등록 내역 수정처리
+	public int modifyPayAdd(PayAdd payAdd) {
+		int result = payMapper.modifyPayAdd(payAdd);
+		return result;
+	}
+	
+	// 급여등록 내역 수정페이지
+	public PayAdd getModifyInfoById(String emplyId) {
+		PayAdd payAdd = payMapper.getModifyInfoById(emplyId);
+		return payAdd;
+	}
+	
 	// 급여 등록 리스트 조회
 	public List<PayAdd> getPayAddList() {
 		List<PayAdd> payAddList = payMapper.getPayAddList();
