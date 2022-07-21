@@ -194,6 +194,15 @@
 		)
 	</insert>
 	
+	<update id="modifySalary" parameterType="PayAdd">
+		UPDATE 
+			tb_emply_info_reg
+		SET
+			emply_salary = #{basicPay}
+		WHERE 
+			emply_id = #{emplyId}
+	</update>
+	
 	<select id="getPayAddList" resultMap="payAddResultMap">
 		/* 급여등록 내역 출력 쿼리문 */
 		SELECT 

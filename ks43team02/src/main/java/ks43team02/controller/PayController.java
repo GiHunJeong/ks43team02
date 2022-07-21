@@ -75,7 +75,7 @@ public class PayController {
 		return "pay/payAddList";
 	};
 	
-	// 급여등록 내역 ajax
+	// 급여등록 내역 ajax(등록중복체크)
 	@RequestMapping(value = "/getPayAddList")
 	@ResponseBody 
 	public List<PayAdd> getPayAddListForIdCheck() { 
@@ -86,12 +86,13 @@ public class PayController {
 		return payAddListForIdCheck; 
 	};
 	
-	// 급여등록
+	// 급여등록 및 기본급 내역 수정
 	@PostMapping("/payAdd")
 	public String payAdd(PayAdd payAdd
 						,@RequestParam(name="payAddCode", required = false, defaultValue = "payAdd_Code_001") String payAddCode) {
 		log.info("------------payAdd : {}", payAdd);
 		payService.payAdd(payAdd);
+		payService.modifySalary(payAdd);
 		System.out.println(payAdd+" <- payAdd!");
 		return "redirect:/pay/payAddList";
 	};
@@ -169,19 +170,6 @@ public class PayController {
 		
 		return "pay/payAdd";
 	};
-	/*
-	 * // 급여등록페이지 사원목록 조회 ajax
-	 * 
-	 * @RequestMapping(value = "/emplyListForPayAdd")
-	 * 
-	 * @ResponseBody public List<Emply> getEmplyListForPayAdd(Model model) {
-	 * List<Emply> emplyList = payService.getEmplyListForPayAdd();
-	 * model.addAttribute("emplyList", emplyList);
-	 * 
-	 * log.info("emplyList", emplyList);
-	 * 
-	 * return emplyList; }
-	 */
 	
 	// 급여세팅값이 null일경우
 	@GetMapping("/ifPaySetNull")
