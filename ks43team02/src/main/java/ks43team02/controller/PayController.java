@@ -32,6 +32,32 @@ public class PayController {
 		this.payService = payService;
 	}
 	
+	//급여등록내역 검색
+	@PostMapping("/payAddList")
+	public String getSearchPayAddList(@RequestParam(name="searchKey") String searchKey
+									 ,@RequestParam(name="searchValue", required = false) String searchValue
+									 ,Model model) {
+		log.info("searchKey   : {}", searchKey);
+		log.info("searchValue : {}", searchValue);
+		if("emplyId".equals(searchKey)) {
+			searchKey="emply_id";
+		} else if("emplyName".equals(searchKey)) {
+			searchKey="emply_name";
+		} else if("emplyRank".equals(searchKey)) {
+			searchKey="emply_rank";
+		} else {
+			searchKey="emply_organization";
+		}
+		
+		List<PayAdd> payAddList = payService.getSearchPayAddList(searchKey, searchValue);
+		
+		if(payAddList != null) {
+			model.addAttribute("payAddList", payAddList);
+			log.info("payAddList : {}", payAddList);
+		}
+		return "pay/payAddList";
+	}
+	
 	// 급여등록내역 삭제
 	@GetMapping("/payRemove")
 	public String removePayAddList(@RequestParam(name="emplyId", required = false) String emplyId) {
@@ -44,7 +70,6 @@ public class PayController {
 	// 사원 급여등록 리스트 조회
 	@GetMapping("/payAddList")
 	public String getPayAddList(Model model) {
-		System.out.println("dddd");
 		List<PayAdd> payAddList = payService.getPayAddList();
 		model.addAttribute("payAddList", payAddList);
 		return "pay/payAddList";
