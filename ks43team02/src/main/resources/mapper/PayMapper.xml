@@ -79,12 +79,15 @@
 		<id 	column="payAdd_code" 			property="payAddCode"/>
 		<result column="emply_name" 			property="emplyName"/>
 		<result column="emply_id" 				property="emplyId"/>
+		<result column="emply_number" 			property="emplyNumber"/>
 		<result column="emply_rank" 			property="emplyRank"/>
 		<result column="emply_organization" 	property="emplyOrganization"/>
 		<result column="basic_pay" 				property="basicPay"/>
 		<result column="fixedPay_list" 			property="fixedPayList"/>
+		<result column="fixedPay_amount" 		property="fixedPayAmount"/>
 		<result column="bonus_pay" 				property="bonusPay"/>
 		<result column="deductionPay_list" 		property="deductionPayList"/>
+		<result column="deductionPay_amount" 	property="deductionPayAmount"/>
 		<result column="total_deduction" 		property="totalDeduction"/>
 		<result column="total_payment" 			property="totalPayment"/>
 		<result column="payAdd_regDate" 		property="payAddRegDate"/>
@@ -152,8 +155,6 @@
 	<select id="getPaySetForPayAdd" fetchSize="100" resultMap="paySetResultMap">
 		/* 급여세팅값 조회 */
 		SELECT 
-			paySet_date, 
-			paySet_time, 
 			fixedPay_list, 
 			fixedPay_amount,
 			deductionPay_list,
@@ -168,26 +169,32 @@
 		INSERT INTO tb_pay_payadd (
 			payAdd_code, 
 			emply_name, 
-			emply_id, 
+			emply_id,
+			emply_number, 
 			emply_rank, 
 			emply_organization, 
 			basic_pay, 
-			fixedPay_list, 
+			fixedPay_list,
+			fixedPay_amount, 
 			bonus_pay, 
-			deductionPay_list, 
+			deductionPay_list,
+			deductionPay_amount, 
 			total_deduction, 
 			total_payment, 
 			payAdd_regDate
 		) VALUES (
 			sf_payAddCode(),  
 			#{emplyName}, 
-			#{emplyId}, 
+			#{emplyId},
+			#{emplyNumber}, 
 			#{emplyRank}, 
 			#{emplyOrganization}, 
 			#{basicPay}, 
 			#{fixedPayList}, 
+			#{fixedPayAmount}, 
 			#{bonusPay}, 
 			#{deductionPayList}, 
+			#{deductionPayAmount}, 
 			#{totalDeduction}, 
 			#{totalPayment}, 
 			CURDATE()
@@ -195,6 +202,7 @@
 	</insert>
 	
 	<update id="modifySalary" parameterType="PayAdd">
+		/* 급여등록시 기본급 업데이트 */
 		UPDATE 
 			tb_emply_info_reg
 		SET
@@ -203,11 +211,35 @@
 			emply_id = #{emplyId}
 	</update>
 	
+	<select id="getModifyInfoById" resultMap="payAddResultMap">
+		/* 급여내역수정  */
+		SELECT 
+			emply_name,
+			emply_id,
+			emply_number,
+			emply_rank,
+			emply_organization, 
+			basic_pay, 
+			fixedPay_list,
+			fixedPay_amount,
+			bonus_pay,
+			deductionPay_list, 
+			deductionPay_amount,
+			total_deduction, 
+			total_payment, 
+			payAdd_regDate
+		FROM 
+			tb_pay_payadd
+		WHERE
+			emply_id = #{emplyId}
+	</select>
+	
 	<select id="getPayAddList" resultMap="payAddResultMap">
 		/* 급여등록 내역 출력 쿼리문 */
 		SELECT 
 			emply_name,
 			emply_id,
+			emply_number,
 			emply_rank,
 			emply_organization, 
 			basic_pay, 
@@ -221,6 +253,24 @@
 			tb_pay_payadd
 	</select>
 	
+	<update id="modifyPayAdd" parameterType="PayAdd">
+		/* 급여등록 내역 수정 */
+		UPDATE 
+			tb_pay_payadd
+		SET
+			basic_pay = #{basicPay},
+			fixedPay_list = #{fixedPayList},
+			fixedPay_amount = #{fixedPayAmount},
+			bonus_pay = #{bonusPay},
+			deductionPay_list = #{deductionPayList},
+			deductionPay_amount = #{deductionPayAmount},
+			total_deduction = #{totalDeduction},
+			total_payment = #{totalPayment},
+			payAdd_regDate = CURDATE()
+		WHERE
+			emply_id = #{emplyId} 
+	</update>
+	
 	<delete id="removePayAdd" parameterType="String">
 		/* 급여등록 내역 삭제 */
 		DELETE
@@ -231,7 +281,7 @@
 	</delete>
 	
 	<select id="getEmplyListForPayAdd" resultMap="emplyResultMap">
-		/* 사원정보조회 test */
+		/* 사원정보조회  */
 		SELECT
 			emply_id,
 			emply_name,
@@ -256,6 +306,7 @@
 		SELECT	
 			emply_name,
 			emply_id,
+			emply_number,
 			emply_rank,
 			emply_organization, 
 			basic_pay, 

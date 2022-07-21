@@ -16,8 +16,14 @@ public interface PayMapper {
 	//급여등록 리스트 검색
 	public List<PayAdd> getSearchPayAddList(String searchKey, String searchValue);
 	
-	//급여등록 리스트 조회
+	//급여등록 리스트 삭제
 	public int removePayAdd(String emplyId);
+	
+	//급여등록 리스트 삭제
+	public int modifyPayAdd(PayAdd payAdd);
+	
+	//급여등록 리스트 수정
+	public PayAdd getModifyInfoById(String emplyId);
 	
 	//급여등록 리스트 조회
 	public List<PayAdd> getPayAddList();
