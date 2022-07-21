@@ -23,6 +23,9 @@ public interface PayMapper {
 	public List<PayAdd> getPayAddList();
 	
 	//급여세팅 등록
+	public int modifySalary(PayAdd payAdd);
+	
+	//급여세팅 등록
 	public int payAdd(PayAdd payAdd);
 	
 	//회원목록조회

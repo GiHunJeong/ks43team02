@@ -41,6 +41,14 @@ public class PayService {
 		return payAddList;
 	}
 	
+	//기본급내역 수정
+	public int modifySalary(PayAdd payAdd) {
+		
+		int result = payMapper.modifySalary(payAdd);
+		System.out.println(payAdd+"Service!!");
+		return result;
+	}
+	
 	//급여내역 등록
 	public int payAdd(PayAdd payAdd) {
 		

@@ -14,7 +14,7 @@
 						<tr>
 							<td class="bg-primary text-white" style="text-align: center; ">사원명</td>
 							<td colspan="3">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">사원검색</button>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right; width: 100px;">사원검색</button>
 								<input type="text" name="emplyName" class="delTarget col-md-10 form-control" readonly/>
 							</td>
 						</tr>
@@ -39,9 +39,10 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="bg-primary text-white" style="text-align: center; ">기본급</td>
+							<td class="bg-primary text-white" style="text-align: center;">기본급</td>
 							<td class="delTarget" colspan="3">
-								<input type="number" name="salary" class="delTarget col-md-10 form-control" value="salary" readonly/>
+								<button type="button" class="btn btn-secondary" id="modifySalaryBtn" style="float: right; width: 100px;" disabled>입력</button>
+								<input type="text" name="salary" id="salaryInfo" class="delTarget col-md-10 form-control" readonly/>
 							</td>
 						</tr>
 					</table>
@@ -91,7 +92,7 @@
 				<tr>
 					<td>기본급여</td>
 					<td class="delTarget payCalculate">
-						<input type="text" name="basicPay" class="delTarget col-md-10 form-control" value="0" readonly/>
+						<input type="text" name="basicPay" id="basicPay" class="delTarget col-md-10 form-control" value="0" readonly/>
 					</td>
 				</tr>
 				<tr>

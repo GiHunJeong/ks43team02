@@ -1,6 +1,7 @@
 
 $(function() {
     "use strict";
+    
     /* 아이디중복검사 ajax Strat */
     var request =
 		$.ajax({
@@ -26,7 +27,6 @@ $(function() {
 			alert( "Request failed: " + textStatus );
 		});
     /* 아이디중복검사 ajax End */
-    
     
     /* 급여계산기 function Start */
     var payCirculater = function(){
@@ -73,6 +73,16 @@ $(function() {
 	};
     /* 급여계산기 function End */
 	
+	/* 기본급 수정 function Start */	
+	$(document).on('click','#modifySalaryBtn', function(){
+		var salaryInfo = $('#salaryInfo').val();
+		console.log(salaryInfo);
+		$('#basicPay').val(salaryInfo);
+		alert('기본급이 변경되었습니다.');
+		payCirculater();
+	});
+	/* 기본급 수정 function End */
+	
 	/* 사원선택 모달창 사원 미선택시 유효성검사 및 선택후 종료시 등록하기버튼  활성화 Start */
 	$(document).on('click','#closeEmplySearchModal', function(){
 		var selectEmplyStatus = $('.selectEmply')
@@ -107,9 +117,11 @@ $(function() {
 			payCirculater();
 			/* 선언한 배열에 사원정보값 순서대로 대입하기 End, 선택된 사원 기본급 값 뿌리기 End */
 			
-			/* 등록버튼 비활성화 해제 Start */
+			/* 저장하기 버튼 / 급여정보 입력 비활성화 해제 Start */
 			$('#addBtn').prop('disabled', false);
-			/* 등록버튼 비활성화 해제 End */
+			$('#salaryInfo').prop('readonly', false);
+			$('#modifySalaryBtn').prop('disabled', false);
+			/* 저장하기 버튼 / 급여정보 입력 비활성화 해제 End */
 			
 			$('#myModal').modal('hide');
 		}
