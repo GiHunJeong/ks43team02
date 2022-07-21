@@ -92,26 +92,31 @@
 	</th:block>
 
 	<th:block layout:fragment="customScript">
-	    <!-- ============================================================== -->
-	    <!-- All Jquery -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-	    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
-	    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstram.min.js}"></script>
-	    <!-- ============================================================== -->
-	    <!-- apps -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
-	    <script th:src="@{/dist/js/feather.min.js}"></script>
-	    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
-	    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
-	    <!-- ============================================================== -->
-	    <!--Custom JavaScript -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/dist/js/custom.min.js}"></script>
-	    <!-- ============================================================== -->
-	    <!--This page JavaScript -->
-	    <!-- ============================================================== -->
+	          	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+		<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+		<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+		<!-- ============================================================== -->
+		<!-- apps -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+		<script th:src="@{/dist/js/feather.min.js}"></script>
+		<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+		<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+		<!-- ============================================================== -->
+		<!--Custom JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/custom.min.js}"></script>
+		<!-- ============================================================== -->
+		<!--This page JavaScript -->
+		<!--This page plugins -->
+    	<script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+    	<script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+		<script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+		<script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
+		<!-- <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script> -->
+    
 	   <script type="text/javascript">
 			var ws;
 		
@@ -136,9 +141,9 @@
 							}
 						}else if(m.type == "message"){
 							if(m.sessionId == $("#sessionId").val()){
-								$("#chating").append("<div><span class='me'> 나 : " + m.msg + new Date().toLocaleTimeString() + "</span></div>");	
+								$("#chating").append("<div><span class='me'> 나 : " + m.msg + "[" + new Date().toLocaleTimeString() + "]" + "</span></div>");	
 							}else{
-								$("#chating").append("<div><span class='others'> 상대 : " + m.msg + new Date().toLocaleTimeString()) + "</span></div>";
+								$("#chating").append("<div><span class='others'> 상대 : " + m.msg + "[" + new Date().toLocaleTimeString() + "]" + "</span></div>");
 							}
 						}
 					}

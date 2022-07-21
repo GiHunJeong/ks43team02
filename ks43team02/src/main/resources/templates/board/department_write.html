@@ -12,7 +12,7 @@
 							<div class="card" style="-webkit-box-shadow: none;">
 								<div class="card-body">
 									<div class="card-title">
-										<form id="addBoard" th:action="@{/board/department_list}" method="post" enctype="multipart/form-data">
+										<form id="addBoard" th:action="@{/board/department_write}" method="post" enctype="multipart/form-data">
 											<table class="table table-bordered">
 												<thead>
 													<tr>
@@ -26,7 +26,7 @@
 														<td>
 															<div class="form-group row" style="display: none;">
 																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="noticeNum">게시글 번호</label>
+																	<label class="control-label" for="postNum">게시글 번호</label>
 																</div>
 																<div class="col-md-8 col-sm-8 ">
 																	<input type="text" class="form-control"
@@ -35,15 +35,15 @@
 															</div>
 															<div class="form-group row">
 																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="noticeCate">카테고리</label>
+																	<label class="control-label" for="boardCate">카테고리</label>
 																</div>
 																	<div>
-																		<select
-																			class="form-control"
-																			id="exampleFormControlSelect1" name="boardType">
-																			<option value=""> : : </option>
-																			<option value="">공지사항</option>
-																			<option value="">자유게시판</option>
+																		<select class="form-control" 
+																		id="departmentBoardCate" name="departmentCateCode">
+																			<option value="" id="departmentBoardCate"> :: 게시글 카테고리 선택 :: </option>
+																			<th:block th:if="${not #lists.isEmpty(departmentBoardCateList)}" th:each="nm : ${departmentBoardCateList}" name="departmentBoardCate">
+																			    <option id="departmentBoardCate"  th:value="${nm.departmentCateCode}">[[${nm.boardCate}]]</option>
+																			</th:block>
 																		</select>
 																	</div>
 															</div>
@@ -53,7 +53,7 @@
 																</div>
 																<div class="col-md-10 col-sm-8 ">
 																	<input type="text" class="form-control"
-																	 name="noticeTitle">
+																	 name="postTitle">
 																</div>
 															</div>
 															<div class="form-group row">
@@ -62,7 +62,7 @@
 																</div>
 																<div class="col-md-5 col-sm-3 ">
 																	<input type="text" class="form-control" readonly="readonly"
-																	 name="noticeDate">
+																	 name="postDate">
 																</div>
 															</div>
 															<div class="form-group row" style="display: none;">
@@ -71,7 +71,7 @@
 																</div>
 																<div class="col-md-3 col-sm-3 ">
 																	<input type="number" class="form-control" readonly="readonly"
-																	 name="" >
+																	 name="postViewCnt" >
 																</div>
 															</div>
 															<div class="form-group row">
@@ -79,7 +79,7 @@
 																	<label class="control-label" for="noticeContent">내용</label>
 																</div>
 																<div class="col-md-10 col-sm-8 ">
-																	<textarea class="form-control" rows="15" name="noticeContent"></textarea>
+																	<textarea class="form-control" rows="15" name="postContents"></textarea>
 																</div>
 															</div>
 														</td>
@@ -89,10 +89,10 @@
 														<td>
 															<div class="form-group row">
 																<div class="col-md-2 col-sm-2">
-																	<label class="control-label">첨부파일</label>
+																	<label class="control-label" for="attachFile">첨부파일</label>
 																</div>
 																<div class="col-md-6 col-sm-6 ">
-																	<input type="file">
+																	<input name="fileImage" id="attachFile" type="file" multiple="multiple">
 																</div>
 															</div>
 														</td>

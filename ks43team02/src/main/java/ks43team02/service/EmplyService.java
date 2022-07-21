@@ -10,6 +10,7 @@ import ks43team02.dto.Emply;
 import ks43team02.dto.OrganizationLList;
 import ks43team02.dto.OrganizationMList;
 import ks43team02.dto.OrganizationSList;
+import ks43team02.dto.PositionLevelList;
 import ks43team02.dto.RankLevelList;
 import ks43team02.mapper.EmplyMapper;
 
@@ -29,8 +30,42 @@ public class EmplyService {
 	/*
 	 * 유저 프로필 사진 업로드
 	 */
+	/*
+	 * 어드민 사원 정보 삭제
+	 */
+	public int adminDelEmply(String emplyId) {
+		int result = emplyMapper.adminDelEmply(emplyId);
+		return result;
+	}
+	/*
+	 * 포지션리스트조회
+	 */
+	public List<PositionLevelList> getPositionLevelList() {
+		List<PositionLevelList> positionLevelList = emplyMapper.getPositionLevelList();
+		return positionLevelList;
+	}
+	/*
+	 * 랭크리스트조회
+	 */
+	public List<RankLevelList> getRankLevelList() {
+		List<RankLevelList> rankLevelList = emplyMapper.getRankLevelList();
+		return rankLevelList;
+	}
+	/*
+	 * 관리자 사원정보 수정
+	 */
+	public int adminModifyEmply(Emply emply) {
+		int result = emplyMapper.adminModifyEmply(emply);
+		return result;
+	}
 	
-
+	/*
+	 * 사원 개인정보 수정
+	 */
+	public int modifyEmply(Emply emply) {
+		int result = emplyMapper.modifyEmply(emply);
+		return result;
+	}
 	
 	/*
 	 * 조직도 소분류 에이작스

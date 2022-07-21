@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ks43team02.mapper.AnnualSettingMapper">
+ 	<resultMap type="AnnualStandard" id="AnnualStResultMap">
+		<id column="annual_standard_code" 				property="annualStandardCode"/>
+		<result column="cp_representative_code" 		property="cpRepresentativeCode"/>
+		<result column="super_admin_id" 				property="superAdminId"/>
+		<result column="year" 							property="year"/>
+		<result column="annual_get_day" 				property="annualGetDay"/>
+	</resultMap>
+
+	<resultMap type="AnnualSetting" id="AnnualSettingMap">
+  		<result column="annual_setting_code"		property="annualSettingCode"/>
+  		<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
+  		<result column="super_admin_id" 			property="superAdminId"/>
+		<result column="annual_standard_code" 		property="annualStandardCode"/>
+  		<result column="emply_id" 					property="emplyId"/>
+ 		<result column="year" 						property="year"/>
+  		<result column="cp_name" 					property="cpName"/>
+  		<result column="reg_date" 					property="regDate"/>
+	</resultMap>
+	
+	 	<select id="getAnnualApplication" parameterType="String" resultMap="AnnualSettingMap">
+ 		/* 연차세팅 */
+		SELECT
+			annual_setting_code
+			,cp_representative_code
+			,super_admin_id
+			,annual_standard_code
+			,emply_id
+			,year
+			,cp_name
+			,reg_date
+		FROM
+			tb_annual_setting
+	</select>
+
+</mapper>

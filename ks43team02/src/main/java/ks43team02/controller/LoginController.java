@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,35 +64,40 @@ public class LoginController {
 		return "login/admin_login";
 	}
 	
-	//회원 상세정보 조회
+	//사원 로그인
 	@PostMapping("/login/login")
 	public String login(@RequestParam(name="emplyId", required = false) String emplyId
 					   ,@RequestParam(name="emplyPw", required = false) String emplyPw
-					   ,HttpSession session) {
+					   ,HttpSession session
+					   ,Model model) {
 		log.info("이메일 : {}", emplyId);
 		log.info("사원비밀번호 : {}", emplyPw);
 		
 		Emply emply = emplyService.getEmplyInfoById(emplyId);
+		String loginMsg = "";
 		
 		if(emply != null) {
 			String 
 				emplyPwCheck = emply.getEmplyPw();
 			if(emplyPw != null && emplyPw.equals(emplyPwCheck)) {
 				//사원
+				loginMsg = "로그인에 성공하셨습니다.";
+				model.addAttribute("loginSuccessMsg", loginMsg);
 				session.setAttribute("SEMAIL"		, emplyId);
-				if(emply.getRankLevelCode() == null) {
-					session.setAttribute("SRANKNAME"	, "직급미입력");
-					session.setAttribute("SPOSITION"	, "포지션없음");
-					session.setAttribute("SNAME"		, emply.getEmplyName());
-					return "redirect:/";
-				}
 				session.setAttribute("SRANKNAME"	, emply.getRankLevelList().getRankName());
 				session.setAttribute("SPOSITION"	, emply.getPositionLevelCode());
 				session.setAttribute("SNAME"		, emply.getEmplyName());
 				return "redirect:/";
+			}else{
+				loginMsg = "비밀밀번호가 틀렸습니다.";
+				model.addAttribute("loginFailedMsgPw", loginMsg);
+				return "login/login";
 			}
+		}else {
+			loginMsg = "아이디가 틀렸거나 존재하지 않습니다.";
+			model.addAttribute("loginFailedMsgId", loginMsg);
+			return "login/login";
 		}
-		return "login/login";
 	}
 	//로그인 화면 이동
 	@GetMapping("/login/login")

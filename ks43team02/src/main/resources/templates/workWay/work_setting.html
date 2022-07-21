@@ -8,103 +8,55 @@
 <body>
 <!-- 사용자 정의 contents -->
 <th:block layout:fragment="customContents">
-	<!-- 출퇴근 시간찍히는 곳 -->
-	    <!-- <div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Password</h4>
-                    <form class="mt-5">
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="passtext" placeholder="Password">
-                            
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
-            <div class="card">
-				<div class="card-body">
-				<!-- 비밀번호가 일치할때 내용들이 활성화된다. -->
-				<h4 class="card-title">비밀번호 확인</h4>
-				<form class="mt-3">
-				    <label class="form-control-label" for="inputSuccess1">비밀번호를 확인해 주세요.</label>
-				    <input type="text" class="form-control is-valid" id="inputSuccess1">
-				    <div class="valid-feedback">
-				        Success! You've done it.
-				    </div>
-	          	 </form>
-				<form th:action="@{/workWay/work_setting}" method="get" class="mt-4">
-				    <div class="form-group mb-4">
-						<h4 class="card-title">근무설정</h4>
-				        <label for="exampleFormControlSelect1" style="width:100%;">근무제선택</label>
-						<select  class="form-control col-10" id="workSysName123fd2fe" style="float:left;">
-						<th:block  th:if="${not #lists.isEmpty(list3)}" th:each="l : ${list3}">
-							<option th:text="${l.worksystemName}"></option>
-						    	<!-- <option th:each="l:${list}" th:text="${l}"></option> -->
-								<!-- <option name="5일근무제" value="date5">5일근무제</option>
-								<option value="4일근무제">4일근무제</option>
-								<option value="유연근무제">유연근무제</option>
-								<option value="5일근무제">4</option>
-								<option value="5일근무제">5</option> -->
-		                    </th:block>
-	                   	</select>
-						<button type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
-						<div class="collapse" id="collapseExample">
-							<div class="card formgroup" style="padding:1em 0;">
-							    <input id="worksystemName" name="worksystemName" type="text" placeholder="근무제 명을 입력해주세요.">
-							    <button id="addWorksysNameBtn" type="submit" value="확인" class="btn btn-primary">확인</button>
-							</div>
-						</div>
-	                 </div>
-          			<div id="result2"></div>
-				</form>
-					<form id="dayCheck">
-					  <div class="form-group">
-					  	<label>근무요일선택</label>
-					    <div class="form-check form-check-inline">
-						  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="일" onclick="getCheckboxValue()">일
-						  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="월" onclick="getCheckboxValue()">월
-						  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="화" onclick="getCheckboxValue()">화
-						  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="수" onclick="getCheckboxValue()">수
-						  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="목" onclick="getCheckboxValue()">목
-						  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="금" onclick="getCheckboxValue()">금
-				  		  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="토" onclick="getCheckboxValue()">토
-						  <!-- <label class="form-check-label" for="inlineCheckbox1">일</label> -->
-						</div>
-						
-						<div id="result"></div>
-						<!-- <div id ="result" class="alert alert-primary alert-dismissible bg-primary text-white border-0 fade show" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                  <span aria-hidden="true">×</span>
-                              </button>
-                        </div> -->
-					  </div>
-					</form>
-					<form>
-						<p>
-							시작시간 : <input type="time"  value="09:00:00">
-							종료시간 :<input type="time" value="18:00:00">
-							휴게시간 :<input type="time" value="01:00:00">
-						</p>
-					</form>
-				  <div class="form-group row">
-				    <div class="col-sm-10">
-				    	<a th:href="@{/workWay/work_setting_list}">
-				    	  <button type="submit" class="btn btn-primary">Sign in</button>
-				    	</a>
-				    </div>
-				  </div>
-                </div>
-            </div>
-    <!-- <form>
-		<input type="checkbox" name="test">aa
-		<input type="checkbox" name="test">aa
-		<input type="checkbox" name="test">aa
-		<input type="checkbox" name="test">aa
-		<input type="checkbox" name="test">aa
-		<input type="submit" value="전송">
-	</form> -->
-	
+<div class="card">
+	<div class="card-body">
+		<!-- 비밀번호가 일치할때 내용들이 활성화된다. -->
+		<h4 class="card-title">비밀번호 확인</h4>
+		    <label class="form-control-label" for="inputSuccess1">비밀번호를 확인해 주세요.</label>
+		    <input type="text" class="form-control is-valid" id="inputSuccess1">
+		    <div class="valid-feedback">
+		        Success! You've done it.
+		    </div>
+		<form id="workSettingSendForm" method="post" th:action="@{/workWay/work_setting}" class="mt-4">
+			<h4 class="card-title">근무설정</h4>
+			<div class="form-group mb-1">
+		      	<label style="width:100%;">근무제선택</label>
+				<select class="test form-control col-10" name="standardWorkCode" style="float:left;">
+					<th:block th:if="${not #lists.isEmpty(workSetting)}" th:each="l : ${workSetting}">
+						<option th:value="${l.standardWorkCode}">[[${l.worksystemName}]]</option>
+					</th:block>
+	           	</select>
+				<button id="plusBtn" type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
+				<div class="collapse" id="collapseExample">
+					<div class="card formgroup" style="padding:1em 0;">
+					    <input id="worksystemName" name="worksystemName" type="text" placeholder="근무제 명을 입력해주세요.">
+					    <button type="submit" class="btn btn-primary">확인</button><!-- id="addWorkSystem" -->
+					</div>
+				</div>
+			</div>
+			<div id="dayCheck" class="form-group">
+				<label>근무요일선택</label>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sun" onclick="getCheckboxValue()">일
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="mon" onclick="getCheckboxValue()">월
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="tue" onclick="getCheckboxValue()">화
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="wen" onclick="getCheckboxValue()">수
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="thr" onclick="getCheckboxValue()">목
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="fri" onclick="getCheckboxValue()">금
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sat" onclick="getCheckboxValue()">토
+					<!-- <label class="form-check-label" for="inlineCheckbox1">일</label> -->
+				</div>
+			</div>
+			<div id="result"></div>
+			<div>
+				시작시간 : <input id="workTimeSet1" type="time" name="workStartTime">
+				종료시간 : <input id="workTimeSet2" type="time" name="workEndTime">
+				휴게시간 : <input id="workTimeSet3" type="time" name="breakTime">
+			</div>
+  	 	 	<button id="allSubmitBtn" type="button" class="btn btn-primary mt-3">양식보내기</button>
+		</form>
+	    </div>
+	</div>
 </th:block>	
 
 <th:block layout:fragment="customScript">
@@ -127,51 +79,35 @@
     <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
     <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
     <script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
-    <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
-    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
-    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
-    <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
 	
-	<script type="text/javascript">
-		
-	
-		function getCheckboxValue(){
-			const query = "input[name='dayCheck']:checked";
-			const selectedEls = document.querySelectorAll(query);
-			let result = '';
-			selectedEls.forEach((el) =>{
-				result += el.value + '';
-			});
-			document.getElementById('result').innerText = result;
-			}
-				
-		
-		var selectOption = document.getElementById("")
-		//console.log(test);
-		$("input[type='checkbox']").on("click", function(){
-			let count = $("input:checked[type='checkbox']").length;
-				if(count > 3){
-					$(this).prop('checked', false);
-					alert("3개");
+	<script>
+		$(function() {	
+			$(document).on('click', '#allSubmitBtn',function(){
+				var 
+					workSettingSendForm = $('#workSettingSendForm')
+				   ,workTimeSet1 = $('#workTimeSet1').val()
+				   ,workTimeSet2 = $('#workTimeSet2').val()
+				   ,workTimeSet3 = $('#workTimeSet3').val();
+				console.log(workTimeSet1);
+				console.log(workTimeSet2);
+				console.log(workTimeSet3);
+				if(workTimeSet1 == '' || workTimeSet2 == '' || workTimeSet3 == '') {
+					alert('시간을 입력해 주세요.');
+				}else{
+					workSettingSendForm.submit();
 				}
 			});
-		
-		$("option[value='workSystem']").on("selected", function(){
-			$(option).addClass("selected");
-		});
-		
-		/* 근무제 선택에 따른 인서트 */
-		
 	
-		
-		/* 근무제 선택에 따른 인서트 */
-		
-		/* function getWorkSystemValue(){
-			const query = "option[value='workSystem']:select";
-			const selectedEls = document.querySelectorAll(query);
-			let result2 ='';
-			document.getElementById('result2').innerText = result2;
-		} */
+			$('#plusBtn').click( function() {
+				if( $(this).html() == '추가하기' ) {
+					$(this).html('취소');
+					$(this).attr('class','btn waves-effect waves-light btn-danger  col-2');
+				} else {
+					$(this).html('추가하기');
+					$(this).attr('class','btn btn-primary col-2');
+				}
+			});
+		});
 	</script>
 	
 </th:block>

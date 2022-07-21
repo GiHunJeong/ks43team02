@@ -59,6 +59,7 @@ $(function(){
 				if(isEmailCheck){
 					$('input[name="emplyId"]').attr('class','form-control is-valid');
 					$('input[name="emplyId"]').val(emplyId);
+					$('#signUp').prop('disabled',false);
 				}else{
 					$('input[name="emplyId"]').attr('class','form-control is-invalid');
 					$('input[name="emplyId"]').attr('placeholder','이미 사용중인 아이디 입니다.');
@@ -116,6 +117,25 @@ $(function(){
 		return false;
 	}
 	/* 패스워드 유효성 검사 끝 */
+	
+	
+	
+	/* 나머지 유효성 검사 */
+	function validationCheckBasic(data){
+		/*var 
+		    number = data.search(/[0-9]/g)
+		    ,english = data.search(/[a-z]/ig)
+		    ,spece = data.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi)
+			,reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;*/
+		if(typeof data == 'undefined' || data == null || data == '' || data == 'Choose...') {
+			$('#signUp').attr('data-target', '#info-alert-modal');
+			return true;
+		}
+		$('#signUp').attr('data-target', '');
+		return false;
+	}
+	/* 나머지 유효성 끝 */
+	
 	/* 유효성검사 패스워드*/
 	$(document).on('blur', 'input[name="emplyPw"]', function(){
 		var 
@@ -134,6 +154,7 @@ $(function(){
 			checkFailed  = 0;
 			if(emplyPw == emplyPwCheck && checkFailed == 0) {
 				$('input[name="emplyPwCheck"]').attr('class','form-control is-valid');
+				$('#signUp').prop('disabled',false);
 			}
 		}
 	});
@@ -147,14 +168,35 @@ $(function(){
 			$('input[name="emplyPwCheck"]').attr('class','form-control is-invalid');
 		}else{
 			$('input[name="emplyPwCheck"]').attr('class','form-control is-valid');
+			$('#signUp').prop('disabled',false);
 			checkFailed  = 0;
 		}
 	});
 	/* 유효성검사 패스워드확인 */
-	/* 패스워드확인끝 */	
+	$(document).on('click', '#signUp', function(){
+		var
+		   emplyName = $('input[name="emplyName"]').val()
+		   ,emplyNumber = $('input[name="emplyNumber"]').val()
+		   ,emplyBirth = $('input[name="emplyBirth"]').val()
+		   ,emplyHomeAddressZip = $('input[name="emplyHomeAddressZip"]').val()
+		   ,emplyHomeAddress = $('input[name="emplyHomeAddress"]').val()
+		   ,emplyHomeAddressDetail = $('input[name="emplyHomeAddressDetail"]').val()
+		   ,emplyAccount = $('input[name="emplyAccount"]').val()
+		   ,organizationCodeS = $('#organiS option:selected').val()
+		   ,signUpForm = $('#signUpForm');
+		console.log('눌렀다.');
+		if(validationCheckBasic(emplyName) 		  || validationCheckBasic(emplyNumber)			 ||
+		   validationCheckBasic(emplyBirth) 	  || validationCheckBasic(emplyHomeAddressZip) 	 ||
+		   validationCheckBasic(emplyHomeAddress) || validationCheckBasic(emplyHomeAddressDetail)||
+		   validationCheckBasic(emplyAccount)	  || validationCheckBasic(organizationCodeS)) {
+			return false;
+		}else{
+			signUpForm.submit();
+		}
+	});
 	
 	/* 다시 패스워드 패스워드 확인창을 선택했을시 */
-	/*$(document).on('focus', '#emplyId', function(){
+	$(document).on('focus', '#emplyId', function(){
 		$('#signUp').prop('disabled',true);
 		$('#emplyId').val('');
 	});
@@ -165,7 +207,7 @@ $(function(){
 	$(document).on('focus', '#emplyPwCheck', function(){
 		$('#signUp').prop('disabled',true);
 		$('#emplyPwCheck').val('');
-	});*/
+	});
 	/* 다시 패스워드 패스워드 확인창을 선택했을시 */
 	
 	/* 부서 리스트 뿌리기 */

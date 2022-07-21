@@ -1,0 +1,249 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+<!-- th:replace="경로 :: 조각이름" -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
+    <!-- This page plugin CSS -->
+    <link href="assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+	<style rel="stylesheet" type="text/css">
+		.boxbox{display: inline-flex;width: max-content;}
+		.table-responsive{overflow-x:scroll !important; font-size:0.8rem;}
+		.line-clear{display:inline-grid}
+		.card-position{position:relative;}
+		.btn-position{position:absolute; top:25px; right:25px;}
+		.tableClean{width:max-content; display:inline-flex;}
+	</style>
+	<!-- 출퇴근 시간찍히는 곳 -->
+<div class="row">
+	<div class="card" >
+		<div class="card-body">
+			<div class="col-lg-12 ">
+		    <!-- order table -->
+				<h4 class="card-title">근무제 기본세팅</h4>
+				<h6 class="card-subtitle">회사별 세팅되어져 있는 근무제 값을 확인할 수 있다.</h6>
+				<div class="btn-position">
+				<a class="btn btn-primary" type="button" th:href="@{/workWay/work_setting}">추가</a>
+				</div>
+					<div class="table-responsive" >
+						<table class="table">
+							<thead>
+								<tr>
+									<th nowrap>근태코드</th>
+									<th nowrap>회사코드</th>
+									<th nowrap>회사명</th>
+									<th nowrap>관리자 ID</th>
+									<th nowrap>근무제코드</th>
+									<th nowrap>근무제명</th>
+									<th nowrap>근태방식코드</th>
+									<th nowrap>근태방식명</th>
+									<th nowrap>근무요일</th>
+									<th nowrap>출근시간</th>
+									<th nowrap>퇴근시간</th>
+									<th nowrap>휴게시간</th>
+									<!-- <th>슈퍼 관리자 Id</th> -->
+									<th nowrap>등록자</th>
+									<th nowrap>등록일</th>
+									<th nowrap>수정</th>
+									<th nowrap>삭제</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${not #lists.isEmpty(workSettingList)}" th:each="l : ${workSettingList}">
+									<td nowrap th:text="${l.standardWorksystemCpCode}"></td>
+									<td nowrap th:text="${l.cpRepresentativeCode}"></td>
+									<td nowrap th:text="${l.cpName}"></td>
+									<td nowrap th:text="${l.superAdminId}"></td>
+									<td nowrap th:text="${l.standardWorkCode}"></td>
+									<td nowrap th:text="${l.workSystem.worksystemName}"></td>
+									<td th:text="${l.WorkWay.workwayCode}"></td>
+									<td th:text="${l.WorkWay.workwayName}"></td>
+									<td th:text="${l.dayCheck}"></td>
+									<td th:text="${l.workStartTime}"></td>
+									<td th:text="${l.workEndTime}"></td>
+									<td th:text="${l.breakTime}"></td>
+									<!--<td th:text="${l.superAdminId}"></td> -->
+									<td th:text="${l.workSystem.regUser}"></td>
+									<td nowrap th:text="${l.regDate}"></td>
+									<td nowrap>
+										<a class="btn waves-effect waves-light btn-success" type="button"
+											th:href="@{/workWay/work_setting_info_modify(standardWorksystemCpCode = ${l.standardWorksystemCpCode}
+											, standardWorkCode = ${l.standardWorkCode}
+											, dayCheck = ${l.dayCheck})}" >
+											수정
+										</a>
+									</td>
+									<td nowrap>
+										<a class="btn waves-effect waves-light btn-danger" type="button" 
+										   th:href="@{/workWay/work_setting_list_del(standardWorksystemCpCode=${l.standardWorksystemCpCode})}">
+										      삭제
+										</a>
+									</td>
+								</tr>							
+							</tbody>
+						</table>
+		             </div><!-- table-responsive -->
+	             </div><!-- col-lg-12 -->
+		         </div><!-- cardbody -->
+		    </div><!-- card -->
+		</div><!-- row -->
+<!-- order table -->
+<div class="card">
+	<div class="card-body">
+      <h4 class="card-title">근무제 기본세팅</h4>
+      <h6 class="card-subtitle">회사별 세팅되어져 있는 근무제 값을 확인할 수 있다.</h6>
+      <div class="table-responsive">
+          <div id="default_order_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="default_order_length"><label>Show <select name="default_order_length" aria-controls="default_order" class="form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="default_order_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="default_order"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="default_order" class="table table-striped table-bordered display no-wrap dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="default_order_info">
+            <thead>
+                <tr role="row"><th class="sorting" tabindex="0" aria-controls="default_order" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 96px;">Name</th><th class="sorting" tabindex="0" aria-controls="default_order" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 157px;">Position</th><th class="sorting" tabindex="0" aria-controls="default_order" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 101px;">Office</th><th class="sorting_desc" tabindex="0" aria-controls="default_order" rowspan="1" colspan="1" aria-sort="descending" aria-label="Age: activate to sort column ascending" style="width: 36px;">Age</th><th class="sorting" tabindex="0" aria-controls="default_order" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 88px;">Start date</th><th class="sorting" tabindex="0" aria-controls="default_order" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 66px;">Salary</th></tr>
+            </thead>
+			<tbody>
+				<tr role="row" class="odd">
+					<td nowrap>근태코드</td>
+					<td nowrap>회사코드</td>
+					<td nowrap>회사명</td>
+					<td nowrap>관리자 ID</td>
+					<td nowrap>근무제코드</td>
+					<td nowrap>근무제명</td>
+					<td nowrap>근태방식코드</td>
+					<td nowrap>근태방식명</td>
+					<td nowrap>근무요일</td>
+					<td nowrap>출근시간</td>
+					<td nowrap>퇴근시간</td>
+					<td nowrap>휴게시간</td>
+					<!-- <td>슈퍼 관리자 Id</td> -->
+					<td nowrap>등록자</td>
+					<td nowrap>등록일</td>
+					<td nowrap>수정</td>
+					<td nowrap>삭제</td>
+				</tr>
+				<tr th:if="${not #lists.isEmpty(workSettingList)}" th:each="l : ${workSettingList}">
+					<td nowrap th:text="${l.standardWorksystemCpCode}"></td>
+					<td nowrap th:text="${l.cpRepresentativeCode}"></td>
+					<td nowrap th:text="${l.cpName}"></td>
+					<td nowrap th:text="${l.superAdminId}"></td>
+					<td nowrap th:text="${l.standardWorkCode}"></td>
+					<td nowrap th:text="${l.workSystem.worksystemName}"></td>
+					<td th:text="${l.WorkWay.workwayCode}"></td>
+					<td th:text="${l.WorkWay.workwayName}"></td>
+					<td th:text="${l.dayCheck}"></td>
+					<td th:text="${l.workStartTime}"></td>
+					<td th:text="${l.workEndTime}"></td>
+					<td th:text="${l.breakTime}"></td>
+					<!--<td th:text="${l.superAdminId}"></td> -->
+					<td th:text="${l.workSystem.regUser}"></td>
+					<td nowrap th:text="${l.regDate}"></td>
+					<td nowrap>
+						<a class="btn waves-effect waves-light btn-success" type="button"
+							th:href="@{/workWay/work_setting_info_modify(standardWorksystemCpCode = ${l.standardWorksystemCpCode}
+							, standardWorkCode = ${l.standardWorkCode}
+							, dayCheck = ${l.dayCheck})}" >
+							수정
+						</a>
+					</td>
+					<td nowrap>
+						<a class="btn waves-effect waves-light btn-danger" type="button" 
+						   th:href="@{/workWay/work_setting_list_del(standardWorksystemCpCode=${l.standardWorksystemCpCode})}">
+						      삭제
+						</a>
+					</td>
+				</tr>
+			</tbody>
+          </table>
+          </div>
+          </div>
+          <div class="row">
+          <div class="col-sm-12 col-md-5">
+          <div class="dataTables_info" id="default_order_info" role="status" aria-live="polite">Showing 1 to 1 of 1 entries</div>
+          </div>
+          <div class="col-sm-12 col-md-7">
+          <div class="dataTables_paginate paging_simple_numbers" id="default_order_paginate">
+          <ul class="pagination">
+          <li class="paginate_button page-item previous disabled" id="default_order_previous">
+          <a href="#" aria-controls="default_order" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+          </li>
+          <li class="paginate_button page-item active">
+          <a href="#" aria-controls="default_order" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+          </li>
+          <li class="paginate_button page-item next disabled" id="default_order_next">
+          <a href="#" aria-controls="default_order" data-dt-idx="2" tabindex="0" class="page-link">Next</a>
+          </li>
+          </ul>
+          </div>
+          </div>
+          </div><!-- row --><!-- paging -->
+          </div><!-- default_order_wrapper -->
+      </div>
+  </div>
+</div>
+	
+<!-- multi-column ordering -->
+                 <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script src="dist/js/app-style-switcher.js"></script>
+    <script src="dist/js/feather.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <!-- themejs -->
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+    <!--This page plugins -->
+    <script src="assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="dist/js/pages/datatable/datatable-basic.init.js"></script>
+</th:block>
+ 
+
+<th:block layout:fragment="customScript">   
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+    <script th:src="@{/dist/js/feather.min.js}"></script>
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!--This page JavaScript -->
+    <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
+    <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>   
+    
+    
+</th:block>
+

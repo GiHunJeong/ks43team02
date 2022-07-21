@@ -1,10 +1,13 @@
 package ks43team02.dto;
 
-public class WorkSetting {
+public class WorkSystem {
 	private String standardWorkCode;
+	private String cpRepresentativeCode;
+	private String superAdminId;
 	private String worksystemName;
 	private String regUser;
 	private String regDate;
+	
 	public String getStandardWorkCode() {
 		return standardWorkCode;
 	}
@@ -13,6 +16,18 @@ public class WorkSetting {
 	}
 	public String getWorksystemName() {
 		return worksystemName;
+	}
+	public String getCpRepresentativeCode() {
+		return cpRepresentativeCode;
+	}
+	public void setCpRepresentativeCode(String cpRepresentativeCode) {
+		this.cpRepresentativeCode = cpRepresentativeCode;
+	}
+	public String getSuperAdminId() {
+		return superAdminId;
+	}
+	public void setSuperAdminId(String superAdminId) {
+		this.superAdminId = superAdminId;
 	}
 	public void setWorksystemName(String worksystemName) {
 		this.worksystemName = worksystemName;
@@ -31,8 +46,9 @@ public class WorkSetting {
 	}
 	@Override
 	public String toString() {
-		return "WorkSetting [standardWorkCode=" + standardWorkCode + ", worksystemName=" + worksystemName + ", regUser="
-				+ regUser + ", regDate=" + regDate + "]";
+		return "WorkSystem [standardWorkCode=" + standardWorkCode + ", cpRepresentativeCode=" + cpRepresentativeCode
+				+ ", superAdminId=" + superAdminId + ", worksystemName=" + worksystemName + ", regUser=" + regUser
+				+ ", regDate=" + regDate + "]";
 	}
 	
 	

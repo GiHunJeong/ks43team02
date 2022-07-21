@@ -2,6 +2,8 @@ package ks43team02.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,11 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team02.dto.Emply;
 import ks43team02.dto.OrganizationLList;
 import ks43team02.dto.OrganizationMList;
 import ks43team02.dto.OrganizationSList;
+import ks43team02.dto.PositionLevelList;
+import ks43team02.dto.RankLevelList;
 import ks43team02.service.EmplyService;
 
 @Controller
@@ -28,6 +33,44 @@ public class EmplyController {
 	
 	public EmplyController(EmplyService emplyService) {
 		this.emplyService = emplyService;
+	}
+	//어드민 사원 정보 삭제
+	@GetMapping("/emply_del_all")
+	public String adminDelEmply(@RequestParam(name="emplyId", required=false) String emplyId) {
+		log.info("가져온 emplyId 값 : {}", emplyId);
+		emplyService.adminDelEmply(emplyId);
+		return "redirect:/member/emply_list";
+	}
+	//전체사원 선택 수정
+	@PostMapping("/emply_modify_all")
+	public String adminModifyEmply(Emply emply) {
+		emplyService.adminModifyEmply(emply);
+		log.info("수정화면에서 입력받은 emply : {}", emply);
+		return "redirect:/member/emply_list";
+	}
+	//전체사원수정 페이지
+	@GetMapping("/emply_modify_all")
+	public String emplyModifyAll(@RequestParam(name="emplyId", required=false) String emplyId
+								,Model model) {
+		Emply emply = emplyService.getEmplyInfoById(emplyId);
+		List<OrganizationLList> organiLList = emplyService.getOrganiLList();
+		List<PositionLevelList> positionLevelList = emplyService.getPositionLevelList();
+		List<RankLevelList> rankLevelList = emplyService.getRankLevelList();
+		log.info("담기는 emplyId 값 : {}",emplyId);
+		log.info("담기는 emply 값 : {}",emply);
+		log.info("담기는 organiLList 값 : {}", organiLList);
+		log.info("담기는 positionLevelList 값 : {}", positionLevelList);
+		log.info("담기는 rankLevelList 값 : {}", rankLevelList);
+		model.addAttribute("emply",emply);
+		model.addAttribute("organiLList", organiLList);
+		model.addAttribute("positionLevelList",positionLevelList);
+		model.addAttribute("rankLevelList",rankLevelList);
+		return "member/emply_modify_all";
+	}
+	//수정취소
+	@GetMapping("/modifyCancel")
+	public String modifyCancel() {
+		return "redirect:/";
 	}
 	//조직도 소분류
 	@GetMapping("/organizationSName")
@@ -49,10 +92,25 @@ public class EmplyController {
 		return organiMName;
 	}
 	//조직도 대분류
+	//개인정보수정
+	@PostMapping("/emply_modify_my")
+	public String emplyModify(Emply emply
+							 ,RedirectAttributes attr) {
+		log.info("수정화면에서 입력받은 emply : {}", emply);
+		log.info("수정화면에서 입력받은 emplyId : {}",emply.getEmplyId());
+		emplyService.modifyEmply(emply);
+		attr.addAttribute("emplyId", emply.getEmplyId());
 
-	//사원 개인정보수정
+		return "redirect:/member/emply_modify_my";
+	}
+	//개인정보수정 페이지 이동
 	@GetMapping("/emply_modify_my")
-	public String emplyModifyMy() {
+	public String emplyModifyMy(@RequestParam(name="emplyId", required = false) String emplyId
+			   				   ,Model model) {
+		log.info("화면에서 입력받은 emplyId: {}", emplyId);
+		Emply emply = emplyService.getEmplyInfoById(emplyId);
+		
+		model.addAttribute("emply", emply);
 		return "member/emply_modify_my";
 	}
 	//회원전체조회

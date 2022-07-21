@@ -92,21 +92,23 @@
 													<tr>
 													<th scope="row">첨부파일</th>
 														<td>
-															<div class="form-group row">
-																<div class="col-md-2 col-sm-2">
-																	<label class="control-label">첨부파일</label>
+															<th:block  th:if="${not #lists.isEmpty(departmentDetail.file)}" th:each="t : ${departmentDetail.file}">	
+																<div class="form-group row">
+																	<div class="col-md-2 col-sm-2">
+																		<label class="control-label" for="departmentFile">파일</label>
+																	</div>
+																	<div class="col-md-6 col-sm-6 ">
+																		<a th:text="${t.attachFileOriginalName}" th:href="@{/board/file/download(attachFileCode=${t.attachFileCode})}"></a>
+																	</div>
 																</div>
-																<div class="col-md-6 col-sm-6 ">
-																	<input type="file">
-																</div>
-															</div>
+															</th:block>
 														</td>
 													</tr>
 												</tbody>
 											</table>
 											<div class="form-group">
 												<div class="col-md-8 col-sm-8  offset-md-4">
-													 <button type="submit" class="btn btn-primary">뒤로가기</button>
+													 <a class="btn btn-primary" href="javascript:history.back(-1)">뒤로가기</a>
 												</div>
 											</div>
 										</form>

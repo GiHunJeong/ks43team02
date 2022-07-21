@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team02.mapper.WorkTimeMapper">
+	<resultMap type="WorkTime" id="WorkTimeResultMap">
+		<id column="worktime_cumulative_code"			property="worktimeCumulativeCode"/>
+		<result column="cp_representative_code"			property="cpRepresentativeCode"/>
+		<result column="standard_worksystem_cp_code"	property="standardWorksystemCpCode"/>
+		<result column="workway_code"					property="workwayCode"/>
+		<result column="emply_id"						property="emplyId"/>
+		<result column="emply_name"						property="emplyName"/>
+		<result column="work_date"						property="workDate"/>
+		<result column="work_start_time"				property="workStartTime"/>
+		<result column="work_end_time"					property="workEndTime"/>
+		<result column="work_break_time"				property="workBreakTime"/>
+		<result column="return_time"					property="returnTime"/>
+		<result column="status_late"					property="statusLate"/>
+		<result column="status_outside_work"			property="statusOutsideWork"/>
+			<collection property="workSettingList"  		ofType="WorkSettingList">
+				<id column="standard_worksystem_cp_code"	property="standardWorksystemCpCode"/>
+			</collection>
+			<collection property="emply"  		ofType="Emply">
+				<id column="emply_id"			property="emplyId"/>
+			</collection>
+	</resultMap>
+	<select id="getWorkTimeEmplyName" resultType="WorkTime">
+		/* 사원별 일일 출퇴근 누적 전체 가져오기 */
+		SELECT
+		wc.worktime_cumulative_code				as worktimeCumulativeCode
+			,wc.cp_representative_code			as cpRepresentativeCode
+			,wc.standard_worksystem_cp_code		as standardWorksystemCpCode
+			,wc.workway_code					as workwayCode
+			,wc.emply_id						as emplyId
+			,wc.emply_name						as emplyName
+			,wc.work_date						as workDate
+			,wc.work_start_time					as workStartTime
+			,wc.work_end_time					as workEndTime
+			,wc.work_break_time					as workBreakTime
+			,wc.return_time						as returnTime
+			,wc.status_late						as statusLate
+			,wc.status_outside_work				as statusOutsideWork
+		FROM 
+			tb_standard_worksystem_cp AS sw
+		INNER JOIN 
+			tb_worktime_cumulative AS  wc	
+		ON 
+			wc.cp_representative_code = sw.cp_representative_code
+		INNER JOIN 
+			tb_emply_info_reg AS ei
+		ON 
+			wc.emply_id = ei.emply_id
+		WHERE
+			ei.emply_id = #{emplyId}
+		GROUP BY 
+			wc.worktime_cumulative_code;
+
+	</select>
+	<select id="getWorkTimeList" parameterType="String" resultMap="WorkTimeResultMap">
+		SELECT
+			wc.worktime_cumulative_code			as worktimeCumulativeCode
+			,wc.cp_representative_code			as cpRepresentativeCode
+			,wc.standard_worksystem_cp_code		as standardWorksystemCpCode
+			,wc.workway_code					as workwayCode
+			,wc.emply_id						as emplyId
+			,wc.emply_name						as emplyName
+			,wc.work_date						as workDate
+			,wc.work_start_time					as workStartTime
+			,wc.work_end_time					as workEndTime
+			,wc.work_break_time					as workBreakTime
+			,wc.return_time						as returnTime
+			,wc.status_late						as statusLate
+			,wc.status_outside_work				as statusOutsideWork
+		FROM
+		tb_worktime_cumulative AS wc
+		inner JOIN 
+		tb_standard_worksystem_cp AS sw
+		WHERE
+			wc.standard_worksystem_cp_code = sw.standard_worksystem_cp_code;
+	</select>
+	<select id="getStartCount" parameterType="String" resultMap="WorkTimeResultMap">
+		/*회원 한명의 출근 횟수 카운트*/
+		SELECT 
+			COUNT(wc.worktime_cumulative_code) as worktime_cumulative_code
+		from
+			tb_worktime_cumulative AS wc
+		where
+			wc.emply_id = #{emplyId}
+			AND 
+			MONTH(wc.work_date) = MONTH(CURDATE());
+	</select>
+	<select id="getLateCount" parameterType="String" resultMap="WorkTimeResultMap">
+		/*회원 한명의 지각 횟수 카운트*/
+		SELECT 
+			count(case when wc.status_late=1 then 1 END) AS status_late
+			from 
+				tb_worktime_cumulative AS wc
+			where
+				wc.emply_id = #{emplyId};
+	</select>
+	<select id="getOutWorkCount" parameterType="String" resultMap="WorkTimeResultMap">
+		/*회원 한명의 외근 횟수 카운트*/
+		SELECT 
+			count(case when wc.status_outside_work=1 then 1 END) AS status_outside_work
+			from 
+				tb_worktime_cumulative AS wc
+			where
+				wc.emply_id = #{emplyId};
+	</select>
+	<insert id="addWorkTimeCumulative" parameterType="WorkTime">
+		INSERT 
+		INTO 
+			tb_worktime_cumulative
+			(
+			worktime_cumulative_code
+			, cp_representative_code
+			, standard_worksystem_cp_code
+			, workway_code
+			, emply_id
+			, emply_name
+			, work_date
+			, work_start_time
+			, work_end_time
+			, work_break_time
+			, return_time
+			, status_late
+			, status_outside_work
+			)
+			VALUES (
+			(SELECT CONCAT('worktime_cumulative_code_',(SELECT(Max(cast(SUBSTRING_INDEX(worktime_cumulative_code,'_',-1) AS UNSIGNED)) +1)
+		               from
+		               tb_worktime_cumulative AS  wc))) 
+			, #{cpRepresentativeCode}		
+			, #{standardWorksystemCpCode}	
+			, #{workwayCode}			
+			, #{emplyId}			
+			, #{emplyName}							
+			, #{workDate}								
+			, #{workStartTime}								
+			, #{workEndTime}									
+			, #{workBreakTime}								
+			, #{returnTime}									
+			, #{statusLate}									
+			, #{statusOutsideWork}										
+			);
+	</insert>
+</mapper>

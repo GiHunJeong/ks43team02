@@ -67,13 +67,14 @@
                                         <!-- Message -->
                                         <a href="javascript:void(0)"
                                             class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                            <div class="btn btn-danger rounded-circle btn-circle"><i
-                                                    data-feather="airplay" class="text-white"></i></div>
+                                            <div class="btn btn-danger rounded-circle btn-circle">
+                                            <i data-feather="airplay" class="text-white"></i>
+                                            </div>
                                             <div class="w-75 d-inline-block v-middle pl-2">
                                                 <h6 class="message-title mb-0 mt-1">Luanch Admin</h6>
-                                                <span class="font-12 text-nowrap d-block text-muted">Just see
-                                                    the my new
-                                                    admin!</span>
+                                                <span class="font-12 text-nowrap d-block text-muted">
+                                                Just see the my new admin!
+                                                </span>
                                                 <span class="font-12 text-nowrap d-block text-muted">9:30 AM</span>
                                             </div>
                                         </a>
@@ -184,22 +185,24 @@
                             <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
                                 width="40">
                             <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                    class="text-dark">You need login.</span> <i data-feather="chevron-down"
+                                    class="text-dark">You need login.(!정기훈)</span> <i data-feather="chevron-down"
                                     class="svg-icon"></i></span>
                         </a>
                         <a class="nav-link dropdown-toggle" th:unless="${session.SEMAIL == null}" href="javascript:void(0)" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
                                 width="40">
-                            <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                    class="text-dark">[[${session.SNAME}]] 사원</span> <i data-feather="chevron-down"
+                            <span class="ml-2 d-none d-lg-inline-block"> <span
+                                    class="text-dark"><span class="badge badge-pill badge-dark">
+                                    [[${session.SRANKNAME}]]</span>  [[${session.SNAME}]]님 로그인</span> <i data-feather="chevron-down"
                                     class="svg-icon"></i></span>
                         </a>
+                        <!-- class="alert alert-dark bg-dark text-white border-0 mb-0" -->
                         <!-- 로그인 비로그인 상태창 시작 -->                      
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:if="${session.SEMAIL == null}">        
                             <a class="dropdown-item" th:href="@{/login/login}"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Login</a>
+                                Login(!정기훈)</a>
                             <div class="dropdown-divider"></div>                        
                         </div>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:unless="${session.SEMAIL == null}">        
@@ -213,13 +216,13 @@
                                     class="svg-icon mr-2 ml-1"></i>
                                 Inbox</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
+                            <a class="dropdown-item" th:href="@{/member/emply_modify_my}"><i data-feather="settings"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Account Setting</a>
+                                Account Setting(!정기훈)</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/logout}"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Logout</a>
+                                Logout(!정기훈)</a>
                             <div class="dropdown-divider"></div>
                             <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
                                     Profile</a></div>                        

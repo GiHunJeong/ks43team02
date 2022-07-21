@@ -9,7 +9,7 @@
 
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">
-		<div class="card">
+		<!-- <div class="card">
 			<div class="card-body">
 			
 			    <div class="input-group" id="adv-search">
@@ -27,7 +27,7 @@
 		    	</div>
 			
 			</div>
-		</div>
+		</div> -->
 		
 		<div class="card">
 			<div class="card-body">
@@ -46,8 +46,8 @@
 			                </tr>
 						</thead>
 						<tbody>
-							<tr th:if="${not #lists.isEmpty(departmentBoardList)}" th:each="l : ${departmentBoardList}">
-								<td th:text="${l.departmentPostCode}"></td>
+							<tr th:if="${not #lists.isEmpty(departmentPagingList)}" th:each="l : ${departmentPagingList}">
+								<td th:text="${l.departmentIdx}"></td>
 								<td th:text="${l.departmentCate}"></td>
 								<td><a th:href="@{/board/department_detail(departmentPostCode=${l.departmentPostCode})}"
 									   th:text="${l.postTitle}"></a></td>
@@ -55,33 +55,47 @@
 								<td th:text="${l.regDate}"></td>
 								<td th:text="${l.viewCnt}"></td>
 							</tr>
+							<tr th:unless="${not #lists.isEmpty(departmentBoardList)}">
+								<td colspan="6">조회된 내용이 없습니다.</td>
+							</tr>
 						</tbody>
-			            <!--/* 게시글 리스트 Rendering 영역 */-->
-
+<!-- 						<tfoot>
+							<tr>
+								<td colspan="6" style="text-align: center;">
+								
+									<a th:href="@{/board/department_list}">[맨처음]</a>
+									<a th:if="${currentPage > 1}" th:href="@{/board/department_list(currentPage=${currentPage - 1})}">[이전]</a>
+									<th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+										<label th:if="${currentPage eq num}" th:text="${(num < 10) ? '[0' + num + ']' :'[' + num + ']'}"></label>
+										<a th:unless="${currentPage eq num}" th:href="@{/board/department_list(currentPage=${num})}" th:text="${(num < 10) ? '[0' + num + ']' :'[' + num + ']'}"></a>
+									</th:block>
+									
+									<a th:if="${currentPage < lastPage}" th:href="@{/board/department_list(currentPage=${currentPage + 1})}">[다음]</a>
+									<a th:href="@{/board/department_list(currentPage=${lastPage})}">[마지막]</a>
+								</td>
+							</tr>
+						</tfoot> -->
+			
 			        </table>
 			    </div>
 		    
+			<div class="col-lg-12 text-center">
+				<div class="pagination_option">
+					<a th:href="@{/board/department_list}">[맨처음]</a>
+					<a th:if="${currentPage > 1}" th:href="@{/board/department_list(currentPage=${currentPage - 1})}"><i class="fa fa-angle-left"></i></a>
+					<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
+						<label th:if="${currentPage eq num}" th:text="${(num<10) ? '0' + num  :  num }"></label>
+						<a th:unless="${currentPage eq num}" th:href="@{/board/department_list(currentPage=${num})}" th:text="${(num<10) ? '0' + num  :  num }"></a>
+					</th:block>
+					<a th:if="${currentPage < lastPage}" th:href="@{/board/department_list(currentPage=${currentPage + 1})}"><i class="fa fa-angle-right"></i></a>
+					<a th:href="@{/board/department_list(currentPage=${lastPage})}">[마지막]</a>
+				</div>
+			</div>
 		    
-		       <div class="btn_wrap text-right">
-		       		<a class="btn btn-primary " href="department_write" role="button">글쓰기</a>
-		       </div>
-		
-		       <!-- 페이지네이션 Rendering 영역 -->
-		        <nav aria-label="Page navigation">
-					<!-- <ul class="pagination">
-					    <li class="page-item"><a class="page-link"
-					            href="javascript:void(0)">이전</a></li>
-					    <li class="page-item"><a class="page-link"
-					            href="javascript:void(0)">1</a></li>
-					    <li class="page-item"><a class="page-link"
-					            href="javascript:void(0)">2</a></li>
-					    <li class="page-item"><a class="page-link"
-					            href="javascript:void(0)">3</a></li>
-					    <li class="page-item"><a class="page-link"
-					            href="javascript:void(0)">다음</a></li> -->
-					</ul>
-				</nav>
-		       
+			<div class="btn_wrap text-right">
+				<a class="btn btn-primary " href="department_write" role="button">글쓰기</a>
+			</div>       
+			
 			</div>
 		</div>
     </th:block>

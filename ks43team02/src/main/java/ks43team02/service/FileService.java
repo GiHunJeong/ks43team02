@@ -1,6 +1,8 @@
 package ks43team02.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,14 +25,28 @@ public class FileService {
 		this.fileMapper = fileMapper;
 	}
 	
-	public void fileUpload(MultipartFile[] uploadfile, String fileRealPath) {
+	public List<String> fileUpload(MultipartFile[] uploadfile, String fileRealPath) {
 		
 		List<FileDto> fileList= fileUtil.parseFileInfo(uploadfile, fileRealPath);
-		
-		System.out.println(fileList);
-		
-		if(fileList != null) fileMapper.addFiles(fileList);
-		
+		List<String> filePathList = new ArrayList<String>(); 
+		for(int i=0; i<fileList.size();i++)
+		{
+			filePathList.add(fileList.get(i).getAttachFilePath());
+		}
+		if(fileList != null) fileMapper.addFile(fileList);
+		return filePathList;
 	}
-
+	
+	public int addFileControl(List<Map<String,String>> addFileControlList) {
+		fileMapper.addFileControl(addFileControlList);
+		return 0;
+	};
+	
+	public List<FileDto> getFileList(){
+		return fileMapper.getFileList();
+	}
+	
+	public FileDto getFileInfoByIdx(String attachFileCode) {
+		return fileMapper.getFileInfoByIdx(attachFileCode);
+	}
 }

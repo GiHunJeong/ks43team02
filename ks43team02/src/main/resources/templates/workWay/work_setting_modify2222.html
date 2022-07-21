@@ -1,0 +1,116 @@
+<!DOCTYPE html><!-- 출퇴근관리정리 -->
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+<!-- th:replace="경로 :: 조각이름" -->
+
+<head th:replace="fragments/head :: headFragment"></head>
+<body>
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+<div class="card">
+	<div class="card-body">
+		<!-- 비밀번호가 일치할때 내용들이 활성화된다. -->
+		<h4 class="card-title">비밀번호 확인</h4>
+		    <label class="form-control-label" for="inputSuccess1">비밀번호를 확인해 주세요.</label>
+		    <input type="text" class="form-control is-valid" id="inputSuccess1">
+		    <div class="valid-feedback">
+		        Success! You've done it.
+		    </div>
+		<form id="workSettingSendForm" method="post" th:action="@{/workWay/work_setting}" class="mt-4">
+			<h4 class="card-title">근무설정</h4>
+			<div class="form-group mb-1">
+		      	<label style="width:100%;">근무제선택</label>
+				<th:block th:if="${not #lists.isEmpty(workSetting)}">
+           			<input th:text="${standardWorkCode}">[[${worksystemName}]]
+				</th:block>
+				<button id="plusBtn" type="button" class="btn btn-primary col-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">추가하기</button>
+				<div class="collapse" id="collapseExample">
+					<div class="card formgroup" style="padding:1em 0;">
+					    <input id="worksystemName" name="worksystemName" type="text" placeholder="근무제 명을 입력해주세요.">
+					    <button type="submit" class="btn btn-primary">확인</button><!-- id="addWorkSystem" -->
+					</div>
+				</div>
+			</div>
+			<div id="dayCheck" class="form-group">
+				<label>근무요일선택</label>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sun" onclick="getCheckboxValue()">일
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="mon" onclick="getCheckboxValue()">월
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="tue" onclick="getCheckboxValue()">화
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="wen" onclick="getCheckboxValue()">수
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="thr" onclick="getCheckboxValue()">목
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="fri" onclick="getCheckboxValue()">금
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sat" onclick="getCheckboxValue()">토
+					<!-- <label class="form-check-label" for="inlineCheckbox1">일</label> -->
+				</div>
+			</div>
+			<div id="result"></div>
+			
+			<div>
+				시작시간 : <input id="workTimeSet1" type="time" name="workStartTime">
+				종료시간 : <input id="workTimeSet2" type="time" name="workEndTime">
+				휴게시간 : <input id="workTimeSet3" type="time" name="breakTime">
+			</div>
+  	 	 	<button id="allSubmitBtn" type="button" class="btn btn-primary mt-3">수정하기</button>
+		</form>
+	    </div>
+	</div>
+</th:block>	
+
+<th:block layout:fragment="customScript">
+	
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+    <script th:src="@{/dist/js/feather.min.js}"></script>
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!--This page JavaScript -->
+    <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
+    <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
+    <script th:src="@{/dist/js/pages/dashboards/dashboard1.min.js}"></script>	
+	
+	<script>
+		$(function() {	
+			$(document).on('click', '#allSubmitBtn',function(){
+				var 
+					workSettingSendForm = $('#workSettingSendForm')
+				   ,workTimeSet1 = $('#workTimeSet1').val()
+				   ,workTimeSet2 = $('#workTimeSet2').val()
+				   ,workTimeSet3 = $('#workTimeSet3').val();
+				console.log(workTimeSet1);
+				console.log(workTimeSet2);
+				console.log(workTimeSet3);
+				if(workTimeSet1 == '' || workTimeSet2 == '' || workTimeSet3 == '') {
+					alert('시간을 입력해 주세요.');
+				}else{
+					workSettingSendForm.submit();
+				}
+			});
+	
+			$('#plusBtn').click( function() {
+				if( $(this).html() == '추가하기' ) {
+					$(this).html('취소');
+					$(this).attr('class','btn waves-effect waves-light btn-danger  col-2');
+				} else {
+					$(this).html('추가하기');
+					$(this).attr('class','btn btn-primary col-2');
+				}
+			});
+		});
+	</script>
+	
+</th:block>

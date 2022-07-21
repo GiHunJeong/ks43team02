@@ -9,6 +9,7 @@
 	    <!-- Tell the browser to be responsive to screen width -->
 	    <!-- ============================================================== -->
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	    <!-- ============================================================== -->
@@ -26,52 +27,61 @@
 
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">
+	<style>
+			html, body {
+		  margin: 0;
+		  padding: 0;
+		  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		  font-size: 14px;
+		}
+		
+		#calendar {
+		  max-width: 900px;
+		  margin: 40px auto;
+		}
+	</style>
 	    <!-- ============================================================== -->
 	    <!-- Container fluid  -->
 	    <!-- ============================================================== -->
 	    <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="">
-                        <div class="row">
-                            <div class="col-lg-3 border-right pr-0">
-                                <div class="card-body border-bottom">
-                                    <h4 class="card-title mt-2">Drag & Drop Event</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div id="calendar-events" class="">
-                                                <div class="calendar-events mb-3" data-class="bg-info"><i
-                                                        class="fa fa-circle text-info mr-2"></i>Event One</div>
-                                                <div class="calendar-events mb-3" data-class="bg-success"><i
-                                                        class="fa fa-circle text-success mr-2"></i> Event Two
-                                                </div>
-                                                <div class="calendar-events mb-3" data-class="bg-danger"><i
-                                                        class="fa fa-circle text-danger mr-2"></i>Event Three
-                                                </div>
-                                                <div class="calendar-events mb-3" data-class="bg-warning"><i
-                                                        class="fa fa-circle text-warning mr-2"></i>Event Four
-                                                </div>
-                                            </div>
-                                            <!-- checkbox -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="drop-remove">
-                                                <label class="custom-control-label" for="drop-remove">Remove
-                                                    after drop</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-9">
-                                <div class="card-body b-l calender-sidebar">
-                                    <div id="calendar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+	                      <div class="row">
+	                          <div class="col-lg-3 border-right pr-0">
+	                              <div class="card-body">
+	                                  <h4 class="card-title mt-2">Drag & Drop Event</h4>
+	                                  <div class="row">
+	                                      <div class="col-md-12">
+	                                          <div id="calendar-events" class="">
+	                                              <div class="calendar-events mb-3" data-class="bg-info">
+	                                              	<i class="fa fa-circle text-info mr-2"></i>
+	                                              	Event One
+	
+	                                              </div>
+	                                              <div class="calendar-events mb-3" data-class="bg-success">
+	                                              	<i class="fa fa-circle text-success mr-2"></i>
+	                                              	Event Two
+	                                              </div>
+	                                              <div class="calendar-events mb-3" data-class="bg-danger">
+	                                              	<i  class="fa fa-circle text-danger mr-2"></i>
+	                                              	Event Three
+	                                              </div>
+	                                              <div class="calendar-events mb-3" data-class="bg-warning">
+	                                              <i class="fa fa-circle text-warning mr-2"></i>
+	                                              Event Four
+	                                              </div>
+	                                          </div>
+	                                          <!-- checkbox -->
+	                                          <div class="custom-control custom-checkbox">
+	                                              <input type="checkbox" class="custom-control-input" id="drop-remove">
+	                                              <label class="custom-control-label" for="drop-remove">Remove after drop</label>
+	                                          </div>
+	                                      </div>
+	                                  </div>
+	                              </div>
+	                          </div>
+                   		<div id="calendar" class="col-lg-9"></div>
+					</div>
                 </div>
             </div>
         </div>
@@ -81,29 +91,50 @@
 	</th:block>
 	<th:block layout:fragment="customScript">
 		<!-- ============================================================== -->
-	    <!-- All Jquery -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-	    <script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
-	    <script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
-	    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
-	    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
-	    <!-- ============================================================== -->
-	    <!-- apps -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
-	    <script th:src="@{/dist/js/feather.min.js}"></script>
-	    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
-	    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
-	    <!-- ============================================================== -->
-	    <!--Custom JavaScript -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/dist/js/custom.min.js}"></script>
-	    <!-- ============================================================== -->
-	    <!--This page JavaScript -->
-	    <!-- ============================================================== -->
-	    <script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
-	    <script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
-	    <script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+		<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+		<!-- ============================================================== -->
+		<!-- apps -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+		<script th:src="@{/dist/js/feather.min.js}"></script>
+		<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+		<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+		<!-- ============================================================== -->
+		<!--Custom JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/custom.min.js}"></script>
+		<!-- ============================================================== -->
+		<!--This page JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+		<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+		<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
 	</th:block>
+<script type="text/javascript">
+$(function() {
+
+	  $('#calendar').fullCalendar({
+	    selectable: true,
+	    header: {
+	      left: 'prev,next today',
+	      center: 'title',
+	      right: 'month,agendaWeek,agendaDay'
+	    },
+	    dayClick: function(date) {
+	      alert('clicked ' + date.format());
+	    },
+	    select: function(startDate, endDate) {
+	      alert('selected ' + startDate.format() + ' to ' + endDate.format());
+	    }
+	  });
+
+	});
+</script>
+	
 </html>

@@ -67,13 +67,14 @@
                                         <!-- Message -->
                                         <a href="javascript:void(0)"
                                             class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                            <div class="btn btn-danger rounded-circle btn-circle"><i
-                                                    data-feather="airplay" class="text-white"></i></div>
+                                            <div class="btn btn-danger rounded-circle btn-circle">
+                                            <i data-feather="airplay" class="text-white"></i>
+                                            </div>
                                             <div class="w-75 d-inline-block v-middle pl-2">
                                                 <h6 class="message-title mb-0 mt-1">Luanch Admin</h6>
-                                                <span class="font-12 text-nowrap d-block text-muted">Just see
-                                                    the my new
-                                                    admin!</span>
+                                                <span class="font-12 text-nowrap d-block text-muted">
+                                                Just see the my new admin!
+                                                </span>
                                                 <span class="font-12 text-nowrap d-block text-muted">9:30 AM</span>
                                             </div>
                                         </a>
@@ -215,7 +216,7 @@
                                     class="svg-icon mr-2 ml-1"></i>
                                 Inbox</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/member/emply_modify_my}"><i data-feather="settings"
+                            <a class="dropdown-item" th:href="@{/member/emply_modify_my(emplyId=${session.SEMAIL})}"><i data-feather="settings"
                                     class="svg-icon mr-2 ml-1"></i>
                                 Account Setting(!정기훈)</a>
                             <div class="dropdown-divider"></div>

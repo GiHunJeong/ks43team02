@@ -13,14 +13,44 @@ public class WorkTime {
 	private String workBreakTime;
 	private String returnTime;
 	private String statusLate;
+	private String statusOutsideWork;
+	
+	private WorkSettingList workSettingList;
+	
+	private Emply emply;
+	
 	@Override
 	public String toString() {
 		return "WorkTime [worktimeCumulativeCode=" + worktimeCumulativeCode + ", cpRepresentativeCode="
 				+ cpRepresentativeCode + ", standardWorksystemCpCode=" + standardWorksystemCpCode + ", workwayCode="
 				+ workwayCode + ", emplyId=" + emplyId + ", emplyName=" + emplyName + ", workDate=" + workDate
 				+ ", workStartTime=" + workStartTime + ", workEndTime=" + workEndTime + ", workBreakTime="
-				+ workBreakTime + ", returnTime=" + returnTime + ", statusLate=" + statusLate + "]";
+				+ workBreakTime + ", returnTime=" + returnTime + ", statusLate=" + statusLate + ", statusOutsideWork="
+				+ statusOutsideWork + ", workSettingList=" + workSettingList + ", emply=" + emply + "]";
 	}
+	
+	public String getStatusOutsideWork() {
+		return statusOutsideWork;
+	}
+	public void setStatusOutsideWork(String statusOutsideWork) {
+		this.statusOutsideWork = statusOutsideWork;
+	}
+	public WorkSettingList getWorkSettingList() {
+		return workSettingList;
+	}
+
+	public void setWorkSettingList(WorkSettingList workSettingList) {
+		this.workSettingList = workSettingList;
+	}
+
+	public Emply getEmply() {
+		return emply;
+	}
+
+	public void setEmply(Emply emply) {
+		this.emply = emply;
+	}
+
 	public String getWorktimeCumulativeCode() {
 		return worktimeCumulativeCode;
 	}
