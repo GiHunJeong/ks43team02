@@ -53,7 +53,7 @@
 					</tr>
 					<tr>
 						<th class="col-md-4" style="text-align: center;">자동이체 시간</th>
-						<th><input  class="col-md-12" type="time" id="paySetTime" name="paySetTime"></th>
+						<th><input  class="col-md-12 form-control" type="time" id="paySetTime" name="paySetTime"></th>
 					</tr>
 				</table>
 				</div>
@@ -61,7 +61,7 @@
 			<!-- 추가버튼 클릭시 모달실행하여 db상에있는 기준테이블 선택하여 추가할수 있게하기 -->
 			<!-- 기본테이블은 식대만 존재, 추가시 열 추가되게끔 -->
 			<!-- 추가부분은 모달 > 리스트불러와서 선택 -->
-			<button type="button" id="fixedModify" class="btn btn-outline-primary" data-toggle="modal" data-target="#fixedMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
+			<button type="button" id="fixedModify" class="btn btn btn-secondary" data-toggle="modal" data-target="#fixedMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
 			<br><br>
 			<div class="card">
 				<div class="card-body">
@@ -80,7 +80,7 @@
 			
 			<!-- 추가버튼 클릭시 모달실행하여 db상에있는 기준테이블 선택하여 추가할수 있게하기 -->
 			<!-- 기본테이블은 소득세만 존재, 추가시 열 추가되게끔 -->
-			<button type="button" id="deductionModify" class="btn btn-outline-primary" data-toggle="modal" data-target="#deduceMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
+			<button type="button" id="deductionModify" class="btn btn btn-secondary" data-toggle="modal" data-target="#deduceMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
 			<br><br>
 			<div class="card">
 				<div class="card-body">
@@ -162,12 +162,43 @@
 			</div><!-- /.modal-dialog -->
 		</div>
 		<!-- 공제액 모달 End -->
-		
-		<th:block layout:fragment="customJs">
-			<script type="text/javascript" th:src="@{/dist/js/jquery-3.6.0.min.js}"></script>
-        	<script type="text/javascript" th:src="@{/dist/js/addPaySet.js}"></script>
-		</th:block>
-		
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+		<script th:src="@{/dist/js/addPaySet.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+		<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+		<!-- ============================================================== -->
+		<!-- apps -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+		<script th:src="@{/dist/js/feather.min.js}"></script>
+		<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+		<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+		<!-- ============================================================== -->
+		<!--Custom JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/custom.min.js}"></script>
+		<!-- ============================================================== -->
+		<!--This page JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+		<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+		<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+	    <!-- 확인 -->
+	    <!-- Bootstrap tether Core JavaScript -->
+	    
+	    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+	    
+	    <!--This page plugins -->
+	    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
 	</th:block>
 
 </html>

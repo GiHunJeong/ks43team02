@@ -13,6 +13,9 @@ import ks43team02.dto.PaySet;
 @Mapper
 public interface PayMapper {
 	
+	//급여등록 리스트 검색
+	public List<PayAdd> getSearchPayAddList(String searchKey, String searchValue);
+	
 	//급여등록 리스트 조회
 	public int removePayAdd(String emplyId);
 	

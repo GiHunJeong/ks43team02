@@ -15,40 +15,40 @@
 							<td class="bg-primary text-white" style="text-align: center; ">사원명</td>
 							<td colspan="3">
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">사원검색</button>
-								<input type="text" name="emplyName" class="delTarget col-md-10" readonly/>
+								<input type="text" name="emplyName" class="delTarget col-md-10 form-control" readonly/>
 							</td>
 						</tr>
 						<tr>
 							<td class="bg-primary text-white" style="text-align: center;">사원아이디</td>
 							<td>
-								<input type="text" name="emplyId" class="delTarget col-md-12" readonly/>
+								<input type="text" name="emplyId" class="delTarget col-md-12 form-control" readonly/>
 							</td>
 							<td class="bg-primary text-white" style="text-align: center;">사원번호</td>
 							<td>
-								<input type="text" name="emplyNumber" class="delTarget col-md-12" readonly/>
+								<input type="text" name="emplyNumber" class="delTarget col-md-12 form-control" readonly/>
 							</td>
 						</tr>
 						<tr>
 							<td class="bg-primary text-white" style="text-align: center;">부서</td>
 							<td>
-								<input type="text" name="emplyOrganization" class="delTarget col-md-12" readonly/>
+								<input type="text" name="emplyOrganization" class="delTarget col-md-12 form-control" readonly/>
 							</td>
 							<td class="bg-primary text-white" style="text-align: center;">직급</td>
 							<td>
-								<input type="text" name="emplyRank" class="delTarget col-md-12" readonly/>
+								<input type="text" name="emplyRank" class="delTarget col-md-12 form-control" readonly/>
 							</td>
 						</tr>
 						<tr>
 							<td class="bg-primary text-white" style="text-align: center; ">기본급</td>
 							<td class="delTarget" colspan="3">
-								<input type="number" name="salary" class="delTarget col-md-10" value="salary" readonly/> 원
+								<input type="number" name="salary" class="delTarget col-md-10 form-control" value="salary" readonly/>
 							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<!-- 고정지급급 세팅정보 -->
-			<button type="button" id="fixedModify" class="btn btn-outline-primary" data-toggle="modal" data-target="#fixedMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
+			<button type="button" id="fixedModify" class="btn btn btn-secondary" data-toggle="modal" data-target="#fixedMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
 			<table id="fixedPayList" class="table table-bordered">
 				<tr>
 					<td class="bg-primary text-white col-md-8">고정지급급여 항목</td>
@@ -66,7 +66,7 @@
 			</table>
 			
 			<!-- 공제액 세팅정보 -->
-			<button type="button" id="deductionModify" class="btn btn-outline-primary" data-toggle="modal" data-target="#deduceMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
+			<button type="button" id="deductionModify" class="btn btn btn-secondary" data-toggle="modal" data-target="#deduceMyModal" style="float: right; margin-bottom: 10px;">항목 수정</button>
 			<table id="deducePayList" class="table table-bordered">
 				<tr>
 					<td class="bg-primary text-white col-md-8">공제액 항목</td>
@@ -91,25 +91,25 @@
 				<tr>
 					<td>기본급여</td>
 					<td class="delTarget payCalculate">
-						<input type="text" name="basicPay" class="delTarget col-md-10" value="0" readonly/> 원
+						<input type="text" name="basicPay" class="delTarget col-md-10 form-control" value="0" readonly/>
 					</td>
 				</tr>
 				<tr>
 					<td>추가급여</td>
 					<td class="delTarget payCalculate">
-						<input type="number" name="bonusPay" class="delTarget col-md-10" value="0" readonly/> 원
+						<input type="number" name="bonusPay" class="delTarget col-md-10 form-control" value="0" readonly/>
 					</td>
 				</tr>
 				<tr>
 					<td>공제액</td>
 					<td class="delTarget payCalculate">
-						<input type="number" name="totalDeduction" class="delTarget col-md-10" value="0" readonly/> 원
+						<input type="number" name="totalDeduction" class="delTarget col-md-10 form-control" value="0" readonly/>
 					</td>
 				</tr>
 				<tr>
 					<td>급여</td>
 					<td class="delTarget payCalculate">
-						<input type="number" name="totalPayment" class="delTarget col-md-10" value="0" readonly/> 원
+						<input type="number" name="totalPayment" class="delTarget col-md-10 form-control" value="0" readonly/> 
 					</td>
 				</tr>
 			</table>
@@ -247,39 +247,39 @@
 	</th:block>
 	
 	<th:block layout:fragment="customScript">
-			
-	    <!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-	<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
-	<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
-	<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
-	<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
-	<!-- ============================================================== -->
-	<!-- apps -->
-	<!-- ============================================================== -->
-	<script th:src="@{/dist/js/app-style-switcher.js}"></script>
-	<script th:src="@{/dist/js/feather.min.js}"></script>
-	<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
-	<script th:src="@{/dist/js/sidebarmenu.js}"></script>
-	<!-- ============================================================== -->
-	<!--Custom JavaScript -->
-	<!-- ============================================================== -->
-	<script th:src="@{/dist/js/custom.min.js}"></script>
-	<!-- ============================================================== -->
-	<!--This page JavaScript -->
-	<!-- ============================================================== -->
-	<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
-	<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
-	<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
-    <!-- 확인 -->
-    <!-- Bootstrap tether Core JavaScript -->
-    
-    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
-    
-    <!--This page plugins -->
-    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+		<script th:src="@{/dist/js/payAdd.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+		<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+		<!-- ============================================================== -->
+		<!-- apps -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+		<script th:src="@{/dist/js/feather.min.js}"></script>
+		<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+		<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+		<!-- ============================================================== -->
+		<!--Custom JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/custom.min.js}"></script>
+		<!-- ============================================================== -->
+		<!--This page JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+		<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+		<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+	    <!-- 확인 -->
+	    <!-- Bootstrap tether Core JavaScript -->
+	    
+	    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+	    
+	    <!--This page plugins -->
+	    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
 	</th:block>
 

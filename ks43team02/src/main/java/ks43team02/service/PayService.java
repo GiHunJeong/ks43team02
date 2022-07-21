@@ -22,6 +22,12 @@ public class PayService {
 		this.payMapper = payMapper;
 	}
 	
+	// 급여등록 내역 검색
+	public List<PayAdd> getSearchPayAddList(String searchKey, String searchValue) {
+		List<PayAdd> searchPayAddList = payMapper.getSearchPayAddList(searchKey, searchValue);
+		return searchPayAddList;
+	}
+	
 	// 급여등록 내역 삭제
 	public int removePayAdd(String emplyId) {
 		int result = payMapper.removePayAdd(emplyId);
