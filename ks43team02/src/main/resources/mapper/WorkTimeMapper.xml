@@ -98,6 +98,17 @@
 			where
 				wc.emply_id = #{emplyId};
 	</select>
+	<select id="getlateList" parameterType="String" resultMap="WorkTimeResultMap">
+		SELECT
+		*
+		FROM
+			tb_worktime_cumulative AS wc
+		WHERE 
+			wc.emply_id = #{emplyId}
+			and
+			wc.work_start_time > '00:09:00'
+			GROUP BY wc.worktime_cumulative_code;
+	</select>
 	<select id="getOutWorkCount" parameterType="String" resultMap="WorkTimeResultMap">
 		/*회원 한명의 외근 횟수 카운트*/
 		SELECT 

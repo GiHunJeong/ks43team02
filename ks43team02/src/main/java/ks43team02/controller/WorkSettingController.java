@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team02.dto.WorkSettingList;
 import ks43team02.dto.WorkSystem;
+import ks43team02.dto.WorkWay;
 import ks43team02.service.WorkSettingService;
 
 @Controller
@@ -65,10 +66,12 @@ public class WorkSettingController{
 	log.info("화면에서 입력받은 dayCheck :{}", dayCheck);
 	
 	List<WorkSettingList> workSettingList = workSettingService.getModifySetting(standardWorksystemCpCode);
-	
 	model.addAttribute("workSettingList", workSettingList);
 	List<WorkSystem> workSetting = workSettingService.getWorkSystem();
+	List<WorkWay> workWay = workSettingService.getWorkWay();
+	model.addAttribute("workWay", workWay);
 	log.info("workSetting에 담기는 값 {} : ", workSetting);
+	log.info("workWay에 담기는 값 {} : ", workWay);
 
 	model.addAttribute("workSetting", workSetting);
 	
