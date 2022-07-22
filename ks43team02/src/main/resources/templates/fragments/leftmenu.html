@@ -68,12 +68,14 @@
                  <!-- 문 서 관 리 시 작 -->
                  <li class="sidebar-item">
                  	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                 	<i data-feather="file-text" class="feather-icon"></i>
-                 	  <span class="hide-menu">#문서관리(임소정)</span></a>
+                 		<i data-feather="file-text" class="feather-icon"></i>
+                 	  	<span class="hide-menu">#문서관리(임소정)</span>
+               	  	</a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-						<li class="sidebar-item"><a href="#" class="sidebar-link"><span
-						            class="hide-menu"> Form Inputs
-						        </span></a>
+						<li class="sidebar-item">
+							<a th:href="@{/document/document_list}" class="sidebar-link">
+								<span class="hide-menu">문서</span>
+							</a>
 						</li>
 						<li class="sidebar-item"><a href="#" class="sidebar-link"><span
 						            class="hide-menu"> Form Grids
