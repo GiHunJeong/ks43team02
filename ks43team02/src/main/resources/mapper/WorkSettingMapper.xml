@@ -132,6 +132,14 @@
 		FROM
 			tb_worksystem_standard AS ws;
 	</select>
+	<select id="getWorkWay" resultType="WorkWay">
+		SELECT
+			ww.workway_code
+			,ww.workway_name
+			,ww.reg_date
+		FROM
+			tb_workway_standard AS ww;
+	</select>
 	<select id="getWorkSettingList" resultMap="WorkSettingListResultMap">
 		/* 설정관리에서 세팅한 회사근무방식 리스트 뿌리기 */
 		SELECT

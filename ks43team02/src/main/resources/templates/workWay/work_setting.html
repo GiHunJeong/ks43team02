@@ -8,6 +8,11 @@
 <body>
 <!-- 사용자 정의 contents -->
 <th:block layout:fragment="customContents">
+<style type="text/css" rel="stylesheet">
+	#workwayBtn .workwayBtn{border:1px solid #5f76e8; color:#5f76e8;}
+	.checkLine{border:1px solid #5f76e8; margin-right:4px;}
+	label{width:100%;}
+</style>
 <div class="card">
 	<div class="card-body">
 		<!-- 비밀번호가 일치할때 내용들이 활성화된다. -->
@@ -22,6 +27,7 @@
 			<div class="form-group mb-1">
 		      	<label style="width:100%;">근무제선택</label>
 				<select class="test form-control col-10" name="standardWorkCode" style="float:left;">
+					<option >::선택::</option>
 					<th:block th:if="${not #lists.isEmpty(workSetting)}" th:each="l : ${workSetting}">
 						<option th:value="${l.standardWorkCode}">[[${l.worksystemName}]]</option>
 					</th:block>
@@ -34,24 +40,90 @@
 					</div>
 				</div>
 			</div>
+			<div class="form-group">
+				<label>근무방식선택</label>
+					<div id="workwayBtn">
+						<button class="btn workwayBtn" type="button" id="workwayBtn1" name="workwayBtn" value="mobile" >모바일</button>
+						<button class="btn workwayBtn" type="button" id="workwayBtn2" name="workwayBtn" value="pc">pc</button>
+						<button class="btn workwayBtn" type="button" id="workwayBtn3" name="workwayBtn" value="qr">QR</button>
+						<button class="btn workwayBtn" type="button" id="workwayBtn4" name="workwayBtn" value="card">카드</button>
+						<button class="btn workwayBtn" type="button" id="workwayBtn5" name="workwayBtn" value="authority">직권입력</button>
+					</div>
+			</div>
 			<div id="dayCheck" class="form-group">
 				<label>근무요일선택</label>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sun" onclick="getCheckboxValue()">일
-					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="mon" onclick="getCheckboxValue()">월
-					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="tue" onclick="getCheckboxValue()">화
-					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="wen" onclick="getCheckboxValue()">수
-					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="thr" onclick="getCheckboxValue()">목
-					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="fri" onclick="getCheckboxValue()">금
-					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="dayCheck" value="sat" onclick="getCheckboxValue()">토
-					<!-- <label class="form-check-label" for="inlineCheckbox1">일</label> -->
+				<div class="btn-group" data-toggle="buttons">
+					<div class="form-check form-check-inline">
+                      <label class="btn checkLine">
+                          <div class="custom-control custom-checkbox mr-sm-2">
+                              <input type="checkbox" class="custom-control-input" id="inlineCheckbox1" value="sun">
+                              <label class="custom-control-label" for="inlineCheckbox1">일</label>
+                          </div>
+                      </label>
+                      <label class="btn checkLine">
+                          <div class="custom-control custom-checkbox mr-sm-2">
+                              <input type="checkbox" class="custom-control-input" id="inlineCheckbox1" value="mon">
+                              <label class="custom-control-label" for="inlineCheckbox1">월</label>
+                          </div>
+                      </label>
+                      <label class="btn checkLine">
+                          <div class="custom-control custom-checkbox mr-sm-2">
+                              <input type="checkbox" class="custom-control-input" id="inlineCheckbox1" value="tue">
+                              <label class="custom-control-label" for="inlineCheckbox1">화</label>
+                          </div>
+                      </label>
+                      <label class="btn checkLine">
+                          <div class="custom-control custom-checkbox mr-sm-2">
+                              <input type="checkbox" class="custom-control-input" id="inlineCheckbox1" value="wen">
+                              <label class="custom-control-label" for="inlineCheckbox1">수</label>
+                          </div>
+                      </label>
+                      <label class="btn checkLine">
+                          <div class="custom-control custom-checkbox mr-sm-2">
+                              <input type="checkbox" class="custom-control-input" id="inlineCheckbox1" value="thr">
+                              <label class="custom-control-label" for="inlineCheckbox1">목</label>
+                          </div>
+                      </label>
+                      <label class="btn checkLine">
+                          <div class="custom-control custom-checkbox mr-sm-2">
+                              <input type="checkbox" class="custom-control-input" id="inlineCheckbox1" value="fri">
+                              <label class="custom-control-label" for="inlineCheckbox1">금</label>
+                          </div>
+                      </label>
+                      <label class="btn checkLine">
+                          <div class="custom-control custom-checkbox mr-sm-2">
+                              <input type="checkbox" class="custom-control-input" id="inlineCheckbox1" value="sat">
+                              <label class="custom-control-label" for="inlineCheckbox1">토</label>
+                          </div>
+                      </label>
+                  </div>
 				</div>
 			</div>
 			<div id="result"></div>
-			<div>
-				시작시간 : <input id="workTimeSet1" type="time" name="workStartTime">
-				종료시간 : <input id="workTimeSet2" type="time" name="workEndTime">
-				휴게시간 : <input id="workTimeSet3" type="time" name="breakTime">
+			<div>6
+				<label>시간설정</label>
+				<table>
+					<thead>
+						<tr>
+							<th>시작시간</th>
+							<th>종료시간</th>
+							<th>휴게시간</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<input id="workTimeSet1" type="time" name="workStartTime">
+							</td>
+							<td>
+								<input id="workTimeSet2" type="time" name="workEndTime">
+							</td>
+							<td>
+								<input id="workTimeSet3" type="time" name="breakTime">
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
   	 	 	<button id="allSubmitBtn" type="button" class="btn btn-primary mt-3">양식보내기</button>
 		</form>
@@ -81,6 +153,13 @@
     <script th:src="@{/assets/libs/chartist/dist/chartist.min.js}"></script>
 	
 	<script>
+		$(function(){
+			document.getElementById("startTime");
+			document.getElementById("workTimeSet1").defaultValue = "09:00";
+			document.getElementById("workTimeSet2").defaultValue = "18:00";
+			document.getElementById("workTimeSet3").defaultValue = "12:00";
+		});
+
 		$(function() {	
 			$(document).on('click', '#allSubmitBtn',function(){
 				var 
@@ -108,6 +187,58 @@
 				}
 			});
 		});
+	</script>
+	<script type="text/javascript">
+
+		/* var listTarget = document.querySelectorAll('#workwayBtn > button');
+		console.log(listTarget[0]);
+		console.log(listTarget[1]);
+		console.log(listTarget[2]);
+		console.log(listTarget[3]);
+		console.log(listTarget[4]); */
+		/* function mobileClick(){
+			var listTarget = document.querySelectorAll('#workwayBtn > button');
+			if(listTarget[0].style.color = '#7c8798', 'rgb(255,255,255)'){
+				listTarget[0].style.color = '#fff';
+			}else {
+				listTarget[0].style.color = 'red';
+			}
+		} */
+		/* $(document).ready(function(){
+			$(document).on("click", "button[name = 'workwayBtn']", function(){
+				$("#workwayBtn .btn").style.color("red");
+			});
+		}); */
+		/* var listTarget = document.querySelectorAll('#workwayBtn > button');
+		listTarget.on("click", "button"), function(){
+			for(var i = 0; i < listTarget.length; i++){
+				listTarget[i].style.color='red';
+		}
+		}; */
+		
+		var target = document.getElementsByClassName("workwayBtn");
+		
+		var isClick = [];
+		for(var i = 0; i < target.length; i++){
+			isClick[i] = true;
+		}
+		
+		$(document).on('click', '.workwayBtn', function(e, i){
+			console.log(isClick);
+			console.log($(this).index());
+			let indexBtn = $(this).index();
+			if(isClick[indexBtn]){
+				$(this).css('color','#fff');
+				$(this).css('backgroundColor','#5f76e8');
+				isClick[indexBtn] = false;
+			}else{
+				$(this).css('color','#5f76e8');
+				$(this).css('backgroundColor','#fff');
+				isClick[indexBtn] = true;
+			}
+			
+		});
+		
 	</script>
 	
 </th:block>
