@@ -76,14 +76,22 @@ $(function() {
 	/* 저장하기 컨펌 Start */
 	$(document).ready(function(){
 		$('#addBtn').click(function(){
-			var result = confirm('등록하시겠습니까?');
-			
-	        if(result == true) {
-	           //yes
-	            location.replace('payAddList');
+			var basicPay = $('#basicPay').val();
+			if(basicPay != 0 && basicPay != '' && basicPay != ' '){
+				console.log(basicPay,'basicPayisnotnull');
+				var result = confirm('등록하시겠습니까?');
+				
+		        if(result == true) {
+		           //yes
+		        	alert('등록하였습니다.')
+		        	$('#payAddForm').submit();
+		        } else {
+		        	return false;
+		            //no
+		        }
 	        } else {
-	        	return false;
-	            //no
+	        	console.log(basicPay,'basicPayisnull');
+	        	alert('기본급을 등록해주세요!');
 	        }
 	    });
 	});
@@ -92,10 +100,14 @@ $(function() {
 	/* 기본급 수정 function Start */	
 	$(document).on('click','#modifySalaryBtn', function(){
 		var salaryInfo = $('#salaryInfo').val();
-		console.log(salaryInfo);
-		$('#basicPay').val(salaryInfo);
-		alert('기본급이 변경되었습니다.');
-		payCirculater();
+		if(salaryInfo != 0 && salaryInfo != '' && salaryInfo != ' '){
+			console.log(salaryInfo);
+			$('#basicPay').val(salaryInfo);
+			alert('기본급이 변경되었습니다.');
+			payCirculater();
+		} else {
+			alert('정상적인 값을 입력해주세요!');
+		}
 	});
 	/* 기본급 수정 function End */
 	

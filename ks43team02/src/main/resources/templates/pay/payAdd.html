@@ -6,7 +6,7 @@
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">	
 		
-		<form th:action="@{/pay/payAdd}" method="post">
+		<form th:action="@{/pay/payAdd}" id="payAddForm" method="post">
 			<div class="card col-md-12">
 				<div class="card-body ">
 					<!-- 사원정보t -->
@@ -120,7 +120,7 @@
 			</table>
 		<!-- 전송버튼 -->
 			<div class="col-12" style="display: flex; justify-content: space-around;">
-				<button type="submit" id="addBtn" class="btn btn-primary" style="text-align=center;" disabled>등록하기</button>
+				<button type="button" id="addBtn" class="btn btn-primary" style="text-align=center;" disabled>등록하기</button>
 			</div>
 		</form>
 				
