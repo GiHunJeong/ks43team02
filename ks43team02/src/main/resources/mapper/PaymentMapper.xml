@@ -2,6 +2,18 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ks43team02.mapper.EmplyMapper">
-	
+<mapper namespace="ks43team02.mapper.PaymentMapper">
+	<select id="getDocumentCateSList" resultType="DocumentCateS">
+		/* 카테고리소 조회 */
+		SELECT
+			dcs.document_cate_S_code		AS documentCateSCode
+			, dcs.cp_representative_code	AS cpRepresentativeCode
+			, dcs.super_admin_id			AS superAdminId
+			, dcs.document_cate_L_code		AS documentCateLCode
+			, dcs.cate_name_L				AS cateNameL
+			, dcs.cate_name_S				AS cateNameS
+			, dcs.reg_date					AS regDate
+		FROM
+			tb_document_cate_S AS dcs;
+	</select>
 </mapper>
