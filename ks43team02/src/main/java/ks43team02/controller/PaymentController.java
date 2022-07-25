@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ks43team02.dto.DocumentCateS;
 import ks43team02.dto.Emply;
 import ks43team02.service.EmplyService;
 import ks43team02.service.PaymentService;
@@ -45,7 +45,10 @@ public class PaymentController {
 	 * 결제요청 페이지
 	 */
 	@GetMapping("/payment_request")
-	public String paymentRequest() {
+	public String paymentRequest(Model model) {
+		List<DocumentCateS> documentCateSList = paymentService.getDocumentCateSList();
+		model.addAttribute("documentCateSList", documentCateSList);
+		log.info("documentCateSList에 담기는 값 : {}",documentCateSList);
 		return "payment/payment_request";
 	}
 	/*

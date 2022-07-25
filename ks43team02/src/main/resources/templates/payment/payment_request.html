@@ -30,7 +30,56 @@
 		<!-- ============================================================== -->
 	    <!-- Start Page Content -->
 	    <!-- ============================================================== -->
-	    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#bs-example-modal-lg">요청버튼</button>
+	    <!-- 결제요정페이지UI -->
+	    <form id="paymentRequestForm" method="post" th:action="@{/payment/payment_request}">
+		    <div class="card-body">
+				<h4 class="card-title">결제요청페이지</h4>
+				<button id="choiceApprover" type="button" class="btn btn-info" data-toggle="modal" data-target="#bs-example-modal-lg">결재선관리</button>
+				<select class="custom-select col-md-3" id="inlineFormCustomSelect" name="">
+				    <option selected="">결재문서종류</option>
+				    <option th:if="${not #lists.isEmpty(documentCateSList)}" th:each="l : ${documentCateSList}" th:value="${l.documentCateSCode}">[[${l.cateNameS}]]</option>
+				</select>
+			    <div class="table-responsive">
+			        <table class="table" id="requestTable">
+			            <tbody>
+			                <tr>
+			                    <th class="col-md-2">
+			                    	작성자ID
+			                    	<br>
+			                    	<br>작성자
+			                    </th>
+			                    <th>
+			                    	<input id="writerEmail" name="" type="text" class="form-control col-md-6" readonly="" th:value="${session.SEMAIL}">
+			                    	<input id="writerName" name="" type="text" class="form-control col-md-6" readonly="" th:value="${session.SNAME}">
+			                    </th>
+			                </tr>
+			                <!-- 결재자 정보 들어가는 부분 -->
+			                
+			                <!-- 결재자 정보 들어가는 부분 -->
+			                <tr>
+			                    <th>첨부파일</th>
+			                    <th><button id="addFileBtn" type="button" class="btn btn-primary">선택</button></th>
+			                </tr>
+			            </tbody>
+			        </table>
+			        <div class="card-body">
+					    <h4 class="card-title">Comment</h4>
+				        <div class="form-group">
+				            <textarea class="form-control" rows="3" placeholder="Comment Here..."></textarea>
+				        </div>
+					</div>
+			    </div>
+			</div>
+		</form>
+		<div class="table-responsive">
+	        <table class="table">
+	        	<tr>
+	        		<th><div class="text-center"><button id="addFileBtn" type="button" class="btn btn-primary">요청</button> <button id="addFileBtn" type="button" class="btn btn-dark">취소</button></div></th>
+	        	</tr>
+			</table>
+		</div>
+	    <!-- 결제요청페이지UI -->
+	    
 	    <!-- 요청 버튼 모달 시작 -->
         <div id="bs-example-modal-lg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
 	        <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -51,7 +100,7 @@
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-light" data-dismiss="modal">취소</button>
-	                    <button type="button" class="btn btn-primary">요청</button>
+	                    <button id="requestBtn" type="button" class="btn btn-primary">요청</button>
 	                </div>
 	            </div><!-- /.modal-content -->
 	        </div><!-- /.modal-dialog -->
@@ -93,7 +142,7 @@
                     <div class="modal-body p-4">
                         <div id="errorMsgModal" class="text-center">
                             <i class="dripicons-warning h1 text-warning"></i>
-                            <h4 class="mt-2">체크 오류</h4>
+                            <h4 class="mt-2">오류</h4>
                             <p class="mt-3"></p>
                             <button id="checkWarningModalBtn" type="button" class="btn btn-warning my-2" data-dismiss="modal">확인</button>
                         </div>
@@ -152,6 +201,10 @@
 						errorMsgModal.text('이미 선택한 결재자가 있습니다.');
 					}else if(data == 3){
 						errorMsgModal.text('결재자 추가는 '+approverInputLength+'명을 초과할 수 없습니다.');
+					}else if(data == 4){
+						errorMsgModal.text('결재자를 선택하지 않았습니다.');
+					}else if(data == 5){
+						errorMsgModal.text('작성자와 결재자가 같습니다.');
 					}
 					$('#checkWarningModal').attr('class', 'modal fade show');
 					$('#checkWarningModal').css('display', 'block');
@@ -180,15 +233,33 @@
 						$('#approverDiv').empty();
 						for(var i = 0;i<emplyInfoList.length;i++) {
 							var approverName = emplyInfoList[i].emplyName;
-							var approverRank = emplyInfoList[i].organizationCodeS;
 							var approverRankName = emplyInfoList[i].rankLevelList.rankName;
-							if(approverRank == emplyInfoList[i].organizationCodeS) {
-								var rankName = $("<h4 class=\"card-title\">"+emplyInfoList[i].organizationSList.organizationNameS+"</h4>");
-								var approverCheckBox = $("<div class=\"custom-control custom-checkbox\"><input type=\"checkbox\" class=\"custom-control-input\" name=\"approverName\" value="+approverName+" id="+approverName+"><label class=\"custom-control-label\" for="+approverName+">"+approverName+approverRankName+"</label></div><br>");
-								$('#approverDiv').append(rankName);
-								$('#approverDiv').append(approverCheckBox);
-							}else{
-								approverRank = emplyInfoList[i].organizationCodeS;
+							var approverOrganiCode = emplyInfoList[i].organizationCodeS;
+							var organiName = $("<h4 class=\"card-title organiTitle\">"+emplyInfoList[i].organizationSList.organizationNameS+"</h4>");
+							$('#approverDiv').append(organiName);
+
+							for(var j = 0 ; j<emplyInfoList.length;j++){
+								var approverCheckBox = $("<div class=\"custom-control custom-checkbox\"><input type=\"checkbox\" class=\"custom-control-input\" name=\"approverName\" value="+emplyInfoList[j].emplyName+" id="+emplyInfoList[j].emplyName+"><label class=\"custom-control-label\" for="+emplyInfoList[j].emplyName+">"+emplyInfoList[j].emplyName+emplyInfoList[j].rankLevelList.rankName+"</label></div>");
+								if(emplyInfoList[i].organizationSList.organizationNameS == emplyInfoList[j].organizationSList.organizationNameS){										
+									$('#approverDiv').append(approverCheckBox);
+								}
+							}
+						}
+						console.log('organiTitle : ',$('.organiTitle'));
+						for(var i = 0 ; i<$('.organiTitle').length;i++){
+							var count = 0;
+							console.log('organiTitle.length : ',$('.organiTitle').length);
+							for(var j = 0 ; j<$('.organiTitle').length;j++){
+								var count2 = 0;
+								var organiTitle = $('.organiTitle')[j];
+								if($('.organiTitle')[i].innerText == $('.organiTitle')[j].innerText){
+									count++;
+									if(count > 1){
+										console.log('중복으로 삭제되는 대상 : ', organiTitle.innerText);
+										console.log('organiTitle[j] 의 값 : ',$('.organiTitle')[j]);
+										$('.organiTitle')[j].remove();
+									}
+								}
 							}
 						}
 					});				 
@@ -201,8 +272,16 @@
 				$(document).on('click','#saveApproverBtn',function(){
 					var checkApproverName = $('input:checkbox[name="approverName"]:checked').val();
 					console.log('saveApproverBtn를 눌렀다.');
-					thisInput.val(checkApproverName);
 					console.log('선택한 결재자 명 : ', thisInput.val());
+					console.log('checkApproverName', checkApproverName);
+					if(checkApproverName != '' && checkApproverName != 'undefined' && checkApproverName != null){					
+						$('#requestBtn').attr('data-dismiss','modal');					
+						thisInput.val(checkApproverName);
+					}else{
+						console.log('else를 탔다.');
+						$('#requestBtn').removeAttr('data-dismiss');
+						thisInput.val(checkApproverName);
+					}
 				});	
 				/* 선택한 결재자 값 입력 */
 				/* 1개 이상 체크 금지 */ 
@@ -216,6 +295,11 @@
 							$(this).prop('checked', false);
 							/* 이미 선택된 결재자가 있을 경우 경고창 */
 							errorWindow(2);
+						}else if($('#writerName').val() == $('input:checkbox[name="approverName"]:checked').val()) {
+							$(this).prop('checked', false);
+							/* 작성자와 결재자가 같은 경우 경고창 */
+							errorWindow(5);
+							return;
 						}
 					}
 					if(checkLength > 1) {
@@ -257,6 +341,36 @@
 					approverInputLength = $('.inputApproverBar').length;
 				});
 				/* 결재자 삭제 */
+				/* 결재자 추가 인테이블 */
+				$(document).on('click','#requestBtn', function(){
+					var inputApproverBar = $('.inputApproverBar');
+					var requestTable = $('#requestTable').children().children()[1];
+					var insertApproverName;
+					console.log('approverInputLength',approverInputLength);
+					console.log('requestBtn을 눌렀다.');
+					console.log('requestTable',requestTable);
+					for(var i = 0;i<approverInputLength;i++) {
+						console.log('inputApproverBar[i].val() : ',inputApproverBar[i].value);
+						if(inputApproverBar[i].value == '' || inputApproverBar[i].value == 'undefined' || inputApproverBar[i].value == null) {
+							/* 결재자를 선택하지 않았을때 오류 메세지 */
+							errorWindow(4);
+							return;
+						}else{
+							$('#requestBtn').attr('data-dismiss','modal');
+							insertApproverName = $("<tr class=\"test111\"><th>결재자"+(i+1)+"</th><th><input name=\"\" type=\"text\" class=\"form-control col-md-3\" value="+inputApproverBar[i].value+" readonly=\"\"></th></tr>");
+							$(requestTable).before(insertApproverName);
+						}
+					}
+					$('#bs-example-modal-lg').css('display', 'none');
+					$('#bs-example-modal-lg').attr('class', 'modal fade');
+				});
+				/* 결재자 추가 인테이블 */
+				/* 결재선관리 선택시 결재자 초기화 */
+				$(document).on('click', '#choiceApprover', function(){
+					console.log('choiceApprover 버튼을 눌렀다.');
+					$('.test111').remove();	
+				});
+				/* 결재선관리 선택시 결재자 초기화 */
 			});
 		</script>
 	</th:block>
