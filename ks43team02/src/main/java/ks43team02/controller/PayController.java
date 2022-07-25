@@ -32,6 +32,32 @@ public class PayController {
 		this.payService = payService;
 	}
 	
+	//급여등록내역 검색
+	@PostMapping("/payAddList")
+	public String getSearchPayAddList(@RequestParam(name="searchKey") String searchKey
+									 ,@RequestParam(name="searchValue", required = false) String searchValue
+									 ,Model model) {
+		log.info("searchKey   : {}", searchKey);
+		log.info("searchValue : {}", searchValue);
+		if("emplyId".equals(searchKey)) {
+			searchKey="emply_id";
+		} else if("emplyName".equals(searchKey)) {
+			searchKey="emply_name";
+		} else if("emplyRank".equals(searchKey)) {
+			searchKey="emply_rank";
+		} else {
+			searchKey="emply_organization";
+		}
+		
+		List<PayAdd> payAddList = payService.getSearchPayAddList(searchKey, searchValue);
+		
+		if(payAddList != null) {
+			model.addAttribute("payAddList", payAddList);
+			log.info("payAddList : {}", payAddList);
+		}
+		return "pay/payAddList";
+	}
+	
 	// 급여등록내역 삭제
 	@GetMapping("/payRemove")
 	public String removePayAddList(@RequestParam(name="emplyId", required = false) String emplyId) {
@@ -44,13 +70,12 @@ public class PayController {
 	// 사원 급여등록 리스트 조회
 	@GetMapping("/payAddList")
 	public String getPayAddList(Model model) {
-		System.out.println("dddd");
 		List<PayAdd> payAddList = payService.getPayAddList();
 		model.addAttribute("payAddList", payAddList);
 		return "pay/payAddList";
 	};
 	
-	// 급여등록 내역 ajax
+	// 급여등록 내역 ajax(등록중복체크)
 	@RequestMapping(value = "/getPayAddList")
 	@ResponseBody 
 	public List<PayAdd> getPayAddListForIdCheck() { 
@@ -61,22 +86,92 @@ public class PayController {
 		return payAddListForIdCheck; 
 	};
 	
-	// 급여등록
+	// 급여등록 및 기본급 내역 수정
 	@PostMapping("/payAdd")
 	public String payAdd(PayAdd payAdd
 						,@RequestParam(name="payAddCode", required = false, defaultValue = "payAdd_Code_001") String payAddCode) {
 		log.info("------------payAdd : {}", payAdd);
 		payService.payAdd(payAdd);
+		payService.modifySalary(payAdd);
 		System.out.println(payAdd+" <- payAdd!");
 		return "redirect:/pay/payAddList";
 	};
+	
+	// 급여등록내역 수정처리
+	@PostMapping("/payModify")
+	public String payModify(PayAdd payAdd) {
+		log.info("수정화면에서 입력받은 data:{}", payAdd);
+		payService.modifyPayAdd(payAdd);
+		payService.modifySalary(payAdd);
+		return "redirect:/pay/payAddList";
+	}
+	
+	// 급여등록내역 수정화면
+	@GetMapping("/payModify")
+	public String payModify(@RequestParam(name="emplyId", required = false) String emplyId
+							,Model model) {
+		
+		HashMap<String, String> fixedPayMap = new HashMap<>();
+		HashMap<String, String> deductionPayMap = new HashMap<>();
+		
+		log.info("화면에서 입력받은 data : {}", emplyId);
+		PayAdd modifyInfo = payService.getModifyInfoById(emplyId);
+		model.addAttribute("modifyInfo", modifyInfo);
+		log.info("------------modifyInfo : {}", modifyInfo);
+		
+		String fixedPayList = modifyInfo.getFixedPayList();
+		String[] fixedPayArray = null;
+		if(fixedPayList != null) {
+			fixedPayArray = fixedPayList.split(",");
+		}
+		String fixedPayAmount = modifyInfo.getFixedPayAmount();
+		String[] fixedAmountArray = null;
+		if(fixedPayAmount != null) {
+			fixedAmountArray = fixedPayAmount.split(",");
+		}
+		if(fixedPayArray != null) {
+			for(int i = 0; i < fixedPayArray.length; i++) {
+				fixedPayMap.put(fixedPayArray[i], fixedAmountArray[i]);
+			}
+		}
+		
+		String deducePayList = modifyInfo.getDeductionPayList(); 
+		String[] deducePayArray = null;
+		if(deducePayList != null) {
+			deducePayArray = deducePayList.split(",");
+		}
+		
+		String deducePayAmount = modifyInfo.getDeductionPayAmount();
+		String[] deduceAmountArray = null;
+		if(deducePayAmount != null) {
+			deduceAmountArray = deducePayAmount.split(",");
+		}
+		if(deducePayArray != null) {
+			for(int j = 0; j < deducePayArray.length; j++) {
+				deductionPayMap.put(deducePayArray[j], deduceAmountArray[j]);
+			}
+		}
+		
+		modifyInfo.setFixedPayArrays(fixedPayArray);
+		modifyInfo.setFixedAmountArrays(fixedAmountArray);
+		modifyInfo.setDeductionPayArrays(deducePayArray);
+		modifyInfo.setDeductionAmountArrays(deduceAmountArray);
+		
+		log.info("------------modifyInfo22 : {}", modifyInfo);
+		
+		model.addAttribute("modifyInfo", modifyInfo);
+		model.addAttribute("fixedPayMap", fixedPayMap);
+		model.addAttribute("deductionPayMap", deductionPayMap);
+		
+		return "pay/payModify";
+	}
 
 	// 사원 급여 등록페이지
 	@GetMapping("/payAdd")
 	public String getPaySetForPayAdd(Model model) {
 
 		HashMap<String, String> fixedPayMap = new HashMap<>();
-		HashMap<String, String> deducePayMap = new HashMap<>();
+		HashMap<String, String> deductionPayMap = new HashMap<>();
 		
 		PaySet paySet = payService.getPaySet();
 		log.info("paySet : {}",paySet);
@@ -117,7 +212,7 @@ public class PayController {
 		
 		if(deducePayArray != null) {
 			for(int j = 0; j < deducePayArray.length; j++) {
-				deducePayMap.put(deducePayArray[j], deduceAmountArray[j]);
+				deductionPayMap.put(deducePayArray[j], deduceAmountArray[j]);
 			}
 		}
 		
@@ -140,23 +235,10 @@ public class PayController {
 		model.addAttribute("paySet", paySet);
 		model.addAttribute("emplyList", emplyList);
 		model.addAttribute("fixedPayMap", fixedPayMap);
-		model.addAttribute("deducePayMap", deducePayMap);
+		model.addAttribute("deductionPayMap", deductionPayMap);
 		
 		return "pay/payAdd";
 	};
-	/*
-	 * // 급여등록페이지 사원목록 조회 ajax
-	 * 
-	 * @RequestMapping(value = "/emplyListForPayAdd")
-	 * 
-	 * @ResponseBody public List<Emply> getEmplyListForPayAdd(Model model) {
-	 * List<Emply> emplyList = payService.getEmplyListForPayAdd();
-	 * model.addAttribute("emplyList", emplyList);
-	 * 
-	 * log.info("emplyList", emplyList);
-	 * 
-	 * return emplyList; }
-	 */
 	
 	// 급여세팅값이 null일경우
 	@GetMapping("/ifPaySetNull")
@@ -169,7 +251,7 @@ public class PayController {
 	public String getPaySet(Model model) { 
 
 		HashMap<String, String> fixedPayMap = new HashMap<>();
-		HashMap<String, String> deducePayMap = new HashMap<>();
+		HashMap<String, String> deductionPayMap = new HashMap<>();
 		
 		PaySet paySet = payService.getPaySet();
 		log.info("paySet : {}",paySet);
@@ -210,7 +292,7 @@ public class PayController {
 		
 		if(deducePayArray != null) {
 			for(int j = 0; j < deducePayArray.length; j++) {
-				deducePayMap.put(deducePayArray[j], deduceAmountArray[j]);
+				deductionPayMap.put(deducePayArray[j], deduceAmountArray[j]);
 			}
 		}
 		
@@ -228,7 +310,7 @@ public class PayController {
 		
 		model.addAttribute("paySet", paySet);
 		model.addAttribute("fixedPayMap", fixedPayMap);
-		model.addAttribute("deducePayMap", deducePayMap);
+		model.addAttribute("deductionPayMap", deductionPayMap);
 		
 		return "pay/paySetting";
 	};

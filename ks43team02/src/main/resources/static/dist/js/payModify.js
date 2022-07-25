@@ -2,32 +2,6 @@
 $(function() {
     "use strict";
     
-    /* 아이디중복검사 ajax Strat */
-    var request =
-		$.ajax({
-		url: "/pay/getPayAddList",
-		method: "POST",
-		dataType: "json",
-		});
-		request.done(function(data) {
-			console.log('data', data);
-			$(document).on('click','.selectEmply', function(){
-				for(var i=0; i<data.length; i++){
-					console.log('data2',data[i]);
-					console.log('thisId', $(this).val());
-					if(data[i].emplyId == $(this).val()){
-						alert('이미 등록 완료된 사원입니다.');
-						$(this).prop('checked', false);
-					}
-				}
-			});
-			
-		});
-		request.fail(function( jqXHR, textStatus ) {
-			alert( "Request failed: " + textStatus );
-		});
-    /* 아이디중복검사 ajax End */
-    
     /* 급여계산기 function Start */
     var payCirculater = function(){
 		var 
@@ -73,97 +47,32 @@ $(function() {
 	};
     /* 급여계산기 function End */
 	
-	/* 저장하기 컨펌 Start */
+	/* 수정 컨펌 Start */
 	$(document).ready(function(){
-		$('#addBtn').click(function(){
-			var basicPay = $('#basicPay').val();
-			if(basicPay != 0 && basicPay != '' && basicPay != ' '){
-				console.log(basicPay,'basicPayisnotnull');
-				var result = confirm('등록하시겠습니까?');
-				
-		        if(result == true) {
-		           //yes
-		        	alert('등록하였습니다.')
-		        	$('#payAddForm').submit();
-		        } else {
-		        	return false;
-		            //no
-		        }
+		$('#modifyBtn').click(function(){
+			var result = confirm('수정하시겠습니까?');
+			
+	        if(result == true) {
+	           //yes
+	        	alert('수정이 완료되었습니다.')
+	            location.replace('payAddList');
 	        } else {
-	        	console.log(basicPay,'basicPayisnull');
-	        	alert('기본급을 등록해주세요!');
+	        	return false;
+	            //no
 	        }
 	    });
 	});
-	/* 저장하기 컨펌 End */
+	/* 수정 컨펌 End */
 	
 	/* 기본급 수정 function Start */	
 	$(document).on('click','#modifySalaryBtn', function(){
 		var salaryInfo = $('#salaryInfo').val();
-		if(salaryInfo != 0 && salaryInfo != '' && salaryInfo != ' '){
-			console.log(salaryInfo);
-			$('#basicPay').val(salaryInfo);
-			alert('기본급이 변경되었습니다.');
-			payCirculater();
-		} else {
-			alert('정상적인 값을 입력해주세요!');
-		}
+		console.log(salaryInfo);
+		$('#basicPay').val(salaryInfo);
+		alert('기본급이 변경되었습니다.');
+		payCirculater();
 	});
 	/* 기본급 수정 function End */
-	
-	/* 사원선택 모달창 사원 미선택시 유효성검사 및 선택후 종료시 등록하기버튼  활성화 Start */
-	$(document).on('click','#closeEmplySearchModal', function(){
-		var selectEmplyStatus = $('.selectEmply')
-		if(!selectEmplyStatus.is(':checked')){
-			alert('사원을 선택하여 주세요.');
-		}else{
-			/* 선택한 사원 정보를 담을 배열 선언 Start */
-			var emplyInfoArray = new Array();
-			var eq = 0;
-			for(var i = 0; i < selectEmplyStatus.length; i++) {
-				if(selectEmplyStatus.eq(i).is(':checked')) eq = i;
-			}
-
-		 	var emplyInfoInput = selectEmplyStatus.eq(eq).parent().parent().find('input').not('.selectEmply');
-		 	console.log('emplyInfoInput', emplyInfoInput)
-		 	console.log('emplyInfoInput.val()',emplyInfoInput.val());
-			/* 선택한 사원 정보를 담을 배열 선언 End */
-		 	
-			/* 선언한 배열에 사원정보값 순서대로 대입하기, 선택된 사원 기본급 값 뿌리기 Start */
-			emplyInfoInput.each(function(i){
-				emplyInfoArray.push(emplyInfoInput.eq(i).val());
-			});
-			console.log('emplyInfoArray', emplyInfoArray);
-			
-			var emplyInfoTable = $('#emplyInfoTable input');
-			console.log('emplyInfoTable', emplyInfoTable);
-			
-			for(var i=0;i<emplyInfoArray.length;i++){
-				$(emplyInfoTable[i]).val(emplyInfoArray[i]);
-			}
-			$('input[name="basicPay"]').val(emplyInfoArray[5]);
-			payCirculater();
-			/* 선언한 배열에 사원정보값 순서대로 대입하기 End, 선택된 사원 기본급 값 뿌리기 End */
-			
-			/* 저장하기 버튼 / 급여정보 입력 비활성화 해제 Start */
-			$('#addBtn').prop('disabled', false);
-			$('#salaryInfo').prop('readonly', false);
-			$('#modifySalaryBtn').prop('disabled', false);
-			/* 저장하기 버튼 / 급여정보 입력 비활성화 해제 End */
-			
-			$('#myModal').modal('hide');
-		}
-	});
-	/* 사원선택 모달창 사원 미선택시 유효성검사 및 선택후 종료시 등록하기버튼  활성화 End */
-	
-	/* 체크박스 중복선택 방지 쿼리문 Start */
-	$(document).on('click','.selectEmply', function(){
-		if($(this).prop('checked')){
-			$('.selectEmply').prop('checked',false);
-		    $(this).prop('checked',true);
-		};
-	});
-	/* 체크박스 중복선택 방지 쿼리문 End */
 	
 	/* 공제액 모달 확인버튼 클릭시 창닫고 값전송 Start */
 	$(document).on('click','#closeDeduceModal', function(){

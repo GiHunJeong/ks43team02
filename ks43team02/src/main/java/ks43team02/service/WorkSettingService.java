@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ks43team02.dto.Emply;
 import ks43team02.dto.WorkSettingList;
 import ks43team02.dto.WorkSystem;
+import ks43team02.dto.WorkWay;
 import ks43team02.mapper.WorkSettingMapper;
 
 @Service
@@ -22,11 +23,6 @@ public class WorkSettingService {
 	public WorkSettingService(WorkSettingMapper workSettingMapper) {			
 		this.workSettingMapper = workSettingMapper;
 	}
-	//1개의 회사 근무  상세정보
-	//public int getModifySetting(WorkSettingList workSettingList) {
-	//	int result = workSettingMapper.getModifySetting(workSettingList);
-	//	return result;
-	//}
 	//설정관리에서 세팅한 회사근무방식 리스트 뿌리기
 		public List<WorkSettingList> getModifySetting(String standardWorksystemCpCode) {
 			List<WorkSettingList> workSettingList = workSettingMapper.getModifySetting(standardWorksystemCpCode);
@@ -72,5 +68,10 @@ public class WorkSettingService {
 	public List<WorkSystem> getWorkSystem() {
 		List<WorkSystem> workSystem = workSettingMapper.getWorkSystem();
 		return workSystem;
+	}
+	//설정관리 근태방식 뿌리기 
+	public List<WorkWay> getWorkWay() {
+		List<WorkWay> wokrWay = workSettingMapper.getWorkWay();
+		return wokrWay;
 	}
 }

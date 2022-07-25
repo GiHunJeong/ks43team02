@@ -5,7 +5,8 @@
 
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">
-		<form id="payAddListForm" th:action="@{pay/payAddList}" method="post">
+		<form id="payAddListForm" th:action="@{/pay/payAddList}" method="post">
+			<div th:include="search/payAddListSearch :: payAddListSearchFragment"></div>
 			<div class="card">
 				<div class="card-body">
 					<table class="table table-striped table-bordered dataTable no-wrap table-responsive" style="table-layout: fixed;">
@@ -13,6 +14,7 @@
 							<tr>
 								<th>사원명</th>
 								<th>아이디</th>
+								<th>사원번호</th>
 								<th>직급</th>
 								<th>부서</th>
 								<th>기본급</th>
@@ -22,6 +24,7 @@
 								<th>공제액</th>
 								<th>급여</th>
 								<th>등록일자</th>
+								<th>수정</th>
 								<th>삭제</th>
 							</tr>	
 						</thead>
@@ -29,6 +32,7 @@
 							<tr th:if="${not #lists.isEmpty(payAddList)}" th:each="l : ${payAddList}">
 								<td th:value="${l.emplyName}" 			th:text="${l.emplyName}"></td>
 								<td th:value="${l.emplyId}" 			th:text="${l.emplyId}"></td>
+								<td th:value="${l.emplyNumber}" 		th:text="${l.emplyNumber}"></td>
 								<td th:value="${l.emplyRank}" 			th:text="${l.emplyRank}"></td>
 								<td th:value="${l.emplyOrganization}" 	th:text="${l.emplyOrganization}"></td>
 								<td th:value="${l.basicPay}" 			th:text="${l.basicPay}"></td>
@@ -38,6 +42,9 @@
 								<td th:value="${l.totalDeduction}" 		th:text="${l.totalDeduction}"></td>
 								<td th:value="${l.totalPayment}" 		th:text="${l.totalPayment}" style="color: red;"></td>
 								<td th:value="${l.payAddRegDate}" 		th:text="${l.payAddRegDate}"></td>
+								<td>
+									<a th:href="@{/pay/payModify(emplyId=${l.emplyId})}" class="btn btn-warning modifyPayAddList" style="color: white;">수정</a>
+								</td>
 								<td>
 									<a th:href="@{/pay/payRemove(emplyId=${l.emplyId})}" class="btn btn-danger removePayAddList">삭제</a>
 								</td>
@@ -55,53 +62,53 @@
 	
 	<th:block layout:fragment="customScript">
 		<!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-	<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
-	<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
-	<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
-	<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
-	<!-- ============================================================== -->
-	<!-- apps -->
-	<!-- ============================================================== -->
-	<script th:src="@{/dist/js/app-style-switcher.js}"></script>
-	<script th:src="@{/dist/js/feather.min.js}"></script>
-	<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
-	<script th:src="@{/dist/js/sidebarmenu.js}"></script>
-	<!-- ============================================================== -->
-	<!--Custom JavaScript -->
-	<!-- ============================================================== -->
-	<script th:src="@{/dist/js/custom.min.js}"></script>
-	<!-- ============================================================== -->
-	<!--This page JavaScript -->
-	<!-- ============================================================== -->
-	<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
-	<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
-	<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
-    <!-- 확인 -->
-    <!-- Bootstrap tether Core JavaScript -->
-    
-    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
-    
-    <!--This page plugins -->
-    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
-		
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+		<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+		<!-- ============================================================== -->
+		<!-- apps -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+		<script th:src="@{/dist/js/feather.min.js}"></script>
+		<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+		<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+		<!-- ============================================================== -->
+		<!--Custom JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/custom.min.js}"></script>
+		<!-- ============================================================== -->
+		<!--This page JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+		<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+		<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+	    <!-- 확인 -->
+	    <!-- Bootstrap tether Core JavaScript -->
+	    
+	    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+	    
+	    <!--This page plugins -->
+	    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+			
 		<script type="text/javascript">
-		$(document).ready(function(){
-    		$('.removePayAddList').click(function(){
-    	        var result = confirm('정말 삭제하시겠습니까?');
-
-    	        if(result == true) {
-    	           //yes
-    	           	alert('삭제되었습니다.')
-    	            location.replace('payAddList');
-    	        } else {
-    	        	return false;
-    	            //no
-    	        }
-    	    });
-    	});
+			$(document).ready(function(){
+	    		$('.removePayAddList').click(function(){
+	    	        var result = confirm('정말 삭제하시겠습니까?');
+	
+	    	        if(result == true) {
+	    	           //yes
+	    	           	alert('삭제되었습니다.')
+	    	            location.replace('payAddList');
+	    	        } else {
+	    	        	return false;
+	    	            //no
+	    	        }
+	    	    });
+	    	});
 		</script>
-</th:block>
+	</th:block>

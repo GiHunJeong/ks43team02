@@ -6,7 +6,7 @@
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">	
 		
-		<form th:action="@{/pay/payAdd}" id="payAddForm" method="post">
+		<form th:action="@{/pay/payModify}" id="modifyForm" method="post">
 			<div class="card col-md-12">
 				<div class="card-body ">
 					<!-- 사원정보t -->
@@ -14,35 +14,34 @@
 						<tr>
 							<td class="bg-primary text-white" style="text-align: center; ">사원명</td>
 							<td colspan="3">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right; width: 100px;">사원검색</button>
-								<input type="text" name="emplyName" class="delTarget col-md-10 form-control" readonly/>
+								<input type="text" name="emplyName" th:value="${modifyInfo.emplyName}" class="delTarget col-md-10 form-control" readonly/>
 							</td>
 						</tr>
 						<tr>
 							<td class="bg-primary text-white" style="text-align: center;">사원아이디</td>
 							<td>
-								<input type="text" name="emplyId" class="delTarget col-md-12 form-control" readonly/>
+								<input type="text" name="emplyId" th:value="${modifyInfo.emplyId}" class="delTarget col-md-12 form-control" readonly/>
 							</td>
 							<td class="bg-primary text-white" style="text-align: center;">사원번호</td>
 							<td>
-								<input type="text" name="emplyNumber" class="delTarget col-md-12 form-control" readonly/>
+								<input type="text" name="emplyNumber" th:value="${modifyInfo.emplyNumber}" class="delTarget col-md-12 form-control" readonly/>
 							</td>
 						</tr>
 						<tr>
 							<td class="bg-primary text-white" style="text-align: center;">부서</td>
 							<td>
-								<input type="text" name="emplyOrganization" class="delTarget col-md-12 form-control" readonly/>
+								<input type="text" name="emplyOrganization" th:value="${modifyInfo.emplyOrganization}" class="delTarget col-md-12 form-control" readonly/>
 							</td>
 							<td class="bg-primary text-white" style="text-align: center;">직급</td>
 							<td>
-								<input type="text" name="emplyRank" class="delTarget col-md-12 form-control" readonly/>
+								<input type="text" name="emplyRank" th:value="${modifyInfo.emplyRank}" class="delTarget col-md-12 form-control" readonly/>
 							</td>
 						</tr>
 						<tr>
 							<td class="bg-primary text-white" style="text-align: center;">기본급</td>
 							<td class="delTarget" colspan="3">
-								<button type="button" class="btn btn-secondary" id="modifySalaryBtn" style="float: right; width: 100px;" disabled>입력</button>
-								<input type="text" name="salary" id="salaryInfo" class="delTarget col-md-10 form-control" readonly/>
+								<button type="button" class="btn btn-secondary" id="modifySalaryBtn" style="float: right; width: 100px;">입력</button>
+								<input type="text" name="salary" id="salaryInfo" th:value="${modifyInfo.basicPay}" class="delTarget col-md-10 form-control"/>
 							</td>
 						</tr>
 					</table>
@@ -96,31 +95,31 @@
 				<tr>
 					<td>기본급여</td>
 					<td class="delTarget payCalculate">
-						<input type="text" name="basicPay" id="basicPay" class="delTarget col-md-10 form-control" value="0" readonly/>
+						<input type="text" name="basicPay" id="basicPay" th:value="${modifyInfo.basicPay}" class="delTarget col-md-10 form-control" value="0" readonly/>
 					</td>
 				</tr>
 				<tr>
 					<td>추가급여</td>
 					<td class="delTarget payCalculate">
-						<input type="number" name="bonusPay" class="delTarget col-md-10 form-control" value="0" readonly/>
+						<input type="number" name="bonusPay" th:value="${modifyInfo.bonusPay}" class="delTarget col-md-10 form-control" value="0" readonly/>
 					</td>
 				</tr>
 				<tr>
 					<td>공제액</td>
 					<td class="delTarget payCalculate">
-						<input type="number" name="totalDeduction" class="delTarget col-md-10 form-control" value="0" readonly/>
+						<input type="number" name="totalDeduction" th:value="${modifyInfo.totalDeduction}" class="delTarget col-md-10 form-control" value="0" readonly/>
 					</td>
 				</tr>
 				<tr>
 					<td>급여</td>
 					<td class="delTarget payCalculate">
-						<input type="number" name="totalPayment" class="delTarget col-md-10 form-control" value="0" readonly/> 
+						<input type="number" name="totalPayment" th:value="${modifyInfo.totalPayment}" class="delTarget col-md-10 form-control" value="0" readonly/> 
 					</td>
 				</tr>
 			</table>
 		<!-- 전송버튼 -->
 			<div class="col-12" style="display: flex; justify-content: space-around;">
-				<button type="button" id="addBtn" class="btn btn-primary" style="text-align=center;" disabled>등록하기</button>
+				<button type="submit" id="modifyBtn" class="btn btn-primary" style="text-align=center;">수정하기</button>
 			</div>
 		</form>
 				
@@ -256,7 +255,7 @@
 		<!-- All Jquery -->
 		<!-- ============================================================== -->
 		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-		<script th:src="@{/dist/js/payAdd.js}"></script>
+		<script th:src="@{/dist/js/payModify.js}"></script>
 		<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
 		<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
 		<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>

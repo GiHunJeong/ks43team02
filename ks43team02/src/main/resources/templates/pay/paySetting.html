@@ -7,7 +7,7 @@
 	<th:block layout:fragment="customContents">
 		<div>
 			<span>현재 세팅값</span>
-	        <button type="button" class="btn btn-outline-primary" style="float: right; margin-bottom: 10px;" id="modifyPaySetting">수정하기</button>
+	        <button type="button" class="btn btn-primary text-white" style="float: right; margin-bottom: 10px;" id="modifyPaySetting">수정하기</button>
 		</div><br>
 		<form id="paySetForm">
 			<div class="card">
@@ -47,11 +47,11 @@
 							<td class="bg-primary text-white col-md-8">공제액 항목</td>
 							<td class="bg-primary text-white">금액(원)</td>
 						</tr>
-						<tr th:if="${not #arrays.isEmpty(deducePayMap)}" th:each="deducePay : ${deducePayMap}">
+						<tr th:if="${not #arrays.isEmpty(deductionPayMap)}" th:each="deducePay : ${deductionPayMap}">
 							<td class="settingTableVal" th:text="${deducePay.key}" th:value="${deducePay.key}"></td>
 							<td class="deducePayAmount" th:text="${deducePay.value}" th:value="${deducePay.value}"></td>
 						</tr>
-						<tr th:unless="${not #arrays.isEmpty(deducePayMap)}">
+						<tr th:unless="${not #arrays.isEmpty(deductionPayMap)}">
 							<td class="settingTableVal">선택된 항목이 없습니다.</td>
 						</tr>
 					</table>

@@ -22,6 +22,12 @@ public class PayService {
 		this.payMapper = payMapper;
 	}
 	
+	// 급여등록 내역 검색
+	public List<PayAdd> getSearchPayAddList(String searchKey, String searchValue) {
+		List<PayAdd> searchPayAddList = payMapper.getSearchPayAddList(searchKey, searchValue);
+		return searchPayAddList;
+	}
+	
 	// 급여등록 내역 삭제
 	public int removePayAdd(String emplyId) {
 		int result = payMapper.removePayAdd(emplyId);
@@ -29,10 +35,30 @@ public class PayService {
 		return result;
 	}
 	
+	// 급여등록 내역 수정처리
+	public int modifyPayAdd(PayAdd payAdd) {
+		int result = payMapper.modifyPayAdd(payAdd);
+		return result;
+	}
+	
+	// 급여등록 내역 수정페이지
+	public PayAdd getModifyInfoById(String emplyId) {
+		PayAdd payAdd = payMapper.getModifyInfoById(emplyId);
+		return payAdd;
+	}
+	
 	// 급여 등록 리스트 조회
 	public List<PayAdd> getPayAddList() {
 		List<PayAdd> payAddList = payMapper.getPayAddList();
 		return payAddList;
+	}
+	
+	//기본급내역 수정
+	public int modifySalary(PayAdd payAdd) {
+		
+		int result = payMapper.modifySalary(payAdd);
+		System.out.println(payAdd+"Service!!");
+		return result;
 	}
 	
 	//급여내역 등록
