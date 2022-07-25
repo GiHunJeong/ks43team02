@@ -3,6 +3,38 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks43team02.mapper.PaymentMapper">
+	<insert id="addPaymentProgress" parameterType="ApprovalProgress">
+		/* 결재 진행 */
+		INSERT INTO tb_approval_progress(
+			approval_progress_code
+			, cp_representative_code
+			, super_admin_id
+			, approval_request_code
+			, emply_id
+			, approver_id
+			, document_cate_S_code
+			, emply_name
+			, current_approval_step
+			, return_status
+			, `comment`
+			, reg_date
+		)VALUES(
+			(SELECT CONCAT('approval_progress_code_',(SELECT(Max(cast(SUBSTRING_INDEX(approval_progress_code,'_',-1) AS UNSIGNED)) +1)
+		               from
+		               tb_approval_progress AS ap)))
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
+			, ''
+			, #{emplyId}
+			, #{approverId}
+			, #{documentCateSCode}
+			, #{emplyName}
+			, 3
+			, #{returnStatus}
+			, #{comment}
+			, NOW()
+		);
+	</insert>
 	<select id="getDocumentCateSList" resultType="DocumentCateS">
 		/* 카테고리소 조회 */
 		SELECT

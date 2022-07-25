@@ -31,11 +31,11 @@
 	    <!-- Start Page Content -->
 	    <!-- ============================================================== -->
 	    <!-- 결제요정페이지UI -->
-	    <form>
+	    <form id="paymentRequestForm" method="post" th:action="@{/payment/payment_request}">
 		    <div class="card-body">
 				<h4 class="card-title">결제요청페이지</h4>
 				<button id="choiceApprover" type="button" class="btn btn-info" data-toggle="modal" data-target="#bs-example-modal-lg">결재선관리</button>
-				<select class="custom-select col-md-3" id="inlineFormCustomSelect">
+				<select class="custom-select col-md-3" id="inlineFormCustomSelect" name="">
 				    <option selected="">결재문서종류</option>
 				    <option th:if="${not #lists.isEmpty(documentCateSList)}" th:each="l : ${documentCateSList}" th:value="${l.documentCateSCode}">[[${l.cateNameS}]]</option>
 				</select>
@@ -236,16 +236,29 @@
 							var approverRankName = emplyInfoList[i].rankLevelList.rankName;
 							var approverOrganiCode = emplyInfoList[i].organizationCodeS;
 							var organiName = $("<h4 class=\"card-title organiTitle\">"+emplyInfoList[i].organizationSList.organizationNameS+"</h4>");
-							var count = 0;
 							$('#approverDiv').append(organiName);
 
-							var approverCheckBox = $("<div class=\"custom-control custom-checkbox\"><input type=\"checkbox\" class=\"custom-control-input\" name=\"approverName\" value="+emplyInfoList[i].emplyName+" id="+emplyInfoList[i].emplyName+"><label class=\"custom-control-label\" for="+emplyInfoList[i].emplyName+">"+emplyInfoList[i].emplyName+emplyInfoList[i].rankLevelList.rankName+"</label></div>");
-							$('#approverDiv').append(approverCheckBox);
 							for(var j = 0 ; j<emplyInfoList.length;j++){
-								if(emplyInfoList[j].organizationSList.organizationNameS == emplyInfoList[i].organizationSList.organizationNameS){
+								var approverCheckBox = $("<div class=\"custom-control custom-checkbox\"><input type=\"checkbox\" class=\"custom-control-input\" name=\"approverName\" value="+emplyInfoList[j].emplyName+" id="+emplyInfoList[j].emplyName+"><label class=\"custom-control-label\" for="+emplyInfoList[j].emplyName+">"+emplyInfoList[j].emplyName+emplyInfoList[j].rankLevelList.rankName+"</label></div>");
+								if(emplyInfoList[i].organizationSList.organizationNameS == emplyInfoList[j].organizationSList.organizationNameS){										
+									$('#approverDiv').append(approverCheckBox);
+								}
+							}
+						}
+						console.log('organiTitle : ',$('.organiTitle'));
+						for(var i = 0 ; i<$('.organiTitle').length;i++){
+							var count = 0;
+							console.log('organiTitle.length : ',$('.organiTitle').length);
+							for(var j = 0 ; j<$('.organiTitle').length;j++){
+								var count2 = 0;
+								var organiTitle = $('.organiTitle')[j];
+								if($('.organiTitle')[i].innerText == $('.organiTitle')[j].innerText){
 									count++;
-									console.log('부서명 : ', emplyInfoList[j].organizationSList.organizationNameS);
-									console.log('count : ', count);
+									if(count > 1){
+										console.log('중복으로 삭제되는 대상 : ', organiTitle.innerText);
+										console.log('organiTitle[j] 의 값 : ',$('.organiTitle')[j]);
+										$('.organiTitle')[j].remove();
+									}
 								}
 							}
 						}
