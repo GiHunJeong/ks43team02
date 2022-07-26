@@ -1,0 +1,321 @@
+<!DOCTYPE html><!-- 출퇴근관리정리 -->
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+<!-- th:replace="경로 :: 조각이름" -->
+
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+	<style type="text/css">
+		.card{color:#222;}
+		.modal-body .btn-group{border: 1px solid #7c8798; }
+		/* .modal-box select{border:1px solid #7c8798; width:100%; height:2rem;} */
+		table td{padding-right:0.5rem;}
+		table td input{border:1px solid #a0a9b7; height:2rem; color:#222;}
+		table td:nth-child(2n) input{width:100%;}
+		table td:nth-child(2n) select{width:100%; height:2rem; margin-top:0.5rem;}
+		table td textarea{width:30rem; height:15rem;}
+		ul{list-style:none;}
+		.f-icon{display:inline-block; width:fit-content;}
+		.arrow-btn{text-align: center;}
+		.Before ul{display:block; width:100%; height:7rem; border:1px solid #a0a9b7;}
+		.after ul{display:block; width:100%; height:7rem; border:1px solid #a0a9b7;}
+	</style>
+	<!-- 출퇴근 시간찍히는 곳 -->
+	<div class="card">
+       <div class="card-body">
+       		<form class="bd-example">
+				<fieldset>
+					<h3>직권입력</h3>
+					<p>관리자가 사원을 검색하여 출근을 입력할 수 있다.</p>
+					<table class="modal-box">
+						<tbody>
+							<tr>
+								<td><label>출근종류</label></td>
+								<td><input type="text" value="직권입력" readonly=""></td>
+							</tr>
+							<tr>
+								<td><label>부서명</label></td>
+								<td>
+									<select id="select">
+								      	<option value="">::부서명::</option>
+										<option value="">Option 1</option>
+										<option value="">Option 2</option>
+										<option value="">Option 3</option>
+								    </select>
+							    </td>
+							</tr>
+							<tr>
+								<td><label>팀그룹</label></td>
+								<td>
+									<select id="select">
+								      <option value="">::팀그룹::</option>
+										<option value="">Option 1</option>
+										<option value="">Option 2</option>
+										<option value="">Option 3</option>
+								    </select>
+							    </td>
+							</tr>
+							<tr>
+								<td><label>직급</label></td>
+								<td>
+									<select id="select">
+								      <option value="">::직급::</option>
+										<option value="">Option 1</option>
+										<option value="">Option 2</option>
+										<option value="">Option 3</option>
+								    </select>
+							    </td>
+							</tr>
+							<tr>
+								<td><label>사원명</label></td>
+								<td>
+									<select id="select2">
+								      <option value="">::사원명::</option>
+								        <option value="">Option 1</option>
+								        <option value="">Option 2</option>
+								        <option value="">Option 3</option>
+								    </select>
+							    </td>
+							</tr>
+							<tr>
+								<td><label>신청서</label></td>
+								<td>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+									  Launch demo modal
+									</button>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLongTitle">신청서 찾기</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<label>신청리스트</label>
+													<div class="filebox">
+														<div class="Before">
+															<ul>
+																<li></li>
+															</ul>
+														</div>
+														<div class="arrow-btn">
+															<div class="col-6 f-icon down">
+																<i class="fas fa-angle-double-down"></i>
+															</div>
+															<div class="col-6 f-icon up">
+																<i class="fas fa-angle-double-up"></i>
+															</div>
+														</div>
+														
+														<div class="after">
+															<ul>
+																<li></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Save changes</button>
+												</div>
+											</div>
+										</div>
+									</div><!-- modal -->							
+								</td>
+							</tr>
+							<tr>
+								<td><label for="textarea">사유</label></td>
+								<td><textarea id="textarea" rows="3"></textarea></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="text-align:right;"><button class="btn btn-primary" type="submit">Button submit</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</fieldset>	
+			</form>
+		</div>
+	</div>
+</th:block>
+ 
+
+<th:block layout:fragment="customScript">
+	<!-- ============================================================== -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+	<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+	<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+	<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+	<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<!-- ============================================================== -->
+	<!-- apps -->
+	<!-- ============================================================== -->
+	<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+	<script th:src="@{/dist/js/feather.min.js}"></script>
+	<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+	<!-- ============================================================== -->
+	<!--Custom JavaScript -->
+	<!-- ============================================================== -->
+	<script th:src="@{/dist/js/custom.min.js}"></script>
+	<!-- ============================================================== -->
+	<!--This page JavaScript -->
+	<!-- ============================================================== -->
+	<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+	<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+	<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+    <!-- 확인 -->
+    <!-- Bootstrap tether Core JavaScript -->
+    
+    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+    
+    <!--This page plugins -->
+    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+    <!-- 확인//// -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    
+    <script type="text/javascript">
+    </script>
+    
+    <script type="text/javascript">
+			 $(function(){
+				var today = new Date();
+				var data =  today.getFullYear(); // 년도
+				let year = today.getFullYear(); // 년도
+				let month = today.getMonth() + 1;  // 월
+				let date = today.getDate();  // 날짜
+				
+				let hours = today.getHours(); // 시
+				let minutes = today.getMinutes();  // 분
+				let seconds = today.getSeconds();  // 초
+				let milliseconds = today.getMilliseconds(); // 밀리초
+				var person = JSON.stringify(today);
+				//alert(year+'년' + month+'월' + date+'일');
+				var workStartTime = year+ '년' + month + '월' +  date + '일';
+				var sendData = {};
+				sendData.workStartTime = workStartTime;
+				sendData.month = month;
+				sendData.date = date;
+				
+				console.log(JSON.stringify(sendData));
+				
+				var request = $.ajax({
+			           url: "/workWay/work_time",
+			           method: "POST",
+			           contentType : "application/json; charset=utf-8",
+			           data: JSON.stringify(sendData),
+			           dataType: "json"
+			         });
+				request.done(function(data){
+					console.log(data);
+			        if(sendData != null){
+			        	//if(data) location.reload();
+			        	console.log(data.workStartTime);
+			        	$('#getDay').append(data.workStartTime);
+			        }
+				});
+			         
+			 });
+			 function getInnerHtml(){
+				 const element = document.getElementById("getDay");
+				 element.innerHTML='<div id="getDay">[[${sendData2}]]</div>';
+			 }
+	</script>
+	     
+    
+	<script type="text/javascript"  th:inline="javascript">
+		
+	
+	
+		//출근시간기록
+		$("#startTimeBtn").click(function() {
+			
+			let today = new Date();   
+			
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+			
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes();  // 분
+			let seconds = today.getSeconds();  // 초
+			let milliseconds = today.getMilliseconds(); // 밀리초
+			//console.log(hours)
+			//$('.table-responsive-lg .startTime').text(year+'년'+month+'월'+date+'일'+ hours + ':' + minutes + ':' + seconds + ':' + milliseconds)
+			$('#startTimeModal .startTime').text(year+'년 '+month+'월 '+date+'일 ');
+			$('#startTimeModal').show();
+		}); 
+		
+		$("#startSaveBtn").on("click", function() {
+			let today = new Date();   
+			   
+	         let year = today.getFullYear(); // 년도
+	         let month = today.getMonth() + 1;  // 월
+	         let date = today.getDate();  // 날짜
+	         
+	         let hours = today.getHours(); // 시
+	         let minutes = today.getMinutes();  // 분
+	         let seconds = today.getSeconds();  // 초
+	         let milliseconds = today.getMilliseconds(); // 밀리초 
+	         
+	      			         
+			   /*<![CDATA[*/
+				var workTimeList = '[[${workTime}]]';
+				/*]]>*/
+				workTimeList = JSON.parse(workTimeList);
+				console.log(workTimeList);
+				
+				var worktimeCumulativeCode = workTimeList[0].worktimeCumulativeCode;
+				var cpRepresentativeCode = workTimeList[0].cpRepresentativeCode;
+				var standardWorksystemCpCode = workTimeList[0].standardWorksystemCpCode;
+				var workwayCode = workTimeList[0].workwayCode;
+				var emplyId = workTimeList[0].emplyId;
+				var emplyName = workTimeList[0].emplyName;
+				var workStartTime =  hours + ':' + minutes + ':' + seconds;
+				/*var workStartTime = year+ ':' + month + ':' +  date + ':' + hours + ':' + minutes + ':' + seconds;*/
+				var statusLate = 0;
+				if(hours > 9 && minutes > 0 && seconds > 0) statusLate = 1;
+				var statusOutsideWork = 0;
+				
+				var sendData = {};
+				sendData.worktimeCumulativeCode = worktimeCumulativeCode;
+				sendData.cpRepresentativeCode = cpRepresentativeCode;
+				sendData.standardWorksystemCpCode = standardWorksystemCpCode;
+				sendData.workwayCode = workwayCode;
+				sendData.emplyId = emplyId;
+				sendData.emplyName = emplyName;
+				sendData.workStartTime = workStartTime;
+				sendData.statusLate = statusLate;
+				sendData.statusOutsideWork = 0;
+				
+				console.log(JSON.stringify(sendData))
+			  
+		         var request = $.ajax({
+		           url: "/workWay/work_time",
+		           method: "POST",
+		           contentType : "application/json; charset=utf-8",
+		           data: JSON.stringify(sendData),
+		           dataType: "json"
+		         });
+		          
+		         request.done(function(data){
+			         $('#startTimeModal').modal('hide');
+
+			        //if(data) location.reload();
+			         $('td#startTime').text(year+'년 '+month+'월 '+date+'일 '+ hours + ' : ' + minutes + ' : ' + seconds);
+		         });
+		          
+		         request.fail(function( jqXHR, textStatus ) {
+		           alert( "Request failed: " + textStatus );
+		         });
+		         
+		          
+		   });
+	</script>
+</th:block>

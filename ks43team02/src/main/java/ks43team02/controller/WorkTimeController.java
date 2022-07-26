@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,15 +38,23 @@ public class WorkTimeController{
 	
 	@PostMapping("/work_time")
 	@ResponseBody
-	public boolean worklate(@RequestBody WorkTime workTime) {
+	public WorkTime worklate(@RequestBody WorkTime workTime) {
 		log.info("화면에서 입력받은 workTime 값 : {} " , workTime);
+		/*
+		 * if (workTime != null) { throw new ServerException(); } else { return new
+		 * ResponseEntity<>(user, HttpStatus.CREATED); }
+		 */
 		
-		return true;
+		if(workTime != null && workTime.getStandardWorksystemCpCode() =="") {
+			workTimeService.addWorkTimeCumulative(workTime);
+			log.info("db에 들어가야할 값 : {}",workTime);
+		}
+		return workTime;
 	}
 	
 	
 	
-	@GetMapping("/work_time")
+	@GetMapping(value = "/work_time")
 	public String getWorkTimeEmplyName(@RequestParam(name ="worktimeCumulativeCode", required = false) String worktimeCumulativeCode 
 									 , @RequestParam(name ="workStartTime", required = false)String workStartTime
 									 , @RequestParam(value ="srartTime", required = false)String srartTime
@@ -79,4 +88,9 @@ public class WorkTimeController{
 		return "workWay/work_time";
 		
 	};
+	
+	@GetMapping("/work_time_other")
+	public String addWorkTimeOther() {
+		return "workWay/work_time_other";
+	}
 }
