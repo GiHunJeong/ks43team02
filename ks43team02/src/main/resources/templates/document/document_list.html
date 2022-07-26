@@ -1,49 +1,337 @@
-<!DOCTYPE html><!-- 출퇴근관리정리 -->
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout/default.html}">
-<!-- th:replace="경로 :: 조각이름" -->
+	  
+<!-- th:replace="경로 :: 조각이름" --> 
 
+<head th:replace="fragments/head :: headFragment"></head>
+<body>
 <!-- 사용자 정의 contents -->
 <th:block layout:fragment="customContents">
-	<div class="card">
-       <div class="card-body">
-       </div>
-    </div>
-</th:block>
+	<style>
+		#cb0 .card-title{
+			font-weight: bolder;
+		}
+		#cb1 .card-title{
+			font-weight: bold;
+		}
+		#cb2 .card-title{
+			font-weight: bold;
+		}
+		.table{
+			text-align: center;
+		}
+		.sorting{
+		/* 안먹히는듯 */
+			font-weight: bolder;
+		}
+		.card .card-body .card-title{
+			margin-bottom: 20px;
+		}
+		.card-body{
+			margin-bottom: 20px;
+		}
+	</style>
+	<div class="row">
+		<div class="col-xl-12">
+			<!-- breadcrumbs start -->
+			<div class="col-7 align-self-center" style="margin-bottom: 1.5%; font-size: 15px;">
+				<div class="d-flex align-items-center">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb m-0 p-0">
+							<li class="breadcrumb-item">
+								<a th:href="@{/document/document_list}" class="text-muted">문서관리</a>
+							</li> 
+							<li class="breadcrumb-item">
+								<a class="breadcrumb-item text-muted active" aria-current="page">문서관리 홈</a>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<!-- breadcrumbs end -->
+<!-- ============================================================== -->		
+<!--============================================== 화면 test start -->
+<!-- ============================================================== -->	
+			<!-- ================================================== -->
+			<!-- 결재 정보 영역 시작 -->
+			<!-- ================================================== -->
+			<!-- card-group start -->
+			<div class="card-group">
+				<div class="card border-right">
+				<div class="card-body">
+					<div class="d-flex d-lg-flex d-md-block align-items-center">
+						<div>
+							<h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">0</h2>
+							<h5 class="text-muted font-weight-normal mb-0 w-100 text-truncate">대기문서</h5>
+						</div>
+						<div style="margin-left: 50px; margin-top: 15px;">
+							<h6>총 <code style="font-size: 20px;">5</code> 건</h6>
+							<h6>신규 <code style="font-size: 20px;">0</code> 건</h6>
+						</div>
+						<div class="ml-auto mt-md-3 mt-lg-0">
+							<span class="opacity-7 text-muted"><i class="fas fa-file-alt"></i></span>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="card border-right">
+					<div class="card-body">
+						<div class="d-flex d-lg-flex d-md-block align-items-center">
+							<div>
+								<div class="d-inline-flex align-items-center">
+									<h2 class="text-dark mb-1 font-weight-medium">2</h2>
+								</div>
+								<h5 class="text-muted font-weight-normal mb-0 w-100 text-truncate">부서</h5>
+							</div>
+							<div style="margin-left: 50px; margin-top: 15px;">
+								<h6>총 <code style="font-size: 20px;">21</code> 건</h6>
+								<h6>신규 <code style="font-size: 20px;">2</code> 건</h6>
+							</div>
+							<div class="ml-auto mt-md-3 mt-lg-0">
+								<span class="opacity-7 text-muted"><i class="fas fa-users"></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex d-lg-flex d-md-block align-items-center">
+							<div>
+								<h2 class="text-dark mb-1 font-weight-medium">5</h2>
+								<h5 class="text-muted font-weight-normal mb-0 w-100 text-truncate">회사전체</h5>
+							</div>
+							<div style="margin-left: 50px; margin-top: 15px;">
+								<h6>총 <code style="font-size: 20px;">38</code> 건</h6>
+								<h6>신규 <code style="font-size: 20px;">5</code> 건</h6>
+							</div>
+							<div class="ml-auto mt-md-3 mt-lg-0">
+								<span class="opacity-7 text-muted"><i class="fas fa-users"></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- card-group end -->
+			<!-- ================================================== -->
+			<!-- 결재 정보 영역 끝 -->
+			<!-- ================================================== -->
+			
+			<!-- ================================================== -->
+			<!-- 결재요청 영역 시작 -->
+			<!-- ================================================== -->
+			<div class="card">
+				<div class="card-body" id="cb0">
+					<h4 class="card-title">등록 대기 문서</h4>
+					<div class="table-responsive clearfix">
+						<!--==== 결재요청 table start ====-->
+						<table class="table no-wrap v-middle mb-0">
+							<thead>
+								<tr>
+									<th class="border-0 font-14 font-weight-medium text-muted" style="font-weight: bolder;">문서가 없습니다.</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="border-top-0 px-2 py-4">
+										<div class="d-flex no-block align-items-center"></div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div> <!-- end table-responsive / 결재요청 table -->
+				</div> <!-- end card-body / 결재요청 table -->
+				<!-- ================================================== -->
+				<!-- 결재요청 영역 끝 -->
+				<!-- ================================================== -->
+				
+				<!-- ================================================== -->
+				<!-- 결재진행/완료 리스트 영역 시작 -->
+				<!-- ================================================== -->
+				<!--==== 결재진행 리스트 start ====-->
+				<div class="card-body" id="cb1">
+					<h4 class="card-title">승인 대기 문서</h4>
+					<div class="table-responsive clearfix">
+						<!-- 진행 문서 table start -->
+						<table id="default_order" class="table table-hover table-sm mb-0" style="width:100%">
+							<thead>
+							<tr>
+								<th></th>
+								<th>등록일</th>
+								<th style="width: 50%;">제목</th>
+								<th>결재양식</th>
+								<th>부서</th>
+								<th>첨부</th>
+								<th>결재상태</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${not #lists.isEmpty(ApprovalRequest)}" th:each="l,num : ${ApprovalRequest}">
+								<td th:text="${num.count}">[[${num.count}]]</td>
+								<td th:text="${l.regDate}">2022-03-15</td>
+								<td th:text="${l.documentCateSCode}">[[${l.cateNameS}]]</td>
+								<td th:text="${l.documentCateSCode}">[[${l.cateNameS}]]</td>
+								<td th:text="${l.documentCateSCode}">[[${l.cateNameL}]]</td>
+								<td><span class="opacity-7 text-muted"><i class="fas fa-file"></i></span></td>
+								<td th:text="${l.approvalProgressStatus}"><span class="badge badge-info md-auto"></span></td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>2022-03-15</td>
+								<td>세금계산서</td>
+								<td>세금계산서</td>
+								<td>경영/관리</td>
+								<td><span class="opacity-7 text-muted"><i class="fas fa-file"></i></span></td>
+								<td><span class="badge badge-info md-auto">요청중</span></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>2022-04-19</td>
+								<td>연차신청서</td>
+								<td>연차신청서</td>
+								<td>인사/노무</td>
+								<td></td>
+								<td><span class="badge badge-warning md-auto">진행중</span></td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>2022-05-18</td>
+								<td>업무일지</td>
+								<td>업무일지</td>
+								<td>판매/영업</td>
+								<td><span class="opacity-7 text-muted"><i class="fas fa-file-alt"></i></span></td>
+								<td><span class="badge badge-danger md-auto">반려</span></td>
+							</tr>
+	
+						</tbody>
+						<tfoot>
+						</tfoot>
+						</table>
+					</div> <!-- end table-responsive / 진행문서 table  -->
+				</div> <!-- end card-body / 진행문서 cb1 -->
+				<!--===== 결재진행 리스트 end =====-->
+				<!--==== 등록문서 리스트 start ====-->
+				<div class="card-body" id="cb2">
+					<h4 class="card-title">등록 문서</h4>
+					<div class="table-responsive clearfix">
+						<!-- 완료 문서 table start -->
+						<table id="multi_col_order" class="table table-hover table-sm mb-0 " style="width:100%">
+							<thead>
+								<tr>
+									<th>등록일</th>
+									<th style="width: 50%;">제목</th>
+									<th>결재양식</th>
+									<th>긴급</th>
+									<th>첨부</th>
+									<th>결재상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>2022-05-26</td>
+									<td>회의록</td>
+									<td>회의록</td>
+									<td></td>
+									<td><span class="opacity-7 text-muted"><i class="fas fa-file"></i></span></td>
+									<td><span class="badge badge-success md-auto">완료</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div> <!-- end table-responsive / 완료문서table -->
+				</div> <!-- end card-body / 완료문서table -->
+				<!--===== 등록문서 리스트 end =====-->
+			</div> <!-- end card / 결재진행/완료 리스트 -->
+			<!-- ================================================== -->
+			<!-- 결재진행/완료 리스트 영역 끝 -->
+			<!-- ================================================== -->
+	
+<!-- ============================================================== -->		
+<!--============================================== 화면 test end  -->
+<!-- ============================================================== -->		
+				
+
+			<!-- ================================================== -->
+			<!-- 문서조회 리스트 영역 시작 -->
+			<!-- ================================================== -->
+			<!-- 문서조회 start-->
+			
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table id="zero_config" class="table table-hover table-striped table-bordered no-wrap" style="text-align: center;">
+							<thead>
+								<tr>
+									<th scope="col"></th>
+									<th scope="col">#</th>
+									<th scope="col">서식명</th>
+									<th scope="col">문서상태</th>
+									<th scope="col">부서</th>
+									<th scope="col">기안자</th>
+									<th scope="col">결재자</th>
+									<th scope="col">등록일</th>
+									<th scope="col">첨부파일</th>
+									<th scope="col">수정</th>
+									<th scope="col">삭제</th>
+									<!-- <th scope="col">비고</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${not #lists.isEmpty(documentApp)}" th:each="l,num : ${documentApp}"> 
+									<td><input type="checkbox" class="custom-control-input" id="customCheck1">check</td>
+									<td  th:text="${num.count}">[[${num.count}]]</td>
+									<td th:text="${l.documentCateSCode}">[[${cateNameS}]]</td>
+									<td th:text="${l.approvalRequestCode}">[[${approvalProgressStatus}]]</td>
+									<td th:text="${l.documentCateSCode}">[[${cateLName}]]</td>
+									<td th:text="${l.emplyInfoReg}">[[${emplyId}]]</td>
+									<td th:text="${l.emplyInfoReg}">[[${emplyId}]]</td>
+									<td th:text="${l.regDate}"></td>
+									<td th:text="">file</td>
+									<td><button type="button" class="btn waves-effect waves-light btn-danger">수정</td>
+									<td><button type="button" class="btn waves-effect waves-light btn-danger">삭제</td>
+								</tr>
+							</tbody>
+						</table>
+					</div> <!-- end table-responsive / 문서조회 -->
+				</div> <!-- end card-body / 문서조회 -->
+			</div> <!-- end card / 문서조회 -->
+				
+			<!-- ================================================== -->
+			<!-- 문서조회 리스트 영역 시작 -->
+			<!-- ================================================== -->
+			
+			
+			
+		</div> <!-- end col / total  -->
+	</div> <!-- end row / total -->	
+</th:block>	
 
 <th:block layout:fragment="customScript">
+	
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- apps -->
+    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+    <script th:src="@{/dist/js/feather.min.js}"></script>
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!--This page JavaScript -->
+    <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+    <!-- <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script> -->
+
+	<!--This page plugins -->
+	<script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+
 	<!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-	<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
-	<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
-	<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
-	<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
-	<!-- ============================================================== -->
-	<!-- apps -->
-	<!-- ============================================================== -->
-	<script th:src="@{/dist/js/app-style-switcher.js}"></script>
-	<script th:src="@{/dist/js/feather.min.js}"></script>
-	<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
-	<script th:src="@{/dist/js/sidebarmenu.js}"></script>
-	<!-- ============================================================== -->
-	<!--Custom JavaScript -->
-	<!-- ============================================================== -->
-	<script th:src="@{/dist/js/custom.min.js}"></script>
-	<!-- ============================================================== -->
-	<!--This page JavaScript -->
-	<!-- ============================================================== -->
-	<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
-	<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
-	<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
-    <!-- 확인 -->
-    <!-- Bootstrap tether Core JavaScript -->
-    
-    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
-    
-    <!--This page plugins -->
-    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+	<!-- script -->
+	<!-- ============================================================== -->	
+
+
 </th:block>

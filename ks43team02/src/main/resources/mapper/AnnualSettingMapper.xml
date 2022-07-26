@@ -4,26 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="ks43team02.mapper.AnnualSettingMapper">
- 	<resultMap type="AnnualStandard" id="AnnualStResultMap">
-		<id column="annual_standard_code" 				property="annualStandardCode"/>
-		<result column="cp_representative_code" 		property="cpRepresentativeCode"/>
-		<result column="super_admin_id" 				property="superAdminId"/>
-		<result column="year" 							property="year"/>
-		<result column="annual_get_day" 				property="annualGetDay"/>
+	<resultMap type="AnnualSetting"				id="AnnualSettingMap">
+  		<id column="annual_setting_code"				property="annualSettingCode"/>
+  		<result column="cp_representative_code" 			property="cpRepresentativeCode"/>
+  		<result column="super_admin_id" 					property="superAdminId"/>
+		<result column="annual_standard_code" 				property="annualStandardCode"/>
+  		<result column="emply_id" 							property="emplyId"/>
+ 		<result column="year" 								property="year"/>
+  		<result column="cp_name" 							property="cpName"/>
+  		<result column="reg_date" 							property="regDate"/>
+	  		<collection property="cateAnnual"  					ofType="CateAnnual">
+				<id column="cate_annual_code"					property="cateAnnualCode"/>
+				<result column="cp_representative_code" 		property="cpRepresentativeCode"/>
+				<result column="super_admin_id" 				property="superAdminId"/>
+				<result column="annual_division" 				property="annualDivision"/>
+				<result column="cp_name" 						property="cpName"/>
+				<result column="reg_date" 						property="regDate"/>
+			</collection>
+			<collection property="annualStandard"  				ofType="AnnualStandard">
+				<id column="annual_standard_code"				property="annualStandardCode"/>
+				<result column="cp_representative_code" 		property="cpRepresentativeCode"/>
+				<result column="super_admin_id" 				property="superAdminId"/>
+				<result column="year" 							property="year"/>
+				<result column="annual_get_day" 				property="annualGetDay"/>
+			</collection>
 	</resultMap>
-
-	<resultMap type="AnnualSetting" id="AnnualSettingMap">
-  		<result column="annual_setting_code"		property="annualSettingCode"/>
-  		<result column="cp_representative_code" 	property="cpRepresentativeCode"/>
-  		<result column="super_admin_id" 			property="superAdminId"/>
-		<result column="annual_standard_code" 		property="annualStandardCode"/>
-  		<result column="emply_id" 					property="emplyId"/>
- 		<result column="year" 						property="year"/>
-  		<result column="cp_name" 					property="cpName"/>
-  		<result column="reg_date" 					property="regDate"/>
-	</resultMap>
-	
-	 	<select id="getAnnualApplication" parameterType="String" resultMap="AnnualSettingMap">
+	<select id="getAnnualApplication" parameterType="String" resultMap="AnnualSettingMap">
  		/* 연차세팅 */
 		SELECT
 			annual_setting_code
@@ -35,7 +41,32 @@
 			,cp_name
 			,reg_date
 		FROM
-			tb_annual_setting
+			tb_annual_setting;
 	</select>
+	<select id="getCateAnnualListSetting" parameterType="AnnualSetting" resultMap="AnnualSettingMap">
+		/* 연차 유형 리스트*/
+		SELECT
+			ca.cate_annual_code
+			,ca.annual_division
+			,ca.reg_date
+		FROM
+			tb_cate_annual AS ca
+		
+<!-- 		SELECT
+			ca.cate_annual_code
+			,ca.cp_representative_code
+			,ca.super_admin_id
+			,ca.annual_division
+			,ca.cp_name
+			,ca.reg_date
+		FROM
+			tb_annual_setting AS ta
+		INNER JOIN
+			tb_cate_annual AS ca
+		WHERE
+			ta.cp_representative_code = ca.cp_representative_code
+			GROUP BY ca.cate_annual_code; -->
+	</select>
+ 	
 
 </mapper>

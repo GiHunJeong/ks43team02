@@ -2,76 +2,62 @@ package ks43team02.service;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ks43team02.dto.AnnualStandard;
 import ks43team02.dto.AnnualApplication;
-import ks43team02.dto.AnnualList;
-import ks43team02.dto.AnnualSetting;
 import ks43team02.dto.CateAnnual;
+import ks43team02.dto.Emply;
 import ks43team02.mapper.AnnualMapper;
-import ks43team02.mapper.AnnualSettingMapper;
 
 @Service
 @Transactional
+@Repository
 public class AnnualService {
-   /*
-    * 의존성 주입
-    * */
-   private final AnnualMapper annualMapper;
-   private final AnnualSettingMapper annualSettingMapper;
+	/*
+	* 의존성 주입
+	* */
+	private final AnnualMapper annualMapper;
    
-   public AnnualService(AnnualMapper annualMapper, AnnualSettingMapper annualSettingMapper) {
-      this.annualMapper = annualMapper;
-      this.annualSettingMapper = annualSettingMapper;
-   }
+	public AnnualService(AnnualMapper annualMapper) {
+		this.annualMapper = annualMapper;
+	}
    
-   //연차등록 가져오기 select
-   public List<AnnualApplication> getAnnualApplication() {
-      List<AnnualApplication> annualApplication = annualMapper.getAnnualApplication();
-      return annualApplication;
-   }
+	public Emply getEmplyInfoByEmail(String emplyId) {
+		Emply emply = annualMapper.getEmplyInfoByEmail(emplyId);
+		return emply;
+	};
+   	
+	//연차 등록
+	public List<AnnualApplication> getAnnualApplication(){
+		List<AnnualApplication> annualApplication = annualMapper.getAnnualApplication();
+		return annualApplication;
+	}
    
-   
-   //연차등록 폼 insert
-   public int addAnnualApplication(AnnualApplication annualApplication) {
-      int result = annualMapper.addAnnualApplication(annualApplication);
-      return result;
+	//연차 신청 목록 리스트
+	public List<AnnualApplication> getAnnualList(){
+		List<AnnualApplication> annualApplication = annualMapper.getAnnualList();
+		return annualApplication;
+	}
+	
+	//신청한 연차 리스트
+	public List<CateAnnual> getAnnualCateList(String cpRepresentativeCode){
+		List<CateAnnual> cateAnnual = annualMapper.getAnnualCateList(cpRepresentativeCode);
+		return cateAnnual;
+	}
+  
+	//연차 신청 하기 -테이블 쌓이게
+	public int addAnnualApplication(AnnualApplication annualApplication) {
+		int result = annualMapper.addAnnualApplication(annualApplication);
+		return result;
+	}
+   //로그인한 사원 연차등록 리스트 보여주기
+/*	public List<AnnualApplication> getAnnualListLogin(String emplyId){
+	   List<AnnualApplication> annualListLogin = annualMapper.getAnnualListLogin(emplyId);
+	   return annualListLogin;
    }
-   
-   //등록된 연차 리스트 select
-   public List<AnnualList> getAnnualList(){
-      List<AnnualList> annualList = annualMapper.getAnnualList();
-      return annualList;
-   }
-   
-   //등록된 연차 리스트 
-   public int getAnnualList(AnnualList annualList) {
-      int result = annualMapper.getAnnualList(annualList);
-      return result;
-   }
-
-
-   //연차세팅 가져오기
-   public List<AnnualSetting> getAnnualSetting(){ 
-      List<AnnualSetting> annualSetting = annualSettingMapper.getAnnualSetting(); 
-      return annualSetting;
-   }
-
-   //연차기준 가져오기
-   public List<AnnualStandard> getAnnualStandard(){
-      List<AnnualStandard> annualStandard = annualMapper.getAnnualStandard();
-      return annualStandard;
-   }
-
-   //연차카테고리 가져오기
-   public List<CateAnnual> getCateAnnual(){ 
-      List<CateAnnual> cateAnnual = annualMapper.getCateAnnual();
-      return cateAnnual; 
-   }
-   
+*/
     
  
 }
