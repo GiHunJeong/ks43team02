@@ -12,7 +12,7 @@
 							<div class="card" style="-webkit-box-shadow: none;">
 								<div class="card-body">
 									<div class="card-title">
-										<form id="addBoard" th:action="@{/board/department_list}" method="post" enctype="multipart/form-data">
+										<form id="departmentBoard" th:action="@{/board/department_detail}" method="post" enctype="multipart/form-data">
 											<table class="table table-bordered">
 												<thead>
 													<tr>
@@ -35,7 +35,7 @@
 															</div>
 															<div class="form-group row">
 																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="">제목</label>
+																	<label class="control-label" for="postTitle">제목</label>
 																</div>
 																<div class="col-md-10 col-sm-8 ">
 																	<input type="text" class="form-control" readonly="readonly"
@@ -44,16 +44,7 @@
 															</div>
 															<div class="form-group row">
 																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="">카테고리</label>
-																</div>
-																<div class="col-md-10 col-sm-8 ">
-																	<input type="text" class="form-control" readonly="readonly"
-																	 name="postCate" th:value="${departmentDetail.departmentCate}">
-																</div>
-															</div>
-															<div class="form-group row">
-																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="noticeDate">날짜</label>
+																	<label class="control-label" for="postDate">날짜</label>
 																</div>
 																<div class="col-md-5 col-sm-3 ">
 																	<input type="text" class="form-control" readonly="readonly"
@@ -62,7 +53,7 @@
 															</div>
 															<div class="form-group row">
 																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="noticeDate">작성자</label>
+																	<label class="control-label" for="postRegUserName">작성자</label>
 																</div>
 																<div class="col-md-4 col-sm-3 ">
 																	<input type="text" class="form-control" readonly="readonly"
@@ -80,7 +71,7 @@
 															</div>
 															<div class="form-group row">
 																<div class="col-md-2 col-sm-2">
-																	<label class="control-label" for="noticeContent">내용</label>
+																	<label class="control-label" for="postContent">내용</label>
 																</div>
 																<div class="col-md-10 col-sm-8 ">
 																	<textarea class="form-control" rows="15" name="postContent" readonly="readonly">
@@ -92,7 +83,7 @@
 													<tr>
 													<th scope="row">첨부파일</th>
 														<td>
-															<th:block  th:if="${not #lists.isEmpty(departmentDetail.file)}" th:each="t : ${departmentDetail.file}">	
+															<th:block th:if="${not #lists.isEmpty(departmentDetail.file)}" th:each="t : ${departmentDetail.file}">	
 																<div class="form-group row">
 																	<div class="col-md-2 col-sm-2">
 																		<label class="control-label" for="departmentFile">파일</label>
@@ -102,16 +93,43 @@
 																	</div>
 																</div>
 															</th:block>
+															<th:block th:unless="${not #lists.isEmpty(departmentDetail.file)}" th:each="t : ${departmentDetail.file}">	
+																<div class="form-group row">
+																	<p>첨부파일 없음</p>
+																</div>
+															</th:block>
 														</td>
 													</tr>
 												</tbody>
 											</table>
-											<div class="form-group">
-												<div class="col-md-8 col-sm-8  offset-md-4">
-													 <a class="btn btn-primary" href="javascript:history.back(-1)">뒤로가기</a>
-												</div>
-											</div>
 										</form>
+										<div class="form-group">
+											<div class="col-md-8 col-sm-8  offset-md-4">
+												 <button class="btn btn-info" onclick="#">수정하기</button>
+												 <button class="btn btn-primary" onclick="javascript:history.back(-1)">뒤로가기</button>
+												 <button th:data-departmentPostCode="${departmentDetail.departmentPostCode}" class="btn btn-danger" id="deleteButton">삭제하기</button>
+											</div>
+										</div>
+										<!-- Comments Form -->
+										<div class="card my-4">
+											<h5 class="card-header">댓글:</h5>
+											<div class="card-body">
+												<form name="comment-form" th:action="@{/board/add_comment}" method="get">
+													<div class="form-group">
+														<input type="hidden" name="departmentPostCode" th:value="${departmentDetail.departmentPostCode}"/> 
+														<textarea name="postComment" class="form-control" rows="3"></textarea>
+													</div>
+													<button type="button" class="btn btn-primary">작성</button>
+												</form>
+											</div>
+										</div>
+										<div class="container">
+											<form id="commentListForm" name="commentListForm" method="post">
+												<div class="commentList">
+													
+												</div> 
+											</form>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -121,3 +139,102 @@
 			</div>
 		</div>
 	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+		<script type="text/javascript" th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js}"></script>
+		<script th:src="@{/assets/extra-libs/taskboard/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
+		<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+		<!-- ============================================================== -->
+		<!-- apps -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+		<script th:src="@{/dist/js/feather.min.js}"></script>
+		<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+		<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+		<!-- ============================================================== -->
+		<!--Custom JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/dist/js/custom.min.js}"></script>
+		<!-- ============================================================== -->
+		<!--This page JavaScript -->
+		<!-- ============================================================== -->
+		<script th:src="@{/assets/libs/moment/min/moment.min.js}"></script>
+		<script th:src="@{/assets/libs/fullcalendar/dist/fullcalendar.min.js}"></script>
+		<script th:src="@{/dist/js/pages/calendar/cal-init.js}"></script>
+	    <!-- 확인 -->
+	    <!-- Bootstrap tether Core JavaScript -->
+	    
+	    <script th:src="@{/assets/extra-libs/sparkline/sparkline.js}"></script>
+	    
+	    <!--This page plugins -->
+	    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>	
+		
+		
+		<script type="text/javascript">
+			$("#deleteButton").click(function () {
+				var departmentPostCode = $(this).attr('data-departmentPostCode');
+				Swal.fire({
+				title: '정말 삭제 하시겠습니까?',
+				text: '삭제 시 해당 정보는 복구 할 수 없습니다.',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '네',
+				cancelButtonText: '아니오',
+				reverseButtons: false, // 버튼 순서 거꾸로
+		      
+				}).then((result) => {
+					if (result.value) {
+			            Swal.fire(
+			              '삭제완료',
+			              '삭제되었습니다.',
+			              'success'
+			            )
+			            location.href = '/board/department_remove?departmentPostCode=' + departmentPostCode;
+					} else if (result.dismiss === swal.DismissReason.cancel) {
+						Swal.fire(
+							'취소',
+							'취소되었습니다.',
+							'error'
+						)
+					}
+				})
+			});
+			
+			$(document).ready(function(){
+				getCommentList();
+			})
+			
+			function getCommentList(){
+				var departmentPostCode = $('input[name=departmentPostCode]').val();
+				$.ajax({
+					type: 'GET',
+					url: '/board/comment_list',
+					data: {departmentPostCode},
+					success: function(result){
+						console.log(result);
+						for(var i=0; i<result.length; i++){
+							var str = "<div class=\"comment\">"
+							str += result[i].postComment+"</div></hr>"
+							$("#comment").append(str);
+						}
+					},
+					error: function(result){
+					},
+					complete: function(){
+					}
+				})
+			}
+		</script>
+	</th:block>
+</html>
