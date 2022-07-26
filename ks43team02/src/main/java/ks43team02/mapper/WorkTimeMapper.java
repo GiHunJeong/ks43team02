@@ -39,7 +39,8 @@ public interface WorkTimeMapper {
 	public List<WorkTime> getStartCount(String emplyId);
 	
 	//사원 출근기록 업데이트
-	public int addWorkTimeCumulative(String emplyId);
+	//public int addWorkTimeCumulative(String emplyId);
+	public int addWorkTimeCumulative(WorkTime workTime);
 
 
 }
