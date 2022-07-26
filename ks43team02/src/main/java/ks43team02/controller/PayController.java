@@ -33,7 +33,7 @@ public class PayController {
 	}
 	
 	//급여등록내역 검색
-	@PostMapping("/payAddList")
+	@PostMapping("/payAdd_list")
 	public String getSearchPayAddList(@RequestParam(name="searchKey") String searchKey
 									 ,@RequestParam(name="searchValue", required = false) String searchValue
 									 ,Model model) {
@@ -55,24 +55,24 @@ public class PayController {
 			model.addAttribute("payAddList", payAddList);
 			log.info("payAddList : {}", payAddList);
 		}
-		return "pay/payAddList";
+		return "pay/payAdd_list";
 	}
 	
 	// 급여등록내역 삭제
-	@GetMapping("/payRemove")
+	@GetMapping("/pay_remove")
 	public String removePayAddList(@RequestParam(name="emplyId", required = false) String emplyId) {
 		log.info("------------removeList : {}", emplyId);
 		payService.removePayAdd(emplyId);
 		System.out.println(emplyId+" <- removeList!");
-		return "redirect:/pay/payAddList";
+		return "redirect:/pay/payAdd_list";
 	};
 
 	// 사원 급여등록 리스트 조회
-	@GetMapping("/payAddList")
+	@GetMapping("/payAdd_list")
 	public String getPayAddList(Model model) {
 		List<PayAdd> payAddList = payService.getPayAddList();
 		model.addAttribute("payAddList", payAddList);
-		return "pay/payAddList";
+		return "pay/payAdd_list";
 	};
 	
 	// 급여등록 내역 ajax(등록중복체크)
@@ -94,20 +94,20 @@ public class PayController {
 		payService.payAdd(payAdd);
 		payService.modifySalary(payAdd);
 		System.out.println(payAdd+" <- payAdd!");
-		return "redirect:/pay/payAddList";
+		return "redirect:/pay/payAdd_list";
 	};
 	
 	// 급여등록내역 수정처리
-	@PostMapping("/payModify")
+	@PostMapping("/pay_modify")
 	public String payModify(PayAdd payAdd) {
 		log.info("수정화면에서 입력받은 data:{}", payAdd);
 		payService.modifyPayAdd(payAdd);
 		payService.modifySalary(payAdd);
-		return "redirect:/pay/payAddList";
+		return "redirect:/pay/payAdd_list";
 	}
 	
 	// 급여등록내역 수정화면
-	@GetMapping("/payModify")
+	@GetMapping("/pay_modify")
 	public String payModify(@RequestParam(name="emplyId", required = false) String emplyId
 							,Model model) {
 		
@@ -163,7 +163,7 @@ public class PayController {
 		model.addAttribute("fixedPayMap", fixedPayMap);
 		model.addAttribute("deductionPayMap", deductionPayMap);
 		
-		return "pay/payModify";
+		return "pay/pay_modify";
 	}
 
 	// 사원 급여 등록페이지
@@ -247,7 +247,7 @@ public class PayController {
 	};
 	
 	// 급여세팅페이지(현재 세팅값 확인)
-	@GetMapping("/paySetting")
+	@GetMapping("/pay_setting")
 	public String getPaySet(Model model) { 
 
 		HashMap<String, String> fixedPayMap = new HashMap<>();
@@ -312,7 +312,7 @@ public class PayController {
 		model.addAttribute("fixedPayMap", fixedPayMap);
 		model.addAttribute("deductionPayMap", deductionPayMap);
 		
-		return "pay/paySetting";
+		return "pay/pay_setting";
 	};
 	
 	// 급여세팅페이지(세팅값 등록(변경))
@@ -325,7 +325,7 @@ public class PayController {
 		
 		log.info("paySet", paySet);
 		
-		return "redirect:/pay/paySetting";
+		return "redirect:/pay/pay_setting";
 	};
 	
 	// 급여 세팅페이지

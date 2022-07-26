@@ -5,7 +5,7 @@
 
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">
-		<form id="payAddListForm" th:action="@{/pay/payAddList}" method="post">
+		<form id="payAddListForm" th:action="@{/pay/payAdd_list}" method="post">
 			<div th:include="search/payAddListSearch :: payAddListSearchFragment"></div>
 			<div class="card">
 				<div class="card-body">
@@ -43,10 +43,10 @@
 								<td th:value="${l.totalPayment}" 		th:text="${l.totalPayment}" style="color: red;"></td>
 								<td th:value="${l.payAddRegDate}" 		th:text="${l.payAddRegDate}"></td>
 								<td>
-									<a th:href="@{/pay/payModify(emplyId=${l.emplyId})}" class="btn btn-warning modifyPayAddList" style="color: white;">수정</a>
+									<a th:href="@{/pay/pay_modify(emplyId=${l.emplyId})}" class="btn btn-warning modifyPayAddList" style="color: white;">수정</a>
 								</td>
 								<td>
-									<a th:href="@{/pay/payRemove(emplyId=${l.emplyId})}" class="btn btn-danger removePayAddList">삭제</a>
+									<a th:href="@{/pay/pay_remove(emplyId=${l.emplyId})}" class="btn btn-danger removePayAddList">삭제</a>
 								</td>
 							</tr>
 							<tr th:unless="${not #lists.isEmpty(payAddList)}">

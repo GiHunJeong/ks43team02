@@ -55,7 +55,7 @@ $(function() {
 	        if(result == true) {
 	           //yes
 	        	alert('수정이 완료되었습니다.')
-	            location.replace('payAddList');
+	            location.replace('payAdd_list');
 	        } else {
 	        	return false;
 	            //no
