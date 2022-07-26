@@ -7,14 +7,32 @@ import org.apache.ibatis.annotations.Mapper;
 
 import ks43team02.dto.DepartmentBoard;
 import ks43team02.dto.DepartmentBoardCate;
+import ks43team02.dto.DepartmentComment;
 import ks43team02.dto.NoticeBoard;
 
 
 @Mapper
 public interface BoardMapper {
 	
-	//공지사항 조회수 업데이트
-	public int departmentViewUpdate(String departmentPostCode);
+	//부서별 게시판 게시글 코드 조회
+	public String getDepartmentPostCode();
+	
+	//부서별 게시판 댓글 갯수
+	public int getCommentCount();
+	
+	//부서별 게시판 댓글 목록
+	public List<DepartmentComment> getCommentList(DepartmentComment departmentComment);
+	
+	//부서별 게시판 댓글 작성
+	public int addComment(DepartmentComment departmentComment);
+	
+	//부서별 게시판 댓글 수정
+	
+	//부서별 게시판 댓글 삭제
+	public int removeComment(String departmentCommentCode);
+	
+	//부서별 게시판 게시글 삭제
+	public int removePost(String departmentPostCode);
 	
 	//부서별 게시판 게시글 조회
 	public DepartmentBoard getDepartmentDetail(String departmentPostCode);
@@ -39,6 +57,9 @@ public interface BoardMapper {
 	
 	//부서별 게시판 게시글 번호 조회
 	public String getDepartmentIdx();
+	
+	//공지사항 조회수 업데이트
+	public int departmentViewUpdate(String departmentPostCode);
 	
 	//공지사항 삭제
 	public int removeNotice(String cpNoticeCode);

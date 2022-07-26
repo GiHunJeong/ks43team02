@@ -1,7 +1,6 @@
 package ks43team02.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NoticeBoard {

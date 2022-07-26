@@ -17,6 +17,8 @@ public class DepartmentBoard {
 	private LocalDateTime delDate;
 	private int ViewCnt;
 	private DepartmentBoardCate boardCate;
+	private DepartmentComment departmentComment;
+	
 	private List<FileDto> file;
 	
 	public String getDepartmentPostCode() {
@@ -109,13 +111,20 @@ public class DepartmentBoard {
 	public void setFile(List<FileDto> file) {
 		this.file = file;
 	}
+	public DepartmentComment getDepartmentComment() {
+		return departmentComment;
+	}
+	public void setDepartmentComment(DepartmentComment departmentComment) {
+		this.departmentComment = departmentComment;
+	}
 	@Override
 	public String toString() {
 		return "DepartmentBoard [departmentPostCode=" + departmentPostCode + ", cpRepresentativeCode="
 				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", departmentIdx=" + departmentIdx
 				+ ", departmentCate=" + departmentCate + ", regUserName=" + regUserName + ", postTitle=" + postTitle
 				+ ", postContents=" + postContents + ", regDate=" + regDate + ", modifiedDate=" + modifiedDate
-				+ ", delDate=" + delDate + ", ViewCnt=" + ViewCnt + ", boardCate=" + boardCate + ", file=" + file + "]";
+				+ ", delDate=" + delDate + ", ViewCnt=" + ViewCnt + ", boardCate=" + boardCate + ", file=" + file
+				+ ", departmentComment=" + departmentComment + "]";
 	}
 	
 }
