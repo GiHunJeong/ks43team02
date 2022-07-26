@@ -73,7 +73,7 @@
 					</ul>
                  </li>
                  <!-- 게 시 판 끝 -->
-                 <!-- 문 서 관 리 시 작 -->
+				 <!-- 문 서 관 리 시 작 -->
                  <li class="sidebar-item">
                  	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                  		<i data-feather="file-text" class="feather-icon"></i>
@@ -82,12 +82,13 @@
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item">
 							<a th:href="@{/document/document_list}" class="sidebar-link">
-								<span class="hide-menu">문서</span>
+								<span class="hide-menu">문서관리 홈</span>
 							</a>
 						</li>
-						<li class="sidebar-item"><a href="#" class="sidebar-link"><span
-						            class="hide-menu"> Form Grids
-						        </span></a>
+						<li class="sidebar-item">
+							<a href="@{/document/document_setting}" class="sidebar-link">
+								<span class="hide-menu">문서양식 관리</span>
+							</a>
 						</li>
 					</ul>
                  </li>
@@ -143,11 +144,11 @@
 					</ul>
                  </li>
                  <!-- 급 여 관 리 끝 -->
-                 <!-- 연차 시 작 -->
+				<!-- 연 차 관 리 시 작 -->
 				<li class="sidebar-item">
 					<a class="sidebar-link has-arrow" href="javascript:void(0)"  aria-expanded="false">
 						<i data-feather="calendar" class="feather-icon"></i>
-						<span class="hide-menu">!연차(임소정)</span>
+						<span class="hide-menu">!연차관리(임소정)</span>
 					</a>
 					<ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item">
@@ -157,12 +158,12 @@
 						</li>
 						<li class="sidebar-item">
 							<a th:href="@{/annual/annual_setting}" class="sidebar-link">
-								<span class="hide-menu"> !연차세팅 </span>
+								<span class="hide-menu"> !연차설정 </span>
 							</a>
 						</li>
 					</ul>
 				</li>
-                 <!-- 연 차 끝 -->
+                <!-- 연 차 관 리 끝 -->
          	</ul>             
          </nav>
       </div>

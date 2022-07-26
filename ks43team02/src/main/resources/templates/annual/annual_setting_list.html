@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+	  
+<!-- th:replace="경로 :: 조각이름" -->
+
+<head th:replace="fragments/head :: headFragment"></head> 
+<body>
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card">
+				<div class="card-body">
+					<!-- ================================================== -->
+					<!--list 영역 시작 -->
+					<!-- ================================================== -->
+					<div class="content" id="anuualList">
+						<h4 class="card-title mb-3">연차/휴가 내역</h4>	
+						<h4 class="card-title col-12" style="margin: auto 0; padding: 0;">Annual Application List</h4>
+						<!-- annaulApplicationList start -->
+						<div class=" col-12" style="padding:0;">
+							<!-- 휴가등록 list table 시작 -->
+							<div class="table-responsive" >										
+								<table id="zero_config" class="table table-striped table-bordered no-wrap" style="text-align: center;">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">신청일</th>
+											<th scope="col">시작일</th>
+											<th scope="col">종료일</th>
+											<th scope="col">휴가 구분</th>
+											<th scope="col">사용일수</th>
+											<th scope="col">결재진행상태</th>
+											<th scope="col">첨부파일</th>
+											<th scope="col">삭제</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(list)}" th:each="l,num : ${list}"> 
+											<td  th:text="${num.count}">[[${num.count}]]</td>
+											<!-- <td></td> -->
+											<td th:text="${l.emplyId}">[[${l.emplyId}]]</td>
+											<td th:text="${l.regDate}"></td>
+											<td th:text="${l.annualStartDate}"></td>
+											<td th:text="${l.annualEndDate}"></td>
+											<td th:text="${l.cateAnnualCode}"></td>
+											<td th:text="${l.useDate}"></td>
+											<td th:text="${l.approvalRequestCode}"></td>
+											<td th:text="${l.attachFileName}"></td>	
+										</tr>
+									</tbody>
+								</table>
+							</div><!-- 휴가등록 list table 끝 -->
+							<div class="col-sm-1">
+								<a><button type="button" class="btn btn-block btn-sm btn-info" onclick="history.back(-1)" id="btnBack" >back</button></a>
+							</div>																							
+						</div> <!-- annaulApplicationList end -->
+					</div> <!-- end / anuualList  -->
+					<!-- ================================================== -->
+					<!-- list 영역 끝 -->
+					<!-- ================================================== -->
+				</div> <!-- end card-body -->
+			</div> <!-- end card -->
+		</div> <!-- end col  -->
+	</div> <!-- end row -->	
+	
+<style>
+ 	#zero_config_length {
+		margin-top: 10px;
+	}
+	#zero_config_filter {
+		margin-top: 10px;
+	}
+	#zero_config {
+		/* position: relative;
+		left: -6%; */
+	}
+	#zero_config_paginate {
+		display: flex;
+		margin-top: 1%;
+	}
+	#zero_config_info {
+		margin-left: 203%;
+	}
+	#btnBack {
+		margin-top: -60%;
+		margin-left: -22%;
+		font-size: larger;
+	}
+</style>
+
+</th:block>	
+
+<th:block layout:fragment="customScript">
+	
+	<!-- ============================================================== -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+	<script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<!-- apps -->
+	<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+	<script th:src="@{/dist/js/feather.min.js}"></script>
+	<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+	<!--Custom JavaScript -->
+	<script th:src="@{/dist/js/custom.min.js}"></script>
+	<!--This page JavaScript -->
+	<script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+	<script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+	<script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js}"></script>
+	<script th:src="@{/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js}"></script>
+	
+	<!--This page plugins -->
+	<script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+
+	<!-- ============================================================== -->
+	<!-- script -->
+	<!-- ============================================================== -->
+	
+	<!-- 뒤로가기 버튼 클릭시 확인 alert -->
+	<script type="text/javascript">
+		$(function(){
+			$('#btnBack').on("click",function(){
+				alert("등록화면으로 돌아갑니다");
+			});
+		});
+	</script>
+	
+	<!-- 뒤로가기 버튼 클릭시 폼 리셋 -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#btnBack").click(function(){
+				$("#annualRegForm")[0].reset();
+			});
+		});
+	</script>
+	
+	<!-- 리스트 삭제버튼  -->
+	<!-- <script type="text/javascript">
+		$(function(){
+			$("#btnListDel").on("click",function(){
+				$(this).parent().remove();
+			});
+		}); 
+	</script>	-->
+	
+</th:block>

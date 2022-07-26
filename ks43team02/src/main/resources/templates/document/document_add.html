@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+	  
+<!-- th:replace="경로 :: 조각이름" --> 
+
+<head th:replace="fragments/head :: headFragment"></head>
+<body>
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+	<style>
+	#TabCardBody .card-title{
+		font-weight: bolder;
+	}
+	</style>
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card">
+				check
+			</div> <!-- end card / total -->
+		</div> <!-- end col / total  -->
+	</div> <!-- end row / total -->	
+</th:block>	
+
+<th:block layout:fragment="customScript">
+	
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- apps -->
+    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+    <script th:src="@{/dist/js/feather.min.js}"></script>
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!--This page JavaScript -->
+    <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+    <!-- <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script> -->
+
+	<!--This page plugins -->
+	<script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+
+
+	<!-- ============================================================== -->
+	<!-- script -->
+	<!-- ============================================================== -->	
+
+
+
+</th:block>
