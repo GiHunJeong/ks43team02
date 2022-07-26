@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default.html}">
+	  
+<!-- th:replace="경로 :: 조각이름" --> 
+
+<head th:replace="fragments/head :: headFragment"></head>
+<body>
+<!-- 사용자 정의 contents -->
+<th:block layout:fragment="customContents">
+	<style>
+	#TabCardBody .card-title{
+		font-weight: bolder;
+	}
+	
+	.table{
+		text-align: center;
+	}
+	#tableThead{
+		font-weight: bold;
+	}
+	.sorting th{
+		/* width: 50%; */
+	}
+	#cb4 .card-title{
+		margin-top: 3%;
+	}
+	</style>
+	<div class="row">
+		<div class="col-xl-12">
+			<!-- breadcrumbs start -->
+			<div class="col-7 align-self-center" style="margin-bottom: 1.5%; font-size: 15px;">
+				<div class="d-flex align-items-center">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb m-0 p-0">
+							<li class="breadcrumb-item">
+								<a th:href="@{/document/document_list}" class="text-muted">문서관리</a>
+							</li> 
+							<li class="breadcrumb-item">
+								<a class="breadcrumb-item text-muted active" aria-current="page">문서양식 관리</a>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<!-- breadcrumbs end -->
+			<div class="card">
+				<!-- ================================================== -->
+				<!-- 문서 tab-menu 영역 시작 -->
+				<!-- ================================================== -->
+				<div class="card-body" id="TabCardBody">
+					<!--==== tab-menu start ====-->
+					<h4 class="card-title" style="margin-bottom: 30px;">문서양식 관리</h4>
+					<ul class="nav nav-tabs mb-3">
+						<li class="nav-item">
+							<a href="#addCate" data-toggle="tab" aria-expanded="true" class="nav-link active">
+								<span class="d-none d-lg-block">양식 관리</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#docUpdate" data-toggle="tab" aria-expanded="false" class="nav-link">
+								<span class="d-none d-lg-block">버전 관리</span>
+							</a>
+						</li>
+					</ul> 
+					<!--===== tab-menu end =====-->
+					<!--==== tab-content start ====-->
+					<div class="tab-content">
+					<!-- 카테고리추가 start / addCate -->
+						<div class="tab-pane show active" id="addCate">
+							<!-- 카테고리 button start -->
+							<div style="margin-top: 2%; margin-bottom: 2%;">
+								<button type="button" id="btnDocModal" class="btn btn-block btn-outline-primary" style="height: 40px;">
+									<span><i class="far fa-file">  문서 양식 등록</i></span>
+								</button>
+							</div> <!-- 카테고리 button end -->
+							<!-- 카테고리 modal form start -->
+							<div class="col-3" style="margin: auto 0; display: flex;">
+								<div class="modal fade" id="addDocModal" tabindex="-1" role="dialog" aria-labelledby="addCateModal" style="height: 110%">
+									<div class="modal-dialog modal-lg" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="addCateTitle">문서 양식 등록</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">×</span>
+												</button>
+											</div>
+											<!-- 카테고리 modal-body --> <!-- ajax > 나중에추가 -->
+											<div class="modal-body">
+												<div id="addCateModal">
+													<div class="card">
+														<!-- 카테고리 modal form start -->
+														<form style="padding: 10px;" id="addCateForm">
+															<div class="form-group row">
+															<label for="text" class="col-sm-2 col-form-label">부서</label>
+																<div class="col-sm-10">
+																	<select class="form-control" name="cateNameL">
+																		<option value="val1">경영/관리</option>
+																		<option value="val2">총무/서무</option>
+																		<option value="val3">인사/노무</option>
+																		<option value="val4">세무/회계</option>
+																		<option value="val5">판매/영업</option>
+																		<option value="val6">제조/생산</option>
+																		<option value="val7">구매/외주</option>
+																		<option value="val8">무역/수출</option>
+																		<option value="val9">은행/금융</option>
+																		<option value="val10">특허/산업재산권</option>
+																		<option value="val11">명명규격/인증</option>
+																	</select>
+																</div>
+															</div>
+															<div class="form-group row">
+																<label for="text" class="col-sm-2 col-form-label">문서 종류</label>
+																<div class="col-sm-10">
+																	<input type="text" class="form-control" id="department" name="cateNameS">
+																</div>
+															</div>
+															<div class="form-group row">
+																<label for="custom-file-label" class="col-sm-2 col-form-label">파일첨부</label>
+																<div class="custom-file col-sm-10">
+																	<input type="file" class="custom-file-input" id="addDocFile" name="addDocFile">
+																	<label class="custom-file-label" for="inputGroupFile03" style="margin-left: 2.3%; margin-right: 2.4%;">Choose file</label>
+																</div>
+															</div>
+														</form>
+														<!-- 카테고리 modal form end -->
+													</div><!-- 카테고리 modal-body card end -->
+													<!-- <button type="button" class="btn btn-block btn-sm btn-info" id="btnAppSrchName">조회</button> -->													
+												</div><!-- 카테고리 modal-content -->																							
+											</div> <!-- 카테고리 modal-body  끝 -->
+											<!-- 카테고리 modal-footer -->
+											<div class="modal-footer" style="padding: 0.5rem">
+												<button type="button" class="btn btn-cancle" data-dismiss="modal" id="btnModalCan">
+													취소
+												</button>
+												<button type="button" class="btn btn-primary" data-dismiss="modal" id="btnModalSub">
+													확인	
+												</button>
+											</div> <!-- 카테고리 modal-footer end -->
+										</div> <!-- 카테고리 modal-content 끝 --> 
+									</div> <!-- 카테고리 modal-dialog 끝 --> 
+								</div> <!-- 카테고리 modal form 끝 -->
+							</div> <!-- 카테고리 modal form end -->
+							
+
+							<!--==== 카테고리 리스트 start ====-->
+							<div id="cb3">
+								<h5 class="card-title">등록 문서</h5>
+								<div class="table-responsive clearfix">
+									<!-- 버전관리 table start -->
+									<table id="default_order" class="table table-hover table-sm mb-0" style="width:100%">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>부서</th>
+												<th style="width: 75%;">문서 종류</th>
+												<th>첨부</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- <tr class="move" number="1"> -->
+											<tr th:if="${not #lists.isEmpty(documentCateS)}" th:each="l,num : ${documentCateS}"> 
+												<td th:text="${num.count}">[[${num.count}]]</td>
+												<td th:text="${l.cateNameL}"></td>
+												<td th:text="${l.cateNameS}"></td>
+												<td><span><i class="far fa-file"></i></span></td>
+											</tr>
+										</tbody>
+										<tfoot>
+										</tfoot>
+									</table>
+								</div> <!-- end table-responsive / 진행문서 table  -->
+							</div> <!-- end 카테고리 리스트 / cb3 -->
+							<!--===== 카테고리 리스트 end =====-->
+						</div> <!-- 문서등록 tab end / docApp -->
+						<!-- ================================================== -->
+						<!-- 문서 tab - 문서등록 영역 끝 -->
+						<!-- ================================================== -->
+						
+						<!-- ================================================== -->
+						<!-- 문서 tab - 버전관리 영역 시작 -->
+						<!-- ================================================== -->
+						<!-- 버전관리 start / docUpdate -->
+						<div class="tab-pane" id="docUpdate">
+							<div class=" col-12" style="padding:0;">
+
+								<!-- 버전관리 문서등록요청 table start  -->
+								<div id="cb4">
+									<h5 class="card-title">버전관리</h5>
+									<div class="col-12" style="margin-left: 1%;">
+										<a><button type="button" class="btn btn-outline-primary btn-sm"  style="position:absolute; margin-left: 9%;">
+											<i class="fa fa-check">일괄 승인</i>
+										</button></a>
+									</div>
+									<div class="table-responsive clearfix">
+										<!-- 버전관리 table start -->
+										<table id="multi_col_order" class="table table-hover table-sm mb-0 " style="width:100%">
+											<thead id="tableThead">
+												<tr>
+													<th><input type="checkbox" name="selectAll" id="selectAll"></th>
+													<th>등록요청일</th>
+													<th style="width: 60%;">제목</th>
+													<th>첨부</th>
+													<th>부서</th>
+													<th>등록자</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="move">
+													<td><input type="checkbox" class="ckDoc" name="ckDoc"></td>
+													<td>2020-03-15</td>
+													<td>지출결의서#2</td>
+													<td><span><i class="far fa-folder-open"></i></span></td>
+													<td>경영/관리</td>
+													<td>등록자</td>
+												</tr>
+				
+												<tr class="move">
+													<td><input type="checkbox" class="ckDoc" name="ckDoc"></td>
+													<td>2020-06-04</td>
+													<td>회의록#2</td>
+													<td><span><i class="far fa-folder-open"></i></span></td>
+													<td>총무/서무</td>
+													<td>등록자</td>
+												</tr>
+												<tr class="move">
+													<td><input type="checkbox" class="ckDoc" name="ckDoc"></td>
+													<td>2020-06-11</td>
+													<td>비품대장#2</td>
+													<td><span><i class="far fa-folder-open"></i></span></td>
+													<td>총무/서무</td>
+													<td>등록자</td>
+												</tr>
+												<tr class="move">
+													<td><input type="checkbox" class="ckDoc" name="ckDoc"></td>
+													<td>2020-06-18</td>
+													<td>연차신청서#2</td>
+													<td><span><i class="far fa-file"></i></span></td>
+													<td>인사/노무</td>
+													<td>등록자</td>
+												</tr>
+			
+												<tr class="move">
+													<td><input type="checkbox" class="ckDoc" name="ckDoc"></td>
+													<td>2021-07-10</td>
+													<td>영업매출계획표#2</td>
+													<td><span><i class="far fa-file"></i></span></td>
+													<td>판매/영업</td>
+													<td>등록자</td>
+												</tr>
+												<tr class="move">
+													<td><input type="checkbox" class="ckDoc" name="ckDoc"></td>
+													<td>2021-09-03</td>
+													<td>원부자재발주서#2</td>
+													<td><span><i class="far fa-file"></i></span></td>
+													<td>제조/생산</td>
+													<td>등록자</td>
+												</tr>
+												<tr class="move">
+													<td><input type="checkbox" class="ckDoc" name="ckDoc"></td>
+													<td>2021-10-20</td>
+													<td>견적서#2</td>
+													<td><span><i class="far fa-file"></i></span></td>
+													<td>제조/생산</td>
+													<td>등록자</td>
+												</tr>
+								
+												<tr class="move">
+													<td><input type="checkbox" class="ckDoc" name="ckDoc"></td>
+													<td>2022-07-13</td>
+													<td>가격신고서#2</td>
+													<td><span><i class="far fa-file"></i></span></td>
+													<td>무역/수출</td>
+													<td>등록자</td>
+												</tr>
+											</tbody>
+											<tfoot>
+											</tfoot>
+										</table>
+									</div> <!-- end table-responsive / 버전관리 table  -->
+								</div> <!-- 버전관리 리스트 end / cb4 -->
+								<!-- 버전관리 문서등록요청 table end  -->
+							
+							</div> <!-- 버전관리 col-end / docUpdate -->
+						</div> <!-- 버전관리 tab end / docUpdate -->
+					</div> <!--===== tab-content end =====-->
+				</div> <!-- end card-body / TabCardBody -->
+				<!-- ================================================== -->
+				<!-- 문서 tab - 버전관리 영역 끝 -->
+				<!-- ================================================== -->
+			</div> <!-- end card / total -->
+		</div> <!-- end col / total  -->
+	</div> <!-- end row / total -->	
+</th:block>	
+
+<th:block layout:fragment="customScript">
+	
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- apps -->
+    <script th:src="@{/dist/js/app-style-switcher.js}"></script>
+    <script th:src="@{/dist/js/feather.min.js}"></script>
+    <script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/dist/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{/dist/js/custom.min.js}"></script>
+    <!--This page JavaScript -->
+    <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
+    <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
+    <!-- <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script> -->
+
+	<!--This page plugins -->
+	<script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+
+
+	<!-- ============================================================== -->
+	<!-- script -->
+	<!-- ============================================================== -->	
+
+
+	<script type="text/javascript">
+		$(function(){
+			$('#btnDocModal').click(function(){
+				$('#addDocModal').modal('show');
+				console.log('문서등록 Modal open');
+			});
+			
+		});
+		/* 문서등록 Modal 확인버튼 클릭시 */
+		$(function(){
+			$('#btnModalSub').on("click",function(){
+				alert("등록하시겠습니까?"); 
+				console.log('문서등록 확인 - btnModalSub 클릭');
+			});
+			$('#ApprovalSrchModal').modal('hide');
+		/* 문서등록 Modal 취소버튼 클릭시 */ 
+			$('#btnModalCan').on("click",function(){
+				$('#approvalModal')[0].reset();
+				console.log('문서등록 취소 - btnModalCan 클릭');
+			});
+	
+		});
+
+		$(document).ready(function(){
+			$('#btnAdd').on('click',function(){
+				location.href = 'document_add';
+			});
+		});
+		
+		/* 테이블 행 클릭시 페이지 이동 */
+	/*	$(function(){
+			$(".move").click(function(){
+				var num = $(this).attr("number");
+				location.href="${pageContext.request.contextPath}/document_detail"+num
+			});
+		}); */
+		
+		$(document).ready(function(){
+			/* 버전관리 전체 체크박스 선택 */
+			$("#selectAll").click(function(){
+				if($("#selectAll").prop("checked")){
+					$(".ckDoc").prop("checked", true);
+				}else{
+					$(".ckDoc").prop("checked", false);
+				}
+			});
+			/* 전체 체크박스 선택 중 한 개 풀었을때 "전체"체크해제 */
+			$(".ckDoc").click(function(){
+				if($("input[name='ckDoc']:checked").length == 8){
+					$("#selectAll").prop("checked", true);
+				}else{
+					$("#selectAll").prop("checked", false);
+				}
+			});
+		});
+		
+	</script>
+	
+	<!-- 문서카테고리 추가 모달 ajax -->
+	<script type="text/javascript">
+/*
+		$(function(){
+			$('#btnModalSub').click(function(){
+				
+				var docCateLName = $('#cateNameL').val();
+				var docCateSName = $('#cateNameS').val();
+				var addDocFile = $('#addDocFile').val();
+				
+				//ajax 호출 정보 기입
+				var request = $.ajax({
+					url : "/document/document_setting",
+					method : "post",
+					data : {docCateLName,docCateSName,addDocFile},
+					dataType : "text"
+				});
+				//호출 정상 실행
+				request.done(function(data){
+					alert("success!");
+					console.log(data);
+				});
+				//호출 에러
+				request.fail(function(jqXHR, textStatus){
+					alert("Request failed:" + textStatus);
+				});
+				
+			});
+		});
+	*/
+	</script>
+
+</th:block>

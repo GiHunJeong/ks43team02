@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -40,9 +38,10 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:if="${not #lists.isEmpty(annualList)}" th:each="l : ${annualList}"> 
-											<td th:text="${l.annualApplicationCode}"></td>
+										<tr th:if="${not #lists.isEmpty(list)}" th:each="l,num : ${list}"> 
+											<td  th:text="${num.count}">[[${num.count}]]</td>
 											<!-- <td></td> -->
+											<td th:text="${l.emplyId}">[[${l.emplyId}]]</td>
 											<td th:text="${l.regDate}"></td>
 											<td th:text="${l.annualStartDate}"></td>
 											<td th:text="${l.annualEndDate}"></td>
@@ -50,12 +49,6 @@
 											<td th:text="${l.useDate}"></td>
 											<td th:text="${l.approvalRequestCode}"></td>
 											<td th:text="${l.attachFileName}"></td>	
-											<td>
-												<a type="button" id="btnListDel" class="btn waves-effect waves-light btn-danger text-white"
-													th:href="@{/annual/annual_list_del(annualApplicationCode=${l.annualApplicationCode})}">
-													삭제
-												</a>
-											</td>	
 										</tr>
 									</tbody>
 								</table>
@@ -92,7 +85,7 @@
 		margin-left: 203%;
 	}
 	#btnBack {
-		margin-top: -90%;
+		margin-top: -60%;
 		margin-left: -22%;
 		font-size: larger;
 	}
@@ -127,7 +120,7 @@
 	<!-- ============================================================== -->
 	<!-- script -->
 	<!-- ============================================================== -->
-
+	
 	<!-- 뒤로가기 버튼 클릭시 확인 alert -->
 	<script type="text/javascript">
 		$(function(){

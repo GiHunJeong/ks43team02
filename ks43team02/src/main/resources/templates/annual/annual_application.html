@@ -9,246 +9,288 @@
 <body>
 <!-- 사용자 정의 contents -->
 <th:block layout:fragment="customContents">
+	<style>
+		.input-group-text{
+			width: 100px;
+			text-align: center;
+			display: block;
+		}
+	</style>
 	<div class="row">
 		<div class="col-xl-12">
+			<!-- breadcrumbs start -->
+			<div class="col-7 align-self-center" style="margin-bottom: 1.5%; font-size: 15px;">
+				<div class="d-flex align-items-center">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb m-0 p-0">
+							<li class="breadcrumb-item">
+								<a th:href="@{/annual/annual_application}" class="text-muted">연차관리</a>
+							</li> 
+							<li class="breadcrumb-item">
+								<a class="breadcrumb-item text-muted active" aria-current="page">연차 등록</a>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<!-- breadcrumbs end -->
 			<div class="card">
-				<div class="card-body">
-					<!-- ================================================== -->
-					<!-- application 영역 시작 -->
-					<!-- ================================================== -->
-					<div class="content" id="application">
-						<h4 class="card-title mb-3">연차/휴가 등록</h4>	
-						<!--==== 내 휴가 정보 start ====-->
-						<div class="col-xl-12">
-							<div class="card" id="applicationInfoCard">
-								<div class="card-body" id="applicationInfoCardBody">
-									<h6 class="card-subtitle" style="text-align: center; padding: 1rem;">당신의 입사일은 <code>&lt;-&gt;</code>일입니다.</h6>
-									<div class="row" id="column">
-										<!-- Column -->
-										<div class="col-md-6 col-lg-3 col-xlg-3">
-											<div class="card card-hover">
-												<div class="p-2 bg-primary text-center" id="totalWorkDate">
-													<h1 class="font-light text-white">370</h1>
-													<h6 class="text-white">총근무일</h6>																	
-												</div>
-											</div>
-										</div>
-										<!-- Column -->
-										<div class="col-md-6 col-lg-3 col-xlg-3">
-											<div class="card card-hover">
-												<div class="p-2 bg-cyan text-center" id="inYear">
-													<h1 class="font-light text-white">2</h1>
-													<h6 class="text-white">년차</h6>
-												</div>
-											</div>
-										</div>
-										<!-- Column -->
-										<div class="col-md-6 col-lg-3 col-xlg-3">
-											<div class="card card-hover" id="anuualGrant">
-												<div class="p-2 bg-success text-center">
-													<h1 class="font-light text-white">1100</h1>
-													<h6 class="text-white">휴가부여일수</h6>
-												</div>
-											</div>
-										</div>
-										<!-- Column -->
-										<div class="col-md-6 col-lg-3 col-xlg-3">
-											<div class="card card-hover">
-												<div class="p-2 bg-danger text-center" id="remainingTime">
-													<h1 class="font-light text-white">9</h1>
-													<h6 class="text-white">잔여일수</h6>
-												</div>
-											</div>
-										</div>
-										<!-- Column -->
-									</div> <!-- row end / Column -->										
-								</div><!-- card-body end / applicationInfoCardBody -->
-							</div><!-- card end / applicationInfoCard -->
-						</div>
-						<!--==== 내 휴가 정보 end ====-->
-	
-						<!--==== 휴가등록 form start ====-->
-						<div class="card" id="annaulRegFormCard">
-							<div class="card-body" id="annaulRegFormCardBody" style="padding: 0;">												
-								<h4 class="card-title col-12" style="margin-bottom: 1rem;">Annual Registration</h4>
-								<form class="" id="annualRegForm" method="post" th:action="@{/annual/annual_list}">
-									<th:block>
-										<div class="form-body"  >									
-											<!-- form 1line start -->
-											<div class="input-group">
-												<!-- 휴가신청일 시작 -->
-												<div class=" col-4">
-													<div class="input-group-prepend" >
-														<span class="input-group-text" id="basic-addon1">휴가신청일</span>
-														<input type="date" class="form-control" name="regDate" id="regDate">
-													</div>
-												</div> <!-- 휴가신청일 끝 -->
-												<!-- 휴가구분 시작-->
-												<div class="col-4" style="padding:0;">
-													<div class="input-group-append">
-														<span class="input-group-text" id="basic-addon2">휴가 구분</span>
-														<select class="form-control" id="controlSelect" name="cateAnnualCode">
-															<!-- <th:block th:if="not #lists.isEmpty(annualList)"> -->
-																<option th:value="val0">구분</option>
-																<option th:value="val1">연차</option>
-																<option th:value="val2">보상</option>
-																<option th:value="val3">경조</option>
-																<option th:value="val4">병가</option>
-																<option th:value="val5">보건</option>
-																<option th:value="val6">공가</option>
-																<option th:value="val7">기타</option>
-															<!-- </th:block>		 -->												
-														</select>
-													</div>																																				
-												</div> <!-- 휴가구분 끝 -->
-												<!-- 사용일수 선택 시작 -->
-												<div class="input-group mb-3 col-4" id="selectRadio">											
-													<div class="input-group-prepend">
-														<span class="input-group-text" id="basic-addon3">사용일수</span>
-														<div class="radio"  style="margin:auto 0;">
-															<label for="radio1" style="margin:0 0 0 1em;">
-																<input type="radio" id="radio1" name="useDate" value="1.0"> 1.0
-																<input type="radio" id="radio2" name="useDate" value="0.5"> 0.5
-															</label>
-															<!-- 기타선택시 입력 >> 수정
-															<label for="radio1" id="etcView" style="margin:0 0 0 1em; display: none;">
-																<input type="radio" id="radio3" name="radio" value="기타" placeholder="기타 선택 시 입력해주세요">
-															</label> -->
-														</div>
-													</div>																														
-												</div> <!-- 사용일수 선택 끝 -->
-											</div> <!-- form 1line end -->
-											
-											<!-- form 2line start -->
-											<div class="input-group mb-3 col-12" style="padding: 0;">
-												<!-- 휴가 기간 시작 -->
-												<div class="col-5">
-													<div style="display: flex; margin: auto 0; width: auto;">
-														<div class="input-group-append">
-															<span class="input-group-text" id="basic-addon4">휴가 기간</span>
-														</div>														
-														<div class="input-group input-daterange" id="dateFormat">
-															<input type="date" class="form-control" id="startDate" name="annualStartDate">
-															<div class="input-group-addon" style="margin: auto 0;"> - </div>
-															<input type="date" class="form-control" id="endDate" name="annualEndDate">
-															<!-- <p>(  일)</p> >> 일 수 계산할 수 있으면~ -->
-														</div>																			
-													</div>																
-												</div> <!-- 휴가기간 끝 -->																
-												<!-- 결재자 선택 modal 시작 -->																											
-												<div class="col-3" style="margin: auto 0; display: flex;">
-													<div class="input-group-append">
-														<span class="input-group-text" id="basic-addon5">결재자</span>																			
-													</div>																		
-													<input type="text" class="form-control" id="chooseApproval" name="approvalRequestCode">
-													<!-- 결재자 선택 modal 버튼 -->
-													<button type="button" class="btn waves-effect waves-light btn-light" data-toggle="modal" data-target="ApprovalSrchModal" id="btnApprovalSrchModal">											
-														<span aria-hidden="true">
-															<i class="fas fa-search"></i>
-														</span>
-													</button>
-													<!-- 결재자 선택 modal form 시작 -->
-													<div class="modal fade" id="ApprovalSrchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="height: 110%">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h4 class="modal-title" id="myModalLabel">결재자 선택</h4>
-																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">×</span>
-																	</button>
-																</div>
-																<!-- 결재자 선택 modal-body --> <!-- ajax > 나중에추가 -->
-																<div class="modal-body">
-																	<div id="approvalModal">
-																		<div class="card">
-																			<!-- 부서선택 시작 -->
-																			<div class="form-group">
-																				<!-- <label for="controlSelect">부서</label> -->
-																				<select class="form-control" id="department" name="department">
-																					<option value="val1">부서</option>
-																					<option value="val2">인사</option>
-																					<option value="val3">노무</option>
-																					<option value="val4">생산지원</option>
-																					<option value="val5">회계꽌리</option>
-																					<option value="val6">재무관리</option>
-																					<option value="val7">자재관리</option>
-																					<option value="val8">납품관리</option>
-																					<option value="val9">생산관리</option>
-																				</select> 
-																			</div><!-- 부서선택 끝 -->
-																		
-																			<!-- 직급선택 시작 -->																	
-																			<div class="form-group">
-																				<!-- <label for="controlSelect">직급</label> -->
-																				<select class="form-control" id="rank" name="rank" >
-																					<option value="val1">직급</option>
-																					<option value="val2">사원</option>
-																					<option value="val3">대리</option>
-																					<option value="val4">과장</option>
-																					<option value="val5">부장</option>
-																					<option value="val6">부사장</option>
-																					<option value="val7">사장</option>
-																					<option value="val8">직접입력</option>
-																				</select> 
-																			</div><!-- 직급선택 끝 -->										
-																			<div>
-																				<input type="text" class="form-control" placeholder="이름" id="appSrchName">
-																			</div>
-																		</div><!-- 결재자선택 modal-body card end -->
-																		<button type="button" class="btn btn-block btn-sm btn-info" id="btnAppSrchName">조회</button>													
-																	</div>																							
-																</div> <!-- 결재자 선택 modal-body  끝 -->
-																<!-- 결재자 선택 modal-footer -->
-																<div class="modal-footer" style="padding: 0.5rem">
-																	<button type="button" class="btn btn-cancle" data-dismiss="modal" id="btnModalCan">
-																		취소
-																	</button>
-																	<button type="button" class="btn btn-primary" data-dismiss="modal" id="btnModalSub">
-																		확인	
-																	</button>
-																</div> <!-- 결재자 선택 modal-footer end -->
-															</div> <!-- 결재자 선택 modal-content 끝 --> 
-														</div> <!-- 결재자 선택 modal-dialog 끝 --> 
-													</div> <!-- 결재자 선택 modal form 끝 -->
-												</div> <!-- 결재자 선택 modal 끝 -->
-												
-												<!-- 첨부파일 등록 시작 -->
-								<!-- 수정 필요 -->										
-												<div class="col-4">
-													<div style="margin: auto 0;">
-													<span class="input-group-text" id="basic-addon4" style="display: block;" >증명자료 첨부</span>
-													<label class="custom-file-label" for="inputGroupFile01"  style="width: 70%;">Choose file..</label>
-													</div>
-												</div> <!-- 첨부파일 등록 끝 -->
-											</div> <!-- form 2line end -->
-											
-											<!-- form 3line start -->
-											<div class="input-group mb-3 col-12" style="padding: 0;">
-												<!-- 휴가 사유 -->
-												<div class="input-group mb-3 col-12">																	
-													<div class="input-group-prepend">
-														<span class="input-group-text " id="basic-addon1">휴가 사유</span>
-													</div>																	
-													<input type="text" class="form-control col-12" name="comment" placeholder="" aria-label="title" aria-describedby="basic-addon1">															
-												</div> <!-- 휴가사유 끝 -->
-											</div> <!-- form 3line end -->
-										</div> <!-- 휴가등록 form-body end -->
-										<div>
-											<button type="button" class="btn btn-info" id="btnSubmit" name="btnSubmit">Submit</button>
-											<!-- <a class="btn waves-effect waves-light btn-info" type="button"
-												th:href="@{/annual/annual_list(annualApplicationCode=${l.annualApplicationCode})}">Submit</a> -->
-											<a th:href="@{/annual/annual_application}"><button type="reset" class="btn btn-dark" id="btnReset" name="btnReset" value="리셋" >Reset</button></a>
-										</div>
-									</th:block>
-								</form> <!-- form end / annualRegForm -->
-							</div> <!-- card-body end / annaulRegFormCardBody -->
-						</div> <!-- card end / annaulRegFormCard -->
-						<!--==== 휴가등록 form end ====-->
+			<!-- ================================================== -->
+			<!-- application 정보 영역 시작 -->
+			<!-- ================================================== -->
+				<div class="card-body" id="applicationInfoCardBody">
+					<h4 class="card-title mb-3" style="font-weight: bold;">연차 정보</h4>	
+					<!--==== 내 휴가 정보 start ====-->
+					<div class="col-xl-12">
+						<h6 class="card-subtitle" style="text-align: center; padding: 1rem;">
+							당신의 입사일은  <code style="font-size: medium; color: rgb(95,118,232);">&lt; 2016-10-01 &gt;</code>  입니다.
+						</h6>
+						<div class="row" id="infoColumn">
+							<!-- Column -->
+							<div class="col-md-6 col-lg-3 col-xlg-3">
+								<div class="card card-hover">
+									<div class="p-2 bg-primary text-center" id="totalWorkDate">
+										<h1 class="font-light text-white">2124</h1>
+										<h6 class="text-white">총근무일</h6>																	
+									</div>
+								</div>
+							</div>
+							<!-- Column -->
+							<div class="col-md-6 col-lg-3 col-xlg-3">
+								<div class="card card-hover">
+									<div class="p-2 bg-cyan text-center" id="inYear">
+										<h1 class="font-light text-white">7</h1>
+										<h6 class="text-white">년차</h6>
+									</div>
+								</div>
+							</div>
+							<!-- Column -->
+							<div class="col-md-6 col-lg-3 col-xlg-3">
+								<div class="card card-hover" id="anuualGrant">
+									<div class="p-2 bg-success text-center">
+										<h1 class="font-light text-white">18</h1>
+										<h6 class="text-white">휴가부여일수</h6>
+									</div>
+								</div>
+							</div>
+							<!-- Column -->
+							<div class="col-md-6 col-lg-3 col-xlg-3">
+								<div class="card card-hover">
+									<div class="p-2 bg-danger text-center" id="remainingTime">
+										<h1 class="font-light text-white">9</h1>
+										<h6 class="text-white">잔여일수</h6>
+									</div>
+								</div>
+							</div>
+							<!-- Column -->
+						</div> <!-- row end / Column -->										
 					</div>
-					<!-- ================================================== -->
-					<!-- application 영역 끝 -->
-					<!-- ================================================== -->
+				</div>
+				<!-- ================================================== -->
+				<!-- application 정보 영역 끝 -->
+				<!-- ================================================== -->
+				<!-- ================================================== -->
+				<!-- application 등록 영역 시작 -->
+				<!-- ================================================== -->
+				<div class="card-body">
+					<div class="card" id="annaulRegFormCard">
+						<div class="card-body" id="annaulRegFormCardBody" style="padding: 0;">
+							<div style="display: ;">
+								<h4 class="card-title col-12" style="margin-bottom: 1rem; font-weight: bold; padding: 0;">연차 등록
+									<!-- 휴가신청내역 button start -->
+									<a th:href="@{/annual/annual_list}" >
+										<button type="button" class="btn waves-effect waves-light btn-outline-primary" id="btnAppList" style="margin-left: 85%;">휴가 신청내역 확인</button>
+									</a>
+									<!-- 휴가신청내역 button end -->
+								</h4>
+							</div>									
+							<!--==== 휴가등록 form start ====-->
+							<form class="" id="annualRegForm" method="post" th:action="@{/annual/annual_application}">
+								<div class="form-body"  >									
+									<!-- form 1line start -->
+									<div class="input-group">
+										<!-- 휴가신청일 시작 -->
+										<div class=" col-5">
+											<div class="input-group-prepend" >
+												<span class="input-group-text" id="annualAppForm1">휴가신청일</span>
+												<input type="date" class="form-control" name="regDate" id="regDate">
+											</div>
+										</div> <!-- 휴가신청일 끝 -->
+										<!-- 휴가구분 시작-->
+										<div class="col-3" style="padding:0;">
+											<div class="input-group-append">
+												<span class="input-group-text" id="annualAppForm2">휴가 구분</span>
+												<!-- <select class="form-control" id="cateAnnualCode" name="cateAnnualCode"> -->
+												<select class="form-control" id="cateAnnualCode" name="cateAnnualCode">
+													<th:block th:if="${not #lists.isEmpty(cateAnnualList)}" th:each="l : ${cateAnnualList}">
+														<option th:value="${l.cateAnnualCode}">[[${l.annualDivision}]]</option>
+													</th:block>														
+												</select>
+											</div>																																				
+										</div> <!-- 휴가구분 끝 -->
+										<!-- 사용일수 선택 시작 -->
+										<div class="input-group mb-3 col-4" id="selectRadio">											
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="annualAppForm3">사용일수</span>
+												<div class="radio"  style="margin:auto 0;">
+													<label for="radio1" style="margin:0 0 0 1em;">
+														<input type="radio" id="radio1" name="useDate" value="1.0"> 1.0
+														<input type="radio" id="radio2" name="useDate" value="0.5"> 0.5
+														<input type="radio" id="radio3" name="useDate" value=""> 
+														<label for="radio3">직접입력</label>
+						<!-- 직접입력 - 수정필요 -->			<!-- <input type="text" id="radio3direct" name=""> -->
+													</label>
+													<!-- 기타선택시 입력 >> 수정
+													<label for="radio1" id="etcView" style="margin:0 0 0 1em; display: none;">
+														<input type="radio" id="radio3" name="radio" value="기타" placeholder="기타 선택 시 입력해주세요">
+													</label> -->
+												</div>
+											</div>																														
+										</div> <!-- 사용일수 선택 끝 -->
+									</div> <!-- form 1line end -->
+									
+									<!-- form 2line start -->
+									<div class="input-group mb-3 col-12" style="padding: 0;">
+										<!-- 휴가 기간 시작 -->
+										<div class="col-5">
+											<div style="display: flex; margin: auto 0; width: auto;">
+												<div class="input-group-append">
+													<span class="input-group-text" id="annualAppForm4">휴가 기간</span>
+												</div>														
+												<div class="input-group input-daterange" id="dateFormat">
+													<input type="date" class="form-control" id="startDate" name="annualStartDate">
+													<div class="input-group-addon" style="margin: auto 0;"> - </div>
+													<input type="date" class="form-control" id="endDate" name="annualEndDate">
+													<!-- <p>(  일)</p> >> 일 수 계산할 수 있으면~ -->
+												</div>																			
+											</div>																
+										</div> <!-- 휴가기간 끝 -->																
+										<!-- 결재자 선택 modal 시작 -->																											
+										<div class="col-3" style="margin: auto 0; margin-bottom:16px; padding:0; display: flex;">
+											<div class="input-group-append">
+												<span class="input-group-text" id="annualAppForm5">결재자</span>																			
+											</div>																		
+											<input type="text" class="form-control" id="chooseApproval" name="approvalRequestCode">
+											<!-- 결재자 선택 modal 버튼 -->
+											<button type="button" class="btn waves-effect waves-light btn-light" data-toggle="modal" data-target="ApprovalSrchModal" id="btnApprovalSrchModal">											
+												<span aria-hidden="true">
+													<i class="fas fa-search"></i>
+												</span>
+											</button>
+											<!-- 결재자 선택 modal form 시작 -->
+											<div class="modal fade" id="ApprovalSrchModal" tabindex="-1" role="dialog" aria-labelledby="chooseApprovalModal" style="height: 110%">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h4 class="modal-title" id="chooseApprovalModal">결재자 선택</h4>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">×</span>
+															</button>
+														</div>
+														<!-- 결재자 선택 modal-body --> <!-- ajax > 나중에추가 -->
+												
+														<div class="modal-body">
+															<div id="approvalModal">
+																<div class="card">
+																	<!-- 부서선택 시작 -->
+																	<div class="form-group">
+																		<!-- <label for="controlSelect">부서</label> -->
+																		<!-- <select class="form-control" id="department" name="department">
+																			<option value="val1">부서</option>
+																			<option value="val2">인사</option>
+																			<option value="val3">노무</option>
+																			<option value="val4">생산지원</option>
+																			<option value="val5">회계관리</option>
+																			<option value="val6">재무관리</option>
+																			<option value="val7">자재관리</option>
+																			<option value="val8">납품관리</option>
+																			<option value="val9">생산관리</option>
+																		</select>  -->
+																	</div><!-- 부서선택 끝 -->
+																
+																	<!-- 직급선택 시작 -->																	
+																	<div class="form-group">
+																		<!-- <label for="controlSelect">직급</label> -->
+																		<!-- <select class="form-control" id="rank" name="rank" >
+																			<option value="val1">직급</option>
+																			<option value="val2">사원</option>
+																			<option value="val3">대리</option>
+																			<option value="val4">과장</option>
+																			<option value="val5">부장</option>
+																			<option value="val6">부사장</option>
+																			<option value="val7">사장</option>
+																			<option value="val8">직접입력</option>
+																		</select>  -->
+																	</div><!-- 직급선택 끝 -->										
+																	<div>
+																		<input type="text" class="form-control" placeholder="이름" id="appSrchName">
+																	</div>
+																</div><!-- 결재자선택 modal-body card end -->
+																<!-- <button type="button" class="btn btn-block btn-sm btn-info" id="btnAppSrchName">조회</button> -->													
+															</div>																							
+														</div> <!-- 결재자 선택 modal-body  끝 -->
+														<!-- 결재자 선택 modal-footer -->
+														<div class="modal-footer" style="padding: 0.5rem">
+															<button type="button" class="btn btn-cancle" data-dismiss="modal" id="btnModalCan">
+																취소
+															</button>
+															<button type="button" class="btn btn-primary" data-dismiss="modal" id="btnModalSub">
+																확인	
+															</button>
+														</div> <!-- 결재자 선택 modal-footer end -->
+													</div> <!-- 결재자 선택 modal-content 끝 --> 
+												</div> <!-- 결재자 선택 modal-dialog 끝 --> 
+											</div> <!-- 결재자 선택 modal form 끝 -->
+										</div> <!-- 결재자 선택 modal 끝 -->
+										
+										<!-- 첨부파일 등록 시작 -->
+						<!-- 첨부파일 수정 필요 -->										
+										<div class="col-4">
+											<div style="margin: auto 0;">
+												<div class="input-group mb-3">
+													<div class="input-group-prepend">
+														<span class="input-group-text">첨부파일</span>
+													</div>
+													<div class="custom-file">
+														<input type="file" class="custom-file-input" id="inputGroupFile01">
+														<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+													</div>
+												</div>
+											<!-- 	<span class="input-group-text" id="annualAppForm6" style="display: block;" >증명자료 첨부</span>
+												<label class="custom-file-label" for="inputGroupFile01"  style="width: 70%;">Choose file..</label> -->
+											</div>
+										</div> <!-- 첨부파일 등록 끝 -->
+									</div> <!-- form 2line end -->
+									
+									<!-- form 3line start -->
+									<div class="input-group mb-3 col-12" style="padding: 0;">
+										<!-- 휴가 사유 -->
+										<div class="input-group mb-3 col-12">																	
+											<div class="input-group-prepend">
+												<span class="input-group-text " id="annualAppForm7">휴가 사유</span>
+											</div>																	
+											<input type="text" class="form-control col-12" name="comment" placeholder="" aria-label="title" aria-describedby="basic-addon1">															
+										</div> <!-- 휴가사유 끝 -->
+									</div> <!-- form 3line end -->
+								</div> <!-- 휴가등록 form-body end -->
+								<!-- button start -->
+								<div style="display: flex; margin-left: 15px; margin-top: -1%; margin-bottom: 1%;">
+									<!-- form 전송/리셋 버튼 시작 -->
+									<div>
+										<button type="button" class="btn btn-info" id="btnSubmit" name="btnSubmit">Submit</button>
+										<a th:href="@{/annual/annual_application}"><button type="reset" class="btn btn-dark" id="btnReset" name="btnReset" value="리셋" >Reset</button></a>
+									</div> <!-- form 전송/리셋 버튼 끝 -->
+
+								</div>
+								<!-- button end -->							
+							</form> <!-- form end / annualRegForm -->
+						</div> <!-- card-body end / annaulRegFormCardBody -->
+					</div> <!-- card end / annaulRegFormCard -->
 				</div> <!-- end card-body -->
+				<!--==== 휴가등록 form end ====-->
+				<!-- ================================================== -->
+				<!-- application 등록 영역 끝 -->
+				<!-- ================================================== -->
 			</div> <!-- end card -->
 		</div> <!-- end col  -->
 	</div> <!-- end row -->	
@@ -260,9 +302,7 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-    <script th:src="@{/assets/libs/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.min.js}"></script>
-    <!-- apps -->
     <!-- apps -->
     <script th:src="@{/dist/js/app-style-switcher.js}"></script>
     <script th:src="@{/dist/js/feather.min.js}"></script>
@@ -274,112 +314,58 @@
     <script th:src="@{/assets/extra-libs/c3/d3.min.js}"></script>
     <script th:src="@{/assets/extra-libs/c3/c3.min.js}"></script>
     <!-- <script th:src="@{/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script> -->
+
+	<!-- ============================================================== -->
+	<!-- script -->
+	<!-- ============================================================== -->	
 	
-
-
-<!--============ 휴가등록 form start ============-->
-<!--==== 결재자선택 modal start ====-->
+	
+	
+	<!--==== 사용일수 인풋 직접입력 start ====-->
 	<script type="text/javascript">
-	//결재자 검색버튼 클릭시 modal 열기
+		$(function(){
+			$("#radio3direct").hide();
+			$("#radio3").change(function(){
+				//직접입력 클릭시 나타남
+				if($("radio3").val() == "direct"){
+					$("#radio3direct").show();
+				}else{
+					$("#radio3direct").hide();
+				}
+			});
+			
+		});
+	</script>
+	
+	<!--==== 사용일수 인풋 직접입력 end ====-->
+
+
+	<!--==== 결재자선택 modal start ====-->
+	<script type="text/javascript">
+		/* 결재자 검색버튼 클릭시 modal 열기 */
 		$(function(){
 			$('#btnApprovalSrchModal').click(function(){
 				$('#ApprovalSrchModal').modal('show');
+				console.log('결재자 선택 Modal 열기');
 			});
 		});
-	</script>
 	
-	<script type="text/javascript">
-	//결재자선택 모달 내부 검색(ajax)
-	/*
-	$(function(){
-		
-		$("#btnAppSrchName").click(function(){
-			var modal1 = ("#ApprovalSrchModal").serialize();
-			 
-			$.ajax({
-                type: "post",
-                url: "/annual/annual_application",
-                data: modal1,
-                dataType: 'text',
-                success: function (data) {
-                    alert("success");
-                    location.href = data;
-                },
-                error: function (request, status, error) {
-                    console.log();
-
-                }
-            });
-			
-		});
-	});
-	*/
-	</script>
-
-	<script type="text/javascript">
-	//모달에서 부모창으로 결재자 전달(ajax)
-	/*>> memo - option태그 사용해서 .append추가해보기 */
-	/*
-		$(function(){
-			$(document).on('click','#appSrchName',function(){
-				var appSrchName = $('#appSrchName').val();
-				console.log(appSrchName);
-				$.ajax({
-					url: "/annual/annual_application",
-					method: "post",
-					data: {'appSrchName' : appSrchName },
-					datatype: "json"
-				});
-                requst.done(function(form){
-                	console.log(form);
-                	var 
-                });
-			});
-		});
-	*/
-	
-		/* 1
-		$(function(){
-			$("#btnModalSub").click(function(){
-				let modal2 = "approvalRequestCode"+$('input[name=approvalRequestCode]'.val()); 
-				var modal2 = {"chooseApproval" : "appSrchName"}
-				
-				$.ajax({
-	                type: "post",
-	                url: "/annual/annual_application",
-	                data: {
-	                	"chooseApproval" : $("#appSrchName").val();
-	                }
-	                dataType: 'json',
-	                dontentType: 'application/json',
-	                success: function (data) {
-	                    alert("success");
-	                    location.href = data;
-	                },
-	                error: function (request, status, error) {
-	                    console.log();
-	
-	                }
-	            });
-			})
-		});
-		*/
-	</script>
-	
-	<script type="text/javascript">
-	//모달 확인버튼 클릭시
+		/* 결재자Modal 확인버튼 클릭시 */
 		$(function(){
 			$('#btnModalSub').on("click",function(){
 				alert("선택하시겠습니까?"); 
+				console.log('결재자 선택 확인 - btnModalSub 클릭');
 			});
 			$('#ApprovalSrchModal').modal('hide');
-	//모달 취소버튼 클릭시 
+		/* 결재자Modal 취소버튼 클릭시 */ 
 			$('#btnModalCan').on("click",function(){
 				$('#approvalModal')[0].reset();
+				console.log('결재자 선택 취소 - btnModalCan 클릭');
 			});
 	
 		});
-		
+			
+		/* 결재자선택 모달 ajwax */
 		$(function(){
 			$('btnPrimary').on("click",function(){
 				var modal1 = ("approvalModal").serialize();
@@ -400,84 +386,44 @@
 	            });
 			});
 		});
-		
-		
-		
-	</script>
-<!--==== 결재자 선택 modal end ====-->
+	
 		
 
-	
-	
-	<!-- 폼 전송 / 페이지 전환 -->
-	<script type="text/javascript">
-	/*
-		function(){6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-			$("#btnSubmit").click(function(){
-				$("form").attr("action", "/annual/annual_list");
-			});
+	</script>
+	<!--==== 결재자 선택 modal end ====-->
 			
-			
-		}
-		*/
-		/*
-		$(function(){
-			$('#btnSubmit').click(function(){
-				alert('go?');
+	
+	<!--==== 연차등록 form 전송 ajax start ====-->
+		<script type="text/javascript">
+	
+			$(function(){
+				$('#btnSubmit').on("click",function(){
+					
+					var form1 = $("#annualRegForm").serialize();
+					console.log(form1);
+					
+					$.ajax({
+		                type: "POST",
+		                url: "/annual/annual_application",
+		                data: form1,
+		                dataType: 'text',
+		                success: function (data) {
+		                    alert("success");
+		                    console.log(data);
+		                    location.href = data;
+		                },
+		                error: function (request, status, error) {
+		                    console.log("error");
+		
+		                }
+		            });
+					
+		        });
 			});
-		}); */
-	</script>
-	<script>
-	/*
-		$("#btnSubmit").click(function()){
-			$("annualRegForm").attr("action","/annual/annual_list";)
-		}
-	*/
-	</script>
 	
-	<!-- 연차등록 form 전송 ajax start -->
-	<script type="text/javascript">
-
-		$(function(){
-			$('#btnSubmit').on("click",function(){
-				
-				var form1 = $("#annualRegForm").serialize();
-				console.log(form1);
-				
-				$.ajax({
-	                type: "POST",
-	                url: "/annual/annual_application",
-	                data: form1,
-	                dataType: 'text',
-	                success: function (data) {
-	                    alert("success");
-	                    console.log(data);
-	                    location.href = data;
-	                },
-	                error: function (request, status, error) {
-	                    console.log("error");
-	
-	                }
-	            });
-				
-	        });
-		});
-
-	</script>
-	
-	
-	<!-- 연차등록 form 전송 ajax end -->
-
-<!--============= 휴가등록 form end =============-->
-
-<!--========== 휴가등록내역 table start ==========-->
-	<!-- 휴가등록내역 테이블 페이징처리(ajax) -->
-
-
-<!--=========== 휴가등록내역 table end ===========-->
+		</script>
+	<!--==== 연차등록 form 전송 ajax end ====-->
 
 
 
-
-	
 </th:block>

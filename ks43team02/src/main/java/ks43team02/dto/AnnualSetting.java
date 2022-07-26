@@ -1,53 +1,57 @@
 package ks43team02.dto;
 
 public class AnnualSetting {
-	private String annual_setting_code;
-	private String cp_representative_code;
-	private String super_admin_id;
-	private String annual_standard_code;
-	private String emply_id;
+	private String annualSettingCode;
+	private String cpRepresentativeCode;
+	private String superAdminId;
+	private String annualStandardCode;
+	private String emplyId;
 	private String year;
-	private String cp_name;
-	private String reg_date;
+	private String cpName;
+	private String regDate;
 	
-	public String getAnnual_setting_code() {
-		return annual_setting_code;
+	private CateAnnual cateAnnual;
+	
+	private AnnualStandard annualStandard;
+
+	public String getAnnualSettingCode() {
+		return annualSettingCode;
 	}
 
-	public void setAnnual_setting_code(String annual_setting_code) {
-		this.annual_setting_code = annual_setting_code;
+	public void setAnnualSettingCode(String annualSettingCode) {
+		this.annualSettingCode = annualSettingCode;
 	}
 
-	public String getCp_representative_code() {
-		return cp_representative_code;
+	public String getCpRepresentativeCode() {
+		return cpRepresentativeCode;
 	}
 
-	public void setCp_representative_code(String cp_representative_code) {
-		this.cp_representative_code = cp_representative_code;
+	public void setCpRepresentativeCode(String cpRepresentativeCode) {
+		this.cpRepresentativeCode = cpRepresentativeCode;
 	}
 
-	public String getSuper_admin_id() {
-		return super_admin_id;
+	public String getSuperAdminId() {
+		return superAdminId;
 	}
 
-	public void setSuper_admin_id(String super_admin_id) {
-		this.super_admin_id = super_admin_id;
+	public void setSuperAdminId(String superAdminId) {
+		this.superAdminId = superAdminId;
 	}
 
-	public String getAnnual_standard_code() {
-		return annual_standard_code;
+	public String getAnnualStandardCode() {
+		return annualStandardCode;
 	}
 
-	public void setAnnual_standard_code(String annual_standard_code) {
-		this.annual_standard_code = annual_standard_code;
+	public void setAnnualStandardCode(String annualStandardCode) {
+		this.annualStandardCode = annualStandardCode;
 	}
 
-	public String getEmply_id() {
-		return emply_id;
+	public String getEmplyId() {
+		return emplyId;
 	}
 
-	public void setEmply_id(String emply_id) {
-		this.emply_id = emply_id;
+	public void setEmplyId(String emplyId) {
+		this.emplyId = emplyId;
 	}
 
 	public String getYear() {
@@ -58,28 +62,44 @@ public class AnnualSetting {
 		this.year = year;
 	}
 
-	public String getCp_name() {
-		return cp_name;
+	public String getCpName() {
+		return cpName;
 	}
 
-	public void setCp_name(String cp_name) {
-		this.cp_name = cp_name;
+	public void setCpName(String cpName) {
+		this.cpName = cpName;
 	}
 
-	public String getReg_date() {
-		return reg_date;
+	public String getRegDate() {
+		return regDate;
 	}
 
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+
+	public CateAnnual getCateAnnual() {
+		return cateAnnual;
+	}
+
+	public void setCateAnnual(CateAnnual cateAnnual) {
+		this.cateAnnual = cateAnnual;
+	}
+
+	public AnnualStandard getAnnualStandard() {
+		return annualStandard;
+	}
+
+	public void setAnnualStandard(AnnualStandard annualStandard) {
+		this.annualStandard = annualStandard;
 	}
 
 	@Override
 	public String toString() {
-		return "AnnualSetting [annual_setting_code=" + annual_setting_code + ", cp_representative_code="
-				+ cp_representative_code + ", super_admin_id=" + super_admin_id + ", annual_standard_code="
-				+ annual_standard_code + ", emply_id=" + emply_id + ", year=" + year + ", cp_name=" + cp_name
-				+ ", reg_date=" + reg_date + "]";
+		return "AnnualSetting [annualSettingCode=" + annualSettingCode + ", cpRepresentativeCode="
+				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", annualStandardCode=" + annualStandardCode
+				+ ", emplyId=" + emplyId + ", year=" + year + ", cpName=" + cpName + ", regDate=" + regDate
+				+ ", cateAnnual=" + cateAnnual + ", annualStandard=" + annualStandard + "]";
 	}
-
+	
 }
