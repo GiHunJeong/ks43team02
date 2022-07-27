@@ -41,61 +41,30 @@
 	                        <table id="zero_config" class="table table-striped table-bordered no-wrap">
 	                            <thead>
 	                                <tr>
-	                                    <th>요청날짜</th>
-	                                    <th>제목</th>
+	                                	<th>결재코드</th>
 	                                    <th>구분</th>
 	                                    <th>요청자</th>
 	                                    <th>결재자</th>
+	                                    <th>진행단계</th>
 	                                    <th>진행상태</th>
-	                                    <th>결재</th>
+	                                    <th>요청날짜</th>
+	                                    <th>상세보기</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                <tr>
-	                                    <td>2022-06-14</td>
-	                                    <td>휴가신청 결재 바랍니다</td>
-	                                    <td>휴가신청서</td>
-	                                    <td>정기훈</td>
-	                                    <td>이용탁</td>
-	                                    <td>요청중</td>
-	                                    <td>보기</td>
-	                                </tr>	                              	                                	                                	                              	                                
-	                                <tr>
-	                                    <td>2022-06-13</td>
-	                                    <td>휴가신청 결재 바랍니다</td>
-	                                    <td>휴가신청서</td>
-	                                    <td>임소정</td>
-	                                    <td>이용탁</td>
-	                                    <td>진행중</td>
-	                                    <td>보기</td>
-	                                </tr>	                              	                                	                                	                              	                                
-	                                <tr>
-	                                    <td>2022-06-13</td>
-	                                    <td>휴가신청 결재 바랍니다</td>
-	                                    <td>휴가신청서</td>
-	                                    <td>김윤재</td>
-	                                    <td>이용탁</td>
-	                                    <td>진행중</td>
-	                                    <td>보기</td>
-	                                </tr>	                              	                                	                                	                              	                                
-	                                <tr>
-	                                    <td>2022-06-12</td>
-	                                    <td>휴가신청 결재 바랍니다</td>
-	                                    <td>휴가신청서</td>
-	                                    <td>백민주</td>
-	                                    <td>이용탁</td>
-	                                    <td>완료</td>
-	                                    <td>보기</td>
-	                                </tr>	                              	                                	                                	                              	                                
-	                                <tr>
-	                                    <td>2022-06-14</td>
-	                                    <td>휴가신청 결재 바랍니다</td>
-	                                    <td>휴가신청서</td>
-	                                    <td>은승호</td>
-	                                    <td>이용탁</td>
-	                                    <td>요청중</td>
-	                                    <td>보기</td>
-	                                </tr>                            	                                	                                	                              	                                
+	                                <tr th:if="${not #lists.isEmpty(requestManage)}" th:each="l : ${requestManage}">
+	                                    <td th:text="${l.approvalProgressCode}"></td>
+	                                    <td th:text="${l.documentCateS.cateNameS}"></td>
+	                                    <td th:text="${l.emplyName}"></td>
+	                                    <td th:text="${l.approverId}">4</td>
+	                                    <td th:text="${l.currentApprovalStep}"></td>
+	                                    <td th:text="${l.approvalRequest.approvalProgressStatus}"></td>
+	                                    <td th:text="${l.regDate}"></td>
+	                                    <td class="text-center">
+	                                    	<input name="approvalRequestCode" class="hiddenRequestCode" type="hidden" th:value="${l.approvalRequestCode}">
+	                                    	<a href="#" type="button" class="btn waves-effect waves-light btn-secondary detailShow" data-toggle="modal" data-target="#bs-example-modal-lg">보기</a>
+	                                    </td>
+	                                </tr>	                              	                                	                                	                              	                                                        	                                	                                	                              	                                
 	                            </tbody>
 	                        </table>
 	                    </div>
@@ -103,6 +72,81 @@
 	            </div>
 	        </div>
 	    </div>
+	    <!-- 상세보기 모달 -->
+	    <div id="bs-example-modal-lg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none; padding-right: 17px;" aria-modal="true">
+	        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title" id="myLargeModalLabel">요청 상세보기</h4>
+	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	                </div>
+	                <div class="modal-body addDetailShow">
+	               		<button id="paymentAgreeBtn" type="button" class="btn waves-effect waves-light btn-primary">결재승인</button>
+	               		<button id="paymentReturnBtn" type="button" class="btn waves-effect waves-light btn-warning">결재반려</button>
+	               		<div id="approverAgreeInfo" class="text-right">
+	               			<div>결재현황</div>
+	               			<table class="table col-md-3 ml-auto approverAgreeInfoTable">
+	               				<tbody>
+								<!-- 결재현황 -->
+								
+								<!-- 결재현황 -->	
+	               				</tbody>
+	               			</table>
+	               		</div>
+	               		<!-- 에이작스를 통한 상세보기 담기는 부분 -->
+	               		<div class="table-responsive">	               			
+	               			<table class="table">
+	               				<tbody>
+	               					<tr>
+	               						<th class="col-md-2">
+	               							구분
+	               						</th>
+	               						<th id="cateNameS">
+	               						</th>
+	               					</tr>
+									<tr>
+										<th class="col-md-2">
+											Title
+										</th>
+										<th id="title">
+										</th>
+									</tr>
+									<tr>
+					                   	<th>첨부파일</th>
+					                    <th><button id="downloadFileBtn" type="button" class="btn btn-primary">다운로드</button></th>
+					                </tr>
+	               				</tbody>
+	               			</table>
+	               			<div class="card-body">
+							    <h4 class="card-title">Comment</h4>
+						        <div class="form-group">
+						            <textarea id="comment" name="comment" class="form-control" rows="3" readonly=""></textarea>
+						        </div>
+							</div>
+							<form id="paymentAgreeInfoForm" method="post" th:action="@{/payment/request_agree}">
+		               			<div class="card-body">
+								    <h4 class="card-title">Re-Comment</h4>
+							        <div class="form-group">
+							            <textarea name="comment" class="form-control" rows="3" placeholder="Comment Here..."></textarea>
+							        </div>
+								</div>
+								<input id="approverId" name="approverId" type="hidden" class="form-control col-md-6">
+								<input id="progressCode" name="approvalProgressCode" type="hidden" class="form-control col-md-6">
+								<input id="currentStep" name="currentApprovalStep" type="hidden" class="form-control col-md-6">
+								<input id="progressStep" name="approvalProgressStep" type="hidden" class="form-control col-md-6">
+								<input id="totalStep" name="totalApprovalStep" type="hidden" class="form-control col-md-6">	
+								<input id="requestCode" name="approvalRequestCode" type="hidden" class="form-control col-md-6">	
+	               			</form>
+	               		</div>
+	               		<!-- 에이작스를 통한 상세보기 담기는 부분 -->
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-light" data-dismiss="modal">취소</button>
+	                </div>
+	            </div><!-- /.modal-content -->
+	        </div><!-- /.modal-dialog -->
+	    </div>
+	    <!-- 상세보기 모달 -->
 	    <!-- ============================================================== -->
 	    <!-- Start Page Content -->
 	    <!-- ============================================================== -->
@@ -140,5 +184,124 @@
 	    <!-- ============================================================== -->
 	    <script th:src="@{/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js}"></script>
 	    <script th:src="@{/dist/js/pages/datatable/datatable-basic.init.js}"></script>
+	    <script>
+	    	$(function(){
+	    		//모달 상세보기 버튼 눌렀을때 기능
+	    		var sortRank;
+   				var sortApproverId;
+   				var sortApproverName;
+   				var sortCurrentStep;
+	    		$('.detailShow').click(function(){
+	    			var approvalProgressCode= $(this).parents('tr').children('td')[0].innerText; //td요소의 0번째인 approvalProgressCode를 가져옴
+	    			var addDetailShowLocation = $('.addDetailShow');		
+	    			var cateNameS = $('#cateNameS'),
+	    				title = $('#title'),
+	    				comment = $('#comment'),
+	    				progressCode = $('#progressCode'),
+	    				approverId = $('#approverId'),
+	    				currentStep = $('#currentStep'),
+	    				progressStep = $('#progressStep'),
+	    				totalStep = $('#totalStep'),
+	    				requestCode = $('#requestCode');
+	    			console.log('approvalProgressCode의 값 : ',approvalProgressCode);
+	    			var request = $.ajax({
+	    				url: "/payment/request_manage_detail", 
+	    				method: "POST", 
+	    				data: { 'approvalProgressCode' : approvalProgressCode}, 
+	    				dataType: "json" 
+	    			});				 
+	    			request.done(function( requestManageByCode ) {
+	    				console.log('ajax를 동해 넘겨받은 requestManageByCode의 값 : ',requestManageByCode);
+	    				console.log('ajax를 동해 넘겨받은 cateNameS의 값 : ',requestManageByCode.documentCateS.cateNameS);
+	    				console.log('ajax를 동해 넘겨받은 title의 값 : ',requestManageByCode.approvalRequest.title);
+	    				console.log('ajax를 동해 넘겨받은 comment의 값 : ',requestManageByCode.approvalRequest.comment);
+	    				console.log('ajax를 동해 넘겨받은 approvalProgressCode의 값 : ',requestManageByCode.approvalProgressCode);
+	    				console.log('ajax를 동해 넘겨받은 approverId의 값 : ',requestManageByCode.approverId);
+	    				console.log('ajax를 동해 넘겨받은 currentStep의 값 : ',requestManageByCode.currentApprovalStep);
+	    				console.log('ajax를 동해 넘겨받은 progressStep의 값 : ',requestManageByCode.approvalRequest.approvalProgressStep);
+	    				console.log('ajax를 동해 넘겨받은 totalStep의 값 : ',requestManageByCode.approvalRequest.totalApprovalStep);
+	    				console.log('ajax를 동해 넘겨받은 requestCode의 값 : ',requestManageByCode.approvalRequest.approvalRequestCode);
+	    				console.log('addDetailShowLocation의 값' , addDetailShowLocation);
+	    				cateNameS.text(requestManageByCode.documentCateS.cateNameS);
+	    				title.text(requestManageByCode.approvalRequest.title);
+	    				comment.val(requestManageByCode.approvalRequest.comment);
+	    				progressCode.val(requestManageByCode.approvalProgressCode);
+	    				approverId.val(requestManageByCode.approverId);
+	    				// 결재 진행 상황 부분
+	    				currentStep.val(requestManageByCode.currentApprovalStep);
+	           			progressStep.val(requestManageByCode.approvalRequest.approvalProgressStep);
+	           			totalStep.val(requestManageByCode.approvalRequest.totalApprovalStep);
+	    				
+	           			requestCode.val(requestManageByCode.approvalRequest.approvalRequestCode);
+	    				console.log('히든 progressCode에 담기는 값 : ', progressCode.val());
+	    			});				 
+	    			request.fail(function( jqXHR, textStatus ) {
+	    				alert( "Request failed: " + textStatus );
+	    			});	
+	    		});
+	    		//상세보기 결재 정보 에이작스
+	    		$('.detailShow').click(function(){
+	    			$('.approverAgreeInfoTable').children().children().remove();
+	    			var approvalRequestCode = $(this).prev().val();
+	    			console.log('approvalRequestCode의 벨류 값 : ',approvalRequestCode);
+	    			var request = $.ajax({
+	    				url: "/payment/request_manage_detail_agree_info", 
+	    				method: "POST", 
+	    				data: { 'approvalRequestCode' : approvalRequestCode}, 
+	    				dataType: "json" 
+	    			});	
+	    			request.done(function( progressByRequestCode ) {
+	    				console.log('progressByRequestCode의 값 : ',progressByRequestCode);
+	    				console.log('rank값 확인 : ',progressByRequestCode[0].approverRank);
+	    				sortRank = new Array(progressByRequestCode.length);
+	       				sortApproverId = new Array(progressByRequestCode.length);
+	       				sortApproverName = new Array(progressByRequestCode.length);
+	       				sortCurrentStep = new Array(progressByRequestCode.length);
+	    				for(var i = 0;i<progressByRequestCode.length;i++) {
+	    					for(var j = 0;j<progressByRequestCode.length;j++) {
+	    						if(progressByRequestCode[i].approverRank < progressByRequestCode[j].approverRank &&
+	    						   sortApproverId[j] != progressByRequestCode[j].approverId) {
+	    							sortRank[i] = progressByRequestCode[j].approverRank;
+	    							sortApproverId[i] = progressByRequestCode[j].sortApproverId;
+	    							sortCurrentStep[i] = progressByRequestCode[j].currentApprovalStep;
+	    						}else if(progressByRequestCode[i].approverRank == progressByRequestCode[j].approverRank && 
+	    								 sortApproverId[j] != progressByRequestCode[j].approverId) {
+	    							sortRank[i] = progressByRequestCode[j].approverRank;
+		    						sortApproverId[i] = progressByRequestCode[j].approverId;
+		    						sortCurrentStep[i] = progressByRequestCode[j].currentApprovalStep;
+	    							break;
+	    						}
+	    					}
+	    					console.log(i+'번째에 담긴 sortRank의 값을 알아보자 : ',sortRank[i]);
+	    					console.log(i+'번째에 담긴 sortApproverId의 값을 알아보자 : ',sortApproverId[i]);
+	    					console.log(i+'번째에 담긴 sortCurrentStep의 값을 알아보자 : ',sortCurrentStep[i]);
+	    					console.log(i+'번째 progressByRequestCode의 값',progressByRequestCode[i]);
+	    					var addApproverAgreeInfo;
+	    					var addApproverAgreeInfoLocation = $('.approverAgreeInfoTable').children();
+	    					console.log('approverAgreeInfoTable의 값:',$('.approverAgreeInfoTable').children().children());
+	    					if(sortCurrentStep[i] == 0) {
+	    						addApproverAgreeInfo = $("<tr><th>결재자"+(i+1)+"</th><th></th></tr>");
+	    						addApproverAgreeInfoLocation.append(addApproverAgreeInfo);
+	    					}else if(sortCurrentStep[i] == i+1) {
+	    						addApproverAgreeInfo = $("<tr><th>결재자"+(i+1)+"</th><th>승인됨</th></tr>");
+	    						addApproverAgreeInfoLocation.append(addApproverAgreeInfo);
+	    					}
+	    				}
+	    			});	
+	    			request.fail(function( jqXHR, textStatus ) {
+	    				alert( "Request failed: " + textStatus );
+	    			});	
+	    		});
+	    		$('#paymentAgreeBtn').click(function(){
+	    			var paymentAgreeInfoForm = $('#paymentAgreeInfoForm');
+	    			var currentStep = $('#currentStep').val();
+	    			var approverId = $('#approverId').val();
+                    paymentAgreeInfoForm.submit();
+	    		});
+	    		$('#paymentReturnBtn').click(function(){
+	    			
+	    		});
+	    	});
+	    </script>
 	</th:block>
 </html>

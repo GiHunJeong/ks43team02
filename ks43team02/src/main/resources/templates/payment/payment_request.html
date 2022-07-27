@@ -35,7 +35,7 @@
 		    <div class="card-body">
 				<h4 class="card-title">결제요청페이지</h4>
 				<button id="choiceApprover" type="button" class="btn btn-info" data-toggle="modal" data-target="#bs-example-modal-lg">결재선관리</button>
-				<select class="custom-select col-md-3" id="inlineFormCustomSelect" name="">
+				<select class="custom-select col-md-3" id="inlineFormCustomSelect" name="documentCateSCode">
 				    <option selected="">결재문서종류</option>
 				    <option th:if="${not #lists.isEmpty(documentCateSList)}" th:each="l : ${documentCateSList}" th:value="${l.documentCateSCode}">[[${l.cateNameS}]]</option>
 				</select>
@@ -44,14 +44,22 @@
 			            <tbody>
 			                <tr>
 			                    <th class="col-md-2">
-			                    	작성자ID
+			                    	작성자
 			                    	<br>
-			                    	<br>작성자
+			                    	<br>작성자ID
 			                    </th>
 			                    <th>
-			                    	<input id="writerEmail" name="" type="text" class="form-control col-md-6" readonly="" th:value="${session.SEMAIL}">
-			                    	<input id="writerName" name="" type="text" class="form-control col-md-6" readonly="" th:value="${session.SNAME}">
+			                    	<input id="writerName" name="emplyName" type="text" class="form-control col-md-6" readonly="" th:value="${session.SNAME}">
+			                    	<input id="writerEmail" name="emplyId" type="text" class="form-control col-md-6" readonly="" th:value="${session.SEMAIL}">
 			                    </th>
+			                </tr>
+			                <tr>
+			                	<th class="col-md-2">
+			                		Title
+			                	</th>
+			                	<th>
+			                		<input name="title" type="text" class="form-control col-md-6">
+			                	</th>
 			                </tr>
 			                <!-- 결재자 정보 들어가는 부분 -->
 			                
@@ -65,7 +73,7 @@
 			        <div class="card-body">
 					    <h4 class="card-title">Comment</h4>
 				        <div class="form-group">
-				            <textarea class="form-control" rows="3" placeholder="Comment Here..."></textarea>
+				            <textarea name="comment" class="form-control" rows="3" placeholder="Comment Here..."></textarea>
 				        </div>
 					</div>
 			    </div>
@@ -74,7 +82,7 @@
 		<div class="table-responsive">
 	        <table class="table">
 	        	<tr>
-	        		<th><div class="text-center"><button id="addFileBtn" type="button" class="btn btn-primary">요청</button> <button id="addFileBtn" type="button" class="btn btn-dark">취소</button></div></th>
+	        		<th><div class="text-center"><button id="finalRequestBtn" type="button" class="btn btn-primary">요청</button> <button id="fianlRequestCancelBtn" type="button" class="btn btn-dark">취소</button></div></th>
 	        	</tr>
 			</table>
 		</div>
@@ -89,8 +97,9 @@
 	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	                </div>
 	                <div class="modal-body">
-						<input name="emplyId" type="text" class="form-control" id="requestEmplyId" placeholder="요청자 이름" readonly="" th:value="${session.SEMAIL}">
-						<input type="text" class="form-control inputApproverBar" id="inputApproverName" placeholder="결재자" readonly="">
+						<input type="text" class="form-control inputApproverBarName col-md-6" id="inputApproverName" placeholder="결재자이름" readonly="">
+						<input type="text" class="form-control inputApproverBar col-md-6" id="inputApproverId" placeholder="결재자ID" readonly="">
+						<input name="approverRank" type="hidden" class="form-control col-md-6 inputApproverBarRank">
 						<!-- 결재자 선택 버튼 -->					
 					    <button id="selectApproverBtn" type="button" class="btn btn-primary selectApprover" data-toggle="modal" data-target="#myModal">결재자 선택</button>
 					    <button id="addApproverBtn" type="button" class="btn btn-primary">결재자 추가</button>
@@ -219,6 +228,7 @@
 				/* 결재자 팀 계급정보 불러오는 에이작스 */
 				$(document).on('click','.selectApprover',function(){
 					thisInput = $(this).prev();
+					$('#requestBtn').removeAttr('data-dismiss');
 					console.log('selectApproverBtn 눌렀다');
 					var emplyId = $('#selectApproverBtn').val();
 					console.log('emplyId 값 : ', emplyId);
@@ -239,7 +249,7 @@
 							$('#approverDiv').append(organiName);
 
 							for(var j = 0 ; j<emplyInfoList.length;j++){
-								var approverCheckBox = $("<div class=\"custom-control custom-checkbox\"><input type=\"checkbox\" class=\"custom-control-input\" name=\"approverName\" value="+emplyInfoList[j].emplyName+" id="+emplyInfoList[j].emplyName+"><label class=\"custom-control-label\" for="+emplyInfoList[j].emplyName+">"+emplyInfoList[j].emplyName+emplyInfoList[j].rankLevelList.rankName+"</label></div>");
+								var approverCheckBox = $("<div class=\"custom-control custom-checkbox\"><input type=\"checkbox\" class=\"custom-control-input\" name=\"approverId\" value="+emplyInfoList[j].emplyId+" id="+emplyInfoList[j].emplyId+"><label class=\"custom-control-label\" for="+emplyInfoList[j].emplyId+">"+emplyInfoList[j].emplyName+" "+emplyInfoList[j].rankLevelList.rankName+" ("+emplyInfoList[j].emplyId+")</label><input name=\"approverRank\" type=\"hidden\" class=\"form-control col-md-6 inputApproverBarRank\" value="+emplyInfoList[j].rankLevelList.rankLevel+"></div>");
 								if(emplyInfoList[i].organizationSList.organizationNameS == emplyInfoList[j].organizationSList.organizationNameS){										
 									$('#approverDiv').append(approverCheckBox);
 								}
@@ -270,32 +280,42 @@
 				/* 결재자 팀 계급정보 불러오는 에이작스 */
 				/* 선택한 결재자 값 입력 */
 				$(document).on('click','#saveApproverBtn',function(){
-					var checkApproverName = $('input:checkbox[name="approverName"]:checked').val();
+					var checkApproverId = $('input:checkbox[name="approverId"]:checked').val();
+					var checkApproverLabelInfo = $('input:checkbox[name="approverId"]:checked').parent().find('label').text();
+					var checkApproverName = checkApproverLabelInfo.split(' ');
+					var checkApproverRank = $('input:checkbox[name="approverId"]:checked').next().next().val();
+					console.log('배열 : checkApproverName -> ',checkApproverName);
 					console.log('saveApproverBtn를 눌렀다.');
-					console.log('선택한 결재자 명 : ', thisInput.val());
-					console.log('checkApproverName', checkApproverName);
-					if(checkApproverName != '' && checkApproverName != 'undefined' && checkApproverName != null){					
-						$('#requestBtn').attr('data-dismiss','modal');					
-						thisInput.val(checkApproverName);
-					}else{
-						console.log('else를 탔다.');
-						$('#requestBtn').removeAttr('data-dismiss');
-						thisInput.val(checkApproverName);
+					console.log('선택한 결재자 ID : ', thisInput.val());
+					console.log('checkApproverName', checkApproverId);
+					console.log('checkApproverRank', checkApproverRank);
+					//결재자 이름 입력
+					thisInput.prev().prev().val(checkApproverName[0]);
+					//결재자 아이디 입력
+					thisInput.prev().val(checkApproverId);
+					//결재자 랭크 입력
+					thisInput.val(checkApproverRank);
+					for(var i = 0 ; i < approverInputLength;i++){
+						if($('.inputApproverBar')[i].value == '' || $('.inputApproverBar')[i].value == 'undefined' || $('.inputApproverBar')[i].value == null ) {
+							$('#requestBtn').removeAttr('data-dismiss');
+						}else{
+							$('#requestBtn').attr('data-dismiss','modal');
+						}
 					}
 				});	
 				/* 선택한 결재자 값 입력 */
 				/* 1개 이상 체크 금지 */ 
-				$(document).on('click', 'input:checkbox[name="approverName"]', function(){
-					var checkLength = $('input:checkbox[name="approverName"]:checked').length;
+				$(document).on('click', 'input:checkbox[name="approverId"]', function(){
+					var checkLength = $('input:checkbox[name="approverId"]:checked').length;
 					var test = $('.inputApproverBar');
 					console.log('체크했다.');
 					for(var i = 0 ; i < approverInputLength; i++) {
 						console.log(test[i].value);
-						if(test[i].value == $('input:checkbox[name="approverName"]:checked').val()) {
+						if(test[i].value == $('input:checkbox[name="approverId"]:checked').val()) {
 							$(this).prop('checked', false);
 							/* 이미 선택된 결재자가 있을 경우 경고창 */
 							errorWindow(2);
-						}else if($('#writerName').val() == $('input:checkbox[name="approverName"]:checked').val()) {
+						}else if($('#writerEmail').val() == $('input:checkbox[name="approverId"]:checked').val()) {
 							$(this).prop('checked', false);
 							/* 작성자와 결재자가 같은 경우 경고창 */
 							errorWindow(5);
@@ -313,21 +333,26 @@
 				/* 1개 이상 체크 금지 */
 				/* 결재자 추가 */
 				$(document).on('click', '#addApproverBtn', function(){
+					$('#requestBtn').removeAttr('data-dismiss');
 					console.log('addApproverBtn 눌렀다');
-					var addApproverInput = $("<input type=\"text\" class=\"form-control inputApproverBar\" id=\"inputApproverName\" placeholder=\"결재자\" readonly=\"\">");
+					var addApproverInputId = $("<input type=\"text\" class=\"form-control inputApproverBar col-md-6\" id=\"inputApproverId\" placeholder=\"결재자ID\" readonly=\"\">");
+					var addApproverInputName = $("<input type=\"text\" class=\"form-control inputApproverBarName col-md-6\" id=\"inputApproverName\" placeholder=\"결재자이름\" readonly=\"\">");
+					var addApproverRank = $("<input name=\"approverRank\" type=\"hidden\" class=\"form-control col-md-6 inputApproverBarRank\">");
 					var approverAddBtn = $("<button id=\"selectApproverBtn\" type=\"button\" class=\"btn btn-primary selectApprover\" data-toggle=\"modal\" data-target=\"#myModal\">결재자 선택</button>");
 					var approverDelBtn = $("<button id=\"approverInputDelBtn\" type=\"button\" class=\"btn waves-effect waves-light btn-danger approverDelBtn\">결재자 삭제</button>");
-					var addLocation = $('#inputApproverName').parent();
+					var addLocation = $('#inputApproverId').parent();
 					console.log('approverInputLength의 개수',approverInputLength);
 					if(approverInputLength < 4) {
 						console.log('addLocation의 위치',addLocation);
-						addLocation.append(addApproverInput);
+						addLocation.append(addApproverInputName);
+						addLocation.append(addApproverInputId);
+						addLocation.append(addApproverRank);
 						addLocation.append(approverAddBtn);
 						addLocation.append(' ', approverDelBtn);
 						approverInputLength = $('.inputApproverBar').length;
 						console.log('addApproverInput의 개수', approverInputLength);						
 					}else{
-						/* 결재가 추가 최대 개수 초과시 경고창 */
+						/* 결재자 추가 최대 개수 초과시 경고창 */
 						errorWindow(3);				
 					}
 				});
@@ -335,30 +360,47 @@
 				/* 결재자 삭제 */
 				$(document).on('click', '.approverDelBtn', function(){
 					console.log($(this).prev().prev());
+					$(this).prev().prev().prev().prev().remove();
+					$(this).prev().prev().prev().remove();
 					$(this).prev().prev().remove();
 					$(this).prev().remove();
 					$(this).remove();
 					approverInputLength = $('.inputApproverBar').length;
+					for(var i = 0 ; i < approverInputLength;i++){
+						if($('.inputApproverBar')[i].value == '' || $('.inputApproverBar')[i].value == 'undefined' || $('.inputApproverBar')[i].value == null ) {
+							$('#requestBtn').removeAttr('data-dismiss');
+						}else{
+							$('#requestBtn').attr('data-dismiss','modal');
+						}
+					}
 				});
 				/* 결재자 삭제 */
 				/* 결재자 추가 인테이블 */
 				$(document).on('click','#requestBtn', function(){
 					var inputApproverBar = $('.inputApproverBar');
+					var inputApproverBarName = $('.inputApproverBarName');
+					var inputApproverBarRank = $('.inputApproverBarRank');
 					var requestTable = $('#requestTable').children().children()[1];
-					var insertApproverName;
+					var test123 = $('#requestBtn').attr('data-dismiss');
+					var insertApproverId;
 					console.log('approverInputLength',approverInputLength);
 					console.log('requestBtn을 눌렀다.');
 					console.log('requestTable',requestTable);
 					for(var i = 0;i<approverInputLength;i++) {
 						console.log('inputApproverBar[i].val() : ',inputApproverBar[i].value);
-						if(inputApproverBar[i].value == '' || inputApproverBar[i].value == 'undefined' || inputApproverBar[i].value == null) {
+						console.log('inputApproverBarName[i].val() : ',inputApproverBarName[i].value);
+						console.log('inputApproverBarRank[i].val() : ',inputApproverBarRank[i].value);
+						console.log('data-dismiss의 값을 알아보자 : ',test123);
+						if('modal' != test123) {
 							/* 결재자를 선택하지 않았을때 오류 메세지 */
+							$('#requestBtn').removeAttr('data-dismiss');
 							errorWindow(4);
 							return;
 						}else{
 							$('#requestBtn').attr('data-dismiss','modal');
-							insertApproverName = $("<tr class=\"test111\"><th>결재자"+(i+1)+"</th><th><input name=\"\" type=\"text\" class=\"form-control col-md-3\" value="+inputApproverBar[i].value+" readonly=\"\"></th></tr>");
-							$(requestTable).before(insertApproverName);
+							insertApproverInfo = $("<tr class=\"test111\"><th class=\"col-md-2\">결재자"+(i+1)+"<br><br>결재자"+(i+1)+"ID</th><th><input name=\"approverName\" type=\"text\" class=\"form-control col-md-6\" readonly=\"\" value="+inputApproverBarName[i].value+"><input name=\"approverId\" type=\"text\" class=\"form-control col-md-6\" readonly=\"\" value="+inputApproverBar[i].value+"><input name=\"approverRank\" type=\"hidden\" class=\"form-control col-md-6 inputApproverBarRank\" value="+inputApproverBarRank[i].value+"></th></tr>");
+							insertApproverId = $("<tr class=\"test111\"><th>결재자"+(i+1)+"</th><th><input name=\"approverId\" type=\"text\" class=\"form-control col-md-3\" value="+inputApproverBar[i].value+" readonly=\"\"></th></tr>");
+							$(requestTable).before(insertApproverInfo);
 						}
 					}
 					$('#bs-example-modal-lg').css('display', 'none');
@@ -371,6 +413,12 @@
 					$('.test111').remove();	
 				});
 				/* 결재선관리 선택시 결재자 초기화 */
+				/* 결재요청 폼 보내기 */
+				$(document).on('click','#finalRequestBtn',function(){
+					var paymentRequestForm = $('#paymentRequestForm');
+					console.log('requestBtn 버튼을 눌렀습니다.');
+					paymentRequestForm.submit();
+				});
 			});
 		</script>
 	</th:block>
