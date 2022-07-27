@@ -56,26 +56,56 @@
 		<result column="reg_date" 					property="regDate"				/>
 	</resultMap>
 	
-	<resultMap type="Admin" id="adminResultMap">
-		<id column="super_admin_id"							property="superAdminId"/>
-		<result column="cp_representative_code"				property="cpRepresentativeCode"/>
-		<result column="super_admin_pw"						property="superAdminPw"/>
-		<result column="cp_domain"							property="cpDomain"/>
-		<result column="specified_domain_address"			property="specifiedDomainAddress"/>
-		<result column="reg_date"							property="regDate"/>
-		<association property="cpRepresentative"			javaType="CpRepresentative">
-			<id column="cp_representative_code"				property="cpRepresentativeCode"/>
-			<result column="cp_deposit_status_code"			property="cpDepositStatusCode"/>
-			<result column="cp_uniquemply_number"			property="cpUniquemplyNumber"/>
-			<result column="cp_name"						property="cpName"/>
-			<result column="cp_representativemply_name"		property="cpRepresentativemplyName"/>
-			<result column="cp_tel"							property="cpTel"/>
-			<result column="cp_registration_number"			property="cpRegistrationNumber"/>
-			<result column="cp_addr"						property="cpAddr"/>
-			<result column="super_sw_manager"				property="superSwManager"/>
-			<result column="reg_date"						property="regDate"/>
-		</association>
+	<resultMap type="DepartmentComment" 		id="departmentCommentResultMap">
+		<id column="department_comment_code" 	property="departmentCommentCode"/>
+		<result column="cp_representative_code" property="cpRepresentativeCode"/>
+		<result column="super_admin_id" 		property="superAdminId"/>
+		<result column="department_post_code" 	property="departmentPostCode"/>
+		<result column="reg_user_name" 			property="regUserName"/>
+		<result column="post_comment" 			property="postComment"/>
+		<result column="reg_date" 				property="regDate"/>
 	</resultMap>
+	
+	<!-- 부서별 게시판 댓글 목록 -->
+	<select id="getCommentList" resultMap="departmentCommentResultMap">
+		SELECT
+			*
+		FROM
+			tb_department_comment
+		WHERE
+			department_post_code = #{departmentPostCode};
+	</select>
+	
+	<!-- 부서별 게시판 댓글 등록 -->
+	<insert id="addComment" parameterType="DepartmentComment">
+		INSERT INTO tb_department_comment
+		( 	department_comment_code,
+			cp_representative_code,
+			super_admin_id,
+			department_post_code,
+			reg_user_name,
+			post_comment,
+			reg_date
+		)VALUES	(
+			 sf_new_comment_code()
+			,#{cpRepresentativeCode}
+			,#{superAdminId}
+			,#{departmentPostCode}
+			,#{regUserName}
+			,#{postComment}
+			,NOW()
+		);
+	</insert>
+	
+	<!-- 부서별 게시판 게시글 삭제 -->
+	<delete id="removePost" parameterType="String">
+  		DELETE 
+  		FROM 
+  			tb_department_post
+  		WHERE 
+  			department_post_code = #{department_post_code};
+  		
+  	</delete>
 	
 	<!-- 부서별 게시판 목록 검색 -->
 	<select id="getSearchDepartmentList" fetchSize="10" parameterType="String" resultMap="departmentBoardResultMap">
@@ -135,7 +165,7 @@
 			sub.reference_code
 		FROM
 			tb_department_post AS d
-			INNER JOIN
+			LEFT JOIN
 					(SELECT
 						af.attach_file_code,
 						af.attach_file_original_name,
@@ -151,7 +181,9 @@
 					ON
 						af.attach_file_code = fc.attach_file_code) AS sub
 				ON
-					sub.reference_code = #{departmentPostCode};
+					sub.reference_code = d.department_post_code
+					WHERE
+					d.department_post_code = #{departmentPostCode};
 	</select>
 	
 	<!-- 부서별 게시판 목록 페이징 처리 -->
@@ -171,7 +203,6 @@
 			d.view_cnt						AS viewCnt
 		FROM
 			tb_department_post AS d
-		LIMIT #{startRow}, #{rowPerPage};
 	</select>
 	
 	<!-- 부서별 게시판 목록 페이징 카운트 -->
@@ -301,7 +332,6 @@
   			tb_all_notice
   		WHERE 
   			cp_notice_code = #{cpNoticeCode};
-  		
   	</delete>
 	
 	<!-- 공지사항 작성 -->

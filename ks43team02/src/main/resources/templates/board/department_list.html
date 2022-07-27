@@ -33,8 +33,8 @@
 			<div class="card-body">
 
 			    <!--/* 게시글 영역 */-->
-			    <div class="table-responsive clearfix">
-					<table class="table table-hover">
+			    <div class="table-responsive">
+					<table id="zero_config" class="table table-striped table-bordered no-wrap">
 						<thead class="bg-primary text-white">
 							<tr>
 			                    <th>번호</th>
@@ -59,38 +59,8 @@
 								<td colspan="6">조회된 내용이 없습니다.</td>
 							</tr>
 						</tbody>
-<!-- 						<tfoot>
-							<tr>
-								<td colspan="6" style="text-align: center;">
-								
-									<a th:href="@{/board/department_list}">[맨처음]</a>
-									<a th:if="${currentPage > 1}" th:href="@{/board/department_list(currentPage=${currentPage - 1})}">[이전]</a>
-									<th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
-										<label th:if="${currentPage eq num}" th:text="${(num < 10) ? '[0' + num + ']' :'[' + num + ']'}"></label>
-										<a th:unless="${currentPage eq num}" th:href="@{/board/department_list(currentPage=${num})}" th:text="${(num < 10) ? '[0' + num + ']' :'[' + num + ']'}"></a>
-									</th:block>
-									
-									<a th:if="${currentPage < lastPage}" th:href="@{/board/department_list(currentPage=${currentPage + 1})}">[다음]</a>
-									<a th:href="@{/board/department_list(currentPage=${lastPage})}">[마지막]</a>
-								</td>
-							</tr>
-						</tfoot> -->
-			
 			        </table>
 			    </div>
-		    
-			<div class="col-lg-12 text-center">
-				<div class="pagination_option">
-					<a th:href="@{/board/department_list}">[맨처음]</a>
-					<a th:if="${currentPage > 1}" th:href="@{/board/department_list(currentPage=${currentPage - 1})}"><i class="fa fa-angle-left"></i></a>
-					<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
-						<label th:if="${currentPage eq num}" th:text="${(num<10) ? '0' + num  :  num }"></label>
-						<a th:unless="${currentPage eq num}" th:href="@{/board/department_list(currentPage=${num})}" th:text="${(num<10) ? '0' + num  :  num }"></a>
-					</th:block>
-					<a th:if="${currentPage < lastPage}" th:href="@{/board/department_list(currentPage=${currentPage + 1})}"><i class="fa fa-angle-right"></i></a>
-					<a th:href="@{/board/department_list(currentPage=${lastPage})}">[마지막]</a>
-				</div>
-			</div>
 		    
 			<div class="btn_wrap text-right">
 				<a class="btn btn-primary " href="department_write" role="button">글쓰기</a>
@@ -100,9 +70,7 @@
 		</div>
     </th:block>
 	
-	<th:block layout:fragment="script">
-    	
-    </th:block>
+
 
     
 </body>

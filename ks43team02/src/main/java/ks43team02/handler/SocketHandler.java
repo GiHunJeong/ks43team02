@@ -21,7 +21,7 @@ public class SocketHandler extends TextWebSocketHandler {
 	
 	private static final Logger log = LoggerFactory.getLogger(SocketHandler.class);
 	
-	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
+	HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
 	
 	@Override
@@ -33,6 +33,14 @@ public class SocketHandler extends TextWebSocketHandler {
 		
 		String rN = (String) obj.get("roomNumber");
 		HashMap<String, Object> temp = new HashMap<String, Object>();
+		for(String key : sessionMap.keySet()) {
+			WebSocketSession wss = sessionMap.get(key);
+			try {
+				wss.sendMessage(new TextMessage(msg));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 		if(rls.size() > 0) {
 			for(int i=0; i<rls.size(); i++) {
 				String roomNumber = (String) rls.get(i).get("roomNumber"); //세션리스트의 저장된 방번호를 가져와서
@@ -43,20 +51,14 @@ public class SocketHandler extends TextWebSocketHandler {
 			}
 			
 			//해당 방의 세션들만 찾아서 메시지를 발송해준다.
-			for(String k : temp.keySet()) { 
-				if(k.equals("roomNumber")) { //다만 방번호일 경우에는 건너뜀
-					continue;
-				}
-				
-				WebSocketSession wss = (WebSocketSession) temp.get(k);
-				if(wss != null) {
-					try {
-						wss.sendMessage(new TextMessage(obj.toJSONString()));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
+			/*
+			 * for(String k : temp.keySet()) { if(k.equals("roomNumber")) { //다만 방번호일 경우에는
+			 * 건너뜀 continue; }
+			 * 
+			 * WebSocketSession wss = (WebSocketSession) temp.get(k); if(wss != null) { try
+			 * { wss.sendMessage(new TextMessage(obj.toJSONString())); } catch (IOException
+			 * e) { e.printStackTrace(); } } }
+			 */
 		}
 		/*
 		 * String msg = message.getPayload(); log.info("chating === {}", msg);
@@ -72,6 +74,7 @@ public class SocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		//소켓 연결
 		super.afterConnectionEstablished(session);
+		sessionMap.put(session.getId(), session);
 		boolean flag = false;
 		String url = session.getUri().toString();
 		String roomNumber = url.substring(url.indexOf("=") + 1, url.length());
@@ -117,6 +120,8 @@ public class SocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		//소켓 종료
+		sessionMap.remove(session.getId());
+		
 		if(rls.size() > 0) { //소켓이 종료되면 해당 세션값들을 찾아서 삭제
 			for(int i=0; i<rls.size(); i++) {
 				rls.get(i).remove(session.getId());

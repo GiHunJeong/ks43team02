@@ -1,6 +1,7 @@
 package ks43team02.dto;
 
 public class AnnualApplication {
+	
 	private String annualApplicationCode;
 	private String cpRepresentativeCode;
 	private String superAdminId;
@@ -14,12 +15,40 @@ public class AnnualApplication {
 	private String comment;
 	private String attachFileName;
 	private String regDate;
+	private String approvalName;
 	private String groupCode;
 	
 	private CateAnnual cateAnnual;
 	
+	private ApprovalRequest approvalRequest;
+	
+	private AnnualStandard annualStandard;
+	
+	public String getApprovalName() {
+		return approvalName;
+	}
+
+	public void setApprovalName(String approvalName) {
+		this.approvalName = approvalName;
+	}
 	public String getAnnualApplicationCode() {
 		return annualApplicationCode;
+	}
+
+	public ApprovalRequest getApprovalRequest() {
+		return approvalRequest;
+	}
+
+	public void setApprovalRequest(ApprovalRequest approvalRequest) {
+		this.approvalRequest = approvalRequest;
+	}
+
+	public AnnualStandard getAnnualStandard() {
+		return annualStandard;
+	}
+
+	public void setAnnualStandard(AnnualStandard annualStandard) {
+		this.annualStandard = annualStandard;
 	}
 
 	public void setAnnualApplicationCode(String annualApplicationCode) {
@@ -145,7 +174,8 @@ public class AnnualApplication {
 				+ ", approvalRequestCode=" + approvalRequestCode + ", emplyId=" + emplyId + ", emplyName=" + emplyName
 				+ ", annualStartDate=" + annualStartDate + ", annualEndDate=" + annualEndDate + ", useDate=" + useDate
 				+ ", comment=" + comment + ", attachFileName=" + attachFileName + ", regDate=" + regDate
-				+ ", groupCode=" + groupCode + ", cateAnnual=" + cateAnnual + "]";
+				+ ", approvalName=" + approvalName + ", groupCode=" + groupCode + ", cateAnnual=" + cateAnnual
+				+ ", approvalRequest=" + approvalRequest + ", annualStandard=" + annualStandard + "]";
 	}
 
 

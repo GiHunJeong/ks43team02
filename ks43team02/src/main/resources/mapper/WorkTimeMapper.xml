@@ -24,6 +24,9 @@
 				<id column="emply_id"			property="emplyId"/>
 			</collection>
 	</resultMap>
+	<select id="otherWorkTime" resultType="WorkTime">
+		
+	</select>
 	<select id="getWorkTimeEmplyName" resultType="WorkTime">
 		/* 사원별 일일 출퇴근 누적 전체 가져오기 */
 		SELECT
@@ -146,10 +149,10 @@
 			, #{workwayCode}			
 			, #{emplyId}			
 			, #{emplyName}							
-			, #{workDate}								
-			, #{workStartTime}								
-			, #{workEndTime}									
-			, #{workBreakTime}								
+			, CURDATE()								
+			, CURDATE()									
+			, CURDATE()										
+			, CURDATE()									
 			, #{returnTime}									
 			, #{statusLate}									
 			, #{statusOutsideWork}										

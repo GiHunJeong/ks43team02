@@ -49,8 +49,12 @@ public class WorkTimeService {
 	}
 	
 	//사원 출근 기록 업데이트
-	public int addWorkTimeCumulative(String emplyId) {
-		int result = workTimeMapper.addWorkTimeCumulative(emplyId);
+	/*
+	 * public int addWorkTimeCumulative(String emplyId) { int result =
+	 * workTimeMapper.addWorkTimeCumulative(emplyId); return result; }
+	 */
+	public int addWorkTimeCumulative(WorkTime workTime) {
+		int result = workTimeMapper.addWorkTimeCumulative(workTime);
 		return result;
 	}
 }

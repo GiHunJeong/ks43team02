@@ -55,7 +55,7 @@ $(function() {
 	        if(result == true) {
 	           //yes
 	        	alert('수정이 완료되었습니다.')
-	            location.replace('payAddList');
+	            location.replace('payAdd_list');
 	        } else {
 	        	return false;
 	            //no
@@ -67,10 +67,14 @@ $(function() {
 	/* 기본급 수정 function Start */	
 	$(document).on('click','#modifySalaryBtn', function(){
 		var salaryInfo = $('#salaryInfo').val();
-		console.log(salaryInfo);
-		$('#basicPay').val(salaryInfo);
-		alert('기본급이 변경되었습니다.');
-		payCirculater();
+		if(salaryInfo != 0 && salaryInfo != '' && salaryInfo != ' '){
+			console.log(salaryInfo);
+			$('#basicPay').val(salaryInfo);
+			alert('기본급이 변경되었습니다.');
+			payCirculater();
+		} else {
+			alert('정상적인 값을 입력해주세요!');
+		}
 	});
 	/* 기본급 수정 function End */
 	
