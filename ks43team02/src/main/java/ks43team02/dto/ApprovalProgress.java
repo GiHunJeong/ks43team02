@@ -7,12 +7,41 @@ public class ApprovalProgress {
 	private String approvalRequestCode;
 	private String emplyId;
 	private String approverId;
+	private int approverRank;
 	private String documentCateSCode;
 	private String emplyName;
-	private String currentApprovalStep;
+	private int currentApprovalStep;
 	private String returnStatus;
 	private String comment;
 	private String regDate;
+	ApprovalRequest approvalRequest;
+	DocumentCateS documentCateS;
+	Emply emply;
+	
+	public int getApproverRank() {
+		return approverRank;
+	}
+	public void setApproverRank(int approverRank) {
+		this.approverRank = approverRank;
+	}
+	public ApprovalRequest getApprovalRequest() {
+		return approvalRequest;
+	}
+	public void setApprovalRequest(ApprovalRequest approvalRequest) {
+		this.approvalRequest = approvalRequest;
+	}
+	public DocumentCateS getDocumentCateS() {
+		return documentCateS;
+	}
+	public void setDocumentCateS(DocumentCateS documentCateS) {
+		this.documentCateS = documentCateS;
+	}
+	public Emply getEmply() {
+		return emply;
+	}
+	public void setEmply(Emply emply) {
+		this.emply = emply;
+	}
 	public String getApprovalProgressCode() {
 		return approvalProgressCode;
 	}
@@ -61,10 +90,10 @@ public class ApprovalProgress {
 	public void setEmplyName(String emplyName) {
 		this.emplyName = emplyName;
 	}
-	public String getCurrentApprovalStep() {
+	public int getCurrentApprovalStep() {
 		return currentApprovalStep;
 	}
-	public void setCurrentApprovalStep(String currentApprovalStep) {
+	public void setCurrentApprovalStep(int currentApprovalStep) {
 		this.currentApprovalStep = currentApprovalStep;
 	}
 	public String getReturnStatus() {
@@ -89,9 +118,10 @@ public class ApprovalProgress {
 	public String toString() {
 		return "ApprovalProgress [approvalProgressCode=" + approvalProgressCode + ", cpRepresentativeCode="
 				+ cpRepresentativeCode + ", superAdminId=" + superAdminId + ", approvalRequestCode="
-				+ approvalRequestCode + ", emplyId=" + emplyId + ", approverId=" + approverId + ", documentCateSCode="
-				+ documentCateSCode + ", emplyName=" + emplyName + ", currentApprovalStep=" + currentApprovalStep
-				+ ", returnStatus=" + returnStatus + ", comment=" + comment + ", regDate=" + regDate + "]";
+				+ approvalRequestCode + ", emplyId=" + emplyId + ", approverId=" + approverId + ", approverRank="
+				+ approverRank + ", documentCateSCode=" + documentCateSCode + ", emplyName=" + emplyName
+				+ ", currentApprovalStep=" + currentApprovalStep + ", returnStatus=" + returnStatus + ", comment="
+				+ comment + ", regDate=" + regDate + ", approvalRequest=" + approvalRequest + ", documentCateS="
+				+ documentCateS + ", emply=" + emply + "]";
 	}
-	
 }

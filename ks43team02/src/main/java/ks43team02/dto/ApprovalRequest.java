@@ -6,8 +6,8 @@ public class ApprovalRequest {
 	private String superAdminId;
 	private String emplyId;
 	private String documentCateSCode;
-	private String approvalProgressStep;
-	private String totalApprovalStep;
+	private int approvalProgressStep;
+	private int totalApprovalStep;
 	private String approvalProgressStatus;
 	private String title;
 	private String comment;
@@ -44,16 +44,16 @@ public class ApprovalRequest {
 	public void setDocumentCateSCode(String documentCateSCode) {
 		this.documentCateSCode = documentCateSCode;
 	}
-	public String getApprovalProgressStep() {
+	public int getApprovalProgressStep() {
 		return approvalProgressStep;
 	}
-	public void setApprovalProgressStep(String approvalProgressStep) {
+	public void setApprovalProgressStep(int approvalProgressStep) {
 		this.approvalProgressStep = approvalProgressStep;
 	}
-	public String getTotalApprovalStep() {
+	public int getTotalApprovalStep() {
 		return totalApprovalStep;
 	}
-	public void setTotalApprovalStep(String totalApprovalStep) {
+	public void setTotalApprovalStep(int totalApprovalStep) {
 		this.totalApprovalStep = totalApprovalStep;
 	}
 	public String getApprovalProgressStatus() {

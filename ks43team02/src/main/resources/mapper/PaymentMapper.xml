@@ -3,7 +3,207 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks43team02.mapper.PaymentMapper">
+	<resultMap type="ApprovalProgress" 				id="approvalProgressMap">
+		<id column="approval_progress_code"			property="approvalProgressCode"/>
+		<result column="cp_representative_code"		property="cpRepresentativeCode"/>
+		<result column="super_admin_id"				property="superAdminId"/>
+		<result column="approval_request_code"		property="approvalRequestCode"/>
+		<result column="emply_id"					property="emplyId"/>
+		<result column="approver_id"				property="approverId"/>
+		<result column="approver_rank"				property="approverRank"/>
+		<result column="document_cate_S_code"		property="documentCateSCode"/>
+		<result column="emply_name"					property="emplyName"/>
+		<result column="current_approval_step"		property="currentApprovalStep"/>
+		<result column="return_status"				property="returnStatus"/>
+		<result column="comment"					property="comment"/>
+		<result column="reg_date"					property="regDate"/>
+		<association property="approvalRequest"  				javaType="ApprovalRequest">
+			<id column="approval_request_code"					property="approvalRequestCode"/>
+			<result column="cp_representative_code"				property="cpRepresentativeCode"/>
+			<result column="super_admin_id"						property="superAdminId"/>
+			<result column="emply_id"							property="emplyId"/>
+			<result column="document_cate_S_code"				property="documentCateSCode"/>
+			<result column="approval_progress_step"				property="approvalProgressStep"/>
+			<result column="total_approval_step"				property="totalApprovalStep"/>
+			<result column="approval_progress_status"			property="approvalProgressStatus"/>
+			<result column="title"								property="title"/>
+			<result column="comment"							property="comment"/>
+			<result column="application_form_group_code"		property="applicationFormGroupCode"/>
+			<result column="application_form_group_name_code"	property="applicationFormGroupNameCode"/>
+			<result column="reg_date"							property="regDate"/>
+		</association>
+		<association property="documentCateS"  					javaType="DocumentCateS">
+			<id column="document_cate_S_code"					property="documentCateSCode"/>
+			<result column="cp_representative_code"				property="cpRepresentativeCode"/>
+			<result column="super_admin_id"						property="superAdminId"/>
+			<result column="document_cate_L_code"				property="documentCateLCode"/>
+			<result column="cate_name_l"						property="cateNameL"/>
+			<result column="cate_name_s"						property="cateNameS"/>
+			<result column="reg_date"							property="regDate"/>
+		</association>
+		<association property="emply" 					 		javaType="Emply">
+			<id column="emply_id"								property="emplyId"/>
+			<result column="organization_code_S"				property="organizationCodeS"/>
+			<result column="rank_level_code"					property="rankLevelCode"/>
+			<result column="position_level_code"				property="positionLevelCode"/>
+			<result column="cp_representative_code"				property="cpRepresentativeCode"/>
+			<result column="super_admin_id"						property="superAdminId"/>
+			<result column="emply_pw"							property="emplyPw"/>
+			<result column="emply_number"						property="emplyNumber"/>
+			<result column="emply_name"							property="emplyName"/>
+			<result column="emply_birth"						property="emplyBirth"/>
+			<result column="emply_account"						property="emplyAccount"/>
+			<result column="emply_salary"						property="emplySalary"/>
+			<result column="emply_home_address"					property="emplyHomeAddress"/>
+			<result column="emply_home_address_detail"			property="emplyHomeAddressDetail"/>
+			<result column="emply_home_address_zip"				property="emplyHomeAddressZip"/>
+			<result column="emply_profile_pic"					property="emplyProfilePic"/>
+			<result column="emplyment_Date"						property="emplymentDate"/>
+			<result column="emplyment_type"						property="emplymentType"/>
+			<result column="retire_status"						property="retireStatus"/>
+			<result column="cp_name"							property="cpName"/>
+			<result column="reg_date"							property="regDate"/>
+		</association>
+	</resultMap>
+	<select id="getProgressByRequestCode" resultMap="approvalProgressMap">
+		/*  */
+		SELECT
+			ap.approval_progress_code
+			,ap.cp_representative_code
+			,ap.super_admin_id
+			,ap.approval_request_code
+			,ap.emply_id
+			,ap.approver_id
+			,ap.approver_rank
+			,ap.document_cate_S_code
+			,dcs.cate_name_S
+			,ap.emply_name
+			,ar.total_approval_step
+			,ap.current_approval_step
+			,ap.return_status
+			,ar.title
+			,ap.`comment`
+			,ap.reg_date
+		FROM
+			tb_approval_progress AS ap
+			INNER JOIN
+			tb_approval_request AS ar
+			on
+			ap.approval_request_code = ar.approval_request_code
+			INNER join
+			tb_document_cate_S AS dcs
+			on
+			dcs.document_cate_S_code = ap.document_cate_S_code
+		WHERE
+			ap.approval_request_code = #{approvalRequestCode};
+	</select>
+	<select id="getRequestManageByCode" resultMap="approvalProgressMap">
+		/* 결재 관리 상세보기 */
+		SELECT
+			ap.approval_progress_code
+			,ap.cp_representative_code
+			,ap.super_admin_id
+			,ap.approval_request_code
+			,ap.emply_id
+			,ap.approver_id
+			,ap.approver_rank
+			,ap.document_cate_S_code
+			,dcs.cate_name_S
+			,ap.emply_name
+			,ar.total_approval_step
+			,ap.current_approval_step
+			,ap.return_status
+			,ar.title
+			,ap.`comment`
+			,ap.reg_date
+		FROM
+			tb_approval_progress AS ap
+			INNER JOIN
+			tb_approval_request AS ar
+			on
+			ap.approval_request_code = ar.approval_request_code
+			INNER join
+			tb_document_cate_S AS dcs
+			on
+			dcs.document_cate_S_code = ap.document_cate_S_code
+		WHERE
+			approval_progress_code = #{approvalProgressCode};
+	</select>
+	<select id="getRequestManageByApproverId" resultMap="approvalProgressMap">
+		/* 결재 관리 조회 */
+		SELECT
+			ap.approval_progress_code
+			,ap.cp_representative_code
+			,ap.super_admin_id
+			,ap.approval_request_code
+			,ap.emply_id
+			,ap.approver_id
+			,ap.approver_rank
+			,ap.document_cate_S_code
+			,dcs.cate_name_S
+			,ap.emply_name
+			,ar.total_approval_step
+			,ap.current_approval_step
+			,ap.return_status
+			,ar.title
+			,ap.`comment`
+			,ap.reg_date
+		FROM
+			tb_approval_progress AS ap
+			INNER JOIN
+			tb_approval_request AS ar
+			on
+			ap.approval_request_code = ar.approval_request_code
+			INNER join
+			tb_document_cate_S AS dcs
+			on
+			dcs.document_cate_S_code = ap.document_cate_S_code
+		WHERE
+			approver_id = #{approverId};
+	</select>
+	<insert id="addPaymentRequest" parameterType="ApprovalRequest">
+		<selectKey keyProperty="approvalRequestCode" order="BEFORE" resultType="String">
+			set @num = (SELECT(Max(cast(SUBSTRING_INDEX(approval_request_code,'_',-1) AS UNSIGNED)) +1) from tb_approval_request);
+			SELECT
+				if(@num <![CDATA[<]]> 10,CONCAT('approval_request_code_0',@num), CONCAT('approval_request_code_',@num));
+		</selectKey>
+		/* 결재 요청 */
+		INSERT INTO tb_approval_request(
+			approval_request_code
+			, cp_representative_code
+			, super_admin_id
+			, emply_id
+			, document_cate_S_code
+			, approval_progress_step
+			, total_approval_step
+			, approval_progress_status
+			, title
+			, comment
+			, application_form_group_code
+			, application_form_group_name_code
+			, reg_date
+		)VALUES(
+			#{approvalRequestCode}
+			, #{cpRepresentativeCode}
+			, #{superAdminId}
+			, #{emplyId}
+			, #{documentCateSCode}
+			, #{approvalProgressStep}
+			, #{totalApprovalStep}
+			, #{approvalProgressStatus}
+			, #{title}
+			, #{comment}
+			, 'group_code'
+			, 'group_name_code'
+			, NOW()
+		);
+	</insert>
 	<insert id="addPaymentProgress" parameterType="ApprovalProgress">
+		<selectKey keyProperty="approvalProgressCode" order="BEFORE" resultType="String">
+			set @num = (SELECT(Max(cast(SUBSTRING_INDEX(approval_progress_code,'_',-1) AS UNSIGNED)) +1) from tb_approval_progress);
+			SELECT
+				if(@num <![CDATA[<]]> 10,CONCAT('approval_progress_code_0',@num), CONCAT('approval_progress_code_',@num));
+		</selectKey>
 		/* 결재 진행 */
 		INSERT INTO tb_approval_progress(
 			approval_progress_code
@@ -12,26 +212,24 @@
 			, approval_request_code
 			, emply_id
 			, approver_id
+			, approver_rank
 			, document_cate_S_code
 			, emply_name
 			, current_approval_step
 			, return_status
-			, `comment`
 			, reg_date
 		)VALUES(
-			(SELECT CONCAT('approval_progress_code_',(SELECT(Max(cast(SUBSTRING_INDEX(approval_progress_code,'_',-1) AS UNSIGNED)) +1)
-		               from
-		               tb_approval_progress AS ap)))
+			#{approvalProgressCode}
 			, #{cpRepresentativeCode}
 			, #{superAdminId}
-			, ''
+			, #{approvalRequestCode}
 			, #{emplyId}
 			, #{approverId}
+			, #{approverRank}
 			, #{documentCateSCode}
 			, #{emplyName}
-			, 3
+			, #{currentApprovalStep}
 			, #{returnStatus}
-			, #{comment}
 			, NOW()
 		);
 	</insert>

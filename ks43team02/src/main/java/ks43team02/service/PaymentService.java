@@ -19,6 +19,23 @@ public class PaymentService {
 	public PaymentService(PaymentMapper paymentMapper) {
 		this.paymentMapper = paymentMapper;
 	}
+	//결재관리 request code 로 상세보기
+	public List<ApprovalProgress> getProgressByRequestCode(String approvalRequestCode) {
+		List<ApprovalProgress> progressByRequestCode = paymentMapper.getProgressByRequestCode(approvalRequestCode);
+		return progressByRequestCode;
+	}
+	
+	//결재관리 페이지 상세보기
+	public ApprovalProgress getRequestManageByCode(String approvalProgressCode) {
+		ApprovalProgress requestManageByCode = paymentMapper.getRequestManageByCode(approvalProgressCode);
+		return requestManageByCode;
+	}
+	
+	//결재관리 페이지 결재자 조회
+	public List<ApprovalProgress> getRequestManageByApproverId(String approverId) {
+		List<ApprovalProgress> requestManageByApproverId = paymentMapper.getRequestManageByApproverId(approverId);
+		return requestManageByApproverId;
+	}
 	
 	//결재 진행
 	public int addPaymentProgress(ApprovalProgress approvalProgress) {
