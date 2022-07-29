@@ -65,6 +65,9 @@
 					width: 75px;
 					text-align: center;
 				}
+				.room{
+					padding-left: 10px;
+				}
 				.roomList .room{
 					width: 350px;
 				}
@@ -80,13 +83,18 @@
 					border-radius: 5px;
 					padding: 2px;
 					margin: 3px;
+					width:130px;
+					height: 30px;
 				}
 				.inputTable th{
-					padding: 5px;
+					padding: 10px;
 				}
 				.inputTable input{
 					width: 330px;
 					height: 25px;
+				}
+				#roomid{
+					width: 10px;
 				}
 			</style>
 		</head>
@@ -101,9 +109,9 @@
 		<div>
 			<table class="inputTable">
 				<tr>
-					<th class="col-md-2 col-sm-2">방 제목</th>
-					<th><input type="text" name="roomName" id="roomName"></th>
-					<th ><button id="createRoom">방 만들기</button></th>
+					<!-- <th id="roomid" class="col-md-1 col-sm-3">방 이름</th> -->
+					<th><input type="text" name="roomName" id="roomName" placeholder="채팅방 이름을 입력해 주세요."></th>
+					<th><button id="createRoom">방 만들기</button></th>
 				</tr>
 			</table>
 		</div>
@@ -145,6 +153,11 @@
 			
 			function createRoom(){
 				$("#createRoom").click(function(){
+					var roomName = $("#roomName").val();
+					if(roomName == null || roomName.trim() == ""){
+						alert("만드실 채팅방 명을 입력해주세요.");
+						$("#roomName").focus();
+					}
 					var msg = {	roomName : $('#roomName').val()	};
 		
 					commonAjax('/createRoom', msg, 'post', function(result){

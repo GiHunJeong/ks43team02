@@ -42,17 +42,17 @@
 					margin-bottom: 20px;
 				}
 				.chating{
-					background-color: #000;
+					background-color: #FFBB00;
 					width: 500px;
 					height: 500px;
 					overflow: auto;
 				}
 				.chating .me{
-					color: #FFF;
+					color: #000;
 					text-align: right;
 				}
 				.chating .others{
-					color: #EFEFEF;
+					color: #000;
 					text-align: left;
 				}
 				input{
@@ -61,6 +61,17 @@
 				}
 				#yourMsg{
 					display: none;
+				}
+				button{
+					background-color: #FFBB00;
+					font-size: 14px;
+					color: #000;
+					border: 1px solid #000;
+					border-radius: 5px;
+					padding: 2px;
+					margin: 3px;
+					width:50px;
+					height: 30px;
 				}
 			</style>
 		</head>
@@ -82,8 +93,8 @@
 				<table class="inputTable">
 					<tr>
 						<th>사용자명</th>
-						<th><input type="text" name="userName" id="userName"></th>
-						<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
+						<th><input type="text" name="userName" id="userName" placeholder="사용자명을 입력해주세요."></th>
+						<th><button onclick="chatName()" id="startBtn">입력</button></th>
 					</tr>
 				</table>
 			</div>
@@ -173,10 +184,15 @@
 					$("#yourMsg").show();
 				}
 			}
-			
-			wsOpen();
-			
+						
 			function send() {
+				var chatting = $("#chatting").val();
+				if(chatting == null || chatting.trim() == ""){
+					alert("보내실 메세지를 입력해주세요.");
+					$("#chatting").focus();
+				}else{
+					$("#yourName").hide();
+					$("#yourMsg").show();
 				var option ={
 					type: "message",
 					roomNumber: $("#roomNumber").val(),
@@ -185,6 +201,7 @@
 				}
 				ws.send(JSON.stringify(option))
 				$('#chatting').val("");
+				}
 			}
 		</script>
 		

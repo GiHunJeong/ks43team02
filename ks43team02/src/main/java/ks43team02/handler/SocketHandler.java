@@ -1,6 +1,5 @@
 package ks43team02.handler;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,24 +48,7 @@ public class SocketHandler extends TextWebSocketHandler {
 					break;
 				}
 			}
-			
-			//해당 방의 세션들만 찾아서 메시지를 발송해준다.
-			/*
-			 * for(String k : temp.keySet()) { if(k.equals("roomNumber")) { //다만 방번호일 경우에는
-			 * 건너뜀 continue; }
-			 * 
-			 * WebSocketSession wss = (WebSocketSession) temp.get(k); if(wss != null) { try
-			 * { wss.sendMessage(new TextMessage(obj.toJSONString())); } catch (IOException
-			 * e) { e.printStackTrace(); } } }
-			 */
 		}
-		/*
-		 * String msg = message.getPayload(); log.info("chating === {}", msg);
-		 * JSONObject obj = jsonToObjectParser(msg); for(String key :
-		 * sessionMap.keySet()) { WebSocketSession wss = sessionMap.get(key); try {
-		 * wss.sendMessage(new TextMessage(obj.toJSONString())); }catch(Exception e) {
-		 * e.printStackTrace(); } }
-		 */
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -109,12 +91,6 @@ public class SocketHandler extends TextWebSocketHandler {
 			obj.put("sessionId", session.getId());
 			session.sendMessage(new TextMessage(obj.toJSONString()));
 		}
-		/*
-		 * super.afterConnectionEstablished(session); sessionMap.put(session.getId(),
-		 * session); JSONObject obj = new JSONObject(); obj.put("type", "getId");
-		 * obj.put("sessionId", session.getId()); session.sendMessage(new
-		 * TextMessage(obj.toJSONString()));
-		 */
 	}
 	
 	@Override
@@ -128,10 +104,6 @@ public class SocketHandler extends TextWebSocketHandler {
 			}
 		}
 		super.afterConnectionClosed(session, status);
-		/*
-		 * sessionMap.remove(session.getId()); super.afterConnectionClosed(session,
-		 * status);
-		 */
 	}
 	
 	private static JSONObject jsonToObjectParser(String jsonStr) {
