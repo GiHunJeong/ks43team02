@@ -49,9 +49,9 @@ public class LoginController {
 				superAdminPwCheck = admin.getSuperAdminPw();
 			if(superAdminPw != null && superAdminPw.equals(superAdminPwCheck)) {
 				//어드민
-				session.setAttribute("SEMAIL"		, superAdminId);
-				session.setAttribute("SRANKNAME"	, admin.getCpRepresentative().getCpName());
-				session.setAttribute("SNAME"		, admin.getCpRepresentative().getCpRepresentativemplyName());
+				session.setAttribute("SAEMAIL"		, superAdminId);
+				session.setAttribute("SARANKNAME"	, admin.getCpRepresentative().getCpName());
+				session.setAttribute("SANAME"		, admin.getCpRepresentative().getCpRepresentativemplyName());
 				return "redirect:/";
 			}
 		}
