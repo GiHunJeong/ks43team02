@@ -103,7 +103,8 @@ public class WorkSettingController{
 	 */
 	@PostMapping("/work_setting")
 	public String workSettingSet(WorkSystem workSystem
-								,WorkSettingList workSettingList) {
+								,WorkSettingList workSettingList
+								) {
 		log.info("workSettingList에 담기는 값 {} : ", workSettingList);
 		log.info("workSystem에 담기는 값 {} : ", workSystem);
 		if(workSettingList != null && workSystem.getWorksystemName() == "") {		
@@ -119,6 +120,7 @@ public class WorkSettingController{
 			workSystem.setCpRepresentativeCode("cp_representative_code_01");
 			workSettingService.addWorkSystem(workSystem); 
 		}
+		
 		return "redirect:/workWay/work_setting";
 	}
 	/*

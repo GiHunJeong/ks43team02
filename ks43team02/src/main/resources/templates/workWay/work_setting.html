@@ -10,6 +10,7 @@
 <th:block layout:fragment="customContents">
 <style type="text/css" rel="stylesheet">
 	#workwayBtn .workwayBtn{border:1px solid #5f76e8; color:#5f76e8;}
+	#workwayCheckBox label{border:1px solid #5f76e8; color:#5f76e8; padding:0.3rem;}
 	.checkLine{border:1px solid #5f76e8; margin-right:4px;}
 	label{width:100%;}
 </style>
@@ -22,12 +23,13 @@
 		    <div class="valid-feedback">
 		        Success! You've done it.
 		    </div>
-		<form id="workSettingSendForm" method="post" th:action="@{/workWay/work_setting}" class="mt-4">
+		<form id="workSettingSendForm" name="workSettingSendForm" method="post" th:action="@{/workWay/work_setting}" class="mt-4">
 			<h4 class="card-title">근무설정</h4>
 			<div class="form-group mb-1">
 		      	<label style="width:100%;">근무제선택</label>
-				<select class="test form-control col-10" name="standardWorkCode" style="float:left;">
-					<option >::선택::</option>
+				<select class="test form-control col-10" name="worksys" id="worksys" style="float:left;">
+					<!-- <option disabled="disabled">::선택::</option> -->
+					<option label="::선택::" value=""></option>
 					<th:block th:if="${not #lists.isEmpty(workSetting)}" th:each="l : ${workSetting}">
 						<option th:value="${l.standardWorkCode}">[[${l.worksystemName}]]</option>
 					</th:block>
@@ -42,12 +44,16 @@
 			</div>
 			<div class="form-group">
 				<label>근무방식선택</label>
-					<div id="workwayBtn">
-						<button class="btn workwayBtn" type="button" id="workwayBtn1" name="workwayBtn" value="mobile" >모바일</button>
-						<button class="btn workwayBtn" type="button" id="workwayBtn2" name="workwayBtn" value="pc">pc</button>
-						<button class="btn workwayBtn" type="button" id="workwayBtn3" name="workwayBtn" value="qr">QR</button>
-						<button class="btn workwayBtn" type="button" id="workwayBtn4" name="workwayBtn" value="card">카드</button>
-						<button class="btn workwayBtn" type="button" id="workwayBtn5" name="workwayBtn" value="authority">직권입력</button>
+					<div id="workwayCheckBox">
+						<label>
+							<input type="checkbox" name="checkValue" id="checkValue" value="mobile">
+							모바일
+						</label>
+						<button class="btn workwayBtn" type="button" id="workwayBtn" name="workwayBtn" value="mobile">모바일</button>
+						<button class="btn workwayBtn" type="button" id="workwayBtn" name="workwayBtn" value="pc">pc</button>
+						<button class="btn workwayBtn" type="button" id="workwayBtn" name="workwayBtn" value="qr">QR</button>
+						<button class="btn workwayBtn" type="button" id="workwayBtn" name="workwayBtn" value="card">카드</button>
+						<button class="btn workwayBtn" type="button" id="workwayBtn" name="workwayBtn" value="authority">직권입력</button>
 					</div>
 			</div>
 			<div id="dayCheck" class="form-group">
@@ -99,8 +105,8 @@
                   </div>
 				</div>
 			</div>
-			<div id="result"></div>
-			<div>6
+			<!-- <div id="result"></div> -->
+			<div>
 				<label>시간설정</label>
 				<table>
 					<thead>
@@ -113,7 +119,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<input id="workTimeSet1" type="time" name="workStartTime">
+								<input id="workTimeSet1" type="time" name="workStartTime" >
 							</td>
 							<td>
 								<input id="workTimeSet2" type="time" name="workEndTime">
@@ -125,7 +131,7 @@
 					</tbody>
 				</table>
 			</div>
-  	 	 	<button id="allSubmitBtn" type="button" class="btn btn-primary mt-3">양식보내기</button>
+  	 	 	<button id="allSubmitBtn" onclick="workSettingSendForm()" type="button" class="btn btn-primary mt-3">양식보내기</button>
 		</form>
 	    </div>
 	</div>
@@ -159,18 +165,25 @@
 			document.getElementById("workTimeSet2").defaultValue = "18:00";
 			document.getElementById("workTimeSet3").defaultValue = "12:00";
 		});
+		
 
 		$(function() {	
 			$(document).on('click', '#allSubmitBtn',function(){
 				var 
 					workSettingSendForm = $('#workSettingSendForm')
-				   ,workTimeSet1 = $('#workTimeSet1').val()
-				   ,workTimeSet2 = $('#workTimeSet2').val()
-				   ,workTimeSet3 = $('#workTimeSet3').val();
+					,worksys = $("#worksys").val()
+					,checkValue = $('#checkValue').val()
+					,workTimeSet1 = $('#workTimeSet1').val()
+					,workTimeSet2 = $('#workTimeSet2').val()
+					,workTimeSet3 = $('#workTimeSet3').val();
 				console.log(workTimeSet1);
 				console.log(workTimeSet2);
 				console.log(workTimeSet3);
-				if(workTimeSet1 == '' || workTimeSet2 == '' || workTimeSet3 == '') {
+				if(worksys == ''){
+					alert('근무제를 선택해 주세요.');
+				}else if(checkValue == '') {
+					alert('근무방식을 선택해주세요.');
+				}else if(workTimeSet1 == '' || workTimeSet2 == '' || workTimeSet3 == '') {
 					alert('시간을 입력해 주세요.');
 				}else{
 					workSettingSendForm.submit();
@@ -190,40 +203,16 @@
 	</script>
 	<script type="text/javascript">
 
-		/* var listTarget = document.querySelectorAll('#workwayBtn > button');
-		console.log(listTarget[0]);
-		console.log(listTarget[1]);
-		console.log(listTarget[2]);
-		console.log(listTarget[3]);
-		console.log(listTarget[4]); */
-		/* function mobileClick(){
-			var listTarget = document.querySelectorAll('#workwayBtn > button');
-			if(listTarget[0].style.color = '#7c8798', 'rgb(255,255,255)'){
-				listTarget[0].style.color = '#fff';
-			}else {
-				listTarget[0].style.color = 'red';
-			}
-		} */
-		/* $(document).ready(function(){
-			$(document).on("click", "button[name = 'workwayBtn']", function(){
-				$("#workwayBtn .btn").style.color("red");
-			});
-		}); */
-		/* var listTarget = document.querySelectorAll('#workwayBtn > button');
-		listTarget.on("click", "button"), function(){
-			for(var i = 0; i < listTarget.length; i++){
-				listTarget[i].style.color='red';
-		}
-		}; */
 		
-		var target = document.getElementsByClassName("workwayBtn");
+		//var target = document.getElementsByClassName("workwayBtn");
+		var target = document.getElementById("checkValue");
 		
 		var isClick = [];
 		for(var i = 0; i < target.length; i++){
 			isClick[i] = true;
 		}
 		
-		$(document).on('click', '.workwayBtn', function(e, i){
+		$(document).on('click', '#checkValue', function(e, i){
 			console.log(isClick);
 			console.log($(this).index());
 			let indexBtn = $(this).index();
@@ -239,6 +228,16 @@
 			
 		});
 		
+	</script>
+	<script type="text/javascript">
+		/* function workSettingSendForm(){
+			var worksys = document.getElementById("worksys");
+			if(worksys.value == ""){
+				alert("근무제를 선택해주세요.");
+				worksys.focus();
+				return false;
+			}
+		}; */
 	</script>
 	
 </th:block>
