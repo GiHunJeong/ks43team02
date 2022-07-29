@@ -180,7 +180,7 @@
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" th:if="${session.SEMAIL == null}" href="javascript:void(0)" data-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" th:if="${session.SEMAIL == null} and ${session.SAEMAIL == null}" href="javascript:void(0)" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
                                 width="40">
@@ -188,6 +188,7 @@
                                     class="text-dark">You need login.(!정기훈)</span> <i data-feather="chevron-down"
                                     class="svg-icon"></i></span>
                         </a>
+                        <!-- 일반사원 로그인 정보 -->
                         <a class="nav-link dropdown-toggle" th:unless="${session.SEMAIL == null}" href="javascript:void(0)" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
@@ -197,24 +198,31 @@
                                     [[${session.SRANKNAME}]]</span>  [[${session.SNAME}]]님 로그인</span> <i data-feather="chevron-down"
                                     class="svg-icon"></i></span>
                         </a>
+                        <!-- 일반사원 로그인 정보 -->
+                        <!-- 어드민 로그인 정보 -->
+                        <a class="nav-link dropdown-toggle" th:unless="${session.SAEMAIL == null}" href="javascript:void(0)" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
+                                width="40">
+                            <span class="ml-2 d-none d-lg-inline-block"> <span
+                                    class="text-dark"><span class="badge badge-pill badge-dark">
+                                    	어드민</span>  [[${session.SANAME}]]님 로그인</span> <i data-feather="chevron-down"
+                                    class="svg-icon"></i></span>
+                        </a>
+                        <!-- 어드민 로그인 정보 -->
                         <!-- class="alert alert-dark bg-dark text-white border-0 mb-0" -->
                         <!-- 로그인 비로그인 상태창 시작 -->                      
-                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:if="${session.SEMAIL == null}">        
+                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:if="${session.SEMAIL == null} and ${session.SAEMAIL == null}">        
                             <a class="dropdown-item" th:href="@{/login/login}"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
                                 Login(!정기훈)</a>
                             <div class="dropdown-divider"></div>                        
                         </div>
+                        <!-- 일반사원 메뉴 -->
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:unless="${session.SEMAIL == null}">        
                             <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
                                     class="svg-icon mr-2 ml-1"></i>
-                                My Profile</a>
-                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
-                                    class="svg-icon mr-2 ml-1"></i>
-                                My Balance</a>
-                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="mail"
-                                    class="svg-icon mr-2 ml-1"></i>
-                                Inbox</a>
+                                My Profile(구현중)</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/member/emply_modify_my(emplyId=${session.SEMAIL})}"><i data-feather="settings"
                                     class="svg-icon mr-2 ml-1"></i>
@@ -226,7 +234,26 @@
                             <div class="dropdown-divider"></div>
                             <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
                                     Profile</a></div>                        
-                        </div>                 
+                        </div>
+                        <!-- 일반사원 메뉴 -->
+                        <!-- 어드민 메뉴 --> 
+                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:unless="${session.SAEMAIL == null}">        
+                            <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+                                    class="svg-icon mr-2 ml-1"></i>
+                                My Profile(구현중)</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/member/emply_list}"><i data-feather="settings"
+                                    class="svg-icon mr-2 ml-1"></i>
+                                Emply Setting(!정기훈)</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/logout}"><i data-feather="power"
+                                    class="svg-icon mr-2 ml-1"></i>
+                                Logout(!정기훈)</a>
+                            <div class="dropdown-divider"></div>
+                            <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
+                                    Profile</a></div>                        
+                        </div>             
+                        <!-- 어드민 메뉴 -->              
                         <!-- 로그인 비로그인 상태창 끝 --> 
                     </li>
                     <!-- ============================================================== -->
