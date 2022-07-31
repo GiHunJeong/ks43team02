@@ -241,37 +241,43 @@
 					request.done(function( emplyInfoList ) {
 						console.log(emplyInfoList);
 						$('#approverDiv').empty();
-						for(var i = 0;i<emplyInfoList.length;i++) {
-							var approverName = emplyInfoList[i].emplyName;
-							var approverRankName = emplyInfoList[i].rankLevelList.rankName;
-							var approverOrganiCode = emplyInfoList[i].organizationCodeS;
+						/* 결재자의 부서 리스트 삽입 */	
+						for(var i = 0; i<emplyInfoList.length;i++){						
 							var organiName = $("<h4 class=\"card-title organiTitle\">"+emplyInfoList[i].organizationSList.organizationNameS+"</h4>");
 							$('#approverDiv').append(organiName);
-
+						}
+						/* 결재자의 부서 리스트 삽입 */	
+						/* 결재자의 부서 리스트 중복판단 */
+						var checkOrgani = new Array($('.organiTitle').length);
+						for(var i =0;i<$('.organiTitle').length;i++){					
+							for(var j =0;j<$('.organiTitle').length;j++){
+								var organiTitle = $('.organiTitle')[j];
+								if(($('.organiTitle')[i].innerText == $('.organiTitle')[j].innerText) && j > i){
+									console.log('삭제대상:',organiTitle.innerText);									
+									checkOrgani[j] = 1;
+								}
+							}
+						}
+						/* 결재자의 부서 리스트 중복판단 */	
+						/* 결재자의 부서 리스트 중복삭제 */	
+						for(var  i = $('.organiTitle').length-1;i>=0;i--){
+							if(checkOrgani[i] == 1)  {
+								$('.organiTitle')[i].remove();
+							}
+						}
+						/* 결재자의 부서 리스트 중복삭제 */	
+						/* 결재자 선택 모달에 사원 정보 삽입 */	
+						for(var i = 0;i<$('.organiTitle').length;i++) {
 							for(var j = 0 ; j<emplyInfoList.length;j++){
 								var approverCheckBox = $("<div class=\"custom-control custom-checkbox\"><input type=\"checkbox\" class=\"custom-control-input\" name=\"approverId\" value="+emplyInfoList[j].emplyId+" id="+emplyInfoList[j].emplyId+"><label class=\"custom-control-label\" for="+emplyInfoList[j].emplyId+">"+emplyInfoList[j].emplyName+" "+emplyInfoList[j].rankLevelList.rankName+" ("+emplyInfoList[j].emplyId+")</label><input name=\"approverRank\" type=\"hidden\" class=\"form-control col-md-6 inputApproverBarRank\" value="+emplyInfoList[j].rankLevelList.rankLevel+"></div>");
-								if(emplyInfoList[i].organizationSList.organizationNameS == emplyInfoList[j].organizationSList.organizationNameS){										
-									$('#approverDiv').append(approverCheckBox);
+								var organiName = $('.organiTitle')[i].innerText;
+								var organiLocation = $('.organiTitle')[i];
+								if(organiName == emplyInfoList[j].organizationSList.organizationNameS){										
+									$(organiLocation).after(approverCheckBox);
 								}
 							}
 						}
-						console.log('organiTitle : ',$('.organiTitle'));
-						for(var i = 0 ; i<$('.organiTitle').length;i++){
-							var count = 0;
-							console.log('organiTitle.length : ',$('.organiTitle').length);
-							for(var j = 0 ; j<$('.organiTitle').length;j++){
-								var count2 = 0;
-								var organiTitle = $('.organiTitle')[j];
-								if($('.organiTitle')[i].innerText == $('.organiTitle')[j].innerText){
-									count++;
-									if(count > 1){
-										console.log('중복으로 삭제되는 대상 : ', organiTitle.innerText);
-										console.log('organiTitle[j] 의 값 : ',$('.organiTitle')[j]);
-										$('.organiTitle')[j].remove();
-									}
-								}
-							}
-						}
+					/* 결재자 선택 모달에 사원 정보 삽입 */	
 					});				 
 					request.fail(function( jqXHR, textStatus ) {
 						alert( "Request failed: " + textStatus );
