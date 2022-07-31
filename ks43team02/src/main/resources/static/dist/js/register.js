@@ -82,41 +82,71 @@ $(function(){
 		    number = data.search(/[0-9]/g)
 		    ,english = data.search(/[a-z]/ig)
 		    ,spece = data.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi)
-			,reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+			,reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+			,emplyPw = $('input[name="emplyPw"]').val()
+			,emplyPwCheck = $('input[name="emplyPwCheck"]').val();
 		if(typeof data == 'undefined' || data == null || data == '' || data == '@ksmart.or.kr') {
 			$('input[name="emplyPw"]').val('');
+			$('input[name="emplyPw"]').attr('class','form-control is-invalid');
 			$('input[name="emplyPw"]').attr('placeholder','비밀번호를 입력해 주세요.');
 			checkFailed  = 1;
 			return true;
 		}else if(/(\w)\1\1\1/.test(data)) {
 			$('input[name="emplyPw"]').val('');
+			$('input[name="emplyPw"]').attr('class','form-control is-invalid');
 			$('input[name="emplyPw"]').attr('placeholder','같은 문자를 연속으로 4번 이상 사용할수 없습니다.');
 			checkFailed  = 1;
 			return true;
 		}else if(number < 0 || english < 0) {
 			$('input[name="emplyPw"]').val('');
+			$('input[name="emplyPw"]').attr('class','form-control is-invalid');
 			$('input[name="emplyPw"]').attr('placeholder','영문과 숫자를 조합해 입력해주세요.');
 			checkFailed  = 1;
 			return true;
 		}else if(data.search(/\s/) != -1) {
 			$('input[name="emplyPw"]').val('');
+			$('input[name="emplyPw"]').attr('class','form-control is-invalid');
 			$('input[name="emplyPw"]').attr('placeholder','아이디에 공백을 추가할수 없습니다.');
 			checkFailed  = 1;
 			return true;
 		}else if(data.length < 5 || data.length > 17){
 			$('input[name="emplyPw"]').val('');
+			$('input[name="emplyPw"]').attr('class','form-control is-invalid');
 			$('input[name="emplyPw"]').attr('placeholder','5자 이상 17자 이하로 입력하세요');
 			checkFailed  = 1;
 			return true;
 		}else if(spece != -1) {
 			$('input[name="emplyPw"]').val('');
+			$('input[name="emplyPw"]').attr('class','form-control is-invalid');
 			$('input[name="emplyPw"]').attr('placeholder','특수문자불가');
+			checkFailed  = 1;
+			return true;
+		}else if(data != emplyPwCheck) {
+			console.log('checkFailed 값 : ', checkFailed);
+			$('input[name="emplyPwCheck"]').attr('placeholder','비밀번호 확인이 일치하지 않습니다.');
+			$('input[name="emplyPwCheck"]').attr('class','form-control is-invalid');
 			checkFailed  = 1;
 			return true;
 		}
 		return false;
 	}
 	/* 패스워드 유효성 검사 끝 */
+	
+	/* 패스워드 확인 유형성 검사 */
+	function validationCheckPwCheck(data){
+		var 
+		    emplyPw = $('input[name="emplyPw"]').val()
+			,emplyPwCheck = $('input[name="emplyPwCheck"]').val();
+		if(data != emplyPw){
+			console.log('checkFailed2 값 : ', checkFailed);
+			$('input[name="emplyPwCheck"]').attr('placeholder','비밀번호 확인이 일치하지 않습니다.');
+			$('input[name="emplyPwCheck"]').attr('class','form-control is-invalid');
+			checkFailed  = 1;
+			return true;
+		}
+		return false;
+	}
+	/* 패스워드 확인 유형성 검사  끝*/
 	
 	
 	
@@ -143,9 +173,8 @@ $(function(){
 		   ,emplyPwCheck = $('input[name="emplyPwCheck"]').val();
 		console.log('떨어졌다.');
 		if(validationCheckPw(emplyPw)) {
-			$('input[name="emplyPw"]').attr('class','form-control is-invalid');
-			$('input[name="emplyPw"]').focus();
 			if(emplyPw != emplyPwCheck || checkFailed == 1) {
+				console.log('비밀번호가 일치하지 않음.');
 				$('input[name="emplyPwCheck"]').attr('class','form-control is-invalid');
 			}
 			return false;
@@ -153,6 +182,7 @@ $(function(){
 			$('input[name="emplyPw"]').attr('class','form-control');
 			checkFailed  = 0;
 			if(emplyPw == emplyPwCheck && checkFailed == 0) {
+				console.log('유효성 통과된 checkFailed 값 : ', checkFailed);
 				$('input[name="emplyPwCheck"]').attr('class','form-control is-valid');
 				$('#signUp').prop('disabled',false);
 			}
@@ -164,9 +194,10 @@ $(function(){
 		var 
 			emplyPw = $('input[name="emplyPw"]').val()
 		   ,emplyPwCheck = $('input[name="emplyPwCheck"]').val();
-		if(emplyPw != emplyPwCheck || checkFailed == 1) {
+		if(validationCheckPwCheck(emplyPwCheck)) {
 			$('input[name="emplyPwCheck"]').attr('class','form-control is-invalid');
 		}else{
+			$('input[name="emplyPw"]').attr('class','form-control');
 			$('input[name="emplyPwCheck"]').attr('class','form-control is-valid');
 			$('#signUp').prop('disabled',false);
 			checkFailed  = 0;
@@ -195,20 +226,24 @@ $(function(){
 		}
 	});
 	
-	/* 다시 패스워드 패스워드 확인창을 선택했을시 */
+	/* 다시 패스워드 확인창을 선택했을시 */
 	$(document).on('focus', '#emplyId', function(){
 		$('#signUp').prop('disabled',true);
 		$('#emplyId').val('');
 	});
 	$(document).on('focus', '#emplyPw', function(){
+		$('input[name="emplyPw"]').attr('placeholder','비밀번호를 입력해주세요.');
+		$('input[name="emplyPw"]').attr('class','form-control');
 		$('#signUp').prop('disabled',true);
 		$('#emplyPw').val('');
 	});
 	$(document).on('focus', '#emplyPwCheck', function(){
+		$('input[name="emplyPwCheck"]').attr('placeholder','비밀번호 확인을 입력해주세요.');
+		$('input[name="emplyPwCheck"]').attr('class','form-control');
 		$('#signUp').prop('disabled',true);
 		$('#emplyPwCheck').val('');
 	});
-	/* 다시 패스워드 패스워드 확인창을 선택했을시 */
+	/* 다시 패스워드 확인창을 선택했을시 */
 	
 	/* 부서 리스트 뿌리기 */
 	/* 부 서 대 -> 중 리 스 트 가 져 오 기 */
