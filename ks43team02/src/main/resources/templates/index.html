@@ -5,6 +5,154 @@
 
 	<!-- 사용자 정의 contents -->
 	<th:block layout:fragment="customContents">
-		메인화면
+		<style>
+			.btn-outline-primary {
+				width : 150px;
+				margin-bottom : 0.5rem;
+			}
+			@font-face {
+			    font-family: 'EliceDigitalBaeum-Bd';
+			    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_elice@1.0/EliceDigitalBaeum-Bd.woff2') format('woff2');
+			    font-weight: normal;
+			    font-style: normal;
+			}
+			@font-face {
+			    font-family: 'GongGothicMedium';
+			    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+			    font-weight: normal;
+			    font-style: normal;
+			}
+			div.card-body h3 , div.card-body h2{font-family: 'EliceDigitalBaeum-Bd' !important; color:#FFF;}
+			div.card-body h3{color:#757db5;}
+			div.card-body{font-family: 'GongGothicMedium' !important;}
+			.team02Title {
+				margin-top : 3rem;
+				padding-top : 3rem;
+			}
+			#carouselExampleIndicators2{width:50%; display:inline-block;}
+			.carousel-inner{width:100%;}
+			.img-fluid{width:100%;}
+			.media-body{display:inline-block; width:40%; vertical-align: top;}
+			.media-body:after{content:'';display:block; clear:both; }
+			.ensecretary{
+				color : #6576e9!important;
+				padding-bottom : 0.5rem;
+			}
+		</style>
+		
+		<div class="card">
+			<div class="card-body">
+				<!-- 프로젝트 소개 시작 -->
+				<div class="col-lg-12">
+                    <h2 class="card-title ensecretary">엔비서</h2>
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators2" data-slide-to="1" class=""></li>
+                            <li data-target="#carouselExampleIndicators2" data-slide-to="2" class=""></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <img class="img-fluid" src="assets/images/big/img3.jpg" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="img-fluid" src="assets/images/big/img4.jpg" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="img-fluid" src="assets/images/big/img5.jpg" alt="Third slide">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <!-- 오른쪽 글씨 -->
+	                <div class="media-body">
+	                    <h5 class="mt-0">Top-aligned media</h5>
+	                    <p class="ensecretaryComment">
+	                    1.엔비서다<br>
+	                    2.엔비서다
+	                    </p>
+	                </div>
+	                <!-- 오른쪽 글씨 -->
+                </div>
+                
+				<!-- 프로젝트 소개 시작 끝 -->
+				<div class="team02Box" >
+					<!-- 팀원 소개 시작 -->
+					<div style="background-color: #6576e9;">
+						<h2 class="font-weight-bold text-center team02Title">팀원 소개</h2><br>
+						<div class="row" style="justify-content: center;">
+							<div class="card 2teamProfile" style="width: 18rem; margin-right:0.5rem;">
+								<img class="card-img-top" src="assets/images/big/img1.jpg" alt="Card image cap" style="width: 18rem; height: 24rem;">
+					  			<div class="card-body text-center">
+					    			<p class="card-text"><h3 class="font-weight-bold">정기훈</h3></p>
+					    			<p class="card-text">
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/payment/payment_request}">결재요청</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/payment/payments}">결재관리</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" href="#">내 결재관리</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/login/login}">회원</a>
+					    			</p>
+					  			</div>
+							</div>
+							<div class="card 2teamProfile" style="width: 18rem; margin-right:0.5rem;">
+								<img class="card-img-top" src="assets/images/2team/백민주.jpg" alt="Card image cap" style="width: 18rem; height: 24rem;">
+					  			<div class="card-body text-center">
+					    			<p class="card-text"><h3 class="font-weight-bold">백민주</h3></p>
+					    			<p class="card-text">
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/app/app-calendar}">일정관리</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/workWay/work_time}">근태관리</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/workWay/work_time_other}">직권입력</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/workWay/work_setting}">근태설정</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/workWay/work_setting_list}">근태설정리스트</a>
+					    			</p>
+					  			</div>
+							</div>
+							<div class="card 2teamProfile" style="width: 18rem; margin-right:0.5rem;">
+								<img class="card-img-top" src="assets/images/2team/은승호.jpg" alt="Card image cap" style="width: 18rem; height: 24rem;">
+					  			<div class="card-body text-center">
+					    			<p class="card-text"><h3 class="font-weight-bold">은승호</h3></p>
+					    			<p class="card-text">
+						    			<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/pay/pay_setting}">급여세팅</a>
+						    			<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/pay/payAdd}">급여등록</a>
+						    			<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/pay/payAdd_list}">급여지급내역</a>
+						    		</p>
+					  			</div>
+							</div>
+							<div class="card 2teamProfile" style="width: 18rem; margin-right:0.5rem;">
+								<img class="card-img-top" src="assets/images/2team/임소정.jpg" alt="Card image cap" style="width: 18rem; height: 24rem;">
+					  			<div class="card-body text-center">
+					    			<p class="card-text"><h3 class="font-weight-bold">임소정</h3></p>
+					    			<p class="card-text">
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/annual/annual_application}">연차등록</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/annual/annual_setting}">연차설정</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/document/document_list}">문서관리 홈</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/document/document_setting}">문서양식 관리</a>
+					    			</p>
+					  			</div>
+							</div>
+							<div class="card 2teamProfile" style="width: 18rem; margin-right:0.5rem;">
+								<img class="card-img-top" src="assets/images/2team/김윤재.jpg" alt="Card image cap" style="width: 18rem; height: 24rem;">
+					  			<div class="card-body text-center">
+					    			<p class="card-text"><h3 class="font-weight-bold">김윤재</h3></p>
+					    			<p class="card-text">
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/app/app-chat}">1:1채팅</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/room/room}">익명채팅방</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/board/notice_list}">공지사항</a>
+					    				<a class="btn waves-effect waves-light btn-outline-primary" th:href="@{/board/department_list}">부서별게시판</a>
+					    			</p>
+					  			</div>
+							</div>
+						</div>
+					</div>
+					<!-- 팀원 소개 시작 끝 -->
+				</div>
+			</div>
+		</div>
 	</th:block>
 </html>
