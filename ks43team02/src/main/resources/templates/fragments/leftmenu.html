@@ -5,39 +5,39 @@
       <div class="scroll-sidebar" data-sidebarbg="skin6">
          <!-- Sidebar navigation-->
          <nav class="sidebar-nav">
-            <ul id="sidebarnav">
+            <ul id="sidebarnav"  th:if="${session.SAEMAIL == null}">
             	<li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/" aria-expanded="false">
-                  <i data-feather="home" class="feather-icon"></i>
-                  <!-- 로 고 아 래 HOME 버 튼 -->
-                  <span class="hide-menu">home</span></a>
+                  	<i data-feather="home" class="feather-icon"></i>
+                  	<!-- 로 고 아 래 HOME 버 튼 -->
+                	<span class="hide-menu">home</span></a>
               	</li>
-                 <li class="list-divider"></li>
-                 <!-- 메 뉴 -->
-                 <li class="nav-small-cap"><span class="hide-menu">메뉴</span></li>
+                <li class="list-divider"></li>
+                <!-- 메 뉴 -->
+                <li class="nav-small-cap"><span class="hide-menu">메뉴</span></li>
 
-                 <!-- 전 자 결 재 시 작 -->
-                 <li class="sidebar-item">
+                <!-- 전 자 결 재 시 작 -->
+                <li class="sidebar-item">
                  	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                  	<i data-feather="file-text" class="feather-icon"></i>
-                 	  <span class="hide-menu">!전자결재(정기훈)</span></a>
+                 		<span class="hide-menu">전자결재</span></a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item"><a th:href="@{/payment/payment_request}" class="sidebar-link"><span
-						            class="hide-menu"> !결재요청
+						            class="hide-menu"> 결재요청
 						        </span></a>
 						</li>
 						<li class="sidebar-item"><a th:href="@{/payment/payments}" class="sidebar-link"><span
-						            class="hide-menu"> !결재관리
+						            class="hide-menu"> 결재관리
 						        </span></a>
 						</li>
 					</ul>
-                 </li>
-                 <!-- 전 자 결 재 끝 -->
-                 <!-- 채 팅 시 작 -->
-                 <li class="sidebar-item"> 
+                </li>
+                <!-- 전 자 결 재 끝 -->
+                <!-- 채 팅 시 작 -->
+                <li class="sidebar-item"> 
                  	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                  	<i data-feather="message-square" class="feather-icon"></i>
-                 	  <span class="hide-menu">!채팅(김윤재)</span></a>
-                 	  <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                 		<span class="hide-menu">채팅</span></a>
+                 	  	<ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item"><a th:href="@{/app/app-chat}" class="sidebar-link"><span
 						            class="hide-menu"> 1:1채팅
 						        </span></a>
@@ -47,20 +47,21 @@
 						        </span></a>
 						</li>
 					</ul>
-               	 <!-- 채 팅 끝 -->
-               	 <!-- 일 정 관 리 시 작 -->
-		         <li class="sidebar-item">
+				</li>
+               	<!-- 채 팅 끝 -->
+               	<!-- 일 정 관 리 시 작 -->
+		        <li class="sidebar-item">
 		         	<a class="sidebar-link sidebar-link sidebar-link" th:href="@{/app/app-calendar}" aria-expanded="false">
 		         	<i data-feather="calendar" class="feather-icon"></i>
-		         	  <span class="hide-menu">#일정관리(백민주)</span>
+		         		<span class="hide-menu">일정관리</span>
 		         	</a>
-		         </li>  
-		         <!-- 일 정 관 리 끝 -->             
-                 <!-- 게 시 판 시 작 -->
-                 <li class="sidebar-item">
+		        </li>  
+		        <!-- 일 정 관 리 끝 -->             
+                <!-- 게 시 판 시 작 -->
+                <li class="sidebar-item">
                  	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                  	<i data-feather="file-text" class="feather-icon"></i>
-                 	  <span class="hide-menu">!게시판(김윤재)</span></a>
+                 		<span class="hide-menu">게시판</span></a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item"><a th:href="@{/board/notice_list}" class="sidebar-link"><span
 						            class="hide-menu"> 공지사항
@@ -71,13 +72,13 @@
 						        </span></a>
 						</li>
 					</ul>
-                 </li>
-                 <!-- 게 시 판 끝 -->
-				 <!-- 문 서 관 리 시 작 -->
-                 <li class="sidebar-item">
+                </li>
+                <!-- 게 시 판 끝 -->
+				<!-- 문 서 관 리 시 작 -->
+                <li class="sidebar-item">
                  	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                  		<i data-feather="file-text" class="feather-icon"></i>
-                 	  	<span class="hide-menu">#문서관리(임소정)</span>
+                 	  	<span class="hide-menu">문서관리</span>
                	  	</a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item">
@@ -91,85 +92,203 @@
 							</a>
 						</li>
 					</ul>
-                 </li>
-                 <!-- 문 서 관 리 끝 -->
-                 <!-- 근 태 관 리 시 작 -->
-                 <li class="sidebar-item">
+                </li>
+                <!-- 문 서 관 리 끝 -->
+                <!-- 근 태 관 리 시 작 -->
+                <li class="sidebar-item">
                  	<a class="sidebar-link sidebar-link" th:href="@{/workWay/work_time}"  aria-expanded="false">
                     <i data-feather="calendar" class="feather-icon"></i>
-                      <span class="hide-menu">!근태관리(백민주)</span></a>
-                 </li>
-                 <li class="sidebar-item">
-                 	<a class="sidebar-link sidebar-link"  th:href="@{/workWay/work_time_other}" aria-expanded="false">
-                    <i data-feather="calendar" class="feather-icon"></i>
-                      <span class="hide-menu">!직권입력(백민주)</span></a>
-                 </li>
-                 <!-- 대표만 볼수 있는 카테고리 -->
-                 <li class="sidebar-item">
-                 	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                 	<i data-feather="file-text" class="feather-icon"></i>
-                 	  <span class="hide-menu">!설정관리(백민주)</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-						<li class="sidebar-item">
-							<a th:href="@{/workWay/work_setting}" class="sidebar-link">
-								<span class="hide-menu">!근무제설정</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-								<a th:href="@{/workWay/work_setting_list}" class="sidebar-link">
-									<span class="hide-menu">!근무제설정리스트</span>
-								</a>
-						</li>
-						<li class="sidebar-item">
-							<a href="form-checkbox-radio.html" class="sidebar-link">
-								<span class="hide-menu"> #Checkboxes & Radios</span>
-							</a>
-						</li>
-					</ul>
-                 </li>
-                 <!-- 근 태 관 리 끝 -->
-                 <!-- 급 여 관 리 시 작 -->
-                 <li class="sidebar-item">
-                 	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                 	<i data-feather="file-text" class="feather-icon"></i>
-                 	  <span class="hide-menu">!급여관리(은승호)</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-						<li class="sidebar-item"><a th:href="@{/pay/pay_setting}" class="sidebar-link"><span
-						            class="hide-menu"> !급여세팅
-						        </span></a>
-						</li>
-						<li class="sidebar-item"><a th:href="@{/pay/payAdd}" class="sidebar-link"><span
-						            class="hide-menu"> !급여등록
-						        </span></a>
-						</li>
-						<li class="sidebar-item"><a th:href="@{/pay/payAdd_list}" class="sidebar-link"><span
-						            class="hide-menu"> !급여지급 내역
-						        </span></a>
-						</li>
-					</ul>
-                 </li>
-                 <!-- 급 여 관 리 끝 -->
+                    	<span class="hide-menu">근태관리</span></a>
+                </li>
+                <!-- 근 태 관 리 끝 -->
+                <!-- 급 여 조 회 시 작 -->
+                 
+                <!-- 승호 급여 조회는 여기다가 넣어서 만들면 된다. -->
+
+                <!-- 급 여 조 회 끝 -->
 				<!-- 연 차 관 리 시 작 -->
 				<li class="sidebar-item">
 					<a class="sidebar-link has-arrow" href="javascript:void(0)"  aria-expanded="false">
 						<i data-feather="calendar" class="feather-icon"></i>
-						<span class="hide-menu">!연차관리(임소정)</span>
+						<span class="hide-menu">연차관리</span>
 					</a>
 					<ul aria-expanded="false" class="collapse  first-level base-level-line">
 						<li class="sidebar-item">
 							<a th:href="@{/annual/annual_application}" class="sidebar-link">
-								<span class="hide-menu"> !연차등록 </span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a th:href="@{/annual/annual_setting}" class="sidebar-link">
-								<span class="hide-menu"> !연차설정 </span>
+								<i data-feather="file-text" class="feather-icon"></i>
+								<span class="hide-menu"> 연차등록 </span>
 							</a>
 						</li>
 					</ul>
 				</li>
                 <!-- 연 차 관 리 끝 -->
+                
+                           
          	</ul>             
+            <!-- 관리자 로그인시 추가 메뉴 -->
+                
+			<ul id="sidebarnav"  th:unless="${session.SAEMAIL == null}">
+            	<li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/" aria-expanded="false">
+                  	<i data-feather="home" class="feather-icon"></i>
+                  	<!-- 로 고 아 래 HOME 버 튼 -->
+                	<span class="hide-menu">home</span></a>
+              	</li>
+                <li class="list-divider"></li>
+                <!-- 메 뉴 -->
+                <li class="nav-small-cap"><span class="hide-menu">메뉴</span></li>
+
+                <!-- 전 자 결 재 시 작 -->
+                <li class="sidebar-item">
+                 	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                 	<i data-feather="file-text" class="feather-icon"></i>
+                 		<span class="hide-menu">전자결재</span></a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+						<li class="sidebar-item"><a th:href="@{/payment/payment_request}" class="sidebar-link"><span
+						            class="hide-menu"> 결재요청
+						        </span></a>
+						</li>
+						<li class="sidebar-item"><a th:href="@{/payment/payments}" class="sidebar-link"><span
+						            class="hide-menu"> 결재관리
+						        </span></a>
+						</li>
+					</ul>
+                </li>
+                <!-- 전 자 결 재 끝 -->
+                <!-- 채 팅 시 작 -->
+                <li class="sidebar-item"> 
+                 	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                 	<i data-feather="message-square" class="feather-icon"></i>
+                 	  	<span class="hide-menu">채팅</span></a>
+                 	<ul aria-expanded="false" class="collapse  first-level base-level-line">
+						<li class="sidebar-item"><a th:href="@{/app/app-chat}" class="sidebar-link"><span
+						            class="hide-menu"> 1:1채팅
+						        </span></a>
+						</li>
+						<li class="sidebar-item"><a th:href="@{/room/room}" class="sidebar-link"><span
+						            class="hide-menu"> 익명 채팅방 
+						        </span></a>
+						</li>
+					</ul>
+               	<!-- 채 팅 끝 -->
+               	<!-- 일 정 관 리 시 작 -->
+		        <li class="sidebar-item">
+		         	<a class="sidebar-link sidebar-link sidebar-link" th:href="@{/app/app-calendar}" aria-expanded="false">
+		         	<i data-feather="calendar" class="feather-icon"></i>
+		         		<span class="hide-menu">일정관리</span>
+		         	</a>
+		        </li>  
+		        <!-- 일 정 관 리 끝 -->             
+                <!-- 게 시 판 시 작 -->
+                <li class="sidebar-item">
+                 	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                 	<i data-feather="file-text" class="feather-icon"></i>
+                 		<span class="hide-menu">게시판</span></a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+						<li class="sidebar-item"><a th:href="@{/board/notice_list}" class="sidebar-link"><span
+						            class="hide-menu"> 공지사항
+						        </span></a>
+						</li>
+						<li class="sidebar-item"><a th:href="@{/board/department_list}" class="sidebar-link"><span
+						            class="hide-menu"> 부서별 게시판 
+						        </span></a>
+						</li>
+					</ul>
+                </li>
+                <!-- 게 시 판 끝 -->
+				<!-- 문 서 관 리 시 작 -->
+                <li class="sidebar-item">
+                 	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                 		<i data-feather="file-text" class="feather-icon"></i>
+                 	  	<span class="hide-menu">문서관리</span>
+               	  	</a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+						<li class="sidebar-item">
+							<a th:href="@{/document/document_list}" class="sidebar-link">
+								<span class="hide-menu">문서관리 홈</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a th:href="@{/document/document_setting}" class="sidebar-link">
+								<span class="hide-menu">문서양식 관리</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+                <!-- 문 서 관 리 끝 -->
+                <!-- 근 태 관 리 시 작 -->
+                <li class="sidebar-item">
+                	<a class="sidebar-link sidebar-link" th:href="@{/workWay/work_time}"  aria-expanded="false">
+                    <i data-feather="calendar" class="feather-icon"></i>
+                    	<span class="hide-menu">근태관리</span></a>
+                </li>
+				<!-- 근 태 관 리 끝 -->
+				<!-- 연 차 등 록 -->
+				<li class="sidebar-item">
+					<a th:href="@{/annual/annual_application}" class="sidebar-link">
+						<i data-feather="file-text" class="feather-icon"></i>
+						<span class="hide-menu"> 연차등록 </span>
+					</a>
+				</li>
+                <!-- 연 차 등 록 끝 -->
+				<li class="nav-small-cap"><span class="hide-menu">관리자 메뉴</span></li>
+				<!-- 관리자모드 - 직권입력 -->
+				<li class="sidebar-item">
+                 	<a class="sidebar-link sidebar-link"  th:href="@{/workWay/work_time_other}" aria-expanded="false">
+                    <i data-feather="calendar" class="feather-icon"></i>
+                      <span class="hide-menu">근태직권입력</span></a>
+                </li>
+                <!-- 관리자모드 - 직권입력 끝 -->
+                <!-- 관리자모드 - 근태설정관리 -->
+                <li class="sidebar-item">
+                 	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                 	<i data-feather="file-text" class="feather-icon"></i>
+                 		<span class="hide-menu">근태설정관리</span></a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+						<li class="sidebar-item">
+							<a th:href="@{/workWay/work_setting}" class="sidebar-link">
+								<span class="hide-menu">근무제설정</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a th:href="@{/workWay/work_setting_list}" class="sidebar-link">
+								<span class="hide-menu">근무제설정리스트</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<!-- 관리자모드 - 근태설정관리 끝 -->
+				<!-- 관리자모드 - 급여관리 시작 -->
+                <li class="sidebar-item">
+                	<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                	<i data-feather="file-text" class="feather-icon"></i>
+                 		<span class="hide-menu">급여관리</span></a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+						<li class="sidebar-item"><a th:href="@{/pay/pay_setting}" class="sidebar-link"><span
+						            class="hide-menu"> 급여세팅
+						        </span></a>
+						</li>
+						<li class="sidebar-item"><a th:href="@{/pay/payAdd}" class="sidebar-link"><span
+						            class="hide-menu"> 급여등록
+						        </span></a>
+						</li>
+						<li class="sidebar-item"><a th:href="@{/pay/payAdd_list}" class="sidebar-link"><span
+						            class="hide-menu"> 급여지급 내역
+						        </span></a>
+						</li>
+					</ul>
+				</li>
+                <!-- 관리자모드 - 급여관리 끝 -->
+                <!-- 관리자모드 - 연차설정 -->  
+				<li class="sidebar-item">
+					<a th:href="@{/annual/annual_setting}" class="sidebar-link">
+						<i data-feather="file-text" class="feather-icon"></i>
+						<span class="hide-menu"> 연차설정 </span>
+					</a>
+				</li>
+                <!-- 관리자모드 - 연차설정 끝 -->         
+         	</ul>
+                
+            <!-- 관리자 로그인시 추가 메뉴 -->
          </nav>
       </div>
    </aside>

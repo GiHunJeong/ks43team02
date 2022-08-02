@@ -185,7 +185,7 @@
                             <img th:src="@{/assets/images/users/profile-pic.jpg}" alt="user" class="rounded-circle"
                                 width="40">
                             <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                    class="text-dark">You need login.(!정기훈)</span> <i data-feather="chevron-down"
+                                    class="text-dark">You need login.</span> <i data-feather="chevron-down"
                                     class="svg-icon"></i></span>
                         </a>
                         <!-- 일반사원 로그인 정보 -->
@@ -215,7 +215,7 @@
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY" th:if="${session.SEMAIL == null} and ${session.SAEMAIL == null}">        
                             <a class="dropdown-item" th:href="@{/login/login}"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Login(!정기훈)</a>
+                                Login</a>
                             <div class="dropdown-divider"></div>                        
                         </div>
                         <!-- 일반사원 메뉴 -->
@@ -226,11 +226,11 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/member/emply_modify_my(emplyId=${session.SEMAIL})}"><i data-feather="settings"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Account Setting(!정기훈)</a>
+                                Account Setting</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/logout}"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Logout(!정기훈)</a>
+                                Logout</a>
                             <div class="dropdown-divider"></div>
                             <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
                                     Profile</a></div>                        
@@ -244,11 +244,11 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/member/emply_list}"><i data-feather="settings"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Emply Setting(!정기훈)</a>
+                                Emply Setting</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/logout}"><i data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Logout(!정기훈)</a>
+                                Logout</a>
                             <div class="dropdown-divider"></div>
                             <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
                                     Profile</a></div>                        
