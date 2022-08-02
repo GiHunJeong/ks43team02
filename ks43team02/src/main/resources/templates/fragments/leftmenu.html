@@ -108,18 +108,10 @@
                 <!-- 급 여 조 회 끝 -->
 				<!-- 연 차 관 리 시 작 -->
 				<li class="sidebar-item">
-					<a class="sidebar-link has-arrow" href="javascript:void(0)"  aria-expanded="false">
+					<a th:href="@{/annual/annual_application}" class="sidebar-link">
 						<i data-feather="calendar" class="feather-icon"></i>
-						<span class="hide-menu">연차관리</span>
+						<span class="hide-menu"> 연차등록 </span>
 					</a>
-					<ul aria-expanded="false" class="collapse  first-level base-level-line">
-						<li class="sidebar-item">
-							<a th:href="@{/annual/annual_application}" class="sidebar-link">
-								<i data-feather="file-text" class="feather-icon"></i>
-								<span class="hide-menu"> 연차등록 </span>
-							</a>
-						</li>
-					</ul>
 				</li>
                 <!-- 연 차 관 리 끝 -->
                 
@@ -281,7 +273,7 @@
                 <!-- 관리자모드 - 연차설정 -->  
 				<li class="sidebar-item">
 					<a th:href="@{/annual/annual_setting}" class="sidebar-link">
-						<i data-feather="file-text" class="feather-icon"></i>
+						<i data-feather="calendar" class="feather-icon"></i>
 						<span class="hide-menu"> 연차설정 </span>
 					</a>
 				</li>
